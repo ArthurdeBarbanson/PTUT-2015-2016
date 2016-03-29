@@ -7,4 +7,7 @@
     <route id="site_homepage" path="/">
         <default key="_controller">SiteBundle:Default:index</default>
     </route>
+    <route id="site_ajoutAnnobce" path="/entreprise/ajout_annonce">
+        <default key="_controller">SiteBundle:Default:ajoutAnnonce</default>
+    </route>
 </routes>
