@@ -10,7 +10,19 @@ security:
                 users:
                     Arthur:
                         password: mdp
-                        roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN']
+                        roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
+                    Antoine:
+                        password: Antoine
+                        roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
+                    Renald:
+                        password: Renald
+                        roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
+                    Guillaume:
+                        password: Guillaume
+                        roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
+
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
