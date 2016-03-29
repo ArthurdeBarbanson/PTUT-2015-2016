@@ -30,5 +30,8 @@
     <route id="login_check" path="/login_check"/>
     <route id="logout" path="/logout"/>
 
+    <route id="test" path="/etudiant/test">
+        <default key="_controller">SiteBundle:Default:test</default>
+    </route>
 
 </routes>
