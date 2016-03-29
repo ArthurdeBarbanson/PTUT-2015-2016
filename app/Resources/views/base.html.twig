@@ -30,7 +30,13 @@
                     <a class="navbar-brand" href="#">Brand</a>
                 </div>
                 <div class="navbar-form navbar-right" >
-                    <a class="btn btn-primary" href="{{ path('login') }}">Connexion</a>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <a class="btn btn-primary" href="{{ path('login') }}">Connexion</a>
+                    {% else %}
+                        <a class="btn btn-primary" href="{{ path('logout') }}">Déconnexion</a>
+
+                    {% endif %}
+
                 </div>
             </div>
         </nav>

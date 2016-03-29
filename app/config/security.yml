@@ -9,20 +9,22 @@ security:
             memory:
                 users:
                     Arthur:
-                        password: mdp
+                        password: $2y$12$mgyD2FzXo9RNE7FViGpbke5x8INyuT4jV5mKe/dJTKCpqSPCqsqae
                         roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
                     Antoine:
-                        password: Antoine
+                        password: $2y$12$YJgxhWBrLaSZvs4ya1.Dx.8gnMzN7TC32EiDEbVKMBLyzXK65FCJS
                         roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
                     Renald:
-                        password: Renald
+                        password: $2y$12$lmonEd5FMfJqQ6OtZrDGTeYY4jLIkc8cuLU5M6rCwc0KmfArqcxvG
                         roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
                     Guillaume:
-                        password: Guillaume
+                        password: $2y$12$NR8EDtDo7cnwOYyL3uP66u5jg3jd8aVt8iT1SyO3V5YamR8G8/ulu
                         roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
 
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
+        Symfony\Component\Security\Core\User\User:
+                    algorithm: bcrypt
+                    cost: 12
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
