@@ -4,8 +4,13 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~
+        users:
+#            id: user_provider
+            memory:
+                users:
+                    Arthur:
+                        password: mdp
+                        roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN']
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -25,3 +30,8 @@ security:
 
 
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/responsable, roles: ROLE_ADMIN }
+        - { path: ^/etudiant, roles: ROLE_ETUDIANT }
+        - { path: ^/entreprise, roles: ROLE_ENTREPRISE }
