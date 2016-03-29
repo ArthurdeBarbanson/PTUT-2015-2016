@@ -22,7 +22,8 @@
         <default key="_controller">SiteBundle:Default:detailAnnonce</default>
     </route>
 
-    <route id="login" path="/">
+    <!--security-->
+    <route id="login" path="/login">
         <default key="_controller">SiteBundle:Security:login</default>
     </route>
 
