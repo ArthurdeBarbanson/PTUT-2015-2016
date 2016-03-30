@@ -16,19 +16,7 @@ class User implements UserInterface
         $this->username = $username;
         $this->password = $password;
         $this->salt = $salt;
-        $this->roles = array_unique(array_merge(['ROLE_USER'], $roles));
-    }
-
-    public function promoteAdmin()
-    {
-        $this->roles = array_unique(array_merge($this->roles, ['ROLE_ADMIN']));
-    }
-
-    public function unpromoteAdmin()
-    {
-        if (false !== ($roleIndex = array_search('ROLE_ADMIN', $this->roles))) {
-            unset($this->roles[$roleIndex]);
-        }
+        $this->roles = $roles;
     }
 
     public function getRoles()

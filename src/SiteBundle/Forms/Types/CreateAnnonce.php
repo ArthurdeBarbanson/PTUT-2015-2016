@@ -18,16 +18,15 @@ class CreateAnnonce extends AbstractType
             'label' => 'Nom du maitre d\'apprentissage',
 
         ))
-        ->add('Formation_du maitre_du_stage', TextType::class,array(
-                'label' =>'Formation du maitre du stage',
+        ->add('Formationmap', TextType::class,array(
+                'label' =>'Formation du maitre d\'apprentissage',
             ))
             ->add('Titre', TextType::class,array(
 
             ))
-            ->add('Lp_concerné', HiddenType::class, array(
+            ->add('Lpconcerne', 'choice', array(
                 'choices' => array('IEM' => 'LP IEM', 'METINET' => 'LP METINET'),
-                'expanded' => true,
-                'multiple' => false
+                        'multiple' => false
             ))
             ->add('Sujet', TextAreaType::class,array(
                 'label' =>'Sujet (Description de la mission - Technologie',
