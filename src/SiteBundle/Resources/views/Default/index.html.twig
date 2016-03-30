@@ -1,9 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Titre de l'offre <small>Nom de l'entreprise</small></h1>
+    <div id="wrapper">
+        <div class="container margTop50">
 
+            <div class="container col-xs-5 block">
+                <h1>Je suis Étudiant/Alternant</h1>
+                <p>Verum ad istam omnem orationem brevis est defensio. Nam quoad aetas M. Caeli dare potuit isti suspicioni locum, fuit primum ipsius pudore, deinde etiam patris diligentia disciplinaque munita. Qui ut huic virilem togam deditšnihil dicam hoc loco de me; tantum sit, quantum vos existimatis; hoc dicam, hunc a patre continuo ad me esse deductum; nemo hunc M. Caelium in illo aetatis flore vidit nisi aut cum patre aut mecum aut in M. Crassi castissima domo, cum artibus honestissimis erudiretur.</p>
+            </div>
+            <div class="container col-xs-5 col-xs-offset-2 block">
+                <h1>Je souhaite recruter un alternant</h1>
+                <p>Verum ad istam omnem orationem brevis est defensio. Nam quoad aetas M. Caeli dare potuit isti suspicioni locum, fuit primum ipsius pudore, deinde etiam patris diligentia disciplinaque munita. Qui ut huic virilem togam deditšnihil dicam hoc loco de me; tantum sit, quantum vos existimatis; hoc dicam, hunc a patre continuo ad me esse deductum; nemo hunc M. Caelium in illo aetatis flore vidit nisi aut cum patre aut mecum aut in M. Crassi castissima domo, cum artibus honestissimis erudiretur.</p>
+                <button type="button" class="btn btn-primary btn-lg center-block">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> S'inscrire
+                </button>
+            </div>
 
-
-
+        </div>
+    </div>
 {% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/style/index.css') }}" type="text/css" />
+{% endblock %}
+
+{% block title %}Page d'accueil{% endblock %}
+

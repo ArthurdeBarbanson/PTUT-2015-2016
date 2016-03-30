@@ -14,6 +14,10 @@ class DefaultController extends Controller
     {
         return $this->render('SiteBundle:Default:index.html.twig');
     }
+    public function testAction()
+    {
+        return $this->render('SiteBundle:Default:test.html.twig');
+    }
 
     public function ajoutAnnonceAction(Request $request){
         {
