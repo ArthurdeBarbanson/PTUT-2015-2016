@@ -2,6 +2,8 @@
 
 namespace SiteBundle\Controller;
 
+use Proxies\__CG__\SiteBundle\Entity\Entreprise;
+use Proxies\__CG__\SiteBundle\Entity\Offre;
 use SiteBundle\Forms\Types\CreateAnnonce;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +13,10 @@ class DefaultController extends Controller
     public function indexAction()
     {
         return $this->render('SiteBundle:Default:index.html.twig');
+    }
+    public function testAction()
+    {
+        return $this->render('SiteBundle:Default:test.html.twig');
     }
 
     public function ajoutAnnonceAction(Request $request){
@@ -45,5 +51,16 @@ class DefaultController extends Controller
         }
     }
 
-
+    public function detailAnnonceAction(Request $request){
+        $offre = new Offre();
+        $entreprise = new Entreprise();
+        $entreprise->setDescription("Une entreprise qui est jolie parfois");
+        $entreprise->setNom("Nom de l'entreprise");
+        
+        $offre->setSujet("Coool");
+        return $this->render(
+            'SiteBundle:Default:detailsAnnonce.html.twig'
+            ,['offre' => $offre]
+        );
+    }
 }

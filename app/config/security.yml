@@ -4,8 +4,27 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~
+        users:
+#            id: user_provider
+            memory:
+                users:
+                    Arthur:
+                        password: $2y$12$mgyD2FzXo9RNE7FViGpbke5x8INyuT4jV5mKe/dJTKCpqSPCqsqae
+                        roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
+                    Antoine:
+                        password: $2y$12$YJgxhWBrLaSZvs4ya1.Dx.8gnMzN7TC32EiDEbVKMBLyzXK65FCJS
+                        roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
+                    Renald:
+                        password: $2y$12$lmonEd5FMfJqQ6OtZrDGTeYY4jLIkc8cuLU5M6rCwc0KmfArqcxvG
+                        roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
+                    Guillaume:
+                        password: $2y$12$NR8EDtDo7cnwOYyL3uP66u5jg3jd8aVt8iT1SyO3V5YamR8G8/ulu
+                        roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
+
+    encoders:
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+            cost: 12
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -15,10 +34,21 @@ security:
 
         main:
             anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login_check
+            logout:
+                path: logout
+
             # activate different ways to authenticate
 
             # http_basic: ~
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
 
-            # form_login: ~
+
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/responsable, roles: ROLE_ADMIN }
+        - { path: ^/etudiant, roles: ROLE_ETUDIANT }
+        - { path: ^/entreprise, roles: ROLE_ENTREPRISE }

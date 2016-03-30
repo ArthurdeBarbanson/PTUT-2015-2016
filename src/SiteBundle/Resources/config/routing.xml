@@ -4,10 +4,34 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
+
     <route id="site_homepage" path="/">
         <default key="_controller">SiteBundle:Default:index</default>
     </route>
-    <route id="site_ajoutAnnobce" path="/entreprise/ajout_annonce">
+
+    <!-- Entreprise -->
+    <route id="site_ajoutAnnonce" path="/entreprise/ajout_annonce">
         <default key="_controller">SiteBundle:Default:ajoutAnnonce</default>
     </route>
+
+    <route id="site_detailsAnnonce" path="/entreprise/details_annonce/{annonceId}">
+        <default key="_controller">SiteBundle:Default:detailAnnonce</default>
+    </route>
+    <!-- Etudiant -->
+    <route id="site_detailsAnnonce" path="/etudiant/details_annonce/{annonceId}">
+        <default key="_controller">SiteBundle:Default:detailAnnonce</default>
+    </route>
+
+    <!--security-->
+    <route id="login" path="/login">
+        <default key="_controller">SiteBundle:Security:login</default>
+    </route>
+
+    <route id="login_check" path="/login_check"/>
+    <route id="logout" path="/logout"/>
+
+    <route id="test" path="/etudiant/test">
+        <default key="_controller">SiteBundle:Default:test</default>
+    </route>
+
 </routes>
