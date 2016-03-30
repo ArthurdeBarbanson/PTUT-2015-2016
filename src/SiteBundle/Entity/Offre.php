@@ -56,6 +56,26 @@ class Offre
      */
     private $titre;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Entreprise")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Entreprise;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\MAP")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $MAP;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Etudiant")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Etudiant;
+
+
+
 
     /**
      * Get id
@@ -179,6 +199,70 @@ class Offre
     {
         $this->titre = $titre;
     }
+
+    /**
+     * Get Entreprise
+     *
+     * @return Entreprise
+     */
+    public function getEntreprise()
+    {
+        return $this->Entreprise;
+    }
+
+    /**
+     * Set Entreprise
+     *
+     * @param Entreprise $Entreprise
+     * @return Offre
+     */
+    public function setEntreprise(Entreprise $Entreprise)
+    {
+        $this->Entreprise = $Entreprise;
+    }
+
+    /**
+     * Get MAP
+     *
+     * @return MAP
+     */
+    public function getMAP()
+    {
+        return $this->MAP;
+    }
+
+    /**
+     * Set MAP
+     *
+     * @param MAP $MAP
+     * @return Offre
+     */
+    public function setMAP($MAP)
+    {
+        $this->MAP = $MAP;
+    }
+
+    /**
+     * Get Etudiant
+     *
+     * @return Etudiant
+     */
+    public function getEtudiant()
+    {
+        return $this->Etudiant;
+    }
+
+    /**
+     * Set Etudiant
+     *
+     * @param Etudiant $Etudiant
+     * @return Offre
+     */
+    public function setEtudiant($Etudiant)
+    {
+        $this->Etudiant = $Etudiant;
+    }
+
 
 
 }

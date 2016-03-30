@@ -16,11 +16,23 @@ and open the template in the editor.
     margin-top: 50px; 
 }
 
+.margB10{
+    margin-bottom: 10px;
+}
+
+.margB20{
+    margin-bottom: 20px;
+}
+
 .block{
     background-color: #5eb5e0;
     border-radius: 5px;
     border: solid 1px grey;
     padding: 15px;
+}
+
+.dl-horizontal dt {
+    text-align: left;
 }
 
 html,
