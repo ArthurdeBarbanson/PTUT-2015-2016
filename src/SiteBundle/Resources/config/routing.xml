@@ -14,11 +14,11 @@
         <default key="_controller">SiteBundle:Default:ajoutAnnonce</default>
     </route>
 
-    <route id="site_detailsAnnonce" path="/entreprise/details_annonce">
+    <route id="site_detailsAnnonce" path="/entreprise/details_annonce/{annonceId}">
         <default key="_controller">SiteBundle:Default:detailAnnonce</default>
     </route>
     <!-- Etudiant -->
-    <route id="site_detailsAnnonce" path="/etudiant/details_annonce">
+    <route id="site_detailsAnnonce" path="/etudiant/details_annonce/{annonceId}">
         <default key="_controller">SiteBundle:Default:detailAnnonce</default>
     </route>
 
