@@ -2,7 +2,13 @@
 
 namespace SiteBundle\Repository;
 
+
 use Doctrine\ORM\EntityRepository;
+use Doctrine\DBAL\Connection;
+use Doctrine\ORM\Mapping;
+use Doctrine\ORM\EntityManager;
+use SiteBundle\Entity\Offre;
+
 
 /**
  * OffreRepository
@@ -12,4 +18,104 @@ use Doctrine\ORM\EntityRepository;
  */
 class OffreRepository extends EntityRepository
 {
+    private $connection;
+
+    public function __construct(Connection $connection,EntityManager $em, Mapping\ClassMetadata $class)
+    {
+        parent::__construct($em, $class);
+        $this->connection = $connection;
+    }
+
+    public function findAll()
+    {
+        $query =<<<SQL
+        SELECT * FROM offre;
+SQL;
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+
+        $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        $offres = [];
+
+
+        foreach ($rows as $row) {
+            $offres[] = $this->createOffreFromRow($row);
+        }
+
+
+        return $offres;
+    }
+
+    public function findById($id)
+    {
+        $query = <<<SQL
+SELECT * FROM offre WHERE id LIKE :id LIMIT 1;
+SQL;
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute(['id' => $id]);
+
+        $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        if (0 === count($rows)) {
+
+            return null;
+        }
+
+        return $this->createOffreFromRow(end($rows));
+    }
+
+    public function save(Offre $offre)
+    {
+        $query =<<<SQL
+INSERT INTO offre
+    (id,DateDepot,EtatOffre,LicenceConcerne,Sujet,Titre)
+VALUES
+    (:id, :DateDepot, :EtatOffre, :LicenceConcerne, :Sujet, :Titre)
+  ON DUPLICATE KEY
+    UPDATE
+      EtatOffre        = :EtatOffre,
+      LicenceConcerne = :LicenceConcerne,
+      Sujet       = :Sujet,
+      Titre       = :Titre
+;
+SQL;
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute([
+            'id'          => $offre->getId(),
+            'DateDepot'        => $offre->getDateDepot(),
+            'EtatOffre' => $offre->getEtatOffre(),
+            'LicenceConcerne'       => $offre->getLicenceConcerne(),
+            'Sujet' => $offre->getSujet(),
+            'Titre' => $offre->getTitre(),
+        ]);
+    }
+
+    public function delete($id)
+    {
+        $this->connection->delete('offre', ['id' => $id]);
+    }
+
+    private function createOffreFromRow(array $row)
+    {
+        return new Offre($row['id'], $row['DateDepot'], $row['EtatOffre'], $row['LicenceConcerne'],$row['Sujet'],$row['Titre']);
+    }
+
+    public function createSchema()
+    {
+        $this->connection->exec("CREATE TABLE IF NOT EXISTS `offre`  (
+    `id` INT AUTO_INCREMENT NOT NULL,
+   `DateDepot` DATE NOT NULL,
+  `EtatOffre` VARCHAR(255) NOT NULL,
+   `LicenceConcerne` VARCHAR(255) NOT NULL,
+    `Sujet` VARCHAR(255) NOT NULL,
+   `Titre` VARCHAR(255) NOT NULL,
+  PRIMARY KEY(`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8_unicode_ci;");
+    }
 }
+
+

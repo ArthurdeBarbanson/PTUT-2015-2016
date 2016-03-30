@@ -65,6 +65,13 @@ class Personne
 
 
     /**
+     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Adresse")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Adresse;
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -210,5 +217,26 @@ class Personne
     public function getIsAdmin()
     {
         return $this->isAdmin;
+    }
+
+    /**
+     * Get Adresse
+     *
+     * @return Adresse
+     */
+    public function getAdresse()
+    {
+        return $this->Adresse;
+    }
+
+    /**
+     * Set Adresse
+     *
+     * @param Adresse $Adresse
+     * @return Personne
+     */
+    public function setAdresse($Adresse)
+    {
+        $this->Adresse = $Adresse;
     }
 }

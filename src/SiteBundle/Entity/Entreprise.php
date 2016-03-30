@@ -91,6 +91,12 @@ class Entreprise
      */
     private $telephone;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Adresse")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Adresse;
+
 
     /**
      * Get id
@@ -330,5 +336,26 @@ class Entreprise
     public function getTelephone()
     {
         return $this->telephone;
+    }
+
+    /**
+     * Get Adresse
+     *
+     * @return Adresse
+     */
+    public function getAdresse()
+    {
+        return $this->Adresse;
+    }
+
+    /**
+     * Set Adresse
+     *
+     * @param Adresse $Adresse
+     * @return Entreprise
+     */
+    public function setAdresse($Adresse)
+    {
+        $this->Adresse = $Adresse;
     }
 }

@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ParentEtudiant
 {
+
+    /**
+     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Personne", cascade={"persist"})
+     */
+    private $laPersone;
+
     /**
      * @var int
      *
@@ -90,5 +96,26 @@ class ParentEtudiant
     public function getSecuriteSocial()
     {
         return $this->securiteSocial;
+    }
+
+    /**
+     * Get laPersone
+     *
+     * @return Personne
+     */
+    public function getLaPersone()
+    {
+        return $this->laPersone;
+    }
+
+    /**
+     * Set laPersone
+     *
+     * @param Personne $laPersone
+     * @return Etudiant
+     */
+    public function setLaPersone(Personne $laPersone)
+    {
+        $this->laPersone = $laPersone;
     }
 }

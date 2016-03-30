@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Dirigeant
 {
+
+    /**
+     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Personne", cascade={"persist"})
+     */
+    private $laPersone;
+
     /**
      * @var int
      *
@@ -21,12 +27,14 @@ class Dirigeant
      */
     private $id;
 
+
     /**
      * @var string
      *
      * @ORM\Column(name="Fonction", type="string", length=255)
      */
     private $fonction;
+
 
 
     /**
@@ -60,5 +68,26 @@ class Dirigeant
     public function getFonction()
     {
         return $this->fonction;
+    }
+
+    /**
+     * Get laPersone
+     *
+     * @return Personne
+     */
+    public function getLaPersone()
+    {
+        return $this->laPersone;
+    }
+
+    /**
+     * Set laPersone
+     *
+     * @param Personne $laPersone
+     * @return Etudiant
+     */
+    public function setLaPersone(Personne $laPersone)
+    {
+        $this->laPersone = $laPersone;
     }
 }
