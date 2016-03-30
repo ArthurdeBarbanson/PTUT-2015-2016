@@ -52,8 +52,7 @@ class DefaultController extends Controller
         return $this->render(
             'SiteBundle:Default:detailsAnnonce.html.twig'
             ,['offre' => $offre
-            ,'annonceId' => $annonceId
-            ,'entreprise' => $entreprise]
+            ,'annonceId' => $annonceId]
         );
     }
 }
