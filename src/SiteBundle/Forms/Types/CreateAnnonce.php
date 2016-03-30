@@ -16,20 +16,25 @@ class CreateAnnonce extends AbstractType
     { $builder
         ->add('Map', TextType::class,array(
             'label' => 'Nom du maitre d\'apprentissage',
+            'attr' => ['class' => 'form-control'],
 
         ))
         ->add('Formationmap', TextType::class,array(
                 'label' =>'Formation du maitre d\'apprentissage',
+            'attr' => ['class' => 'form-control'],
             ))
             ->add('Titre', TextType::class,array(
-
+                'attr' => ['class' => 'form-control'],
             ))
             ->add('Lpconcerne', 'choice', array(
                 'choices' => array('IEM' => 'LP IEM', 'METINET' => 'LP METINET'),
-                        'multiple' => false
+                        'multiple' => false,
+                'attr' => ['class' => 'form-control'],
+
             ))
             ->add('Sujet', TextAreaType::class,array(
                 'label' =>'Sujet (Description de la mission - Technologie',
+                    'attr' => ['class' => 'form-control'],
                 )
             )
             ->add('submit', SubmitType::class, [
