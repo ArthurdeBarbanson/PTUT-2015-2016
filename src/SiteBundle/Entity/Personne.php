@@ -19,7 +19,7 @@ class Personne
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $idPersonne;
 
     /**
      * @var string
