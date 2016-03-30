@@ -37,6 +37,9 @@ security:
             form_login:
                 login_path: login
                 check_path: login_check
+            logout:
+                path: logout
+
             # activate different ways to authenticate
 
             # http_basic: ~
