@@ -14,16 +14,25 @@ class CreateAnnonce extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     { $builder
-        ->
-        add('Maitre de Stage', TextType::class)
-            ->add('Formation du maitre du stage', TextType::class)
-            ->add('Titre', TextType::class)
-            ->add('Lp concerné', HiddenType::class, array(
+        ->add('Map', TextType::class,array(
+            'label' => 'Nom du maitre d\'apprentissage',
+
+        ))
+        ->add('Formation_du maitre_du_stage', TextType::class,array(
+                'label' =>'Formation du maitre du stage',
+            ))
+            ->add('Titre', TextType::class,array(
+
+            ))
+            ->add('Lp_concerné', HiddenType::class, array(
                 'choices' => array('IEM' => 'LP IEM', 'METINET' => 'LP METINET'),
                 'expanded' => true,
                 'multiple' => false
             ))
-            ->add('Sujet (Description de la mission - Technologie', TextAreaType::class)
+            ->add('Sujet', TextAreaType::class,array(
+                'label' =>'Sujet (Description de la mission - Technologie',
+                )
+            )
             ->add('submit', SubmitType::class, [
                 'label' => 'Poster',
                 'attr' => ['class' => 'btn-primary btn-lg'],
