@@ -4,8 +4,10 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        users:
-#            id: user_provider
+        chain_provider:
+            chain:
+                providers: [in_memory, user_db]
+        in_memory:
             memory:
                 users:
                     Arthur:
@@ -14,12 +16,14 @@ security:
                     Antoine:
                         password: $2y$12$YJgxhWBrLaSZvs4ya1.Dx.8gnMzN7TC32EiDEbVKMBLyzXK65FCJS
                         roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
-                    Renald:
-                        password: $2y$12$lmonEd5FMfJqQ6OtZrDGTeYY4jLIkc8cuLU5M6rCwc0KmfArqcxvG
+                    Reynald:
+                        password: $2y$12$.XqLpip6RUq54sRER2r65eUjJk7Ljs0JC6nF2H4xm4cRqsa2LOkPK
                         roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
                     Guillaume:
                         password: $2y$12$NR8EDtDo7cnwOYyL3uP66u5jg3jd8aVt8iT1SyO3V5YamR8G8/ulu
                         roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
+        user_db:
+            entity: { class: SiteBundle\Security\User, property: username }
 
     encoders:
         Symfony\Component\Security\Core\User\User:
