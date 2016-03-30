@@ -19,7 +19,7 @@ class Personne
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idPersonne;
+    private $id;
 
     /**
      * @var string
@@ -62,6 +62,13 @@ class Personne
      * @ORM\Column(name="isAdmin", type="boolean")
      */
     private $isAdmin;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Adresse")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Adresse;
 
 
     /**
@@ -210,5 +217,26 @@ class Personne
     public function getIsAdmin()
     {
         return $this->isAdmin;
+    }
+
+    /**
+     * Get Adresse
+     *
+     * @return Adresse
+     */
+    public function getAdresse()
+    {
+        return $this->Adresse;
+    }
+
+    /**
+     * Set Adresse
+     *
+     * @param Adresse $Adresse
+     * @return Personne
+     */
+    public function setAdresse($Adresse)
+    {
+        $this->Adresse = $Adresse;
     }
 }
