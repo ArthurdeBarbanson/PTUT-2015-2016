@@ -6,6 +6,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface
 {
+    private $id;
     private $username;
     private $password;
     private $salt;
@@ -13,6 +14,7 @@ class User implements UserInterface
 
     public function __construct($username, $password, $salt, array $roles = [])
     {
+        $this->id=uniqid();
         $this->username = $username;
         $this->password = $password;
         $this->salt = $salt;
