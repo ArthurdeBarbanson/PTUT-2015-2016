@@ -41,7 +41,7 @@ class EntrepriseController extends Controller
             }
 
             return $this->render(
-                'MetinetECommerceBundle:Default:addProduct.html.twig',
+                'SiteBundle:Default:ajoutAnnonce.html.twig',
                 ['form' => $form->createView()]
             );
         }
