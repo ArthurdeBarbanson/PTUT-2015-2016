@@ -216,7 +216,7 @@ class Offre
      * @param Entreprise $Entreprise
      * @return Offre
      */
-    public function setEntreprise(Entreprise $Entreprise)
+    public function setEntreprise (Entreprise $Entreprise)
     {
         $this->Entreprise = $Entreprise;
     }
