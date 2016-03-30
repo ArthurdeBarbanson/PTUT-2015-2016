@@ -3,14 +3,49 @@
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-
-    <!--
     <services>
-        <service id="site.example" class="SiteBundle\Example">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <service id="adresse_repository" class="SiteBundle\Repository\AdresseRepository">
+        <argument type="service" id="doctrine.dbal.default_connection" />
         </service>
+        <service id="bac_ou_equivalent_repository" class="SiteBundle\Repository\BacOuEquivalentRepository">
+            <argument type="service" id="doctrine.dbal.default_connection" />
+        </service>
+        <service id="dernier_diplome_obtenu_repository" class="SiteBundle\Repository\DernierEtablissementFreqenteRepository">
+            <argument type="service" id="doctrine.dbal.default_connection" />
+        </service>
+        <service id="dernier_etblissement_frequente_repository" class="SiteBundle\Repository\DirigeantRepository">
+            <argument type="service" id="doctrine.dbal.default_connection" />
+        </service>
+        <service id="dirigeant_repository" class="SiteBundle\Repository\DossierInscriptionRepository">
+            <argument type="service" id="doctrine.dbal.default_connection" />
+        </service>
+        <service id="dossier_inscription_repository" class="SiteBundle\Repository\DossierInscriptionRepository">
+            <argument type="service" id="doctrine.dbal.default_connection" />
+        </service>
+        <service id="entreprise_repository" class="SiteBundle\Repository\EntrepriseRepository">
+            <argument type="service" id="doctrine.dbal.default_connection" />
+        </service>
+        <service id="etudiant_repository" class="SiteBundle\Repository\EtudiantRepository">
+            <argument type="service" id="doctrine.dbal.default_connection" />
+        </service>
+        <service id="inscription_autre_etablissement_repository" class="SiteBundle\Repository\InscriptionAutreEtablissementRepository">
+            <argument type="service" id="doctrine.dbal.default_connection" />
+        </service>
+        <service id="map_repository" class="SiteBundle\Repository\MAPRepository">
+            <argument type="service" id="doctrine.dbal.default_connection" />
+        </service>
+        <service id="offre_repository" class="SiteBundle\Repository\OffreRepository">
+            <argument type="service" id="doctrine.dbal.default_connection" />
+        </service>
+        <service id="parent_etudiant_repository" class="SiteBundle\Repository\ParentEtudiantRepository">
+            <argument type="service" id="doctrine.dbal.default_connection" />
+        </service>
+        <service id="premiere_inscription_repository" class="SiteBundle\Repository\PremiereInscriptionRepository">
+            <argument type="service" id="doctrine.dbal.default_connection" />
+        </service>
+
+
+
     </services>
-    -->
+
 </container>

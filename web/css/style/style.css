@@ -23,6 +23,10 @@ and open the template in the editor.
     padding: 15px;
 }
 
+.dl-horizontal dt {
+    text-align: left;
+}
+
 html,
 body {
     margin:0;
