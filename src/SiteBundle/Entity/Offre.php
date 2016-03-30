@@ -49,6 +49,13 @@ class Offre
      */
     private $sujet;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Titre", type="string", length=255)
+     */
+    private $titre;
+
 
     /**
      * Get id
@@ -151,4 +158,27 @@ class Offre
     {
         return $this->sujet;
     }
+
+    /**
+     * Get titre
+     *
+     * @return string
+     */
+    public function getTitre()
+    {
+        return $this->titre;
+    }
+
+    /**
+     * Set titre
+     *
+     * @param string $titre
+     * @return Offre
+     */
+    public function setTitre($titre)
+    {
+        $this->titre = $titre;
+    }
+
+
 }
