@@ -13,6 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Etudiant
 {
 
+
+    /**
+     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\DossierInscription", cascade={"persist"})
+     */
+    private $DossierInscription;
     /**
      * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Personne", cascade={"persist"})
      */
@@ -268,4 +273,27 @@ class Etudiant
     {
         $this->laPersone = $laPersone;
     }
+
+    /**
+     * Get DossierInscription
+     *
+     * @return DossierInscription
+     */
+    public function getInscription()
+    {
+        return $this->DossierInscriptionInscription;
+    }
+
+    /**
+     * Set DossierInscription
+     *
+     * @param DossierInscription $DossierInscription
+     * @return Etudiant
+     */
+    public function setInscription($DossierInscription)
+    {
+        $this->DossierInscription = $DossierInscription;
+    }
+
+
 }

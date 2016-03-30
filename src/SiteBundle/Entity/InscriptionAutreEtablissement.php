@@ -12,6 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class InscriptionAutreEtablissement
 {
+
+    /**
+     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\DossierInscription")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $DossierInscription;
+
     /**
      * @var int
      *
