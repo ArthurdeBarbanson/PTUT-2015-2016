@@ -8,9 +8,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Table(name="app_users")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
+ * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Personne", cascade={"persist"})
  */
 class User implements UserInterface, \Serializable
 {
+
+    private $Personne;
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -24,19 +27,9 @@ class User implements UserInterface, \Serializable
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=25, unique=true)
-     */
-    private $prenom;
-
-    /**
      * @ORM\Column(type="string", length=64)
      */
     private $password;
-
-    /**
-     * @ORM\Column(type="string", length=60, unique=true)
-     */
-    private $email;
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
@@ -136,19 +129,7 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    /**
-     * Set prenom
-     *
-     * @param string $prenom
-     *
-     * @return User
-     */
-    public function setPrenom($prenom)
-    {
-        $this->prenom = $prenom;
 
-        return $this;
-    }
 
     /**
      * Set password
@@ -162,30 +143,6 @@ class User implements UserInterface, \Serializable
         $this->password = $password;
 
         return $this;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return User
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
     }
 
     /**
@@ -210,5 +167,26 @@ class User implements UserInterface, \Serializable
     public function getIsActive()
     {
         return $this->isActive;
+    }
+
+    /**
+     * Get Personne
+     *
+     * @return Personne
+     */
+    public function getPersonne()
+    {
+        return $this->Personne;
+    }
+
+    /**
+     * Set Personne
+     *
+     * @param Personne $Personne
+     * @return User
+     */
+    public function setPersonne($Personne)
+    {
+        $this->Personne= $Personne;
     }
 }
