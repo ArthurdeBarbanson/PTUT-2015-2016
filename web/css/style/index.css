@@ -12,3 +12,6 @@ body{
     background-image: url(http://cdn3-europe1.new2.ladmedia.fr/var/europe1/storage/images/europe1/sciences/et-vous-que-faites-vous-apres-une-poignee-de-main-780762/15626752-1-fre-FR/Et-vous-que-faites-vous-apres-une-poignee-de-main.jpg);
 }
 
+.mainContainer {
+    background: none;
+}
