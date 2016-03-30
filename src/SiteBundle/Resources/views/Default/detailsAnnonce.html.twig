@@ -65,25 +65,29 @@
                             <label for="prenom">Prenom</label>
                             <input type="text" value="prenomLabel" class="form-control" id="nom" placeholder="Prenom">
                         </fieldset>
+                        <fieldset class="form-group">
+                            <label>CV</label>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="cv" id="utiliserCV" value="utiliserCV"
+                                           disabled>
+                                    Utiliser mon CV existant.
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="cv" id="importerCV" value="importerCV" checked>
+                                    Importer mon CV
+                                </label>
+                            </div>
+                            <fieldset class="form-group" hidden="importerCV">
+                                <label for="exampleInputFile">File input</label>
+                                <input type="file" class="form-control-file" id="exampleInputFile">
+                                <small class="text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+                            </fieldset>
+                        </fieldset>
 
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                                Option one is this and that&mdash;be sure to include why it's great
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                Option two can be something else and selecting it will deselect option one
-                            </label>
-                        </div>
-                        <div class="radio disabled">
-                            <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
-                                Option three is disabled
-                            </label>
-                        </div>
+
                     </form>
                 </div>
             </div>
