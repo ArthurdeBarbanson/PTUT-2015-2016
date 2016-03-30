@@ -22,6 +22,11 @@
         <default key="_controller">SiteBundle:Default:detailAnnonce</default>
     </route>
 
+    <!--Responsable-->
+    <route id="acceuill_responsable" path="/responsable/ajout/etudiant">
+        <default key="_controller">SiteBundle:Responsable:ajoutEtudiant</default>
+    </route>
+
     <!--security-->
     <route id="login" path="/login">
         <default key="_controller">SiteBundle:Security:login</default>
