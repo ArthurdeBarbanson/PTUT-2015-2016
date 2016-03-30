@@ -11,7 +11,7 @@
 
     <!-- Entreprise -->
     <route id="site_ajoutAnnonce" path="/entreprise/ajout_annonce">
-        <default key="_controller">SiteBundle:Default:ajoutAnnonce</default>
+        <default key="_controller">SiteBundle:Entreprise:ajoutAnnonce</default>
     </route>
 
     <route id="site_detailsAnnonce" path="/entreprise/details_annonce/{annonceId}">
