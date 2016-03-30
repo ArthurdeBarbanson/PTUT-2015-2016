@@ -8,11 +8,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Table(name="app_users")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
- * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Personne", cascade={"persist"})
+ *
  */
 class User implements UserInterface, \Serializable
 {
 
+    /**
+     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Personne", cascade={"persist"})
+     */
     private $Personne;
     /**
      * @ORM\Column(type="integer")
@@ -37,7 +40,7 @@ class User implements UserInterface, \Serializable
     private $isActive;
 
     /**
-     * @ORM\Column(type="text",length=255, unique=true)
+     * @ORM\Column(type="string",length=255, unique=true)
      */
     private $roles;
 
