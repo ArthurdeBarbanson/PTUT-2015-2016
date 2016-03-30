@@ -248,4 +248,28 @@ class InscriptionAutreEtablissement
     {
         return $this->codeEtablissement;
     }
+
+
+    /**
+     * Get DossierInscription
+     *
+     * @return DossierInscription
+     */
+    public function getDossierInscription()
+    {
+        return $this->DossierInscription;
+    }
+
+    /**
+     * Set DossierInscription
+     *
+     * @param DossierInscription $DossierInscription
+     * @return DossierInscription
+     */
+    public function setDossierInscription($DossierInscription)
+    {
+        $this->DossierInscription = $DossierInscription;
+    }
+
+
 }
