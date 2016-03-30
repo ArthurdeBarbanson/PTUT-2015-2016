@@ -56,6 +56,12 @@ class Offre
      */
     private $titre;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Entreprise")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Entreprise;
+
 
     /**
      * Get id
@@ -179,6 +185,28 @@ class Offre
     {
         $this->titre = $titre;
     }
+
+    /**
+     * Get Entreprise
+     *
+     * @return Entreprise
+     */
+    public function getEntreprise()
+    {
+        return $this->Entreprise;
+    }
+
+    /**
+     * Set Entreprise
+     *
+     * @param Entreprise $Entreprise
+     * @return Offre
+     */
+    public function setEntreprise(Entreprise $Entreprise)
+    {
+        $this->Entreprise = $Entreprise;
+    }
+
 
 
 }
