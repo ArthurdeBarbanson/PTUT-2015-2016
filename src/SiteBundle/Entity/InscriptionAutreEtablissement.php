@@ -260,7 +260,12 @@ class InscriptionAutreEtablissement
         return $this->DossierInscription;
     }
 
-
+    /**
+     * Set DossierInscription
+     *
+     * @param DossierInscription $DossierInscription
+     * @return DossierInscription
+     */
     public function setDossierInscription($DossierInscription)
     {
         $this->DossierInscription = $DossierInscription;

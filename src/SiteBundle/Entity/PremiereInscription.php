@@ -13,6 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
 class PremiereInscription
 {
     /**
+     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\DossierInscription")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $DossierInscription;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -151,4 +157,26 @@ class PremiereInscription
     {
         return $this->anneeEnseignementSuperieur;
     }
+
+    /**
+     * Get DossierInscription
+     *
+     * @return DossierInscription
+     */
+    public function getDossierInscription()
+    {
+        return $this->DossierInscription;
+    }
+
+    /**
+     * Set DossierInscription
+     *
+     * @param DossierInscription $DossierInscription
+     * @return DossierInscription
+     */
+    public function setDossierInscription($DossierInscription)
+    {
+        $this->DossierInscription = $DossierInscription;
+    }
+
 }
