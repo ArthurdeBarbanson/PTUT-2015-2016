@@ -31,6 +31,12 @@ class PostulerAnnonce extends AbstractType
             ->add('cvImport', FileType::class, array(
                 'label' => 'Importer mon CV',
             ))
+            ->add('lettreMotivation', TextareaType::class, array(
+                'label' => 'Ecrir ma lettre de motivation'
+            ))
+            ->add('lettreMotivationImport', FileType::class, array(
+                'label' => 'Importer ma lettre de motivation',
+            ))
             ->add('submit', SubmitType::class, [
                 'label' => 'Envoyer',
                 'attr' => ['class' => 'btn btn-default  center-block'],

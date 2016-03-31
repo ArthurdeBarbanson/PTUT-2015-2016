@@ -17,6 +17,13 @@ class EntrepriseController extends Controller
             $form = $this->createForm(CreateAnnonce::class);
             $em = $this->getDoctrine()->getManager();
 
+            $repository = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('SiteBundle:MAP');
+
+            $maps = $repository->findBy(array("id"=>""));
+
             if ($request->isMethod('post')) {
                $form->handleRequest($request);
                 if ($form->isValid()) {
@@ -54,7 +61,7 @@ class EntrepriseController extends Controller
 
             return $this->render(
                 'SiteBundle:Default:ajoutAnnonce.html.twig',
-                ['formOffre' => $form->createView()]
+                ['form' => $form->createView()]
             );
         }
     }
