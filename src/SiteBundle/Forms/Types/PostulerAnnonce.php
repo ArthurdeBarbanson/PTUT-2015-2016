@@ -33,6 +33,7 @@ class PostulerAnnonce extends AbstractType
             ))
             ->add('submit', SubmitType::class, [
                 'label' => 'Envoyer',
+                'attr' => ['class' => 'btn btn-default  center-block'],
             ]);
     }
 }
