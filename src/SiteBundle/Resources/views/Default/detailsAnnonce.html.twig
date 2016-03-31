@@ -29,7 +29,7 @@
                     <dl class="dl-horizontal">
                         <dt>nom</dt>
                         <dd>{{ offre.entreprise.nom }}</dd>
-                        <dt>Prenom</dt>
+                        <dt>prenom</dt>
                         <dd>{{ offre.entreprise.prenom }}</dd>
                         <dt>mail</dt>
                         <dd>{{ offre.entreprise.mail }}</dd>
@@ -45,6 +45,7 @@
             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
             Postuler à cette offre
         </button>
+
         <!-- Modal -->
         <div id="postulerOffre" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -55,40 +56,7 @@
                     <h4 class="modal-title text-center">Postuler</h4>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <fieldset class="form-group">
-                            <label for="nom">Nom</label>
-                            <input type="text" value="moi" class="form-control" id="nom" placeholder="Nom">
-                        </fieldset>
-
-                        <fieldset class="form-group">
-                            <label for="prenom">Prenom</label>
-                            <input type="text" value="prenomLabel" class="form-control" id="nom" placeholder="Prenom">
-                        </fieldset>
-                        <fieldset class="form-group">
-                            <label>CV</label>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="cv" id="utiliserCV" value="utiliserCV"
-                                           disabled>
-                                    Utiliser mon CV existant.
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="cv" id="importerCV" value="importerCV" checked>
-                                    Importer mon CV
-                                </label>
-                            </div>
-                            <fieldset class="form-group" hidden="importerCV">
-                                <label for="exampleInputFile">File input</label>
-                                <input type="file" class="form-control-file" id="exampleInputFile">
-                                <small class="text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
-                            </fieldset>
-                        </fieldset>
-
-
-                    </form>
+                    {{ form(form) }}
                 </div>
             </div>
 
