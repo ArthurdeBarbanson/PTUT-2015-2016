@@ -5,10 +5,13 @@
     <h2>Offre</h2>
     {{ form_start(form) }}
     <label>Maitre apprentissage</label>
-    <select>
 
-        <option></option>
-    </select>
+        {% for map in maps %}
+            <label>test</label>
+            <li>{{ map.nom }}</li>
+
+        {% endfor %}
+
     {{ form_end(form) }}
 
 

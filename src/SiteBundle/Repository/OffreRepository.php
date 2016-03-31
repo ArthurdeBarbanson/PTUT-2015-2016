@@ -4,10 +4,7 @@ namespace SiteBundle\Repository;
 
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Mapping;
-use Doctrine\ORM\EntityManager;
-use SiteBundle\Entity\Offre;
 
 
 /**
