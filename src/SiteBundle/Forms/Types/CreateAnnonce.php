@@ -3,6 +3,7 @@
 namespace SiteBundle\Forms\Types;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -26,7 +27,7 @@ class CreateAnnonce extends AbstractType
             ->add('Titre', TextType::class,array(
                 'attr' => ['class' => 'form-control'],
             ))
-            ->add('Lpconcerne', 'choice', array(
+            ->add('Lpconcerne', ChoiceType::class, array(
                 'choices' => array('IEM' => 'LP IEM', 'METINET' => 'LP METINET'),
                         'multiple' => false,
                 'attr' => ['class' => 'form-control'],
@@ -39,7 +40,7 @@ class CreateAnnonce extends AbstractType
             )
             ->add('submit', SubmitType::class, [
                 'label' => 'Poster',
-                'attr' => ['class' => 'btn-primary btn-lg'],
+                'attr' => ['class' => 'btn-primary btn-lg center-block', 'style' => "margin-top:20px"],
             ]);
     }
 }
