@@ -3,7 +3,6 @@
 namespace SiteBundle\Controller;
 
 use DateTime;
-use SiteBundle\Entity\Entreprise;
 use SiteBundle\Entity\Offre;
 use SiteBundle\Forms\Types\CreateAnnonce;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,12 +16,12 @@ class EntrepriseController extends Controller
             $form = $this->createForm(CreateAnnonce::class);
             $em = $this->getDoctrine()->getManager();
 
-            $repository = $this
+            $repositoryMap = $this
                 ->getDoctrine()
                 ->getManager()
                 ->getRepository('SiteBundle:MAP');
 
-            $maps = $repository->findBy(array("id"=>""));
+            $maps = $repositoryMap->find(1);
 
             if ($request->isMethod('post')) {
                $form->handleRequest($request);
@@ -30,9 +29,6 @@ class EntrepriseController extends Controller
 
                     $data = $form->getData();
 
-
-
-                    $map="";
                     $dateDepot= new DateTime();
                     $dateDepot->format('Y-m-d H');
                     $repository = $this
@@ -61,7 +57,7 @@ class EntrepriseController extends Controller
 
             return $this->render(
                 'SiteBundle:Default:ajoutAnnonce.html.twig',
-                ['form' => $form->createView()]
+                ['form' => $form->createView(),'maps'=>$maps]
             );
         }
     }
