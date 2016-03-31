@@ -19,6 +19,12 @@ class MAP
     private $laPersone;
 
     /**
+     * @ORM\OneToMany(targetEntity="SiteBundle\Entity\Entreprise")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Entreprise;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -147,5 +153,27 @@ class MAP
     public function setLaPersone(Personne $laPersone)
     {
         $this->laPersone = $laPersone;
+    }
+
+
+    /**
+     * Get Entreprise
+     *
+     * @return Entreprise
+     */
+    public function getEntreprise()
+    {
+        return $this->Entreprise;
+    }
+
+    /**
+     * Set Entreprise
+     *
+     * @param Entreprise $Entreprise
+     * @return Etudiant
+     */
+    public function setEntreprise(Entreprise $Entreprise)
+    {
+        $this->Entreprise = $Entreprise;
     }
 }
