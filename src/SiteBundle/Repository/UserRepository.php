@@ -9,9 +9,11 @@
 namespace SiteBundle\Repository;
 
 
-use Doctrine\ORM\EntityRepository;
+use SiteBundle\Entity\User;
 
-class UserRepository extends EntityRepository
+interface UserRepository
 {
-
+    public function findByUsername($username);
+    public function save(User $userAccount);
+    public function isUsernameInUse($username);
 }
