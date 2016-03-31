@@ -6,6 +6,7 @@ use Proxies\__CG__\SiteBundle\Entity\Entreprise;
 use Proxies\__CG__\SiteBundle\Entity\Offre;
 use SiteBundle\Entity\Adresse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
@@ -14,12 +15,16 @@ class DefaultController extends Controller
     {
         return $this->render('SiteBundle:Default:index.html.twig');
     }
+
     public function testAction()
     {
         return $this->render('SiteBundle:Default:test.html.twig');
     }
 
-    public function detailAnnonceAction($annonceId){
+    public function detailAnnonceAction(Request $request)
+    {
+        $annonceId = $request->get('annonceId');
+
         $offre = new Offre();
         //initialisation adresse
         $adresse = new Adresse();
@@ -37,22 +42,28 @@ class DefaultController extends Controller
         $entreprise->setMail("dfsdfsd@gfgsdf.fr");
         $entreprise->setAdresse($adresse);
         $entreprise->setRaisonSocial("RaisonSocial");
-        
+
         //initialisation offre
         $offre->setSujet("Un sujet passionnant");
         $offre->setEntreprise($entreprise);
-        
+
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Offre');
+
+        $offre = $repository->find($annonceId);
 
         //si l'annonce n'es pas trouvé
-        if (null === "") {
+        if (null === $offre) {
             throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
         }
 
 
         return $this->render(
             'SiteBundle:Default:detailsAnnonce.html.twig'
-            ,['offre' => $offre
-            ,'annonceId' => $annonceId]
+            , ['offre' => $offre
+                , 'annonceId' => $annonceId]
         );
     }
 }
