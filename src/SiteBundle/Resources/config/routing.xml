@@ -23,7 +23,7 @@
     </route>
 
     <!--Responsable-->
-    <route id="acceuill_responsable" path="/responsable/ajout/etudiant">
+    <route id="responsableAjoutEtudiant" path="/responsable/ajout/etudiant">
         <default key="_controller">SiteBundle:Responsable:ajoutEtudiant</default>
     </route>
 
