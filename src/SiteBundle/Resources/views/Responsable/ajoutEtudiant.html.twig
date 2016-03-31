@@ -1,4 +1,7 @@
 {% extends '::base.html.twig' %}
+{% block username %}
+    {{ user.usermane }}
+{% endblock %}
 
 {% block body %}
     <h1>Ajouter un étudiant</h1>
