@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <routes xmlns="http://symfony.com/schema/routing"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
 
     <route id="site_homepage" path="/">
@@ -14,11 +14,14 @@
         <default key="_controller">SiteBundle:Entreprise:ajoutAnnonce</default>
     </route>
 
-    <route id="site_detailsAnnonce" path="/entreprise/details_annonce/{annonceId}">
+    <route id="site_detailsAnnonceEntreprise" path="/entreprise/details_annonce/{annonceId}">
         <default key="_controller">SiteBundle:Default:detailAnnonce</default>
     </route>
+    <route id="inscriptionEntreprise" path="/entreprise/inscription">
+        <default key="_controller">SiteBundle:Entreprise:inscription</default>
+    </route>
     <!-- Etudiant -->
-    <route id="site_detailsAnnonce" path="/etudiant/details_annonce/{annonceId}">
+    <route id="site_detailsAnnonceEtudiant" path="/etudiant/details_annonce/{annonceId}">
         <default key="_controller">SiteBundle:Default:detailAnnonce</default>
     </route>
 
