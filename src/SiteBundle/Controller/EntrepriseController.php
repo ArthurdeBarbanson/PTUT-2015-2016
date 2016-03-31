@@ -3,6 +3,7 @@
 namespace SiteBundle\Controller;
 
 use DateTime;
+use SiteBundle\Entity\Entreprise;
 use SiteBundle\Entity\Offre;
 use SiteBundle\Forms\Types\CreateAnnonce;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -23,6 +24,12 @@ class EntrepriseController extends Controller
                     $data = $form->getData();
                     $dateDepot= new DateTime();
                     $dateDepot->format('Y-m-d H');
+                    $repository = $this
+                       ->getDoctrine()
+                       ->getManager()
+                       ->getRepository('SiteBundle:Entreprise');
+
+                    $entreprise =$repository->find(2);
 
                     $annonce= new Offre;
                     $annonce->setDateDepot($dateDepot);
@@ -30,7 +37,8 @@ class EntrepriseController extends Controller
                     $annonce->setSujet($data['Sujet']);
                     $annonce->setTitre($data['Titre']);
                     $annonce->setLicenceConcerne(($data['Lpconcerne']));
-                    $annonce->setEntreprise();
+                    $annonce->setEntreprise($entreprise);
+
                     $em->persist($annonce);
                     $em->flush();
                     $this->addFlash('info', "L'annonce a été mis en attente de Validation.");
