@@ -19,7 +19,7 @@ class MAP
     private $laPersone;
 
     /**
-     * @ORM\OneToMany(targetEntity="SiteBundle\Entity\Entreprise")
+     * @ORM\ManytoOne(targetEntity="SiteBundle\Entity\Entreprise")
      * @ORM\JoinColumn(nullable=false)
      */
     private $Entreprise;
