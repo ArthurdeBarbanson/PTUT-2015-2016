@@ -25,43 +25,26 @@ class DefaultController extends Controller
     public function detailAnnonceAction(Request $request)
     {
         $annonceId = $request->get('annonceId');
-
-        $offre = new Offre();
-        //initialisation adresse
-        $adresse = new Adresse();
-        $adresse->setAdresse("ici c'est paris");
-        $adresse->setCodePostal("01000");
-        $adresse->setCommune("Bourg en bresse");
-        $adresse->setPays("FRANCE");
-
-        //initialisation entreprise
-        $entreprise = new Entreprise();
-        $entreprise->setDescription("Une entreprise qui est jolie parfois");
-        $entreprise->setNom("CorespondantNom");
-        $entreprise->setPrenom("CorespondantPrenom");
-        $entreprise->setTelephone("04.14.14.14.14");
-        $entreprise->setMail("dfsdfsd@gfgsdf.fr");
-        $entreprise->setAdresse($adresse);
-        $entreprise->setRaisonSocial("RaisonSocial");
-
-        //initialisation offre
-        $offre->setSujet("Un sujet passionnant");
-        $offre->setEntreprise($entreprise);
-
         $repository = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('SiteBundle:Offre');
 
         $offre = $repository->find($annonceId);
-
         //si l'annonce n'es pas trouvé
         if (null === $offre) {
             throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
         }
 
-
         $form = $this->createForm(PostulerAnnonce::class);
+
+        if ($request->isMethod('post')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $data = $form->getData();
+                //TODO envoyer
+            }
+        }
 
         return $this->render(
             'SiteBundle:Default:detailsAnnonce.html.twig'
