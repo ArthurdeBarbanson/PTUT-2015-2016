@@ -59,12 +59,13 @@
                     <form>
                         <fieldset class="form-group">
                             <label for="nom">Nom</label>
-                            <input type="text" value="moi" class="form-control" id="nom" placeholder="Nom">
+                            <input type="text" value="moi" name="nom" class="form-control" id="nom" placeholder="Nom">
                         </fieldset>
 
                         <fieldset class="form-group">
                             <label for="prenom">Prenom</label>
-                            <input type="text" value="prenomLabel" class="form-control" id="nom" placeholder="Prenom">
+                            <input type="text" value="prenomLabel" name="prenom" class="form-control" id="nom"
+                                   placeholder="Prenom">
                         </fieldset>
                         <fieldset class="form-group">
                             <label>CV</label>
@@ -83,16 +84,17 @@
                             </div>
                             <fieldset class="form-group">
                                 <label for="exampleInputFile">Importer mon CV</label>
-                                <input type="file" class="form-control-file" id="exampleInputFile">
+                                <input type="file" name="cvImport" class="form-control-file" id="exampleInputFile">
                             </fieldset>
                         </fieldset>
                         <fieldset class="form-group">
                             <label for="exampleTextarea">Lettre de motivation</label>
-                            <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                            <textarea name="lettreMotivation" class="form-control" id="exampleTextarea"
+                                      rows="3"></textarea>
                         </fieldset>
                         <fieldset class="form-group">
                             <label for="exampleInputFile">Importer une lettre de motivation</label>
-                            <input type="file" class="form-control-file" id="exampleInputFile">
+                            <input type="file" name="lettreMotivImport" class="form-control-file">
                         </fieldset>
                         <button type="submit" class="btn btn-primary center-block">
                             <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
