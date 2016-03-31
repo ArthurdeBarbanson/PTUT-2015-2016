@@ -4,6 +4,7 @@ namespace SiteBundle\Forms\Types;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -23,13 +24,15 @@ class PostulerAnnonce extends AbstractType
                 'label' => 'Prenom',
                 'required' => true,
             ))
-            ->add('importCV', ChoiceType::class, array(
-                'choices' => array('cvImport' => 'Importer mon CV', 'utiliserCV' => 'Utiliser le CV existant'),
+            ->add('isImportCV', ChoiceType::class, array(
+                'choices' => array('Importer mon CV' => 'cvImport', 'Utiliser le CV existant' => 'utiliserCV'),
                 'multiple' => false, 'expanded' => true,
+            ))
+            ->add('cvImport', FileType::class, array(
+                'label' => 'Importer mon CV',
             ))
             ->add('submit', SubmitType::class, [
                 'label' => 'Envoyer',
-                'attr' => ['class' => 'btn-primary btn-lg center-block'],
             ]);
     }
 }
