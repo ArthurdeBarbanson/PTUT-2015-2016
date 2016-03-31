@@ -18,10 +18,14 @@ class EntrepriseController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             if ($request->isMethod('post')) {
-                $form->submit($request);
+               $form->handleRequest($request);
                 if ($form->isValid()) {
 
                     $data = $form->getData();
+
+
+
+                    $map="";
                     $dateDepot= new DateTime();
                     $dateDepot->format('Y-m-d H');
                     $repository = $this
@@ -38,18 +42,19 @@ class EntrepriseController extends Controller
                     $annonce->setTitre($data['Titre']);
                     $annonce->setLicenceConcerne(($data['Lpconcerne']));
                     $annonce->setEntreprise($entreprise);
+                    $annonce->setMAP();
 
                     $em->persist($annonce);
                     $em->flush();
                     $this->addFlash('info', "L'annonce a été mis en attente de Validation.");
 
                     return $this->redirect('/');
-                }
+               }
             }
 
             return $this->render(
                 'SiteBundle:Default:ajoutAnnonce.html.twig',
-                ['form' => $form->createView()]
+                ['formOffre' => $form->createView()]
             );
         }
     }
