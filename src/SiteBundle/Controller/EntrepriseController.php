@@ -62,4 +62,13 @@ class EntrepriseController extends Controller
         }
     }
 
+    public function inscriptionAction(Request $request)
+    {
+        //TODO  $form = $this->createForm(PostulerAnnonce::class);
+        $form = $this->createForm(PostulerAnnonce::class);;
+        return $this->render(
+            'SiteBundle:Entreprise:inscription_entreprise.html.twig'
+            , ['form' => $form->createView()]
+        );
+    }
 }
