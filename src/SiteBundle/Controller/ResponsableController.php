@@ -14,6 +14,7 @@ class ResponsableController extends Controller
 
     public function ajoutEtudiantAction()
     {
+        $user= $this->container->get('security.context')->getToken()->getUser();
         $form=$this->createForm(AjoutEtudiant::class);
 
         if($form->isValid()){
@@ -24,7 +25,8 @@ class ResponsableController extends Controller
 
 
         return $this->render('SiteBundle:Responsable:ajoutEtudiant.html.twig',[
-            'form'=> $form->createView()
+            'form'=> $form->createView(),
+            'user'=>$user
         ]);
     }
 }
