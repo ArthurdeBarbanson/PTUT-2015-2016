@@ -70,7 +70,7 @@ class Offre
 
     /**
      * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Etudiant")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $Etudiant;
 

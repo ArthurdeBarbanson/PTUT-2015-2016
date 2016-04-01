@@ -1,0 +1,19 @@
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="text-center">Offres d'alternance des entreprises</h1>
+    {{ form(form) }}
+
+    <h2>Liste des offres</h2>
+    <div class="list-group">
+        {% for offre in offres %}
+            <a class="list-group-item" href="{{ path('site_detailsAnnonceEtudiant', {'annonceId': offre.id }) }}">
+                <h3>{{ offre.entreprise.raisonSocial }} : {{ offre.titre }}
+                    <small>{{ offre.entreprise.adresse.commune }} - {{ offre.entreprise.adresse.adresse }}</small>
+                </h3>
+                <p>{{ offre.sujet }}</p>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}
