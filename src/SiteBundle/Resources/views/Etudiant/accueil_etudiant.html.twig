@@ -1,0 +1,26 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <h1 class="text-center">Bienvenue</h1>
+    <div class="row">
+        <div id="actions" class="col-sm-8 container">
+            <h2>Vous cherchez une entreprise ?</h2>
+            <p>Vous pouvez chercher une entreprise corespondant à vos critères en cliquant <a
+                        href="{{ path('site_listeOffreEtudiant') }}">ici</a>.</p>
+            <h2>Vous avez déjà trouvé votre entreprise ?</h2>
+            <p>Pour vous inscrire ou finaliser votre inscription <a href="#">ici</a>.</p>
+        </div>
+        <div id="cv" class="col-sm-4 container">
+            <div class="block text-center">
+                <h3>Mon CV</h3>
+                <p class="text-justify">Le curriculum vitae est, avec la lettre de motivation, le document central de
+                    votre
+                    candidature pour un emploi.Vous pouvez donc personaliser le votre et l'enregistrer pour une
+                    utilisation futur.</p>
+                <button class="btn btn-primary">
+                    Ajouter/modifier mon CV
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
