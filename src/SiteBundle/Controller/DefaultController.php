@@ -4,7 +4,6 @@ namespace SiteBundle\Controller;
 
 use Proxies\__CG__\SiteBundle\Entity\Entreprise;
 use Proxies\__CG__\SiteBundle\Entity\Offre;
-use SiteBundle\Entity\Adresse;
 use SiteBundle\Forms\Types\PostulerAnnonce;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +27,7 @@ class DefaultController extends Controller
         $repository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('SiteBundle:Offre');
+            ->getRepository('SiteBundl');
 
         $offre = $repository->find($annonceId);
         //si l'annonce n'es pas trouvé
