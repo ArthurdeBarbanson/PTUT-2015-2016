@@ -25,6 +25,9 @@
         <default key="_controller">SiteBundle:Default:detailAnnonce</default>
     </route>
 
+    <route id="site_accueilEtudiant" path="/etudiant/accueil">
+        <default key="_controller">SiteBundle:Etudiant:accueil</default>
+    </route>
     <!--Responsable-->
     <route id="responsableAjoutEtudiant" path="/responsable/ajout/etudiant">
         <default key="_controller">SiteBundle:Responsable:ajoutEtudiant</default>
