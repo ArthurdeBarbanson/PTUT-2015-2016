@@ -20,6 +20,10 @@
     <route id="inscriptionEntreprise" path="/entreprise/inscription">
         <default key="_controller">SiteBundle:Entreprise:inscription</default>
     </route>
+
+    <route id="site_listeOffreEntreprise" path="/entreprise/liste_offres">
+        <default key="_controller">SiteBundle:Default:listeOffres</default>
+    </route>
     <!-- Etudiant -->
     <route id="site_detailsAnnonceEtudiant" path="/etudiant/details_annonce/{annonceId}">
         <default key="_controller">SiteBundle:Default:detailAnnonce</default>
@@ -28,6 +32,11 @@
     <route id="site_accueilEtudiant" path="/etudiant/accueil">
         <default key="_controller">SiteBundle:Etudiant:accueil</default>
     </route>
+
+    <route id="site_listeOffreEtudiant" path="/etudiant/liste_offres">
+        <default key="_controller">SiteBundle:Default:listeOffres</default>
+    </route>
+
     <!--Responsable-->
     <route id="responsableAjoutEtudiant" path="/responsable/ajout/etudiant">
         <default key="_controller">SiteBundle:Responsable:ajoutEtudiant</default>
