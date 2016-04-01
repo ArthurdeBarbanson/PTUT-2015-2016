@@ -54,6 +54,14 @@ class MAP
      */
     private $fonction;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="DateNaissance", type="date")
+     */
+    private $dateNaissance;
+
+
 
     /**
      * Get id
@@ -175,5 +183,28 @@ class MAP
     public function setEntreprise(Entreprise $Entreprise)
     {
         $this->Entreprise = $Entreprise;
+    }
+
+    /**
+     * Set dateNaissance
+     *
+     * @param \DateTime $dateNaissance
+     * @return Etudiant
+     */
+    public function setDateNaissance($dateNaissance)
+    {
+        $this->dateNaissance = $dateNaissance;
+
+        return $this;
+    }
+
+    /**
+     * Get dateNaissance
+     *
+     * @return \DateTime
+     */
+    public function getDateNaissance()
+    {
+        return $this->dateNaissance;
     }
 }

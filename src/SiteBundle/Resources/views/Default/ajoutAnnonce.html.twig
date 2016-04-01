@@ -1,20 +1,37 @@
 {% extends '::base.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
 
 {% block body %}
     <h1>Ajouter une annonce</h1>
-    <h2>Offre</h2>
+
     {{ form_start(form) }}
     <label>Maitre apprentissage</label>
 
-        {% for map in maps %}
-            <label>test</label>
-            <li>{{ map.nom }}</li>
 
-        {% endfor %}
+        <select>
+            <option>{{ maps.laPersone.nom}} {{ maps.laPersone.prenom }}</option>
+        </select>
 
-    {{ form_end(form) }}
+<a class="btn" data-toggle="modal" data-target="#creerMap">
+    Créer un Maitre d'apprentissage
+</a>
+{{ form_end(form) }}
+<!-- Modal -->
+<div id="creerMap" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center">Créez un Maitre d'apprentissage</h4>
+            </div>
+            <div class="modal-body">
+                {{ form(form2) }}
+            </div>
+        </div>
 
-
-
+    </div>
+</div>
 
 {% endblock %}
