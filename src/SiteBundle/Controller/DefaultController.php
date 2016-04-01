@@ -27,7 +27,7 @@ class DefaultController extends Controller
         $repository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('SiteBundl');
+            ->getRepository('SiteBundle:Offre');
 
         $offre = $repository->find($annonceId);
         //si l'annonce n'es pas trouvé
