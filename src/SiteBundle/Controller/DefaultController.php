@@ -4,7 +4,6 @@ namespace SiteBundle\Controller;
 
 use Proxies\__CG__\SiteBundle\Entity\Entreprise;
 use Proxies\__CG__\SiteBundle\Entity\Offre;
-use SiteBundle\Entity\Adresse;
 use SiteBundle\Forms\Types\PostulerAnnonce;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
