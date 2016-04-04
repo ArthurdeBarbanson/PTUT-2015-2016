@@ -6,7 +6,6 @@ namespace SiteBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping;
 
-
 /**
  * OffreRepository
  *
@@ -15,7 +14,35 @@ use Doctrine\ORM\Mapping;
  */
 class OffreRepository extends EntityRepository
 {
-     
+    public function findOffresByData($parametres)
+    {
+        $query = $this->_em->createQueryBuilder();
+        $query
+            ->select('o')
+            ->from($this->_entityName, 'o')
+            ->leftJoin('SiteBundle:Entreprise', 'e', 'WITH', 'o.Entreprise = e.id')
+            ->leftJoin('SiteBundle:Adresse', 'a', 'WITH', 'e.Adresse = a.id')
+            ->where(
+                $query->expr()->orX(
+                    $query->expr()->like('o.titre', ':motsCles'),
+                    $query->expr()->like('o.sujet', ':motsCles')
+                )
+            )->setParameter('motsCles', '%' . $parametres['motsCles'] . '%');
+        $query
+            ->andWhere(
+                $query->expr()->like('a.commune', ':ville')
+            )->setParameter('ville', '%' . $parametres['ville'] . '%');
+        $query
+            ->andWhere(
+                $query->expr()->like('a.codePostal', ':dpt')
+            )->setParameter('dpt', $parametres['dpt'] . '%');
+        if (count($parametres['licence']) > 0)
+            $query
+                ->andWhere(
+                    $query->expr()->in('o.licenceConcerne', $parametres['licence'])
+                );
+        return $query->getQuery()->getResult();
+    }
 
 }
 
