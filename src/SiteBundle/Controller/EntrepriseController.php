@@ -142,4 +142,7 @@ class EntrepriseController extends Controller
             , ['form' => $form->createView()]
         );
     }
+    public function detailsPostulantsAction(){
+
+    }
 }
