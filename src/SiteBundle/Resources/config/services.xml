@@ -44,9 +44,11 @@
             <argument type="service" id="doctrine.dbal.default_connection" />
         </service>
 
-        <service id="userProvider" class="SiteBundle\Security\UserProvider"/>
+        <service id="user_provider" class="SiteBundle\Security\UserProvider">
+            <argument type="service" id="user_repository" />
+        </service>
 
-        <service id="userRepository" class="SiteBundle\Repository\UserRepository">
+        <service id="user_repository" class="SiteBundle\Repository\UserRepository">
             <argument type="service" id="doctrine.dbal.default_connection" />
         </service>
 
