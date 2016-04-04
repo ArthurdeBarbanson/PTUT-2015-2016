@@ -23,7 +23,8 @@ security:
                         password: $2y$12$NR8EDtDo7cnwOYyL3uP66u5jg3jd8aVt8iT1SyO3V5YamR8G8/ulu
                         roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
         user_db:
-            entity: { class: SiteBundle\Entity\User, property: username }
+#            entity: { class: SiteBundle\Entity\User, property: username }
+            id: userProvider
 
     encoders:
         Symfony\Component\Security\Core\User\User:

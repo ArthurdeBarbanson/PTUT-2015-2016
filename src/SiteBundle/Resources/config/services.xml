@@ -43,11 +43,12 @@
         <service id="premiere_inscription_repository" class="SiteBundle\Repository\PremiereInscriptionRepository">
             <argument type="service" id="doctrine.dbal.default_connection" />
         </service>
-        <service id="service.UserProvider" class="SiteBundle\Security\UserProvider"/>
-        <service id="service.UserRepository" class="SiteBundle\Repository\UserRepository"/>
 
+        <service id="userProvider" class="SiteBundle\Security\UserProvider"/>
 
+        <service id="userRepository" class="SiteBundle\Repository\UserRepository">
+            <argument type="service" id="doctrine.dbal.default_connection" />
+        </service>
 
     </services>
-
 </container>
