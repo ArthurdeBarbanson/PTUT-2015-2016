@@ -18,8 +18,31 @@ class EntrepriseController extends Controller
 
     public function accueilAction (){
 
-        return $this->render(
-            'SiteBundle:Entreprise:accueil_entreprise.html.twig'
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Entreprise');
+
+        $entreprise =$repository->find(2);
+
+        $repositoryOffre = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Offre');
+
+        $offres = $repositoryOffre->findBy(array("Entreprise"=>$entreprise));
+
+        $repositoryPostulant= $this->getDoctrine()->getManager()->getRepository('SiteBundle:EtudiantOffre');
+        $postulantOffres = array(); $result= array();
+        foreach($offres as $offre){
+            $id = $offre->getId();
+
+            $postulantOffres= array($id=>$repositoryPostulant->findBy(array("Offre"=>$offre)));
+            $result = array_merge($postulantOffres,$result);
+        }
+            return $this->render(
+            'SiteBundle:Entreprise:accueil_entreprise.html.twig',
+            ['offres'=>$offres,'postulantOffres'=>$result]
         );
     }
 
