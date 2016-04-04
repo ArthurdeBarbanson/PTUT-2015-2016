@@ -7,13 +7,30 @@
 
     <h2>Liste des offres</h2>
     <div class="list-group">
-        {% for offre in offres %}
-            <a class="list-group-item" href="{{ path('site_detailsAnnonceEtudiant', {'annonceId': offre.id }) }}">
-                <h3>{{ offre.entreprise.raisonSocial }} : {{ offre.titre }}
-                    <small>{{ offre.entreprise.adresse.commune }} - {{ offre.entreprise.adresse.adresse }}</small>
-                </h3>
-                <p>{{ offre.sujet }}</p>
-            </a>
-        {% endfor %}
+        {% if 'site_listeOffreEntreprise' == app.request.attributes.get('_route') %}
+            {% for offre in offres %}
+
+                <a class="list-group-item" href="{{ path('site_detailsAnnonceEntreprise', {'annonceId': offre.id }) }}">
+
+                    <h3>{{ offre.entreprise.raisonSocial }} : {{ offre.titre }}
+                        <small>{{ offre.entreprise.adresse.commune }} - {{ offre.entreprise.adresse.adresse }}</small>
+                    </h3>
+                    <p>{{ offre.sujet }}</p>
+                </a>
+
+            {% endfor %}
+        {% else %}
+            {% for offre in offres %}
+
+                <a class="list-group-item" href="{{ path('site_detailsAnnonceEtudiant', {'annonceId': offre.id }) }}">
+
+                    <h3>{{ offre.entreprise.raisonSocial }} : {{ offre.titre }}
+                        <small>{{ offre.entreprise.adresse.commune }} - {{ offre.entreprise.adresse.adresse }}</small>
+                    </h3>
+                    <p>{{ offre.sujet }}</p>
+                </a>
+
+            {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}

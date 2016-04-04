@@ -31,7 +31,7 @@ class EtudiantOffre
     /**
      * @var string
      *
-     * @ORM\Column(name="Description", type="text")
+     * @ORM\Column(name="LettreMotivation", type="text")
      */
     private $lettreMotivation;
 
