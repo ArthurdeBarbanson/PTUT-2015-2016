@@ -9,7 +9,7 @@
     </div>
     <div>
         {% for offre in offres %}
-            <h2>{{ offre.titre }} <a href=""><span class="glyphicon glyphicon-pencil"></span></a> <a href="{{path('site_detailsAnnonceEtudiant', {'annonceId': offre.id }) }}"><span class="glyphicon glyphicon-search"></span></a></h2>
+            <h2>{{ offre.titre }} <a href=""><span class="glyphicon glyphicon-pencil"></span></a> <a href="{{path('site_detailsAnnonceEntreprise', {'annonceId': offre.id }) }}"><span class="glyphicon glyphicon-search"></span></a></h2>
             <table class="table table-bordered">
                 <tr>
                     <th class="col-md-2" >Nom Prenom</th>
@@ -29,7 +29,7 @@
                         <td class="text-center">{{ postulant.etudiant.getAge() }} ans</td>
                         <td class="text-center"><a href="" ><span class="glyphicon glyphicon-eye-open "></span></a></td>
                         <td class="text-center"><a href=""><span class="glyphicon glyphicon-eye-open"></span></a></td>
-                        <td class="text-center"><a href=""><span class="glyphicon glyphicon-eye-open margR10"></span></a><a href=""><span class="glyphicon glyphicon-print"></span></a></td>
+                        <td class="text-center"><a href="{{path('site_detailsPostulant', {'postulantId': postulant.id }) }}"><span class="glyphicon glyphicon-eye-open margR10"></span></a><a href=""><span class="glyphicon glyphicon-print"></span></a></td>
                     </tr>
                         {% endif %}
 
