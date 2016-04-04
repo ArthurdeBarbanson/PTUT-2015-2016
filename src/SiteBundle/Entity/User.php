@@ -6,112 +6,56 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Table(name="app_users")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
+ * User
  *
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="SiteBundle\Repository\UserRepository")
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface
 {
-
     /**
-     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Personne", cascade={"persist"})
-     */
-    private $Personne;
-    /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=25, unique=true)
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=255)
      */
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @var string
+     *
+     * @ORM\Column(name="roles", type="string", length=255)
+     */
+    private $roles;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
 
     /**
-     * @ORM\Column(name="is_active", type="boolean")
+     * @var string
+     *
+     * @ORM\Column(name="salt", type="string", length=255)
      */
-    private $isActive;
+    private $salt;
 
-    /**
-     * @ORM\Column(type="string",length=255, unique=true)
-     */
-    private $roles;
-
-    public function __construct()
-    {
-        $this->isActive = true;
-        // may not be needed, see section on salt below
-        // $this->salt = md5(uniqid(null, true));
-    }
-
-    public function getPrenom()
-    {
-        return $this->prenom;
-    }
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    public function getSalt()
-    {
-        // you *may* need a real salt depending on your encoder
-        // see section on salt below
-        return null;
-    }
-
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-
-    public function getRoles()
-    {
-        return $this->roles;
-    }
-
-    public function eraseCredentials()
-    {
-    }
-
-    /** @see \Serializable::serialize() */
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->username,
-            $this->prenom,
-            $this->password,
-            // see section on salt below
-            // $this->salt,
-        ));
-    }
-
-    /** @see \Serializable::unserialize() */
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            $this->username,
-            $this->prenom,
-            $this->password,
-            // see section on salt below
-            // $this->salt
-            ) = unserialize($serialized);
-    }
 
     /**
      * Get id
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -119,20 +63,28 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set username
+     * Set roles
      *
-     * @param string $username
+     * @param string $roles
      *
      * @return User
      */
-    public function setUsername($username)
+    public function setRoles($roles)
     {
-        $this->username = $username;
+        $this->roles = $roles;
 
         return $this;
     }
 
-
+    /**
+     * Get roles
+     *
+     * @return string
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
 
     /**
      * Set password
@@ -149,47 +101,71 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set isActive
+     * Get password
      *
-     * @param boolean $isActive
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
      *
      * @return User
      */
-    public function setIsActive($isActive)
+    public function setSalt($salt)
     {
-        $this->isActive = $isActive;
+        $this->salt = $salt;
 
         return $this;
     }
 
     /**
-     * Get isActive
+     * Get salt
      *
-     * @return boolean
+     * @return string
      */
-    public function getIsActive()
+    public function getSalt()
     {
-        return $this->isActive;
+        return $this->salt;
     }
 
     /**
-     * Get Personne
+     * Set username
      *
-     * @return Personne
-     */
-    public function getPersonne()
-    {
-        return $this->Personne;
-    }
-
-    /**
-     * Set Personne
+     * @param string $username
      *
-     * @param Personne $Personne
      * @return User
      */
-    public function setPersonne($Personne)
+    public function setUsername($username)
     {
-        $this->Personne= $Personne;
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+
     }
 }

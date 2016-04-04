@@ -27,14 +27,14 @@ class UserProvider implements UserProviderInterface
 
     public function loadUserByUsername($username)
     {
-        $userAccount = $this->userRepository->findByUsername($username);
+        $user = $this->userRepository->findByUsername($username);
 
-        if (null === $userAccount) {
+        if (null === $user) {
 
             throw new UsernameNotFoundException();
         }
 
-        return $userAccount;
+        return $user;
     }
 
     public function refreshUser(UserInterface $user)
