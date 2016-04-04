@@ -37,14 +37,14 @@ class DernierEtablissementFrequente
     /**
      * @var string
      *
-     * @ORM\Column(name="Nom", type="string", length=255)
+     * @ORM\Column(name="Nom", type="string", length=50)
      */
     private $nom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Departement", type="string", length=255)
+     * @ORM\Column(name="Departement", type="string", length=50)
      */
     private $departement;
 
@@ -65,7 +65,7 @@ class DernierEtablissementFrequente
     /**
      * @var string
      *
-     * @ORM\Column(name="Type", type="string", length=255)
+     * @ORM\Column(name="Type", type="string", length=50)
      */
     private $type;
 

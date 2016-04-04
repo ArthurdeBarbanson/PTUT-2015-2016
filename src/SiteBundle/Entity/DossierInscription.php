@@ -31,7 +31,7 @@ class DossierInscription
     /**
      * @var string
      *
-     * @ORM\Column(name="EtatDossier", type="string", length=255)
+     * @ORM\Column(name="EtatDossier", type="string", length=50)
      */
     private $etatDossier;
 
@@ -45,28 +45,28 @@ class DossierInscription
     /**
      * @var string
      *
-     * @ORM\Column(name="SituationFamillale", type="string", length=255)
+     * @ORM\Column(name="SituationFamillale", type="string", length=50)
      */
     private $situationFamillale;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="INE", type="string", length=255)
+     * @ORM\Column(name="INE", type="string", length=50)
      */
     private $iNE;
 
     /**
-     * @var string
+     * @var boolean
      *
-     * @ORM\Column(name="ancienDeLyon1", type="string", length=255)
+     * @ORM\Column(name="ancienDeLyon1", type="boolean")
      */
     private $ancienDeLyon1;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="NumeroSecuriteSocial", type="string", length=255)
+     * @ORM\Column(name="NumeroSecuriteSocial", type="string", length=50)
      */
     private $numeroSecuriteSocial;
 

@@ -24,49 +24,49 @@ class Entreprise
     /**
      * @var string
      *
-     * @ORM\Column(name="Nom", type="string", length=255)
+     * @ORM\Column(name="Nom", type="string", length=50)
      */
     private $nom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Prenom", type="string", length=255)
+     * @ORM\Column(name="Prenom", type="string", length=50)
      */
     private $prenom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Mail", type="string", length=255)
+     * @ORM\Column(name="Mail", type="string", length=50)
      */
     private $mail;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="RaisonSocial", type="string", length=255)
+     * @ORM\Column(name="RaisonSocial", type="string", length=50)
      */
     private $raisonSocial;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="NombrePersonne", type="string", length=255)
+     * @ORM\Column(name="NombrePersonne", type="string", length=50)
      */
     private $nombrePersonne;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Siret", type="string", length=255)
+     * @ORM\Column(name="Siret", type="string", length=50)
      */
     private $siret;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="APE", type="string", length=255)
+     * @ORM\Column(name="APE", type="string", length=50)
      */
     private $aPE;
 
@@ -80,14 +80,14 @@ class Entreprise
     /**
      * @var string
      *
-     * @ORM\Column(name="SiteWeb", type="string", length=255)
+     * @ORM\Column(name="SiteWeb", type="string", length=50)
      */
     private $siteWeb;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Telephone", type="string", length=255)
+     * @ORM\Column(name="Telephone", type="string", length=50)
      */
     private $telephone;
 
