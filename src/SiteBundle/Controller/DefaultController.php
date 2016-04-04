@@ -3,6 +3,7 @@
 namespace SiteBundle\Controller;
 
 use Proxies\__CG__\SiteBundle\Entity\Entreprise;
+use SiteBundle\Entity\EtudiantOffre;
 use SiteBundle\Forms\Types\PostulerAnnonce;
 use SiteBundle\Forms\Types\RechercheOffresType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -40,8 +41,21 @@ class DefaultController extends Controller
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
+                //TODO etudiant pas bien chargé
+                $repository = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
+                $etudiant = $repository->find(2);
+
                 $data = $form->getData();
-                //TODO envoyer
+                $em = $this->getDoctrine()->getManager();
+                $etudiant_offre = new EtudiantOffre;
+                $etudiant_offre->setDate(new \DateTime());
+                $etudiant_offre->setLettreMotivation($data['lettreMotivation']);
+                $etudiant_offre->setOffre($offre);
+                $etudiant_offre->setEtudiant($etudiant);
+
+                $em->persist($etudiant_offre);
+                $em->flush();
+                $this->addFlash('info', "L'offre à bien été enregistrée.");
             }
         }
 
