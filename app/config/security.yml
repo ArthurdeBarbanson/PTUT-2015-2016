@@ -24,7 +24,7 @@ security:
                         roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
         user_db:
 #           entity: { class: SiteBundle\Entity\User, property: username }
-            id: userProvider
+            id: user_provider
 
     encoders:
         Symfony\Component\Security\Core\User\User:
