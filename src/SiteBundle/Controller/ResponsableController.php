@@ -15,10 +15,12 @@ class ResponsableController extends Controller
 
     public function ajoutEtudiantAction(Request $request)
     {
-        $repositoryUser= $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:User');
+//        $repositoryUser= $this
+//            ->getDoctrine()
+//            ->getManager()
+//            ->getRepository('SiteBundle:User');
+        $user = $this->getUser();
+
 
         $form=$this->createForm(AjoutEtudiant::class);
 
@@ -32,7 +34,7 @@ class ResponsableController extends Controller
 
         return $this->render('SiteBundle:Responsable:ajoutEtudiant.html.twig',[
             'form'=> $form->createView(),
-
+            'user'=>$user
         ]);
     }
 }

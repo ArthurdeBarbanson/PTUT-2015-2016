@@ -1,12 +1,10 @@
 {% extends '::base.html.twig' %}
 {% block username %}
-
+    Bonjour {{ app.user.username }}
 {% endblock %}
 
 {% block body %}
     <h1>Ajouter un étudiant</h1>
 
     {{ form(form) }}
-
-
 {% endblock %}
