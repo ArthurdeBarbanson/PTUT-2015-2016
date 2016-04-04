@@ -31,21 +31,21 @@ class Adresse
     /**
      * @var string
      *
-     * @ORM\Column(name="CodePostal", type="string", length=255)
+     * @ORM\Column(name="CodePostal", type="string", length=6)
      */
     private $codePostal;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Commune", type="string", length=255)
+     * @ORM\Column(name="Commune", type="string", length=50)
      */
     private $commune;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Pays", type="string", length=255)
+     * @ORM\Column(name="Pays", type="string", length=50)
      */
     private $pays;
 

@@ -24,35 +24,35 @@ class Personne
     /**
      * @var string
      *
-     * @ORM\Column(name="Nom", type="string", length=255)
+     * @ORM\Column(name="Nom", type="string", length=50)
      */
     private $nom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Prenom", type="string", length=255)
+     * @ORM\Column(name="Prenom", type="string", length=50)
      */
     private $prenom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Telephone", type="string", length=255)
+     * @ORM\Column(name="Telephone", type="string", length=20)
      */
     private $telephone;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Sexe", type="string", length=255)
+     * @ORM\Column(name="Sexe", type="string", length=5)
      */
     private $sexe;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Mail", type="string", length=255)
+     * @ORM\Column(name="Mail", type="string", length=50)
      */
     private $mail;
 

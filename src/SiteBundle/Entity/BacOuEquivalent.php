@@ -37,28 +37,28 @@ class BacOuEquivalent
     /**
      * @var string
      *
-     * @ORM\Column(name="Mention", type="string", length=255)
+     * @ORM\Column(name="Mention", type="string", length=50)
      */
     private $mention;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="TypeEtablissementObtention", type="string", length=255)
+     * @ORM\Column(name="TypeEtablissementObtention", type="string", length=50)
      */
     private $typeEtablissementObtention;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="DepartementEtablissementObtention", type="string", length=255)
+     * @ORM\Column(name="DepartementEtablissementObtention", type="string", length=50)
      */
     private $departementEtablissementObtention;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="NomEtablissementObtention", type="string", length=255)
+     * @ORM\Column(name="NomEtablissementObtention", type="string", length=50)
      */
     private $nomEtablissementObtention;
 

@@ -31,7 +31,7 @@ class Dirigeant
     /**
      * @var string
      *
-     * @ORM\Column(name="Fonction", type="string", length=255)
+     * @ORM\Column(name="Fonction", type="string", length=50)
      */
     private $fonction;
 

@@ -29,6 +29,10 @@
         <default key="_controller">SiteBundle:Default:listeOffres</default>
     </route>
 
+    <route id="site_detailsPostulant" path="/entreprise/detailsPostulants/{postulantId}">
+        <default key="_controller">SiteBundle:Entreprise:detailsPostulants</default>
+    </route>
+
 
     <!-- Etudiant -->
     <route id="site_detailsAnnonceEtudiant" path="/etudiant/details_annonce/{annonceId}">
