@@ -12,11 +12,11 @@
             <h2>{{ offre.titre }} <a href=""><span class="glyphicon glyphicon-pencil"></span></a> <a href="{{path('site_detailsAnnonceEtudiant', {'annonceId': offre.id }) }}"><span class="glyphicon glyphicon-search"></span></a></h2>
             <table class="table table-bordered">
                 <tr>
-                    <th>Nom Prenom</th>
-                    <th>Age</th>
-                    <th>CV</th>
-                    <th>Lettre De Motivation</th>
-                    <th>Profil</th>
+                    <th class="col-md-2" >Nom Prenom</th>
+                    <th class="col-md-2 text-center">Age</th>
+                    <th class="col-md-2 text-center">CV</th>
+                    <th class="col-md-2 text-center">Lettre De Motivation</th>
+                    <th class="col-md-2 text-center">Profil</th>
                 </tr>
                 {% for postulants in postulantOffres %}
 
@@ -26,10 +26,10 @@
 
                     <tr>
                     <td>{{ postulant.etudiant.laPersone.nom }} {{ postulant.etudiant.laPersone.prenom }}</td>
-                        <td>{{ postulant.etudiant.getAge() }} ans</td>
-                        <td><a href=""><span class="glyphicon glyphicon-eye-open"></span></a></td>
-                        <td><a href=""><span class="glyphicon glyphicon-eye-open"></span></a></td>
-                        <td><a href=""><span class="glyphicon glyphicon-eye-open margR10"></span></a><a href=""><span class="glyphicon glyphicon-print"></span></a></td>
+                        <td class="text-center">{{ postulant.etudiant.getAge() }} ans</td>
+                        <td class="text-center"><a href="" ><span class="glyphicon glyphicon-eye-open "></span></a></td>
+                        <td class="text-center"><a href=""><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                        <td class="text-center"><a href=""><span class="glyphicon glyphicon-eye-open margR10"></span></a><a href=""><span class="glyphicon glyphicon-print"></span></a></td>
                     </tr>
                         {% endif %}
 
