@@ -28,6 +28,7 @@ class EtudiantOffre
      */
     private $date;
 
+    
     /**
      * @var string
      *
