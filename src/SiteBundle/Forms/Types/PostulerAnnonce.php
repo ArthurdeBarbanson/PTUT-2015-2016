@@ -24,19 +24,8 @@ class PostulerAnnonce extends AbstractType
                 'label' => 'Prenom',
                 'required' => true,
             ))
-            ->add('isImportCV', ChoiceType::class, array(
-                'label' => 'Choix du CV',
-                'choices' => array('Importer mon CV' => 'cvImport', 'Utiliser le CV existant' => 'utiliserCV'),
-                'multiple' => false, 'expanded' => true,
-            ))
-            ->add('cvImport', FileType::class, array(
-                'label' => 'Importer mon CV',
-            ))
             ->add('lettreMotivation', TextareaType::class, array(
                 'label' => 'Ecrir ma lettre de motivation'
-            ))
-            ->add('lettreMotivationImport', FileType::class, array(
-                'label' => 'Importer ma lettre de motivation',
             ))
             ->add('submit', SubmitType::class, [
                 'label' => 'Envoyer',

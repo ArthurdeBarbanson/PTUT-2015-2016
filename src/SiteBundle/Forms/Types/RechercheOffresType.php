@@ -34,7 +34,6 @@ class RechercheOffresType extends AbstractType
             ))
             ->add('submit', SubmitType::class, [
                 'label' => 'Rechercher',
-                'attr' => ['class' => 'btn btn-default pull-right']
             ]);
     }
 }
