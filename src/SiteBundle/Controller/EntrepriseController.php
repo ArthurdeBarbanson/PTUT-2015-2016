@@ -3,8 +3,8 @@
 namespace SiteBundle\Controller;
 
 use DateTime;
-use Proxies\__CG__\SiteBundle\Entity\Entreprise;
-use Proxies\__CG__\SiteBundle\Entity\Offre;
+use SiteBundle\Entity\Entreprise;
+use SiteBundle\Entity\Offre;
 use SiteBundle\Entity\MAP;
 use SiteBundle\Entity\Personne;
 use SiteBundle\Forms\Types\CreateAnnonce;
@@ -15,18 +15,35 @@ use Symfony\Component\HttpFoundation\Request;
 class EntrepriseController extends Controller
 {
 
+
+    public function accueilAction (){
+
+        return $this->render(
+            'SiteBundle:Entreprise:accueil_entreprise.html.twig'
+        );
+    }
+
     public function ajoutAnnonceAction(Request $request){
         {
+            $repository = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('SiteBundle:Entreprise');
+
+            $entreprise =$repository->find(2);
+
             $form = $this->createForm(CreateAnnonce::class);
             $form2 = $this->createForm(CreateMap::class);
             $em = $this->getDoctrine()->getManager() ;
+
 
             $repositoryMap = $this
                 ->getDoctrine()
                 ->getManager()
                 ->getRepository('SiteBundle:MAP');
 
-            $maps = $repositoryMap->find(1);
+            $maps = $repositoryMap->findBy(array("Entreprise"=>$entreprise));
+
 
             if ($request->isMethod('post')) {
                $form->handleRequest($request);
@@ -35,12 +52,7 @@ class EntrepriseController extends Controller
 
                     $dateDepot= new DateTime();
                     $dateDepot->format('Y-m-d H');
-                    $repository = $this
-                       ->getDoctrine()
-                       ->getManager()
-                       ->getRepository('SiteBundle:Entreprise');
 
-                    $entreprise =$repository->find(2);
 
                     $annonce= new Offre;
                     $annonce->setDateDepot($dateDepot);
@@ -62,12 +74,7 @@ class EntrepriseController extends Controller
                     $data = $form2->getData();
                     $personne = new Personne();
                     $map = new MAP();
-                    $repository = $this
-                        ->getDoctrine()
-                        ->getManager()
-                        ->getRepository('SiteBundle:Entreprise');
 
-                    $entreprise =$repository->find(2);
                     $repositoryAdresse = $this
                         ->getDoctrine()
                         ->getManager()
