@@ -3,7 +3,6 @@
 namespace SiteBundle\Controller;
 
 use Proxies\__CG__\SiteBundle\Entity\Entreprise;
-use Proxies\__CG__\SiteBundle\Entity\Offre;
 use SiteBundle\Forms\Types\PostulerAnnonce;
 use SiteBundle\Forms\Types\RechercheOffresType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -57,19 +56,22 @@ class DefaultController extends Controller
     {
         $form = $this->createForm(RechercheOffresType::class);
 
-        $repository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:Offre');
-
-        $offres = $repository->findAll();
-
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $data = $form->getData();
-                //TODO envoyer
+                $repository = $this
+                    ->getDoctrine()
+                    ->getManager()
+                    ->getRepository('SiteBundle:Offre');
+                $offres = $repository->findOffresByData($data);
             }
+        } else {
+            $repository = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('SiteBundle:Offre');
+            $offres = $repository->findAll();
         }
 
         return $this->render('SiteBundle:Default:liste_offres.html.twig'

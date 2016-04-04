@@ -18,6 +18,9 @@ and open the template in the editor.
     margin-top: 100px;
 }
 
+.margR10 {
+    margin-right: 10px;
+}
 .margTop50 {
     margin-top: 50px;
 }

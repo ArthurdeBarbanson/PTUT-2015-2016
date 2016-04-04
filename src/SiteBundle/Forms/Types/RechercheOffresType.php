@@ -20,17 +20,21 @@ class RechercheOffresType extends AbstractType
                 'label' => 'Mots clés',
                 'required' => false,
             ))
-            ->add('villeDep', TextType::class, array(
-                'label' => 'Ville/dpt',
+            ->add('ville', TextType::class, array(
+                'label' => 'Ville',
+                'required' => false,
+            ))
+            ->add('dpt', TextType::class, array(
+                'label' => 'Département',
                 'required' => false,
             ))
             ->add('licence', ChoiceType::class, array(
-                'choices' => array('IEM' => 'iem', 'Metinet' => 'metienet'),
-                'multiple' => true, 'expanded' => true
+                'choices' => array('IEM' => 'IEM', 'Metinet' => 'metinet'),
+                'multiple' => true, 'expanded' => true,
             ))
             ->add('submit', SubmitType::class, [
                 'label' => 'Rechercher',
-                'attr' => ['class' => 'btn btn-default'],
+                'attr' => ['class' => 'btn btn-default pull-right']
             ]);
     }
 }
