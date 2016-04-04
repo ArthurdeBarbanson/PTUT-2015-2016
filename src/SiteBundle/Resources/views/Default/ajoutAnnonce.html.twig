@@ -10,7 +10,10 @@
 
 
         <select>
-            <option>{{ maps.laPersone.nom}} {{ maps.laPersone.prenom }}</option>
+            {% for map in maps %}
+
+                <option>{{ map.laPersone.nom}} {{ map.laPersone.prenom }}</option>
+            {% endfor %}
         </select>
 
 <a class="btn" data-toggle="modal" data-target="#creerMap">

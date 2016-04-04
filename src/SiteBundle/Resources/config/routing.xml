@@ -10,6 +10,10 @@
     </route>
 
     <!-- Entreprise -->
+    <route id="accueilEntreprise" path="/entreprise">
+        <default key="_controller">SiteBundle:Entreprise:accueil</default>
+    </route>
+
     <route id="site_ajoutAnnonce" path="/entreprise/ajout_annonce">
         <default key="_controller">SiteBundle:Entreprise:ajoutAnnonce</default>
     </route>
@@ -24,12 +28,14 @@
     <route id="site_listeOffreEntreprise" path="/entreprise/liste_offres">
         <default key="_controller">SiteBundle:Default:listeOffres</default>
     </route>
+
+
     <!-- Etudiant -->
     <route id="site_detailsAnnonceEtudiant" path="/etudiant/details_annonce/{annonceId}">
         <default key="_controller">SiteBundle:Default:detailAnnonce</default>
     </route>
 
-    <route id="site_accueilEtudiant" path="/etudiant/accueil">
+    <route id="site_accueilEtudiant" path="/etudiant">
         <default key="_controller">SiteBundle:Etudiant:accueil</default>
     </route>
 
