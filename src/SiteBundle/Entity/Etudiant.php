@@ -295,5 +295,10 @@ class Etudiant
         $this->DossierInscription = $DossierInscription;
     }
 
+    public function getAge()
+    {
+        $dateInterval = $this->dateNaissance->diff(new \DateTime());
 
+        return $dateInterval->y;
+    }
 }
