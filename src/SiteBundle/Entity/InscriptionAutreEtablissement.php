@@ -3,6 +3,7 @@
 namespace SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * InscriptionAutreEtablissement
@@ -38,21 +39,21 @@ class InscriptionAutreEtablissement
     /**
      * @var string
      *
-     * @ORM\Column(name="NomEtablissement", type="string", length=255)
+     * @ORM\Column(name="NomEtablissement", type="string", length=50)
      */
     private $nomEtablissement;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="TypeEtablissement", type="string", length=255)
+     * @ORM\Column(name="TypeEtablissement", type="string", length=50)
      */
     private $typeEtablissement;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="DepartmentEtablissement", type="string", length=255)
+     * @ORM\Column(name="DepartmentEtablissement", type="string", length=50)
      */
     private $departmentEtablissement;
 
@@ -64,16 +65,16 @@ class InscriptionAutreEtablissement
     private $estInscriptionMaintenu;
 
     /**
-     * @var string
+     * @var DateTime
      *
-     * @ORM\Column(name="AnneeEtablissement", type="string", length=255)
+     * @ORM\Column(name="AnneeEtablissement", type="date")
      */
     private $anneeEtablissement;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="CodeEtablissement", type="string", length=255)
+     * @ORM\Column(name="CodeEtablissement", type="string", length=6)
      */
     private $codeEtablissement;
 

@@ -3,6 +3,7 @@
 namespace SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * PremiereInscription
@@ -44,14 +45,14 @@ class PremiereInscription
     /**
      * @var string
      *
-     * @ORM\Column(name="NomUniversite", type="string", length=255)
+     * @ORM\Column(name="NomUniversite", type="string", length=50)
      */
     private $nomUniversite;
 
     /**
-     * @var string
+     * @var DateTime
      *
-     * @ORM\Column(name="AnneeEnseignementSuperieur", type="string", length=255)
+     * @ORM\Column(name="AnneeEnseignementSuperieur", type="date")
      */
     private $anneeEnseignementSuperieur;
 

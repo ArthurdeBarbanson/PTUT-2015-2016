@@ -30,28 +30,28 @@ class DernierDiplomeObtenu
     /**
      * @var string
      *
-     * @ORM\Column(name="Departement", type="string", length=255)
+     * @ORM\Column(name="Departement", type="string", length=50)
      */
     private $departement;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="Annee", type="string", length=255)
+     * @ORM\Column(name="Annee", type="date")
      */
     private $annee;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Etablissement", type="string", length=255)
+     * @ORM\Column(name="Etablissement", type="string", length=50)
      */
     private $etablissement;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="LeDiplomeObtenue", type="string", length=255)
+     * @ORM\Column(name="LeDiplomeObtenue", type="string", length=50)
      */
     private $leDiplomeObtenue;
 

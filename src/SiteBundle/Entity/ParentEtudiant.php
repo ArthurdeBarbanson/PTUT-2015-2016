@@ -30,14 +30,14 @@ class ParentEtudiant
     /**
      * @var string
      *
-     * @ORM\Column(name="CategorieSocioProfessionnelle", type="string", length=255)
+     * @ORM\Column(name="CategorieSocioProfessionnelle", type="string", length=50)
      */
     private $categorieSocioProfessionnelle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="SecuriteSocial", type="string", length=255)
+     * @ORM\Column(name="SecuriteSocial", type="string", length=50)
      */
     private $securiteSocial;
 
