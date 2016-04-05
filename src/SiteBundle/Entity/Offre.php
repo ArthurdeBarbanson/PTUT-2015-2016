@@ -45,14 +45,14 @@ class Offre
     /**
      * @var string
      *
-     * @ORM\Column(name="Sujet", type="string", length=255)
+     * @ORM\Column(name="Sujet", type="text")
      */
     private $sujet;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Titre", type="text")
+     * @ORM\Column(name="Titre", type="string", length=255)
      */
     private $titre;
 
