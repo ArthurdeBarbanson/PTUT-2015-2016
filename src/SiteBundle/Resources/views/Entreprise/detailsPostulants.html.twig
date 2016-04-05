@@ -1,1 +1,21 @@
 {% extends 'base.html.twig' %}
+{% block body %}
+<h1>Postulant a l'offre  {{ postulant.offre.titre }}</h1>
+<div>
+    <p><label>Nom : </label> {{ postulant.etudiant.laPersone.nom }}</p>
+    <p><label>Prenom : </label> {{ postulant.etudiant.laPersone.prenom }}</p>
+    <p><label>Sexe : </label> {{ postulant.etudiant.laPersone.sexe }}</p>
+    <p><label>Email : </label> {{ postulant.etudiant.laPersone.mail }}</p>
+    <p><label>Téléphone : </label> {{ postulant.etudiant.laPersone.telephone }}</p>
+    <p><label>Adresse : </label> {{ postulant.etudiant.laPersone.adresse.commune }} {{ postulant.etudiant.laPersone.adresse.codePostal}}</p>
+    <p><label>CV : </label> <a><span class="glyphicon glyphicon-eye-open"></span></a></p>
+    <p><label>Lettre de motivation :    </label> {{ postulant.lettreMotivation }}</p>
+</div>
+<div class="text-center">
+    <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-envelope"></span> Contacter</a>
+    <a class="btn btn-success" href="#"><span class="glyphicon glyphicon-ok"></span> Acccepter</a>
+    <a class="btn btn-danger" href="#"><span class="glyphicon glyphicon-remove"></span> Refuser</a>
+    <a class="btn btn-default" href="{{path('site_accueilEntreprise')}}">Retour</a>
+</div>
+
+{% endblock %}

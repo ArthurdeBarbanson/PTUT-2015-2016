@@ -10,7 +10,7 @@
     </route>
 
     <!-- Entreprise -->
-    <route id="accueilEntreprise" path="/entreprise">
+    <route id="site_accueilEntreprise" path="/entreprise">
         <default key="_controller">SiteBundle:Entreprise:accueil</default>
     </route>
 

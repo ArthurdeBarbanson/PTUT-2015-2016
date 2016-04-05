@@ -72,10 +72,9 @@ class EntrepriseController extends Controller
                $form->handleRequest($request);
                 if ($form->isValid()) {
                     $data = $form->getData();
-
                     $dateDepot= new DateTime();
                     $dateDepot->format('Y-m-d H');
-
+                    $map = $repositoryMap->find($request->request->get('map'));
 
                     $annonce= new Offre;
                     $annonce->setDateDepot($dateDepot);
@@ -84,13 +83,13 @@ class EntrepriseController extends Controller
                     $annonce->setTitre($data['Titre']);
                     $annonce->setLicenceConcerne(($data['Lpconcerne']));
                     $annonce->setEntreprise($entreprise);
-                    $annonce->setMAP($maps);
+                    $annonce->setMAP($map);
 
                     $em->persist($annonce);
                     $em->flush();
                     $this->addFlash('info', "L'annonce a été mis en attente de Validation.");
 
-                    return $this->redirect('/entreprise/accueil');
+                    return $this->redirect('/PTUT-2015-2016/web/app_dev.php/entreprise');
                }
                 $form2->handleRequest($request);
                 if ($form2->isValid()) {
@@ -133,7 +132,7 @@ class EntrepriseController extends Controller
         }
     }
 
-    public function inscriptionAction(Request $request)
+    public function inscriptionAction()
     {
         //TODO  $form = $this->createForm(PostulerAnnonce::class);
         $form = $this->createForm(PostulerAnnonce::class);;
@@ -142,7 +141,24 @@ class EntrepriseController extends Controller
             , ['form' => $form->createView()]
         );
     }
-    public function detailsPostulantsAction(){
+    public function detailsPostulantsAction(Request $request){
+
+        $postulantId = $request->get('postulantId');
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:EtudiantOffre');
+
+        $offre = $repository->find($postulantId);
+        //si l'annonce n'es pas trouvé
+        if (null === $offre) {
+            throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
+        }
+
+        return $this->render(
+            'SiteBundle:Entreprise:detailsPostulants.html.twig',['postulant' => $offre]
+
+        );
 
     }
 }
