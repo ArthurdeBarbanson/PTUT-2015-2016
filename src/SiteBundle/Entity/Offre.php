@@ -45,7 +45,7 @@ class Offre
     /**
      * @var string
      *
-     * @ORM\Column(name="Sujet", type="string", length=255)
+     * @ORM\Column(name="Sujet", type="text")
      */
     private $sujet;
 
