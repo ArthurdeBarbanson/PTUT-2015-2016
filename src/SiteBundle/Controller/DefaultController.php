@@ -2,7 +2,6 @@
 
 namespace SiteBundle\Controller;
 
-use Proxies\__CG__\SiteBundle\Entity\Entreprise;
 use SiteBundle\Entity\EtudiantOffre;
 use SiteBundle\Forms\Types\PostulerAnnonce;
 use SiteBundle\Forms\Types\RechercheOffresType;
@@ -44,7 +43,7 @@ class DefaultController extends Controller
             if ($form->isValid()) {
                 //TODO etudiant pas bien chargé
                 $repository = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
-                $etudiant = $repository->find(2);
+                $etudiant = $repository->find($this->getUser()->getIdEtudiant());
 
                 $data = $form->getData();
                 $em = $this->getDoctrine()->getManager();
@@ -70,7 +69,7 @@ class DefaultController extends Controller
     public function listeOffresAction(Request $request)
     {
         $form = $this->createForm(RechercheOffresType::class);
-
+        $offres = array();
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
