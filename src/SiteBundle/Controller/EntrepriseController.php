@@ -148,7 +148,7 @@ class EntrepriseController extends Controller
 
             $request->getSession()->getFlashBag()->add('success', 'Inscription terminé avec succès !');
 
-            return $this->redirect($this->generateUrl('a'));
+            return $this->redirect($this->generateUrl('site_homepage'));
 
         }
 

@@ -32,6 +32,7 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/inscription, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/responsable, roles: ROLE_ADMIN }
         - { path: ^/etudiant, roles: ROLE_ETUDIANT }
         - { path: ^/entreprise, roles: ROLE_ENTREPRISE }
