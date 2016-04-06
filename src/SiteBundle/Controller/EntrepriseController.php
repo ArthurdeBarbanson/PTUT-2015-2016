@@ -52,25 +52,6 @@ class EntrepriseController extends Controller
         );
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function ajoutAnnonceAction(Request $request){
         {
             $modal=false;
@@ -96,10 +77,10 @@ class EntrepriseController extends Controller
 
             if ($request->isMethod('post')) {
                 $form->handleRequest($request);
-                if ($form->get('cancel')->isSubmitted()) {
+                if ($form->get('cancel')->isClicked()) {
                     return $this->redirect($this->generateUrl('site_accueilEntreprise'));
                 }
-               $form->handleRequest($request);
+
                 if ($form->isValid()) {
                     $data = $form->getData();
                     $dateDepot= new DateTime();
@@ -108,7 +89,7 @@ class EntrepriseController extends Controller
 
                     $annonce= new Offre;
                     $annonce->setDateDepot($dateDepot);
-                    $annonce->setEtatOffre("En attende de Validation");
+                    $annonce->setEtatOffre("En attente de validation");
                     $annonce->setSujet($data['Sujet']);
                     $annonce->setTitre($data['Titre']);
                     $annonce->setLicenceConcerne(($data['Lpconcerne']));
