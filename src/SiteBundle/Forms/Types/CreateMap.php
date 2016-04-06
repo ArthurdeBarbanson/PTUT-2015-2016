@@ -68,7 +68,11 @@ class CreateMap extends AbstractType
                 'label' => 'Email du maitre d\'apprentissage',
                 'constraints' => [
                     new NotBlank(),
-                    new Email()
+                    new Email([
+                        'strict'=> true,
+                        'checkMX'=>true,
+                        'checkHost'=>true
+                    ])
                 ]
             ))
             ->add('DejaMaj',  ChoiceType::class, array(

@@ -9,6 +9,8 @@ use SiteBundle\Entity\MAP;
 use SiteBundle\Entity\Personne;
 use SiteBundle\Forms\Types\CreateAnnonce;
 use SiteBundle\Forms\Types\CreateMap;
+use SiteBundle\Forms\Types\EntrepriseType;
+use SiteBundle\Forms\Types\InscriptionEntreprise;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -134,8 +136,8 @@ class EntrepriseController extends Controller
 
     public function inscriptionAction()
     {
-        //TODO  $form = $this->createForm(PostulerAnnonce::class);
-        $form = $this->createForm(PostulerAnnonce::class);;
+        $form = $this->createForm(EntrepriseType::class);;
+
         return $this->render(
             'SiteBundle:Entreprise:inscription_entreprise.html.twig'
             , ['form' => $form->createView()]
