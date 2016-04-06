@@ -38,13 +38,13 @@ class EtudiantOffre
 
     /**
      * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Etudiant")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="etudiant_id", referencedColumnName="id")
      */
     private $Etudiant;
 
     /**
      * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Offre")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="offre_id", referencedColumnName="id")
      */
     private $Offre;
 
