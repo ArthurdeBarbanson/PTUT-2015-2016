@@ -14,6 +14,7 @@ use SiteBundle\Forms\Types\InscriptionEntreprise;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Response;
 
 class EntrepriseController extends Controller
 {
@@ -187,5 +188,34 @@ class EntrepriseController extends Controller
 
         );
 
+    }
+
+    public function impressionPostulantsAction(Request $request)
+    {
+        $postulantId = $request->get('postulantId');
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:EtudiantOffre');
+
+        $offre = $repository->find($postulantId);
+        //si l'annonce n'es pas trouvé
+        if (null === $offre) {
+            throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
+        }
+
+
+        $html = $this->renderView(
+            'SiteBundle:Entreprise:impressionPostulants.html.twig',['postulant' => $offre]
+        );
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="Annonce.pdf"'
+            )
+        );
     }
 }
