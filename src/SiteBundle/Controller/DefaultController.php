@@ -44,7 +44,7 @@ class DefaultController extends Controller
             if ($form->isValid()) {
                 //TODO etudiant pas bien chargé
                 $repository = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
-                $etudiant = $repository->find(2);
+                $etudiant = $repository->find($this->getUser()->getIdEtudiant());
 
                 $data = $form->getData();
                 $em = $this->getDoctrine()->getManager();
