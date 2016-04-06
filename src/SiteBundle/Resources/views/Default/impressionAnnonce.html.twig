@@ -1,0 +1,41 @@
+{% extends '::baseImpression.html.twig' %}
+
+{% block body %}
+    <h1 class="text-center margB20">Details de l'annonce  n° {{ offre.id }} </h1>
+
+    <div class="row">
+    <div class="col-sm-1"></div>
+        <div id="description" class="col-sm-10">
+            <h3>Titre : {{ offre.titre }}</h3>
+
+            <h3>Description de l'offre</h3>
+            <p>{{ offre.sujet }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Coordonnées de l'entreprise </h3>
+                </div>
+                <div class="panel-body">
+                    <address>
+                        <strong>{{ offre.entreprise.raisonSocial }}</strong><br>
+                        {{ offre.entreprise.adresse.adresse }}<br>
+                        {{ offre.entreprise.adresse.commune }}, {{ offre.entreprise.adresse.codePostal }}<br>
+                    </address>
+                    <p><strong>Contact :</strong></p>
+                    <dl>
+                        <dd>Nom: {{ offre.entreprise.nom }}</dd>
+                        <dd>Prenom :  {{ offre.entreprise.prenom }}</dd>
+                        <dd>Mail : {{ offre.entreprise.mail }}</dd>
+                        <dd>Téléphone : {{ offre.entreprise.telephone }}</dd>
+                        <dd>Description :{{ offre.entreprise.description }}</dd>
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
