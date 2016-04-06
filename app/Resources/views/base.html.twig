@@ -25,10 +25,10 @@
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Brand</a>
+
 
                     {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                        <p class="navbar-text">Bonjour {{ app.user.idEntreprise }}</p>
+
                     {% endif %}
 
                 </div>
