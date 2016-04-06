@@ -31,14 +31,14 @@ class Offre
     /**
      * @var string
      *
-     * @ORM\Column(name="EtatOffre", type="string", length=255)
+     * @ORM\Column(type="string", columnDefinition="enum('En attente de validation', 'En ligne', 'Pourvue')" ,nullable=true)
      */
     private $etatOffre;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="LicenceConcerne", type="string", length=255)
+     * @ORM\Column(name="LicenceConcerne", type="string", length=50)
      */
     private $licenceConcerne;
 
