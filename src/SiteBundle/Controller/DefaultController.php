@@ -2,7 +2,6 @@
 
 namespace SiteBundle\Controller;
 
-use Proxies\__CG__\SiteBundle\Entity\Entreprise;
 use SiteBundle\Entity\EtudiantOffre;
 use SiteBundle\Forms\Types\PostulerAnnonce;
 use SiteBundle\Forms\Types\RechercheOffresType;
@@ -70,7 +69,7 @@ class DefaultController extends Controller
     public function listeOffresAction(Request $request)
     {
         $form = $this->createForm(RechercheOffresType::class);
-
+        $offres = array();
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
