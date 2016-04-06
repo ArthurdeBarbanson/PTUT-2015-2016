@@ -34,7 +34,9 @@ class EntrepriseController extends Controller
             ->getManager()
             ->getRepository('SiteBundle:Offre');
 
-        $offres = $repositoryOffre->findBy(array("Entreprise"=>$entreprise));
+        $offresValidations  = $repositoryOffre->findBy(array("Entreprise"=>$entreprise,"etatOffre"=>"En attente de validation"));
+        $offres = $repositoryOffre->findBy(array("Entreprise"=>$entreprise,"etatOffre"=>"En ligne"));
+        $offresPourvues = $repositoryOffre->findBy(array("Entreprise"=>$entreprise,"etatOffre"=>"Pourvue"));
 
         $repositoryPostulant= $this->getDoctrine()->getManager()->getRepository('SiteBundle:EtudiantOffre');
         $postulantOffres = array(); $result= array();
@@ -46,7 +48,7 @@ class EntrepriseController extends Controller
         }
             return $this->render(
             'SiteBundle:Entreprise:accueil_entreprise.html.twig',
-            ['offres'=>$offres,'postulantOffres'=>$result]
+            ['offresLigne'=>$offres,'offresValidations'=>$offresValidations,'offresPourvues'=>$offresPourvues,'postulantOffres'=>$result]
         );
     }
 
@@ -75,10 +77,10 @@ class EntrepriseController extends Controller
 
             if ($request->isMethod('post')) {
                 $form->handleRequest($request);
-                if ($form->get('cancel')->isSubmitted()) {
+                if ($form->get('cancel')->isClicked()) {
                     return $this->redirect($this->generateUrl('site_accueilEntreprise'));
                 }
-               $form->handleRequest($request);
+
                 if ($form->isValid()) {
                     $data = $form->getData();
                     $dateDepot= new DateTime();
@@ -87,7 +89,7 @@ class EntrepriseController extends Controller
 
                     $annonce= new Offre;
                     $annonce->setDateDepot($dateDepot);
-                    $annonce->setEtatOffre("En attende de Validation");
+                    $annonce->setEtatOffre("En attente de validation");
                     $annonce->setSujet($data['Sujet']);
                     $annonce->setTitre($data['Titre']);
                     $annonce->setLicenceConcerne(($data['Lpconcerne']));

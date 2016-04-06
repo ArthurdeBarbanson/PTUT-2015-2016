@@ -1,4 +1,5 @@
 {% extends '::base.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
 
 {% block body %}
     <h1 class="text-center">Bienvenue</h1>
@@ -17,10 +18,27 @@
                     votre
                     candidature pour un emploi.Vous pouvez donc personaliser le votre et l'enregistrer pour une
                     utilisation futur.</p>
-                <button class="btn btn-primary">
-                    Ajouter/modifier mon CV
+                <button class="btn btn-lg btn-primary center-block" data-toggle="modal" data-target="#ajouterCV">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    Ajouter/Modifier mon CV
                 </button>
             </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="ajouterCV" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-center">Ajouter un CV</h4>
+                </div>
+                <div class="modal-body">
+                    {{ form(form) }}
+                </div>
+            </div>
+
         </div>
     </div>
 {% endblock %}
