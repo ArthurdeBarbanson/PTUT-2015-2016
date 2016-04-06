@@ -152,8 +152,7 @@ class EntrepriseController extends Controller
         $entreprise= new Entreprise();
         $form = $this->createForm(EntrepriseType::class,$entreprise);;
 
-        $form->handleRequest();
-        if($form->isValid()){
+        if($form->handleRequest($request)->isValid()){
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($entreprise);
@@ -162,9 +161,7 @@ class EntrepriseController extends Controller
             $request->getSession()->getFlashBag()->add('success', 'Inscription terminé avec succès !');
 
             return $this->redirect($this->generateUrl('site_homepage'));
-
         }
-
 
         return $this->render(
             'SiteBundle:Entreprise:inscription_entreprise.html.twig'

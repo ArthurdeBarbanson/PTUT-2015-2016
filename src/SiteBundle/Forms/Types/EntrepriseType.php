@@ -2,6 +2,7 @@
 
 namespace SiteBundle\Forms\Types;
 
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -50,12 +51,7 @@ class EntrepriseType extends AbstractType
                 ]
             ])
             ->add('telephone')
-            ->add('NumeroRue')
             ->add('adresse')
-            ->add('complementAdresse')
-            ->add('codePostal')
-            ->add('commune')
-            ->add('pays')
             ->add('siteWeb')
 
 
