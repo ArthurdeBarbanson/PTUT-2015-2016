@@ -207,4 +207,28 @@ class User implements UserInterface, \Serializable
     {
         return $this->id_entreprise;
     }
+
+    /**
+     * Set idEtudiant
+     *
+     * @param \SiteBundle\Entity\Etudiant $idEtudiant
+     *
+     * @return User
+     */
+    public function setIdEtudiant(\SiteBundle\Entity\Etudiant $idEtudiant = null)
+    {
+        $this->id_etudiant = $idEtudiant;
+
+        return $this;
+    }
+
+    /**
+     * Get idEtudiant
+     *
+     * @return \SiteBundle\Entity\Etudiant
+     */
+    public function getIdEtudiant()
+    {
+        return $this->id_etudiant;
+    }
 }
