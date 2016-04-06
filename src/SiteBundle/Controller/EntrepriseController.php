@@ -13,6 +13,7 @@ use SiteBundle\Forms\Types\EntrepriseType;
 use SiteBundle\Forms\Types\InscriptionEntreprise;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EntrepriseController extends Controller
 {
@@ -50,6 +51,7 @@ class EntrepriseController extends Controller
 
     public function ajoutAnnonceAction(Request $request){
         {
+            $modal=false;
             $repository = $this
                 ->getDoctrine()
                 ->getManager()
@@ -71,6 +73,10 @@ class EntrepriseController extends Controller
 
 
             if ($request->isMethod('post')) {
+                $form->handleRequest($request);
+                if ($form->get('cancel')->isSubmitted()) {
+                    return $this->redirect($this->generateUrl('site_accueilEntreprise'));
+                }
                $form->handleRequest($request);
                 if ($form->isValid()) {
                     $data = $form->getData();
@@ -91,7 +97,7 @@ class EntrepriseController extends Controller
                     $em->flush();
                     $this->addFlash('info', "L'annonce a été mis en attente de Validation.");
 
-                    return $this->redirect('/PTUT-2015-2016/web/app_dev.php/entreprise');
+                    return $this->redirect($this->generateUrl('site_accueilEntreprise'));
                }
                 $form2->handleRequest($request);
                 if ($form2->isValid()) {
@@ -123,13 +129,20 @@ class EntrepriseController extends Controller
                     $em->persist($map);
 
                     $em->flush();
-                    return $this->redirect('/PTUT-2015-2016/web/app_dev.php/entreprise/ajout_annonce');
+                    return $this->redirectToRoute('site_ajoutAnnonce');
+                }else{
+                    $modal=true;
+                    return $this->render(
+                        'SiteBundle:Default:ajoutAnnonce.html.twig',
+                        ['form' => $form->createView(),'form2' => $form2->createView(),'maps'=>$maps,'bool'=>$modal]
+                    );
+
                 }
             }
 
             return $this->render(
                 'SiteBundle:Default:ajoutAnnonce.html.twig',
-                ['form' => $form->createView(),'form2' => $form2->createView(),'maps'=>$maps]
+                ['form' => $form->createView(),'form2' => $form2->createView(),'maps'=>$maps,'bool'=>$modal]
             );
         }
     }
