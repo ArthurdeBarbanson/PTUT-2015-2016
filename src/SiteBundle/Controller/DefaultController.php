@@ -9,6 +9,7 @@ use SiteBundle\Forms\Types\RechercheOffresType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -91,5 +92,34 @@ class DefaultController extends Controller
         return $this->render('SiteBundle:Default:liste_offres.html.twig'
             , ['form' => $form->createView()
                 , 'offres' => $offres]);
+    }
+
+    public function impressionAnnonceAction(Request $request)
+    {
+        $annonceId = $request->get('annonceId');
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Offre');
+
+        $offre = $repository->find($annonceId);
+        //si l'annonce n'es pas trouvé
+        if (null === $offre) {
+            throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
+        }
+
+
+        $html = $this->renderView('SiteBundle:Default:impressionAnnonce.html.twig'
+            , ['offre' => $offre, 'annonceId' => $annonceId]
+        );
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="Annonce.pdf"'
+            )
+        );
     }
 }

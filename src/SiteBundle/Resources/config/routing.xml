@@ -47,6 +47,10 @@
         <default key="_controller">SiteBundle:Default:listeOffres</default>
     </route>
 
+    <route id="site_impressionAnnonceEtudiant" path="/etudiant/impression_annonce/{annonceId}">
+        <default key="_controller">SiteBundle:Default:impressionAnnonce</default>
+    </route>
+
     <!--Responsable-->
     <route id="responsableAjoutEtudiant" path="/responsable/ajout/etudiant">
         <default key="_controller">SiteBundle:Responsable:ajoutEtudiant</default>
@@ -62,6 +66,10 @@
 
     <route id="test" path="/etudiant/test">
         <default key="_controller">SiteBundle:Default:test</default>
+    </route>
+
+    <route id="ajout" path="/ajoutReynald">
+        <default key="_controller">SiteBundle:Security:createUser</default>
     </route>
 
 </routes>

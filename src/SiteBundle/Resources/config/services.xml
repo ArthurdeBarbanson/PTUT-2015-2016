@@ -10,9 +10,6 @@
         <service id="bac_ou_equivalent_repository" class="SiteBundle\Repository\BacOuEquivalentRepository">
             <argument type="service" id="doctrine.dbal.default_connection" />
         </service>
-        <service id="dernier_diplome_obtenu_repository" class="SiteBundle\Repository\DernierEtablissementFreqenteRepository">
-            <argument type="service" id="doctrine.dbal.default_connection" />
-        </service>
         <service id="dernier_etblissement_frequente_repository" class="SiteBundle\Repository\DirigeantRepository">
             <argument type="service" id="doctrine.dbal.default_connection" />
         </service>
@@ -43,11 +40,6 @@
         <service id="premiere_inscription_repository" class="SiteBundle\Repository\PremiereInscriptionRepository">
             <argument type="service" id="doctrine.dbal.default_connection" />
         </service>
-
-        <service id="user_provider" class="SiteBundle\Security\UserProvider">
-            <argument type="service" id="user_repository" />
-        </service>
-
         <service id="user_repository" class="SiteBundle\Repository\UserRepository">
             <argument type="service" id="doctrine.dbal.default_connection" />
         </service>

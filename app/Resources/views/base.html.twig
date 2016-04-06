@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
           integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/style/style.css') }}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     {% block stylesheets %}{% endblock %}
     <!-- Latest compiled and minified JavaScript -->
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
@@ -27,7 +28,7 @@
                     <a class="navbar-brand" href="#">Brand</a>
 
                     {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                        <p class="navbar-text">Bonjour {{ app.user.username }}</p>
+                        <p class="navbar-text">Bonjour {{ app.user.idEntreprise }}</p>
                     {% endif %}
 
                 </div>
