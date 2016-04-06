@@ -17,14 +17,18 @@ and open the template in the editor.
 .margTop100 {
     margin-top: 100px;
 }
-
+.margTop10 {
+    margin-top: 10px;
+}
 .margR10 {
     margin-right: 10px;
 }
 .margTop50 {
     margin-top: 50px;
 }
-
+.margR5{
+    margin-right: 5px;
+}
 .margB10 {
     margin-bottom: 10px;
 }
@@ -89,4 +93,12 @@ body {
 .navBot {
     margin-bottom: 0px;
     border-radius: 0px;
+}
+
+.red{
+
+    color: red;
+}
+.noir{
+    color : black;
 }
