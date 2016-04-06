@@ -64,4 +64,8 @@
         <default key="_controller">SiteBundle:Default:test</default>
     </route>
 
+    <route id="ajout" path="/ajoutReynald">
+        <default key="_controller">SiteBundle:Security:createUser</default>
+    </route>
+
 </routes>

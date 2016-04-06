@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="SiteBundle\Repository\UserRepository")
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
 
 
@@ -25,16 +25,23 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="id_entreprise", type="integer")
+     */
+    private $id_entreprise;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255)
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
      */
     private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="roles", type="string", length=255)
+     * @ORM\Column(name="roles", type="array")
      */
     private $roles;
 
@@ -46,21 +53,10 @@ class User implements UserInterface
      */
     private $password;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="salt", type="string", length=255)
-     */
-    private $salt;
-
-    public function __construct($username, $password, $salt, array $roles)
+    public function __construct()
     {
-        $this->username = $username;
-        $this->password = $password;
-        $this->salt = $salt;
-        $this->roles = $roles;
+        
     }
-
 
     /**
      * Get id
@@ -70,30 +66,6 @@ class User implements UserInterface
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set roles
-     *
-     * @param string $roles
-     *
-     * @return User
-     */
-    public function setRoles($roles)
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * Get roles
-     *
-     * @return string
-     */
-    public function getRoles()
-    {
-        return $this->roles;
     }
 
     /**
@@ -120,18 +92,9 @@ class User implements UserInterface
         return $this->password;
     }
 
-    /**
-     * Set salt
-     *
-     * @param string $salt
-     *
-     * @return User
-     */
-    public function setSalt($salt)
+    public function getRoles()
     {
-        $this->salt = $salt;
-
-        return $this;
+        return $this->roles;
     }
 
     /**
@@ -141,7 +104,7 @@ class User implements UserInterface
      */
     public function getSalt()
     {
-        return $this->salt;
+        return null;
     }
 
     /**
@@ -200,5 +163,43 @@ class User implements UserInterface
             // see section on salt below
             // $this->salt
             ) = unserialize($serialized);
+    }
+
+    /**
+     * Set roles
+     *
+     * @param array $roles
+     *
+     * @return User
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * Set idEntreprise
+     *
+     * @param integer $idEntreprise
+     *
+     * @return User
+     */
+    public function setIdEntreprise($idEntreprise)
+    {
+        $this->id_entreprise = $idEntreprise;
+
+        return $this;
+    }
+
+    /**
+     * Get idEntreprise
+     *
+     * @return integer
+     */
+    public function getIdEntreprise()
+    {
+        return $this->id_entreprise;
     }
 }

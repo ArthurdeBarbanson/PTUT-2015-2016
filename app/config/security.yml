@@ -4,32 +4,14 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        chain_provider:
-            chain:
-                providers: [in_memory, user_db]
-        in_memory:
-            memory:
-                users:
-                    Arthur:
-                        password: $2y$12$mgyD2FzXo9RNE7FViGpbke5x8INyuT4jV5mKe/dJTKCpqSPCqsqae
-                        roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
-                    Antoine:
-                        password: $2y$12$YJgxhWBrLaSZvs4ya1.Dx.8gnMzN7TC32EiDEbVKMBLyzXK65FCJS
-                        roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
-                    Reynald:
-                        password: $2y$12$.XqLpip6RUq54sRER2r65eUjJk7Ljs0JC6nF2H4xm4cRqsa2LOkPK
-                        roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
-                    Guillaume:
-                        password: $2y$12$NR8EDtDo7cnwOYyL3uP66u5jg3jd8aVt8iT1SyO3V5YamR8G8/ulu
-                        roles: ['ROLE_ETUDIANT', 'ROLE_ADMIN','ROLE_ENTREPRISE']
-        user_db:
-#           entity: { class: SiteBundle\Entity\User, property: username }
-            id: user_provider
+            our_db_provider:
+                entity:
+                    class: SiteBundle:User
+                    property: username
 
     encoders:
-        Symfony\Component\Security\Core\User\User:
-            algorithm: bcrypt
-            cost: 12
+            SiteBundle\Entity\User:
+                algorithm: bcrypt
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -38,6 +20,9 @@ security:
             security: false
 
         main:
+            pattern:    ^/
+            http_basic: ~
+            provider: our_db_provider
             anonymous: ~
             form_login:
                 login_path: login
@@ -45,18 +30,6 @@ security:
             logout:
                 path: logout
 
-            remember_me:
-                secret:   '%secret%'
-                lifetime: 604800 # 1 week in seconds
-                path:     /
-                always_remember_me: true
-            # activate different ways to authenticate
-
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/responsable, roles: ROLE_ADMIN }
