@@ -25,11 +25,16 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id_entreprise", type="integer")
+     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Entreprise", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $id_entreprise;
+
+    /**
+     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Etudiant", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $id_etudiant;
 
     /**
      * @var string

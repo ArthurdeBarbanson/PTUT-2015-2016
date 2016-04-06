@@ -1,6 +1,7 @@
 <?php
 namespace SiteBundle\Controller;
 
+use SiteBundle\Entity\Entreprise;
 use SiteBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +38,6 @@ class SecurityController extends Controller
 
 
         $user->setRoles(array('ROLE_ETUDIANT', 'ROLE_ADMIN', 'ROLE_ENTREPRISE'));
-        $user->setIdEntreprise(2);
         $user->setUsername('Reynald');
 
         $em = $this->getDoctrine()->getManager();
@@ -46,7 +46,6 @@ class SecurityController extends Controller
 
         $user = new User();
         $user->setRoles(array('ROLE_ETUDIANT', 'ROLE_ADMIN', 'ROLE_ENTREPRISE'));
-        $user->setIdEntreprise(2);
 
         $user->setUsername('Arthur');
         $encoded = $encoder->encodePassword($user, 'Arthur');
@@ -56,7 +55,6 @@ class SecurityController extends Controller
 
         $user = new User();
         $user->setRoles(array('ROLE_ETUDIANT', 'ROLE_ADMIN', 'ROLE_ENTREPRISE'));
-        $user->setIdEntreprise(2);
         $user->setUsername('Antoine');
         $encoded = $encoder->encodePassword($user, 'Antoine');
         $user->setPassword($encoded);
@@ -65,7 +63,6 @@ class SecurityController extends Controller
 
         $user = new User();
         $user->setRoles(array('ROLE_ETUDIANT', 'ROLE_ADMIN', 'ROLE_ENTREPRISE'));
-        $user->setIdEntreprise(2);
         $user->setUsername('Guillaume');
         $encoded = $encoder->encodePassword($user, 'Guillaume');
         $user->setPassword($encoded);
