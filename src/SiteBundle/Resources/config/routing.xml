@@ -33,6 +33,10 @@
         <default key="_controller">SiteBundle:Entreprise:detailsPostulants</default>
     </route>
 
+    <route id="site_impressionPostulant" path="/entreprise/impressionPostulants/{postulantId}">
+        <default key="_controller">SiteBundle:Entreprise:impressionPostulants</default>
+    </route>
+
 
     <!-- Etudiant -->
     <route id="site_detailsAnnonceEtudiant" path="/etudiant/details_annonce/{annonceId}">
