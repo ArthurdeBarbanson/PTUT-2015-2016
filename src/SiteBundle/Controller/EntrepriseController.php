@@ -134,9 +134,24 @@ class EntrepriseController extends Controller
         }
     }
 
-    public function inscriptionAction()
+    public function inscriptionAction(Request $request)
     {
-        $form = $this->createForm(EntrepriseType::class);;
+        $entreprise= new Entreprise();
+        $form = $this->createForm(EntrepriseType::class,$entreprise);;
+
+        $form->handleRequest();
+        if($form->isValid()){
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entreprise);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('success', 'Inscription terminé avec succès !');
+
+            return $this->redirect($this->generateUrl('a'));
+
+        }
+
 
         return $this->render(
             'SiteBundle:Entreprise:inscription_entreprise.html.twig'
