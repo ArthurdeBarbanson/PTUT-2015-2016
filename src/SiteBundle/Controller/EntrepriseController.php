@@ -34,7 +34,9 @@ class EntrepriseController extends Controller
             ->getManager()
             ->getRepository('SiteBundle:Offre');
 
-        $offres = $repositoryOffre->findBy(array("Entreprise"=>$entreprise));
+        $offresValidations  = $repositoryOffre->findBy(array("Entreprise"=>$entreprise,"etatOffre"=>"En attente de validation"));
+        $offres = $repositoryOffre->findBy(array("Entreprise"=>$entreprise,"etatOffre"=>"En ligne"));
+        $offresPourvues = $repositoryOffre->findBy(array("Entreprise"=>$entreprise,"etatOffre"=>"Pourvue"));
 
         $repositoryPostulant= $this->getDoctrine()->getManager()->getRepository('SiteBundle:EtudiantOffre');
         $postulantOffres = array(); $result= array();
@@ -46,9 +48,28 @@ class EntrepriseController extends Controller
         }
             return $this->render(
             'SiteBundle:Entreprise:accueil_entreprise.html.twig',
-            ['offres'=>$offres,'postulantOffres'=>$result]
+            ['offresLigne'=>$offres,'offresValidations'=>$offresValidations,'offresPourvues'=>$offresPourvues,'postulantOffres'=>$result]
         );
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function ajoutAnnonceAction(Request $request){
         {
