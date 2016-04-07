@@ -76,4 +76,8 @@
         <default key="_controller">SiteBundle:Security:createUser</default>
     </route>
 
+    <!--test-->
+    <route id="testAdresseForm" path="/testAdresseForm">
+        <default key="_controller">SiteBundle:Test:adresseFormTest</default>
+    </route>
 </routes>
