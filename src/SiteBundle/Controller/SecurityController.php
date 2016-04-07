@@ -30,14 +30,19 @@ class SecurityController extends Controller
 
     public function createUserAction()
     {
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Entreprise');
+
+        $entreprise =$repository->find(1);
         $user = new User();
         $encoder = $this->get('security.password_encoder');
         $encoded = $encoder->encodePassword($user, 'Reynald');
         $user->setPassword($encoded);
 
-
         $user->setRoles(array('ROLE_ETUDIANT', 'ROLE_ADMIN', 'ROLE_ENTREPRISE'));
-        $user->setIdEntreprise(2);
+        $user->setIdEntreprise($entreprise);
         $user->setUsername('Reynald');
 
         $em = $this->getDoctrine()->getManager();
@@ -46,7 +51,7 @@ class SecurityController extends Controller
 
         $user = new User();
         $user->setRoles(array('ROLE_ETUDIANT', 'ROLE_ADMIN', 'ROLE_ENTREPRISE'));
-        $user->setIdEntreprise();
+        $user->setIdEntreprise($entreprise);
 
         $user->setUsername('Arthur');
         $encoded = $encoder->encodePassword($user, 'Arthur');
@@ -56,7 +61,7 @@ class SecurityController extends Controller
 
         $user = new User();
         $user->setRoles(array('ROLE_ETUDIANT', 'ROLE_ADMIN', 'ROLE_ENTREPRISE'));
-        $user->setIdEntreprise(2);
+        $user->setIdEntreprise($entreprise);
         $user->setUsername('Antoine');
         $encoded = $encoder->encodePassword($user, 'Antoine');
         $user->setPassword($encoded);
@@ -65,7 +70,7 @@ class SecurityController extends Controller
  
         $user = new User();
         $user->setRoles(array('ROLE_ETUDIANT', 'ROLE_ADMIN', 'ROLE_ENTREPRISE'));
-        $user->setIdEntreprise(2);
+        $user->setIdEntreprise($entreprise);
         $user->setUsername('Guillaume');
         $encoded = $encoder->encodePassword($user, 'Guillaume');
         $user->setPassword($encoded);
