@@ -62,7 +62,7 @@ class SecurityController extends Controller
         $user->setPassword($encoded);
         $em->persist($user);
         $em->flush();
-
+ 
         $user = new User();
         $user->setRoles(array('ROLE_ETUDIANT', 'ROLE_ADMIN', 'ROLE_ENTREPRISE'));
         $user->setIdEntreprise(2);
