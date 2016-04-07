@@ -10,6 +10,7 @@ class EtudiantController extends Controller
 {
     public function accueilAction(Request $request)
     {
+        
         $form = $this->createForm(AjoutPdfEtu::class);
         return $this->render(
             'SiteBundle:Etudiant:accueil_etudiant.html.twig', [
