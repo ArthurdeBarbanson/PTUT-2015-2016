@@ -18,7 +18,7 @@
             {% for offre in offresLigne %}
 
                 <h4>{{ offre.titre }} <small><a href="{{path('site_detailsAnnonceEntreprise', {'annonceId': offre.id }) }}"><span class="glyphicon glyphicon-search margR10"></span></a><a href="#"><span class="glyphicon glyphicon-trash"></span></a></small></h4>
-                {%   if postulantOffres!="" %}
+
                     <table class="table table-bordered">
                         <tr>
                             <th class="col-md-2" >Nom Prenom</th>
@@ -31,6 +31,7 @@
 
 
                             {% for postulant in postulants %}
+
                                 {% if postulant.offre.id == offre.id %}
 
                                     <tr>
@@ -40,15 +41,16 @@
                                         <td class="text-center"><a href=""><span class="glyphicon glyphicon-eye-open"></span></a></td>
                                         <td class="text-center"><a href="{{path('site_detailsPostulant', {'postulantId': postulant.id }) }}"><span class="glyphicon glyphicon-eye-open margR5"></span></a><a href="{{path('site_impressionPostulant', {'postulantId': postulant.id }) }}" target="_blank"><span class="glyphicon glyphicon-print"></span></a></td>
                                     </tr>
+                                {% else %}
+                                    <tr>
+                                    <td class="alert alert-warning" colspan="5">Aucun étudiant a postulé à cette offre.</td>
+                                        </tr>
                                 {% endif %}
-
                             {% endfor %}
 
                         {% endfor %}
                     </table>
-                {% else %}
-                    <div class="alert alert-danger"> Il n'y a pas d'étudiants qui on postés</div>
-                {% endif %}
+
             {% endfor %}
 
         </div>
