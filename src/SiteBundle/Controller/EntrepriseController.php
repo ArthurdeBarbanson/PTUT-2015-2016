@@ -10,7 +10,6 @@ use SiteBundle\Entity\Personne;
 use SiteBundle\Forms\Types\CreateAnnonce;
 use SiteBundle\Forms\Types\CreateMap;
 use SiteBundle\Forms\Types\EntrepriseType;
-use SiteBundle\Forms\Types\InscriptionEntreprise;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -39,7 +38,7 @@ class EntrepriseController extends Controller
         $offresPourvues = $repositoryOffre->findBy(array("Entreprise"=>$entreprise,"etatOffre"=>"Pourvue"));
 
         $repositoryPostulant= $this->getDoctrine()->getManager()->getRepository('SiteBundle:EtudiantOffre');
-        $postulantOffres = array(); $result= array();
+        $result= array();
         foreach($offres as $offre){
             $id = $offre->getId();
 
@@ -219,5 +218,32 @@ class EntrepriseController extends Controller
                 'Content-Disposition'   => 'attachment; filename="Annonce.pdf"'
             )
         );
+    }
+
+    public function supprAnnonceAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager() ;
+        $offreId = $request->get('annonceId');
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Offre');
+
+        $offre = $repository->find($offreId);
+
+        $repositoryEtuoffre = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:EtudiantOffre');
+        $etuoffres = $repositoryEtuoffre->findBy(array("Offre"=>$offre));
+
+        foreach($etuoffres as $etuoffre){
+            $em->remove($etuoffre);
+        }
+        $em->flush();
+        $em->remove($offre);
+        $em->flush();
+        return $this->redirect($this->generateUrl('site_accueilEntreprise'));
+
     }
 }

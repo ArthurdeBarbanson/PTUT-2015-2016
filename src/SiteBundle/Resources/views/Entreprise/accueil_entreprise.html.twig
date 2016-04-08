@@ -17,7 +17,7 @@
         <div class="panel-body">
             {% for offre in offresLigne %}
 
-                <h4>{{ offre.titre }} <small><a href="{{path('site_detailsAnnonceEntreprise', {'annonceId': offre.id }) }}"><span class="glyphicon glyphicon-search margR10"></span></a><a href="#"><span class="glyphicon glyphicon-trash"></span></a></small></h4>
+                <h4>{{ offre.titre }} <small><a href="{{path('site_detailsAnnonceEntreprise', {'annonceId': offre.id }) }}"><span class="glyphicon glyphicon-search margR10"></span></a><a href="{{path('site_supprAnnonce', {'annonceId': offre.id }) }}"><span class="glyphicon glyphicon-trash"></span></a></small></h4>
 
                     <table class="table table-bordered">
                         <tr>
@@ -62,7 +62,7 @@
             <h3>Offre en attente de validation du responsable de la licence</h3>
         </div> <div class="panel-body">
             {% for offreV in offresValidations %}
-                <h4>{{ offreV.titre }} <small><a href=""><span class="glyphicon glyphicon-pencil margR5 "></span></a> <a href="{{path('site_detailsAnnonceEntreprise', {'annonceId': offreV.id }) }}"><span class="glyphicon glyphicon-search margR5"></span></a><a href="#"><span class="glyphicon glyphicon-trash"></span></a> </small></h4>
+                <h4>{{ offreV.titre }} <small><a href=""><span class="glyphicon glyphicon-pencil margR5 "></span></a> <a href="{{path('site_detailsAnnonceEntreprise', {'annonceId': offreV.id }) }}"><span class="glyphicon glyphicon-search margR5"></span></a><a href="{{path('site_supprAnnonce', {'annonceId': offreV.id}) }}"><span class="glyphicon glyphicon-trash"></span></a> </small></h4>
 
             {% endfor %}
         </div>
@@ -72,7 +72,7 @@
             <h3>Offre Pourvue</h3></div>
         <div class="panel-body">
             {% for offreP in offresPourvues %}
-                <h4>{{ offreP.titre }} <small><a href="{{path('site_detailsAnnonceEntreprise', {'annonceId': offreP.id }) }}"><span class="margR5 glyphicon glyphicon-search margR5"></span></a><a href="#"><span class="glyphicon glyphicon-trash"></span></a></small></h4>
+                <h4>{{ offreP.titre }} <small><a href="{{path('site_detailsAnnonceEntreprise', {'annonceId': offreP.id }) }}"><span class="margR5 glyphicon glyphicon-search margR5"></span></a></small></h4>
                 <table class="table table-bordered">
                 <tr>
                     <th class="col-md-2" >Nom Prenom</th>

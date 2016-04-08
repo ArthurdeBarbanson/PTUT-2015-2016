@@ -40,12 +40,12 @@ class CreateAnnonce extends AbstractType
             )
             ->add('submit', SubmitType::class, [
                 'label' => 'Poster',
-                'attr' => ['class' => 'btn-primary btn-lg center-block', 'style' => "margin-top:20px"],
+                'attr' => ['class' => 'btn-primary btn-lg  col-lg-1 col-lg-offset-4', 'style' => "margin-top:20px"],
 
             ])
             ->add('cancel', SubmitType::class, array(
               'label' => 'Annulez',
-                      'attr' => ['formnovalidate' => 'formnovalidate','class' => 'btn-default btn-lg center-block', 'style' => "margin-top:20px"],
+                      'attr' => ['formnovalidate' => 'formnovalidate','class' => 'btn-default btn-lg col-lg-1 col-lg-offset-1', 'style' => "margin-top:20px"],
 
     ));
     }
