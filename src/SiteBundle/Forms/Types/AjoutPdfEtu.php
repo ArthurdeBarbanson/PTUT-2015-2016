@@ -18,6 +18,7 @@ class AjoutPdfEtu extends AbstractType
         $builder
             ->add('pdf', FileType::class, [
                 'label' => 'Choisir un CV',
+                'attr' => ['accept' => 'application/pdf']
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Envoyer',

@@ -10,7 +10,7 @@ class EtudiantController extends Controller
 {
     public function accueilAction(Request $request)
     {
-        
+        $error = '';
         $form = $this->createForm(AjoutPdfEtu::class);
 
         if ($request->isMethod('post')) {
@@ -21,23 +21,31 @@ class EtudiantController extends Controller
                 $dir = 'uploads/cv_etudiant/'.$annee;
                 $file = $form['pdf']->getData();
                 $extension = $file->guessExtension();
-                if (!$extension) {
-                    // extension cannot be guessed
-                    $extension = 'bin';
-                }
-                $repository = $this
-                    ->getDoctrine()
-                    ->getManager()
-                    ->getRepository('SiteBundle:Etudiant');
+                if($extension == 'pdf'){
+                    $repository = $this
+                        ->getDoctrine()
+                        ->getManager()
+                        ->getRepository('SiteBundle:Etudiant');
 
-                $etudiant =$repository->find($this->getUser()->getIdEtudiant());
-                $file->move($dir, $etudiant->getLaPersone()->getNom().'.'.$extension);
+                    $etudiant =$repository->find($this->getUser()->getIdEtudiant());
+                    $nom = $etudiant->getLaPersone()->getNom();
+                    $file->move($dir, $etudiant->getId().$nom.'.'.$extension);
+                    $final_url = '../'.$dir.'/'.$etudiant->getId().$nom.'.'.$extension;
+                    $etudiant->setCV($final_url);
+
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($etudiant);
+                    $em->flush();
+                }else{
+                    $error = 'Vous devez importer votre CV en format PDF uniquement.';
+                }
             }
         }
 
         return $this->render(
             'SiteBundle:Etudiant:accueil_etudiant.html.twig', [
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'error' => $error
             ]
         );
     }
