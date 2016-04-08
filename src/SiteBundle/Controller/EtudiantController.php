@@ -30,7 +30,7 @@ class EtudiantController extends Controller
                     $etudiant =$repository->find($this->getUser()->getIdEtudiant());
                     $nom = $etudiant->getLaPersone()->getNom();
                     $file->move($dir, $etudiant->getId().$nom.'.'.$extension);
-                    $final_url = '../'.$dir.'/'.$etudiant->getId().$nom.'.'.$extension;
+                    $final_url = $dir.'/'.$etudiant->getId().$nom.'.'.$extension;
                     $etudiant->setCV($final_url);
 
                     $em = $this->getDoctrine()->getManager();

@@ -8,7 +8,7 @@
     <p><label>Email : </label> {{ postulant.etudiant.laPersone.mail }}</p>
     <p><label>Téléphone : </label> {{ postulant.etudiant.laPersone.telephone }}</p>
     <p><label>Adresse : </label> {{ postulant.etudiant.laPersone.adresse.commune }} {{ postulant.etudiant.laPersone.adresse.codePostal}}</p>
-    <p><label>CV : </label> <a target="_blank" href="{{ postulant.etudiant.cv }}"><span class="glyphicon glyphicon-eye-open"></span></a></p>
+    <p><label>CV : </label> <a target="_blank" href="{{ asset(postulant.etudiant.cv) }}"><span class="glyphicon glyphicon-eye-open"></span></a></p>
     <p><label>Lettre de motivation :    </label> {{ postulant.lettreMotivation }}</p>
 </div>
 <div class="text-center">
