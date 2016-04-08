@@ -37,7 +37,7 @@
                                     <tr>
                                         <td>{{ postulant.etudiant.laPersone.nom }} {{ postulant.etudiant.laPersone.prenom }}</td>
                                         <td class="text-center">{{ postulant.etudiant.getAge() }} ans</td>
-                                        <td class="text-center"><a href="" ><span class="glyphicon glyphicon-eye-open "></span></a></td>
+                                        <td class="text-center"><a target="_blank" href="{{ postulant.etudiant.cv }}" ><span class="glyphicon glyphicon-eye-open "></span></a></td>
                                         <td class="text-center"><a href=""><span class="glyphicon glyphicon-eye-open"></span></a></td>
                                         <td class="text-center"><a href="{{path('site_detailsPostulant', {'postulantId': postulant.id }) }}"><span class="glyphicon glyphicon-eye-open margR5"></span></a><a href="{{path('site_impressionPostulant', {'postulantId': postulant.id }) }}" target="_blank"><span class="glyphicon glyphicon-print"></span></a></td>
                                     </tr>
@@ -84,7 +84,7 @@
                 <tr>
                     <td>{{ offreP.etudiant.laPersone.nom }} {{ offreP.etudiant.laPersone.prenom }}</td>
                     <td class="text-center">{{ offreP.etudiant.getAge() }} ans</td>
-                    <td class="text-center"><a href="" ><span class="glyphicon glyphicon-eye-open "></span></a></td>
+                    <td class="text-center"><a target="_blank" href="{{ offreP.etudiant.cv }}" ><span class="glyphicon glyphicon-eye-open "></span></a></td>
                     <td class="text-center"><a href=""><span class="glyphicon glyphicon-eye-open"></span></a></td>
                     <td class="text-center"><a href="#"><span class="glyphicon glyphicon-eye-open margR10"></span></a><a href=""><span class="glyphicon glyphicon-print"></span></a></td>
                 </tr>
