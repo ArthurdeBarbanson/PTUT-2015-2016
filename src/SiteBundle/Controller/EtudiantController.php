@@ -17,7 +17,7 @@ class EtudiantController extends Controller
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $date = new \DateTime();
-                $annee = $date->format('YY');
+                $annee = $date->format('Y');
                 $dir = 'uploads/cv_etudiant/'.$annee;
                 $file = $form['pdf']->getData();
                 $extension = $file->guessExtension();
