@@ -41,9 +41,12 @@
                 <div class="modal-body">
                     {% if app.user.idEtudiant.cv is null or app.user.idEtudiant.cv is sameas("") %}
                     {%  else %}
-                        <h5><strong>Vous possédez déjà un CV :</strong> <a href="{{ app.user.idEtudiant.cv }}" download="CV">Voir mon CV</a></h5>
+                        <h5><strong>Vous possédez déjà un CV :</strong> <a href="{{ app.user.idEtudiant.cv }}" target="_blank">Voir mon CV</a></h5>
                     {% endif %}
                     {{ form(form) }}
+                    {% if error is not sameas('') %}
+                        <p class="red">{{ error }}</p>
+                    {% endif %}
                 </div>
             </div>
 
