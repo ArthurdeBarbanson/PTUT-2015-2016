@@ -58,7 +58,27 @@
                         <h4 class="modal-title text-center">Postuler</h4>
                     </div>
                     <div class="modal-body">
-                        {{ form(form) }}
+                        <!-- Si l'étudiant ne posssede pas de CV on lui propose d'aller sur l'accuueil etudiant et de l'importer -->
+                        {% if app.user.idEtudiant.cv is null or app.user.idEtudiant.cv is sameas("") %}
+                            <div class="alert alert-danger" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span class="sr-only">Error:</span>
+                                <strong>Vous ne possédé pas de CV,</strong> vous devez en importer ou en créer un pour
+                                pouvoir
+                                postuler à cette offre.
+                                <p><a class="alert-link" href="{{ path('site_accueilEtudiant') }}">Cliquez ici pour
+                                        pouvoir importer
+                                        votre CV.</a></p>
+                            </div>
+                            <button type="button" class="btn btn-default center-block" data-dismiss="modal">Fermer
+                            </button>
+                        {% else %}
+                            <h5><strong>Nom :</strong> {{ app.user.idEtudiant.laPersone.nom }}</h5>
+                            <h5><strong>Prenom :</strong> {{ app.user.idEtudiant.laPersone.prenom }}</h5>
+                            <h5><strong>CV :</strong> <a href="{{ asset(app.user.idEtudiant.cv) }}" target="_blank">Voir
+                                    mon CV</a></h5>
+                            {{ form(form) }}
+                        {% endif %}
                     </div>
                 </div>
 

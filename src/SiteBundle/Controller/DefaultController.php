@@ -41,9 +41,7 @@ class DefaultController extends Controller
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                //TODO etudiant pas bien chargé
-                $repository = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
-                $etudiant = $repository->find($this->getUser()->getIdEtudiant());
+                $etudiant = $this->getUser()->getIdEtudiant();
 
                 $data = $form->getData();
                 $em = $this->getDoctrine()->getManager();

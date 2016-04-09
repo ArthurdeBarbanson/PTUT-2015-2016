@@ -16,14 +16,6 @@ class PostulerAnnonce extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class, array(
-                'label' => 'Nom',
-                'required' => true,
-            ))
-            ->add('prenom', TextType::class, array(
-                'label' => 'Prenom',
-                'required' => true,
-            ))
             ->add('lettreMotivation', TextareaType::class, array(
                 'label' => 'Ecrir ma lettre de motivation'
             ))
