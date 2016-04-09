@@ -1,6 +1,8 @@
 {% extends '::base.html.twig' %}
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
-
+{% block title %}
+    Détails de l'offre {{ offre.titre }}
+{% endblock %}
 {% block body %}
     <h1 class="text-center margB20">Details de l'annonce </h1>
 
