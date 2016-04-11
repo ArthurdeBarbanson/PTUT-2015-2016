@@ -80,11 +80,31 @@
                             <h5><strong>CV :</strong> <a href="{{ asset(app.user.idEtudiant.cv) }}" target="_blank">Voir
                                     mon CV</a></h5>
                             {{ form(form) }}
+                            {% if errorEtudiant is not sameas('') %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                    <span class="sr-only">Error:</span>
+                                    <strong>Une erreur s'est produite : </strong> {{ errorEtudiant }}
+                                </div>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>
 
             </div>
         </div>
+        {% block javascripts %}
+            <script type="text/javascript">
+                {% if errorEtudiant is not sameas('') %}
+                jQuery(document).ready(function ($) {
+
+                    $('#postulerOffre').modal('show');
+
+                });
+                {% endif %}
+            </script>
+        {% endblock %}
     {% endif %}
 {% endblock %}

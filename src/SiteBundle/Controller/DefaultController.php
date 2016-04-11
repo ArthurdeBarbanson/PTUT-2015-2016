@@ -37,22 +37,19 @@ class DefaultController extends Controller
         }
 
         $form = $this->createForm(PostulerAnnonce::class);
+        $error = '';
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $etudiant = $this->getUser()->getIdEtudiant();
-
-                $data = $form->getData();
-                $em = $this->getDoctrine()->getManager();
-                $etudiant_offre = new EtudiantOffre;
-                $etudiant_offre->setDate(new \DateTime());
-                $etudiant_offre->setLettreMotivation($data['lettreMotivation']);
-                $etudiant_offre->setOffre($offre);
-                $etudiant_offre->setEtudiant($etudiant);
-
-                $em->persist($etudiant_offre);
-                $em->flush();
+                $offreEtudiantRepository = $this
+                    ->getDoctrine()
+                    ->getManager()
+                    ->getRepository('SiteBundle:EtudiantOffre');
+                $error = $offreEtudiantRepository->enregistrerOffre(
+                    $this->getUser()->getIdEtudiant()
+                    , $form->getData()
+                    , $offre);
                 $this->addFlash('info', "L'offre à bien été enregistrée.");
             }
         }
@@ -60,7 +57,8 @@ class DefaultController extends Controller
         return $this->render(
             'SiteBundle:Default:detailsAnnonce.html.twig'
             , ['offre' => $offre, 'annonceId' => $annonceId
-                , 'form' => $form->createView()]
+                , 'form' => $form->createView()
+                , 'errorEtudiant' => $error]
         );
     }
 
@@ -114,8 +112,8 @@ class DefaultController extends Controller
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
             array(
-                'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="Annonce.pdf"'
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="Annonce.pdf"'
             )
         );
     }
