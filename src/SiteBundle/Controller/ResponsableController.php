@@ -8,9 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ResponsableController extends Controller
 {
-    public function indexAction($name)
+    public function accueilAction()
     {
-        return $this->render('', array('name' => $name));
+        return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig');
     }
 
     public function ajoutEtudiantAction(Request $request)

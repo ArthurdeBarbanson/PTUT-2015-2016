@@ -62,6 +62,9 @@
         <default key="_controller">SiteBundle:Responsable:ajoutEtudiant</default>
     </route>
 
+    <route id="acceuil_responsable" path="/responsable/">
+        <default key="_controller">SiteBundle:Responsable:accueil</default>
+    </route>
     <!--security-->
     <route id="login" path="/login">
         <default key="_controller">SiteBundle:Security:login</default>
