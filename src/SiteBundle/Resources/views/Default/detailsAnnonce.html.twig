@@ -61,7 +61,7 @@
                     </div>
                     <div class="modal-body">
                         <!-- Si l'étudiant ne posssede pas de CV on lui propose d'aller sur l'accuueil etudiant et de l'importer -->
-                        {% if app.user.idEtudiant.cv is null or app.user.idEtudiant.cv is sameas("") %}
+                        {% if app.user.idEtudiant is null or app.user.idEtudiant.cv is null or app.user.idEtudiant.cv is sameas("") %}
                             <div class="alert alert-danger" role="alert">
                                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                 <span class="sr-only">Error:</span>
