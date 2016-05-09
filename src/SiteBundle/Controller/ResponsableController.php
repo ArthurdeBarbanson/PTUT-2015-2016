@@ -10,7 +10,24 @@ class ResponsableController extends Controller
 {
     public function accueilAction()
     {
-        return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig');
+        $repositoryEntreprise = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Entreprise');
+            $entreprises=$repositoryEntreprise->findAll();
+
+        $repositoryOffre = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Entreprise');
+
+        $offres=$repositoryOffre->findBy(["etatOffre" => "En attente de validation"]);
+
+
+        return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig',[
+            'entreprises' => $entreprises,
+            'offres' => $offres
+        ]);
     }
 
     public function ajoutEtudiantAction(Request $request)

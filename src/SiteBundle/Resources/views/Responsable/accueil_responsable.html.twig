@@ -4,6 +4,28 @@
     <h1>Accueil responsable pédagogique</h1>
 
     <p>Bienvenue, qsdf qd qd q</p>
+    <a href="" class="btn btn-lg btn-primary" >Voir les offres de stages</a>
+    <button class="btn btn-lg btn-primary" >Voir les étudiants </button>
 
+    <table>
+        <tr>
+            <th class="col-md-2" >Date</th>
+            <th class="col-md-2 text-center">Entreprise</th>
+            <th class="col-md-2 text-center">Maître de stage</th>
+            <th class="col-md-2 text-center">Action</th>
+        </tr>
+
+        {% for entreprise in entreprises %}
+        <tr>
+            <td>Today</td>
+            <td  class="text-center">{{ entreprise.	RaisonSocial }}</td>
+            <td  class="text-center">{{ entreprise.Prenom }} {{ entreprise.Nom }}</td>
+            <td  class="text-center">
+                <a href="" class="btn btn-lg btn-primary" >A Valider</a>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </table>
 
 {% endblock %}
