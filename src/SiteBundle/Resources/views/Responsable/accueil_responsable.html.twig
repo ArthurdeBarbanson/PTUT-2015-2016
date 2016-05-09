@@ -10,16 +10,18 @@
     <table>
         <tr>
             <th class="col-md-2" >Date</th>
+            <th class="col-md-2" >Titre de l'offre</th>
             <th class="col-md-2 text-center">Entreprise</th>
             <th class="col-md-2 text-center">Maître de stage</th>
             <th class="col-md-2 text-center">Action</th>
         </tr>
 
-        {% for entreprise in entreprises %}
+        {% for Offre in offres %}
         <tr>
-            <td>Today</td>
-            <td  class="text-center">{{ entreprise.	RaisonSocial }}</td>
-            <td  class="text-center">{{ entreprise.Prenom }} {{ entreprise.Nom }}</td>
+            <td>{{  Offre.DateDepot |date('d-m-Y') }}</td>
+            <td>{{  Offre.Titre	}}</td>
+            <td  class="text-center">{{ Offre.entreprise.RaisonSocial }}</td>
+            <td  class="text-center">{{ Offre.entreprise.Prenom }} {{ Offre.entreprise.Nom }}</td>
             <td  class="text-center">
                 <a href="" class="btn btn-lg btn-primary" >A Valider</a>
             </td>

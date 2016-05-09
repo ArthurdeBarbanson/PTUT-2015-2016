@@ -10,22 +10,15 @@ class ResponsableController extends Controller
 {
     public function accueilAction()
     {
-        $repositoryEntreprise = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:Entreprise');
-            $entreprises=$repositoryEntreprise->findAll();
-
         $repositoryOffre = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('SiteBundle:Entreprise');
+            ->getRepository('SiteBundle:Offre');
 
         $offres=$repositoryOffre->findBy(["etatOffre" => "En attente de validation"]);
 
 
         return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig',[
-            'entreprises' => $entreprises,
             'offres' => $offres
         ]);
     }
