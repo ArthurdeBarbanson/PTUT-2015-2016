@@ -55,9 +55,9 @@ class EntrepriseController extends Controller
         {
             $modal=false;
             $repository = $this
-                ->getDoctrine()
-                ->getManager()
-                ->getRepository('SiteBundle:Entreprise');
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Entreprise');
 
             $entreprise =$repository->find($this->getUser()->getIdEntreprise());
 
