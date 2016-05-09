@@ -5,6 +5,7 @@ namespace SiteBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use SiteBundle\Forms\Types\AjoutEtudiant;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ResponsableController extends Controller
 {
@@ -49,4 +50,47 @@ class ResponsableController extends Controller
             'id'=> $id
         ]);
     }
+
+    public function detailAnnonceAction(Request $request)
+    {
+        $offreid = $request->get('offreId');
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Offre');
+
+        $offre = $repository->find($offreid);
+        //si l'annonce n'es pas trouvé
+        if (null === $offre) {
+            throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
+        }
+
+        $form = $this->createForm(PostulerAnnonce::class);
+        $error = '';
+
+        if ($request->isMethod('post')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $offreEtudiantRepository = $this
+                    ->getDoctrine()
+                    ->getManager()
+                    ->getRepository('SiteBundle:EtudiantOffre');
+                $error = $offreEtudiantRepository->enregistrerOffre(
+                    $this->getUser()->getIdEtudiant()
+                    , $form->getData()
+                    , $offre);
+                $this->addFlash('info', "L'offre à bien été enregistrée.");
+            }
+        }
+
+        return $this->render(
+            'SiteBundle:Default:detailsAnnonce.html.twig',
+             [
+                 'offre' => $offre,
+                'form' => $form->createView(),
+                 'errorEtudiant' => $error]
+        );
+    }
+
+
 }

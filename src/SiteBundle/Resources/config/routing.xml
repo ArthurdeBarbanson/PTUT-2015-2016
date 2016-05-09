@@ -69,6 +69,10 @@
     <route id="acceuil_responsable" path="/responsable">
         <default key="_controller">SiteBundle:Responsable:accueil</default>
     </route>
+
+    <route id="site_detailsAnnonceResponsable" path="/responsable/details_annonce/{offreId}">
+        <default key="_controller">SiteBundle:Responsable:detailAnnonce</default>
+    </route>
     <!--security-->
     <route id="login" path="/login">
         <default key="_controller">SiteBundle:Security:login</default>
