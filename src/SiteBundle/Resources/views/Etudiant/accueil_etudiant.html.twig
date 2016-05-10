@@ -12,52 +12,52 @@
     </div>
     <div class="row">
         <div id="actions" class="col-sm-6 container">
-            <p>Nom :</p>
+            <p>Nom : {{ etudiant.laPersone.nom }}</p>
         </div>
         <div id="actions" class="col-sm-6 container">
-            <p>Prénom :</p>
+            <p>Prénom : {{ etudiant.laPersone.prenom }}</p>
         </div>
     </div>
     <div class="row">
         <div id="actions" class="col-sm-6 container">
-            <p>Sexe :</p>
+            <p>Sexe : {{ etudiant.laPersone.sexe }}</p>
         </div>
         <div id="actions" class="col-sm-6 container">
-            <p>Nationnalité :</p>
+            <p>Nationnalité : {{ etudiant.nationalite }}</p>
         </div>
     </div>
     <div class="row">
         <div id="actions" class="col-sm-6 container">
-            <p>Date de naissance :</p>
+            <p>Date de naissance : {{ etudiant.dateNaissance | date('d-m-Y') }}</p>
         </div>
         <div id="actions" class="col-sm-6 container">
-            <p>Ville de naissance :</p>
+            <p>Ville de naissance : {{ etudiant.villeNaissance }}</p>
         </div>
     </div>
     <div class="row">
         <div id="actions" class="col-sm-6 container">
-            <p>Mail :</p>
+            <p>Mail : {{ etudiant.laPersone.mail }}</p>
         </div>
         <div id="actions" class="col-sm-6 container">
-            <p>Téléphone :</p>
-        </div>
-    </div>
-    <div class="row">
-        <div id="actions" class="col-sm-12 container">
-            <p>Adresse :</p>
-        </div>
-    </div>
-    <div class="row">
-        <div id="actions" class="col-sm-6 container">
-            <p>Code Postal :</p>
-        </div>
-        <div id="actions" class="col-sm-6 container">
-            <p>Ville :</p>
+            <p>Téléphone : {{ etudiant.laPersone.telephone }}</p>
         </div>
     </div>
     <div class="row">
         <div id="actions" class="col-sm-12 container">
-            <p>Numéro dossier ciel2  :</p>
+            <p>Adresse : {{ etudiant.laPersone.Adresse.adresse }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div id="actions" class="col-sm-6 container">
+            <p>Code Postal : {{ etudiant.laPersone.Adresse.codePostal }}</p>
+        </div>
+        <div id="actions" class="col-sm-6 container">
+            <p>Ville : {{ etudiant.laPersone.Adresse.commune }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div id="actions" class="col-sm-12 container">
+            <p>Numéro dossier ciel2  : {{ etudiant.numeroDossierCandidature }}</p>
         </div>
     </div>
 
