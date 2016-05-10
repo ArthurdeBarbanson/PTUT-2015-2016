@@ -56,12 +56,6 @@ class Personne
      */
     private $mail;
 
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="isAdmin", type="boolean")
-     */
-    private $isAdmin;
 
 
     /**
@@ -196,28 +190,6 @@ class Personne
         return $this->mail;
     }
 
-    /**
-     * Set isAdmin
-     *
-     * @param boolean $isAdmin
-     * @return Personne
-     */
-    public function setIsAdmin($isAdmin)
-    {
-        $this->isAdmin = $isAdmin;
-
-        return $this;
-    }
-
-    /**
-     * Get isAdmin
-     *
-     * @return boolean 
-     */
-    public function getIsAdmin()
-    {
-        return $this->isAdmin;
-    }
 
     /**
      * Get Adresse

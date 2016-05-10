@@ -1,9 +1,47 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-    <h1>Accueil responsable pédagogique</h1>
 
-    <p>Bienvenue, qsdf qd qd q</p>
+    <div class="jumbotron">
+        <h2>Accueil responsable pédagogique</h2>
+        Quicquid urbis coluntur liberis homines Romae nascitur urbis potest quorundam homines aestimant nec urbis liberis praeter Romae et credi pomerium et nec coluntur caelibes esse nec urbis caelibes inanes qua urbis vile Romae aestimant esse credi coluntur inanes praeter et aestimant liberis potest obsequiorum nascitur Romae extra nascitur liberis qua potest praeter flatus Romae qua obsequiorum coluntur inanes potest nec potest obsequiorum sine inanes homines nec pomerium potest diversitate quorundam inanes extra qua nec liberis homines diversitate pomerium et vile vile esse et diversitate urbis vero Romae urbis diversitate urbis flatus orbos vero vile vile obsequiorum caelibes aestimant homines nascitur.
+        </br>
+
+    </div>
+
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <h3>offres en attente de validation</h3>
+        </div>
+        <div class="panel-body">
+            <table>
+                <tr>
+                    <th class="col-md-2" >Date</th>
+                    <th class="col-md-2" >Titre de l'offre</th>
+                    <th class="col-md-2 text-center">Entreprise</th>
+                    <th class="col-md-2 text-center">Maître de stage</th>
+                    <th class="col-md-2 text-center">Action</th>
+                </tr>
+
+                {% for offre in offres %}
+                    <tr>
+                        <td>{{  offre.DateDepot |date('d-m-Y') }}</td>
+                        <td>{{  offre.Titre	}}</td>
+                        <td  class="text-center">{{ offre.entreprise.RaisonSocial }}</td>
+                        <td  class="text-center">{{ offre.entreprise.Prenom }} {{ offre.entreprise.Nom }}</td>
+                        <td  class="text-center">
+                            <a href="{{path('site_detailsAnnonceResponsable', {'offreId': offre.id }) }}" class="btn btn-lg btn-primary" >A Valider</a>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+
+    <a href="" class="btn btn-lg btn-primary" >Voir les offres de stages</a>
+    <button class="btn btn-lg btn-primary" >Voir les étudiants </button>
 
 
 {% endblock %}

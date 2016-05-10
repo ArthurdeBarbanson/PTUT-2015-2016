@@ -11,6 +11,13 @@ class EtudiantController extends Controller
     public function accueilAction(Request $request)
     {
         $error = '';
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Etudiant');
+
+        $etudiant =$repository->find($this->getUser()->getIdEtudiant());
+
         $form = $this->createForm(AjoutPdfEtu::class);
 
         if ($request->isMethod('post')) {
@@ -45,7 +52,8 @@ class EtudiantController extends Controller
         return $this->render(
             'SiteBundle:Etudiant:accueil_etudiant.html.twig', [
                 'form' => $form->createView(),
-                'error' => $error
+                'error' => $error,
+                'etudiant' => $etudiant
             ]
         );
     }
