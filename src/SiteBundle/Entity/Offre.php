@@ -3,7 +3,7 @@
 namespace SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Proxies\__CG__\SiteBundle\Entity\Personne;
+use SiteBundle\Entity\Personne;
 
 /**
  * Offre
