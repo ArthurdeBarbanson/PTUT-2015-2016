@@ -21,10 +21,10 @@ class ResponsableController extends Controller
             ->getManager()
             ->getRepository('SiteBundle:Offre');
 
-        $offres = $repositoryOffre->findBy(["etatOffre" => "En attente de validation"]);
+        $offres=$repositoryOffre->findBy(["etatOffre" => "En attente de validation"]);
 
 
-        return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig', [
+        return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig',[
             'offres' => $offres
         ]);
     }
@@ -87,6 +87,7 @@ class ResponsableController extends Controller
         } else {
             $this->addFlash('erreur', "Une erreur est survenu lors de l'ajout des étudiants.");
         }
+
 
         return $this->render('SiteBundle:Responsable:ajoutEtudiant.html.twig', [
             'form' => $form->createView(),
