@@ -62,7 +62,7 @@
             <h3>Offre en attente de validation du responsable de la licence</h3>
         </div> <div class="panel-body">
             {% for offreV in offresValidations %}
-                <h4>{{ offreV.titre }} <small><a href=""><span class="glyphicon glyphicon-pencil margR5 "></span></a> <a href="{{path('site_detailsAnnonceEntreprise', {'annonceId': offreV.id }) }}"><span class="glyphicon glyphicon-search margR5"></span></a><a href="{{path('site_supprAnnonce', {'annonceId': offreV.id}) }}"><span class="glyphicon glyphicon-trash"></span></a> </small></h4>
+                <h4>{{ offreV.titre }} <small><a href="{{path('edditAnnonceAnnonceEntreprise', {'annonceId': offreV.id }) }}"><span class="glyphicon glyphicon-pencil margR5 "></span></a> <a href="{{path('site_detailsAnnonceEntreprise', {'annonceId': offreV.id }) }}"><span class="glyphicon glyphicon-search margR5"></span></a><a href="{{path('site_supprAnnonce', {'annonceId': offreV.id}) }}"><span class="glyphicon glyphicon-trash"></span></a> </small></h4>
 
             {% endfor %}
         </div>
