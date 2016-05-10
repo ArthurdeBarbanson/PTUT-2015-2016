@@ -3,10 +3,16 @@
 {% block body %}
     <div class="jumbotron">
         <h2> Bienvenue</h2>
-        Quicquid urbis coluntur liberis homines Romae nascitur urbis potest quorundam homines aestimant nec urbis liberis praeter Romae et credi pomerium et nec coluntur caelibes esse nec urbis caelibes inanes qua urbis vile Romae aestimant esse credi coluntur inanes praeter et aestimant liberis potest obsequiorum nascitur Romae extra nascitur liberis qua potest praeter flatus Romae qua obsequiorum coluntur inanes potest nec potest obsequiorum sine inanes homines nec pomerium potest diversitate quorundam inanes extra qua nec liberis homines diversitate pomerium et vile vile esse et diversitate urbis vero Romae urbis diversitate urbis flatus orbos vero vile vile obsequiorum caelibes aestimant homines nascitur.
+        Quicquid urbis coluntur liberis homines Romae nascitur urbis potest quorundam homines aestimant nec urbis
+        liberis praeter Romae et credi pomerium et nec coluntur caelibes esse nec urbis caelibes inanes qua urbis vile
+        Romae aestimant esse credi coluntur inanes praeter et aestimant liberis potest obsequiorum nascitur Romae extra
+        nascitur liberis qua potest praeter flatus Romae qua obsequiorum coluntur inanes potest nec potest obsequiorum
+        sine inanes homines nec pomerium potest diversitate quorundam inanes extra qua nec liberis homines diversitate
+        pomerium et vile vile esse et diversitate urbis vero Romae urbis diversitate urbis flatus orbos vero vile vile
+        obsequiorum caelibes aestimant homines nascitur.
         </br>
         <div class="text-center margTop10">
-            <a  class="btn btn-default " href="{{path('site_ajoutAnnonce')}}">Postez une Annonce</a>
+            <a class="btn btn-default " href="{{ path('site_ajoutAnnonce') }}">Postez une Annonce</a>
         </div>
     </div>
 
@@ -17,39 +23,53 @@
         <div class="panel-body">
             {% for offre in offresLigne %}
 
-                <h4>{{ offre.titre }} <small><a href="{{path('site_detailsAnnonceEntreprise', {'annonceId': offre.id }) }}"><span class="glyphicon glyphicon-search margR10"></span></a><a href="{{path('site_supprAnnonce', {'annonceId': offre.id }) }}"><span class="glyphicon glyphicon-trash"></span></a></small></h4>
+                <h4>{{ offre.titre }}
+                    <small><a href="{{ path('site_detailsAnnonceEntreprise', {'annonceId': offre.id }) }}"><span
+                                    class="glyphicon glyphicon-search margR10"></span></a><a
+                                href="{{ path('site_supprAnnonce', {'annonceId': offre.id }) }}"><span
+                                    class="glyphicon glyphicon-trash"></span></a></small>
+                </h4>
 
-                    <table class="table table-bordered">
-                        <tr>
-                            <th class="col-md-2" >Nom Prenom</th>
-                            <th class="col-md-2 text-center">Age</th>
-                            <th class="col-md-2 text-center">CV</th>
-                            <th class="col-md-2 text-center">Lettre De Motivation</th>
-                            <th class="col-md-2 text-center">Profil</th>
-                        </tr>
-                        {% for postulants in postulantOffres %}
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="col-md-2">Nom Prenom</th>
+                        <th class="col-md-2 text-center">Age</th>
+                        <th class="col-md-2 text-center">CV</th>
+                        <th class="col-md-2 text-center">Lettre De Motivation</th>
+                        <th class="col-md-2 text-center">Profil</th>
+                    </tr>
+                    {% for postulants in postulantOffres %}
 
 
-                            {% for postulant in postulants %}
+                        {% for postulant in postulants %}
 
-                                {% if postulant.offre.id == offre.id %}
+                            {% if postulant.offre.id == offre.id %}
 
-                                    <tr>
-                                        <td>{{ postulant.etudiant.laPersone.nom }} {{ postulant.etudiant.laPersone.prenom }}</td>
-                                        <td class="text-center">{{ postulant.etudiant.getAge() }} ans</td>
-                                        <td class="text-center"><a target="_blank" href="{{ asset(postulant.etudiant.cv) }}" ><span class="glyphicon glyphicon-eye-open "></span></a></td>
-                                        <td class="text-center"><a href=""><span class="glyphicon glyphicon-eye-open"></span></a></td>
-                                        <td class="text-center"><a href="{{path('site_detailsPostulant', {'postulantId': postulant.id }) }}"><span class="glyphicon glyphicon-eye-open margR5"></span></a><a href="{{path('site_impressionPostulant', {'postulantId': postulant.id }) }}" target="_blank"><span class="glyphicon glyphicon-print"></span></a></td>
-                                    </tr>
-                                {% else %}
-                                    <tr>
-                                    <td class="alert alert-warning" colspan="5">Aucun étudiant a postulé à cette offre.</td>
-                                        </tr>
-                                {% endif %}
-                            {% endfor %}
-
+                                <tr>
+                                    <td>{{ postulant.etudiant.laPersone.nom }} {{ postulant.etudiant.laPersone.prenom }}</td>
+                                    <td class="text-center">{{ postulant.etudiant.getAge() }} ans</td>
+                                    <td class="text-center"><a target="_blank"
+                                                               href="{{ asset(postulant.etudiant.cv) }}"><span
+                                                    class="glyphicon glyphicon-eye-open "></span></a></td>
+                                    <td class="text-center"><a href=""><span
+                                                    class="glyphicon glyphicon-eye-open"></span></a></td>
+                                    <td class="text-center"><a
+                                                href="{{ path('site_detailsPostulant', {'postulantId': postulant.id }) }}"><span
+                                                    class="glyphicon glyphicon-eye-open margR5"></span></a><a
+                                                href="{{ path('site_impressionPostulant', {'postulantId': postulant.id }) }}"
+                                                target="_blank"><span class="glyphicon glyphicon-print"></span></a></td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td class="alert alert-warning" colspan="5">Aucun étudiant a postulé à cette
+                                        offre.
+                                    </td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
-                    </table>
+
+                    {% endfor %}
+                </table>
 
             {% endfor %}
 
@@ -60,9 +80,17 @@
     <div class="panel panel-danger">
         <div class="panel-heading">
             <h3>Offre en attente de validation du responsable de la licence</h3>
-        </div> <div class="panel-body">
+        </div>
+        <div class="panel-body">
             {% for offreV in offresValidations %}
-                <h4>{{ offreV.titre }} <small><a href="{{path('edditAnnonceAnnonceEntreprise', {'annonceId': offreV.id }) }}"><span class="glyphicon glyphicon-pencil margR5 "></span></a> <a href="{{path('site_detailsAnnonceEntreprise', {'annonceId': offreV.id }) }}"><span class="glyphicon glyphicon-search margR5"></span></a><a href="{{path('site_supprAnnonce', {'annonceId': offreV.id}) }}"><span class="glyphicon glyphicon-trash"></span></a> </small></h4>
+                <h4>{{ offreV.titre }}
+                    <small><a href="{{ path('edditAnnonceAnnonceEntreprise', {'annonceId': offreV.id }) }}"><span
+                                    class="glyphicon glyphicon-pencil margR5 "></span></a> <a
+                                href="{{ path('site_detailsAnnonceEntreprise', {'annonceId': offreV.id }) }}"><span
+                                    class="glyphicon glyphicon-search margR5"></span></a><a
+                                href="{{ path('site_supprAnnonce', {'annonceId': offreV.id}) }}"><span
+                                    class="glyphicon glyphicon-trash"></span></a></small>
+                </h4>
 
             {% endfor %}
         </div>
@@ -72,10 +100,13 @@
             <h3>Offre Pourvue</h3></div>
         <div class="panel-body">
             {% for offreP in offresPourvues %}
-                <h4>{{ offreP.titre }} <small><a href="{{path('site_detailsAnnonceEntreprise', {'annonceId': offreP.id }) }}"><span class="margR5 glyphicon glyphicon-search margR5"></span></a></small></h4>
+                <h4>{{ offreP.titre }}
+                    <small><a href="{{ path('site_detailsAnnonceEntreprise', {'annonceId': offreP.id }) }}"><span
+                                    class="margR5 glyphicon glyphicon-search margR5"></span></a></small>
+                </h4>
                 <table class="table table-bordered">
                 <tr>
-                    <th class="col-md-2" >Nom Prenom</th>
+                    <th class="col-md-2">Nom Prenom</th>
                     <th class="col-md-2 text-center">Age</th>
                     <th class="col-md-2 text-center">CV</th>
                     <th class="col-md-2 text-center">Lettre De Motivation</th>
@@ -84,9 +115,11 @@
                 <tr>
                     <td>{{ offreP.etudiant.laPersone.nom }} {{ offreP.etudiant.laPersone.prenom }}</td>
                     <td class="text-center">{{ offreP.etudiant.getAge() }} ans</td>
-                    <td class="text-center"><a target="_blank" href="{{ asset(offreP.etudiant.cv) }}" ><span class="glyphicon glyphicon-eye-open "></span></a></td>
+                    <td class="text-center"><a target="_blank" href="{{ asset(offreP.etudiant.cv) }}"><span
+                                    class="glyphicon glyphicon-eye-open "></span></a></td>
                     <td class="text-center"><a href=""><span class="glyphicon glyphicon-eye-open"></span></a></td>
-                    <td class="text-center"><a href="#"><span class="glyphicon glyphicon-eye-open margR10"></span></a><a href=""><span class="glyphicon glyphicon-print"></span></a></td>
+                    <td class="text-center"><a href="#"><span class="glyphicon glyphicon-eye-open margR10"></span></a><a
+                                href=""><span class="glyphicon glyphicon-print"></span></a></td>
                 </tr>
 
                 </table>{% endfor %}

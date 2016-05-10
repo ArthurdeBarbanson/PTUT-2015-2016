@@ -1,0 +1,28 @@
+{% extends '::base.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+
+{% block body %}
+
+    <div id="assignéTuteur">
+
+        <h1>Assignez un tuteur</h1>
+
+        <form id="assignez">
+            <label for="map">Maitre apprentissage</label>
+            <select name="map">
+                {% for tuteur in tuteurs %}
+                    <option value="{{ tuteur.id }}">{{ tuteur.nom }} {{ tuteur.prenom }}</option>
+                {% endfor %}
+            </select>
+        </form>
+
+    </div>
+
+    <div id="creerTuteur">
+        <h1>Creez un tuteur</h1>
+        {{ form(form) }}
+    </div>
+
+
+{% endblock %}

@@ -8,51 +8,51 @@
 
     {{ form_start(form) }}
     <label for="map">Maitre apprentissage</label>
-        <select name="map" >
-            {% for map in maps %}
-                <option value="{{ map.id}}" {% if annonce.mAP.id is sameas(map.id)%} selected {% endif %}" >{{ map.laPersone.nom}} {{ map.laPersone.prenom }}</option>
-            {% endfor %}
-        </select>
+    <select name="map">
+        {% for map in maps %}
+            <option value="{{ map.id}}" {% if annonce.mAP.id is sameas(map.id)%} selected {% endif %}" >{{ map.laPersone.nom}} {{ map.laPersone.prenom }}</option>
+        {% endfor %}
+    </select>
 
-<a data-toggle="modal" data-target="#creerMap">
-    Créer un Maitre d'apprentissage
-</a>
+    <a data-toggle="modal" data-target="#creerMap">
+        Créer un Maitre d'apprentissage
+    </a>
 
-{{ form_end(form) }}
+    {{ form_end(form) }}
 
-<!-- Modal -->
+    <!-- Modal -->
 
     <div id="creerMap" class="modal fade" role="dialog">
 
         <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
 
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-                <h4 class="modal-title text-center">Créez un Maitre d'apprentissage</h4>
+                    <h4 class="modal-title text-center">Créez un Maitre d'apprentissage</h4>
 
+                </div>
+                <div class="modal-body">
+                    {{ form(form2) }}
+                </div>
             </div>
-            <div class="modal-body">
-                {{ form(form2) }}
-            </div>
+
         </div>
-
-     </div>
     </div>
 
 
-        {% block javascripts %}
-            <script type="text/javascript">
-                {% if bool  %}
-                jQuery(document).ready(function($){
+    {% block javascripts %}
+        <script type="text/javascript">
+            {% if bool %}
+            jQuery(document).ready(function ($) {
 
-                    $('#creerMap').modal('show');
+                $('#creerMap').modal('show');
 
-                             });
-                {% endif %}
-            </script>
-        {% endblock %}
+            });
+            {% endif %}
+        </script>
+    {% endblock %}
 
 {% endblock %}

@@ -1,15 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lp
- * Date: 31/03/2016
- * Time: 11:24
- */
 
 namespace SiteBundle\Forms\Types;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,7 +12,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 
-class CreateMap extends AbstractType
+class AjoutTuteur extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -46,17 +39,6 @@ class CreateMap extends AbstractType
                     new Length(['min' => 2])
                 ]
             ))
-            ->add('DateN', BirthdayType::class, array(
-                'label' => 'Date de Naissance',
-
-            ))
-            ->add('Fonction', TextType::class, array(
-                'label' => 'Fonction',
-                'constraints' => [
-                    new NotBlank(),
-                    new Length(['min' => 3])
-                ]
-            ))
             ->add('Tel', TextType::class, array(
                 'label' => 'Telephone du maitre d\'apprentissage',
                 'constraints' => [
@@ -70,20 +52,6 @@ class CreateMap extends AbstractType
                     new NotBlank(),
                     new Email()
                 ]
-            ))
-            ->add('DejaMaj', ChoiceType::class, array(
-                'choices' => array('Oui' => 'true', 'Non' => 'False'),
-                'label' => 'A t\'il déja été  maitre d\'apprentissage ',
-                'multiple' => false,
-                'expanded' => true,
-                'required' => true,
-            ))
-            ->add('DejaFormerMaj', ChoiceType::class, array(
-                'choices' => array('Oui' => 'true', 'Non' => 'False'),
-                'label' => 'A t\'il déja suivis une formation de  maitre d\'apprentissage ',
-                'multiple' => false,
-                'expanded' => true,
-                'required' => true,
             ))
             ->add('submit', SubmitType::class, [
                 'label' => 'Poster',

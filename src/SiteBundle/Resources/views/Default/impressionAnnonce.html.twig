@@ -1,10 +1,10 @@
 {% extends '::baseImpression.html.twig' %}
 
 {% block body %}
-    <h1 class="text-center margB20">Details de l'annonce  n° {{ offre.id }} </h1>
+    <h1 class="text-center margB20">Details de l'annonce n° {{ offre.id }} </h1>
 
     <div class="row">
-    <div class="col-sm-1"></div>
+        <div class="col-sm-1"></div>
         <div id="description" class="col-sm-10">
             <h3>Titre : {{ offre.titre }}</h3>
 
@@ -28,7 +28,7 @@
                     <p><strong>Contact :</strong></p>
                     <dl>
                         <dd>Nom: {{ offre.entreprise.nom }}</dd>
-                        <dd>Prenom :  {{ offre.entreprise.prenom }}</dd>
+                        <dd>Prenom : {{ offre.entreprise.prenom }}</dd>
                         <dd>Mail : {{ offre.entreprise.mail }}</dd>
                         <dd>Téléphone : {{ offre.entreprise.telephone }}</dd>
                         <dd>Description :{{ offre.entreprise.description }}</dd>

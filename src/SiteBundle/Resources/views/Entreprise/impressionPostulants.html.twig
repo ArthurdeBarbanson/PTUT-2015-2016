@@ -1,32 +1,34 @@
 {% extends '::baseImpression.html.twig' %}
 {% block body %}
-<div class="row">
-    <div class="col-sm-3"></div>
-    <div class="col-sm-6">
-        <h1>Profil d'un étudiant</h1>
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <h1>Profil d'un étudiant</h1>
+        </div>
+        <div class="col-sm-3"></div>
     </div>
-    <div class="col-sm-3"></div>
-</div>
-<div class="row">
-    <div class="col-sm-12">
-        <h2>Offre :  {{ postulant.offre.titre }}</h2>
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Offre : {{ postulant.offre.titre }}</h2>
+        </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-sm-3"></div>
-    <div class="col-sm-6">
-        <h1>Profil d'un étudiant</h1>
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <h1>Profil d'un étudiant</h1>
+        </div>
+        <div class="col-sm-3"></div>
     </div>
-    <div class="col-sm-3"></div>
-</div>
     <div>
         <p><label>Nom : </label> {{ postulant.etudiant.laPersone.nom }}</p>
         <p><label>Prenom : </label> {{ postulant.etudiant.laPersone.prenom }}</p>
         <p><label>Sexe : </label> {{ postulant.etudiant.laPersone.sexe }}</p>
         <p><label>Email : </label> {{ postulant.etudiant.laPersone.mail }}</p>
         <p><label>Téléphone : </label> {{ postulant.etudiant.laPersone.telephone }}</p>
-        <p><label>Adresse : </label> {{ postulant.etudiant.laPersone.adresse.commune }} {{ postulant.etudiant.laPersone.adresse.codePostal}}</p>
-        <p><label>Lettre de motivation :    </label> {{ postulant.lettreMotivation }}</p>
+        <p><label>Adresse
+                : </label> {{ postulant.etudiant.laPersone.adresse.commune }} {{ postulant.etudiant.laPersone.adresse.codePostal }}
+        </p>
+        <p><label>Lettre de motivation : </label> {{ postulant.lettreMotivation }}</p>
     </div>
 {% endblock %}

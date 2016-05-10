@@ -21,10 +21,10 @@ class ResponsableController extends Controller
             ->getManager()
             ->getRepository('SiteBundle:Offre');
 
-        $offres=$repositoryOffre->findBy(["etatOffre" => "En attente de validation"]);
+        $offres = $repositoryOffre->findBy(["etatOffre" => "En attente de validation"]);
 
 
-        return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig',[
+        return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig', [
             'offres' => $offres
         ]);
     }
@@ -109,7 +109,7 @@ class ResponsableController extends Controller
                     die;
                 }
             }
-        } 
+        }
         die;
     }
 
@@ -131,7 +131,7 @@ class ResponsableController extends Controller
 
         if ($formulaire->handleRequest($request)->isValid()) {
 
-                // en attente serveur smtp
+            // en attente serveur smtp
 
 //                $message = \Swift_Message::newInstance()
 //                    ->setSubject('Refuse de validation ')
@@ -145,8 +145,8 @@ class ResponsableController extends Controller
 //                    );
 //                $this->get('mailer')->send($message);
 
-                $this->addFlash('info', "L'offre à bien été enregistrée.");
-                return $this->redirect($this->generateUrl('acceuil_responsable'));
+            $this->addFlash('info', "L'offre à bien été enregistrée.");
+            return $this->redirect($this->generateUrl('acceuil_responsable'));
 
         }
 
@@ -184,9 +184,15 @@ class ResponsableController extends Controller
 
     }
 
-    private  function ajouterTripletteAction (request $request){
+    private function ajouterTripletteAction(request $request)
+    {
 
+        $repositoryTuteur = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Etudiant');
 
+        $tuteurs = $repositoryTuteur->findBy(["isTuteur" => "1"]);
 
 
     }

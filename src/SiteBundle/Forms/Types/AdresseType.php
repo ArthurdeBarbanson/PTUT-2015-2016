@@ -20,10 +20,10 @@ class AdresseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('adresse',TextType::class)
-            ->add('codePostal',NumberType::class)
-            ->add('commune',TextType::class)
-            ->add('commune',TextType::class)
+            ->add('adresse', TextType::class)
+            ->add('codePostal', NumberType::class)
+            ->add('commune', TextType::class)
+            ->add('commune', TextType::class)
 //            ->add('pays', ChoiceType::class,[
 //                'placeholder' => 'Choose an option',
 //                'constraints'=>[
@@ -32,7 +32,7 @@ class AdresseType extends AbstractType
 //            ])
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */

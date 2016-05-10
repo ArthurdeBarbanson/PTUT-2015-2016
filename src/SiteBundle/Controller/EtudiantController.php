@@ -16,7 +16,7 @@ class EtudiantController extends Controller
             ->getManager()
             ->getRepository('SiteBundle:Etudiant');
 
-        $etudiant =$repository->find($this->getUser()->getIdEtudiant());
+        $etudiant = $repository->find($this->getUser()->getIdEtudiant());
 
         $form = $this->createForm(AjoutPdfEtu::class);
 
@@ -25,16 +25,16 @@ class EtudiantController extends Controller
             if ($form->isValid()) {
                 $date = new \DateTime();
                 $annee = $date->format('Y');
-                $dir = 'uploads/cv_etudiant/'.$annee;
+                $dir = 'uploads/cv_etudiant/' . $annee;
                 $file = $form['pdf']->getData();
                 $extension = $file->guessExtension();
-                if($extension == 'pdf'){
+                if ($extension == 'pdf') {
                     $repository = $this
                         ->getDoctrine()
                         ->getManager()
                         ->getRepository('SiteBundle:Etudiant');
 
-                    $etudiant =$repository->find($this->getUser()->getIdEtudiant());
+                    $etudiant = $repository->find($this->getUser()->getIdEtudiant());
                     $uniqId = uniqid();
                     $file->move($dir, $etudiant->getId() . '_' . $uniqId . '.' . $extension);
                     $final_url = $dir . '/' . $etudiant->getId() . '_' . $uniqId . '.' . $extension;
@@ -43,7 +43,7 @@ class EtudiantController extends Controller
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($etudiant);
                     $em->flush();
-                }else{
+                } else {
                     $error = 'Vous devez importer votre CV en format PDF uniquement.';
                 }
             }

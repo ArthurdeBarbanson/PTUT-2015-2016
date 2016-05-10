@@ -111,13 +111,13 @@
 
     {% if route is sameas("site_detailsAnnonceResponsable") %}
 
-            <a class="btn btn-lg btn-success" href="{{ path('validation_Annonce', {'offreId': offre.id }) }}">
-                Valider cette offre d'aternance
-            </a>
-            <button class="btn btn-lg btn-danger" data-toggle="modal" data-target="#refuserOffre">
-                Refuser cette offre d'aternance
+        <a class="btn btn-lg btn-success" href="{{ path('validation_Annonce', {'offreId': offre.id }) }}">
+            Valider cette offre d'aternance
+        </a>
+        <button class="btn btn-lg btn-danger" data-toggle="modal" data-target="#refuserOffre">
+            Refuser cette offre d'aternance
 
-            </button>
+        </button>
 
 
 
@@ -133,18 +133,18 @@
                     </div>
                     <div class="modal-body">
 
-                            {{ form(form_Responsable) }}
+                        {{ form(form_Responsable) }}
                     </div>
                 </div>
 
             </div>
         </div>
 
-            <script type="text/javascript">
-                jQuery(document).ready(function () {
-                    $('#refuserOffre').modal('show');
-                });
-            </script>
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                $('#refuserOffre').modal('show');
+            });
+        </script>
 
     {% endif %}
 
