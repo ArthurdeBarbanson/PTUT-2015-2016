@@ -47,7 +47,7 @@ class ResponsableController extends Controller
             $personne->setNom($data['Nom']);
             $personne->setPrenom($data['Prenom']);
             $personne->setMail($data['Email']);
-            $personne->setIsAdmin(false);
+
             //set etudiant
             $etudiant = new Etudiant();
             $etudiant->setLaPersone($personne);
@@ -109,7 +109,7 @@ class ResponsableController extends Controller
                     die;
                 }
             }
-        }
+        } 
         die;
     }
 
@@ -184,5 +184,10 @@ class ResponsableController extends Controller
 
     }
 
+    private  function ajouterTripletteAction (request $request){
 
+
+
+
+    }
 }
