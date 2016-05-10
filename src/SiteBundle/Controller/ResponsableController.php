@@ -97,7 +97,7 @@ class ResponsableController extends Controller
                     die;
                 }
             }
-        }
+        } 
         die;
     }
 }
