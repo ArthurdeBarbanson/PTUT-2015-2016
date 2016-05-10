@@ -53,8 +53,8 @@
         <div class="panel-body">
             <table>
                 <tr>
-                    <th class="col-md-2">Date</th>
-                    <th class="col-md-2">Titre de l'offre</th>
+                    <th class="col-md-2">Etudiant</th>
+                    <th class="col-md-2">état d'avancement</th>
                     <th class="col-md-2 text-center">Entreprise</th>
                     <th class="col-md-2 text-center">Maître de stage</th>
                     <th class="col-md-2 text-center">Action</th>
@@ -62,11 +62,11 @@
 
                 {% for etudiant in etudiants %}
                     <tr>
-                        <td>{{  etudiant.Nom }} {{  etudiant.Prenom }}</td>
-                        {#<td>{{  etudiant.Titre	}}</td>#}
+                        {#<td>{{  etudiant.Statut }} {{  etudiant.Prenom }}</td>#}
+                        <td>{{  etudiant.Statut	}}</td>
 
                         <td  class="text-center">
-                            <a href="{{path('site_detailsAnnonceResponsable', {'offreId': offre.id }) }}" class="btn btn-lg btn-primary" >A Valider</a>
+                            <a href="{{path('site_detailsAnnonceResponsable', {'offreId': etudiant.id }) }}" class="btn btn-lg btn-primary" >A Valider</a>
                         </td>
 
                     </tr>
