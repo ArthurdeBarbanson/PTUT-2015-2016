@@ -74,7 +74,7 @@
         <default key="_controller">SiteBundle:Responsable:detailAnnonce</default>
     </route>
 
-    <route id="validation_Anonce" path="/responsable/validation_offre/{offreId}">
+    <route id="validation_Annonce" path="/responsable/validation_annonce/{offreId}">
         <default key="_controller">SiteBundle:Responsable:detailAnnonce</default>
     </route>
     <!--security-->
