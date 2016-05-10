@@ -38,14 +38,14 @@ class Personne
     /**
      * @var string
      *
-     * @ORM\Column(name="Telephone", type="string", length=20)
+     * @ORM\Column(name="Telephone", type="string", length=20, nullable=true)
      */
     private $telephone;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Sexe", type="string", length=5)
+     * @ORM\Column(name="Sexe", type="string", length=5,nullable=true)
      */
     private $sexe;
 
@@ -66,7 +66,7 @@ class Personne
 
     /**
      * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Adresse")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $Adresse;
 

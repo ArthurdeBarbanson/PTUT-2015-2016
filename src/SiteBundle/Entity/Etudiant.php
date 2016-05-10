@@ -35,49 +35,49 @@ class Etudiant
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="DateNaissance", type="date")
+     * @ORM\Column(name="DateNaissance", type="date", nullable=true)
      */
     private $dateNaissance;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="CV", type="string", length=255)
+     * @ORM\Column(name="CV", type="string", length=255, nullable=true)
      */
     private $cV;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="TypeLicence", type="string", length=255)
+     * @ORM\Column(name="TypeLicence", type="string", length=255, nullable=true)
      */
     private $typeLicence;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="VilleNaissance", type="string", length=255)
+     * @ORM\Column(name="VilleNaissance", type="string", length=255, nullable=true)
      */
     private $villeNaissance;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Nationalite", type="string", length=255)
+     * @ORM\Column(name="Nationalite", type="string", length=255, nullable=true)
      */
     private $nationalite;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="NumeroDossierCandidature", type="string", length=255)
+     * @ORM\Column(name="NumeroDossierCandidature", type="string", length=255, nullable=true)
      */
     private $numeroDossierCandidature;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Statut", type="string", length=255)
+     * @ORM\Column(name="Statut", type="string", length=255, nullable=true)
      */
     private $statut;
 
