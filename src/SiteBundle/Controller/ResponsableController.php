@@ -184,8 +184,5 @@ class ResponsableController extends Controller
 
     }
 
-    public function refuserAnnonceAction(){
-
-    }
 
 }
