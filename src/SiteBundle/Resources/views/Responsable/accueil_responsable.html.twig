@@ -62,8 +62,8 @@
 
                 {% for etudiant in etudiants %}
                     <tr>
-                        {#<td>{{  etudiant.Statut }} {{  etudiant.Prenom }}</td>#}
-                        <td>{{  etudiant.Statut	}}</td>
+                        <td>{{ etudiant.laPersone.prenom }} {{ etudiant.laPersone.nom }}</td>
+                        <td>{{ etudiant.Statut }}</td>
 
                         <td  class="text-center">
                             <a href="{{path('site_detailsAnnonceResponsable', {'offreId': etudiant.id }) }}" class="btn btn-lg btn-primary" >A Valider</a>
