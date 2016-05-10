@@ -66,8 +66,16 @@
         <default key="_controller">SiteBundle:Responsable:ajoutEtudiant</default>
     </route>
 
-    <route id="acceuil_responsable" path="/responsable/">
+    <route id="acceuil_responsable" path="/responsable">
         <default key="_controller">SiteBundle:Responsable:accueil</default>
+    </route>
+
+    <route id="site_detailsAnnonceResponsable" path="/responsable/details_annonce/{offreId}">
+        <default key="_controller">SiteBundle:Responsable:detailAnnonce</default>
+    </route>
+
+    <route id="validation_Annonce" path="/responsable/validation_annonce/{offreId}">
+        <default key="_controller">SiteBundle:Responsable:validerAnnonce</default>
     </route>
     <!--security-->
     <route id="login" path="/login">

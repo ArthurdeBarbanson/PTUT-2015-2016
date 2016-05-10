@@ -5,15 +5,28 @@ namespace SiteBundle\Controller;
 use SiteBundle\Entity\Etudiant;
 use SiteBundle\Entity\Personne;
 use SiteBundle\Entity\User;
+use SiteBundle\Forms\Types\RefuserAnnonce;
+use SiteBundle\Forms\Types\RefuserAnonce;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use SiteBundle\Forms\Types\AjoutEtudiant;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ResponsableController extends Controller
 {
     public function accueilAction()
     {
-        return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig');
+        $repositoryOffre = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Offre');
+
+        $offres=$repositoryOffre->findBy(["etatOffre" => "En attente de validation"]);
+
+
+        return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig',[
+            'offres' => $offres
+        ]);
     }
 
     public function ajoutEtudiantAction(Request $request)
@@ -56,4 +69,40 @@ class ResponsableController extends Controller
             'form' => $form->createView(),
         ]);
     }
+
+    public function detailAnnonceAction(Request $request)
+    {
+        $offreid = $request->get('offreId');
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Offre');
+
+        $offre = $repository->find($offreid);
+        //si l'annonce n'es pas trouvé
+        if (null === $offre) {
+            throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
+        }
+
+        $formulaire = $this->createForm(RefuserAnnonce::class);
+
+        if ($request->isMethod('post')) {
+            $formulaire->handleRequest($request);
+            if ($formulaire->isValid()) {
+                $this->addFlash('info', "L'offre à bien été enregistrée.");
+            }
+        }
+
+        return $this->render(
+            'SiteBundle:Default:detailsAnnonce.html.twig',
+             [
+                 'offre' => $offre,
+                 'form_Responsable' => $formulaire->createView(),
+                 'form' =>$formulaire->createView(),
+                 'errorEtudiant'=>''
+            ]
+        );
+    }
+
+
 }
