@@ -105,7 +105,8 @@ class ResponsableController extends Controller
              [
                  'offre' => $offre,
                 'form' => $form->createView(),
-                 'errorEtudiant' => $error]
+                 'errorEtudiant' => $error
+            ]
         );
     }
 
