@@ -39,9 +39,35 @@
         </div>
     </div>
 
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3>Liste des étudiants</h3>
+        </div>
+        <div class="panel-body">
+            <table>
+                <tr>
+                    <th class="col-md-2" >Date</th>
+                    <th class="col-md-2" >Titre de l'offre</th>
+                    <th class="col-md-2 text-center">Entreprise</th>
+                    <th class="col-md-2 text-center">Maître de stage</th>
+                    <th class="col-md-2 text-center">Action</th>
+                </tr>
 
-    <a href="" class="btn btn-lg btn-primary" >Voir les offres de stages</a>
-    <button class="btn btn-lg btn-primary" >Voir les étudiants </button>
+                {% for offre in offres %}
+                    <tr>
+                        <td>{{  offre.DateDepot |date('d-m-Y') }}</td>
+                        <td>{{  offre.Titre	}}</td>
+                        <td  class="text-center">{{ offre.entreprise.RaisonSocial }}</td>
+                        <td  class="text-center">{{ offre.entreprise.Prenom }} {{ offre.entreprise.Nom }}</td>
+                        <td  class="text-center">
+                            <a href="{{path('site_detailsAnnonceResponsable', {'offreId': offre.id }) }}" class="btn btn-lg btn-primary" >A Valider</a>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 
 
 {% endblock %}
