@@ -5,8 +5,10 @@ namespace SiteBundle\Controller;
 use SiteBundle\Entity\Etudiant;
 use SiteBundle\Entity\Personne;
 use SiteBundle\Entity\User;
+use SiteBundle\Forms\Types\AjoutEtudiantImport;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use SiteBundle\Forms\Types\AjoutEtudiant;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 class ResponsableController extends Controller
@@ -19,9 +21,12 @@ class ResponsableController extends Controller
     public function ajoutEtudiantAction(Request $request)
     {
         $form = $this->createForm(AjoutEtudiant::class);
+        $formImport = $this->createForm(AjoutEtudiantImport::class);
 
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        $formImport->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $randomPassword = random_bytes(10);
@@ -46,14 +51,53 @@ class ResponsableController extends Controller
             $em->persist($user);
 
             $em->flush();
-            $this->addFlash('success', "l'étudiant à été ajouter !");
-        } else {
-            $this->addFlash('erreur', "Une erreur est survenu lors de l'ajout d'un étudiant.");
-        }
 
+            //envoie de mail
+            $message = new \Swift_Message();
+            $message
+                ->setSubject('Hello Email')
+                ->setFrom('no_reply@ptut.com')
+                ->setTo($data['Email'])
+                ->setBody(
+                    $this->renderView(
+                        '@Site/Email/emailInscriptionEtudiant',
+                        array('password' => $randomPassword)
+                    ),
+                    'text/html'
+                );
+            $this->get('mailer')->send($message);
+            $this->addFlash('success', "l'étudiant à été ajouter !");
+        } elseif ($formImport->isSubmitted() && $formImport->isValid()) {
+            $data = $formImport->getData();
+            if (isset($data['csv'])) {
+                $etudiants = $this->chargerEtudiantDepuisCsv($data['csv']);
+            }
+            $this->addFlash('erreur', "Une erreur est survenu lors de l'ajout des étudiants.");
+        } else {
+            $this->addFlash('erreur', "Une erreur est survenu lors de l'ajout des étudiants.");
+        }
 
         return $this->render('SiteBundle:Responsable:ajoutEtudiant.html.twig', [
             'form' => $form->createView(),
+            'formImport' => $formImport->createView(),
         ]);
+    }
+
+    private function chargerEtudiantDepuisCsv($path)
+    {
+        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
+        $pages = $phpExcelObject->getAllSheets();
+        foreach ($pages as $page) {
+            $lignes = $page->getRowIterator();
+            foreach ($lignes as $ligne) {
+                $cellIterator = $ligne->getCellIterator();
+                $cellIterator->setIterateOnlyExistingCells(false); // Loop all cells, even if it is not set
+                foreach ($cellIterator as $cell) {
+                    var_dump($cell);
+                    die;
+                }
+            }
+        }
+        die;
     }
 }
