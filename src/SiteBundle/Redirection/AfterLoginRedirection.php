@@ -42,7 +42,7 @@ class AfterLoginRedirection implements AuthenticationSuccessHandlerInterface
         }, $roles);
         // S'il s'agit d'un admin ou d'un super admin on le redirige vers le backoffice
         if (in_array('ROLE_ADMIN', $rolesTab, true))
-            $redirection = new RedirectResponse($this->router->generate('site_homepage'));
+            $redirection = new RedirectResponse($this->router->generate('acceuil_responsable'));
         //TODO changer la page d'accueil de l'admin
         elseif (in_array('ROLE_ETUDIANT', $rolesTab, true))
             $redirection = new RedirectResponse($this->router->generate('site_accueilEtudiant'));
