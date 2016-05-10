@@ -86,11 +86,25 @@ class ResponsableController extends Controller
 
         $formulaire = $this->createForm(RefuserAnnonce::class);
 
-        if ($request->isMethod('post')) {
-            $formulaire->handleRequest($request);
-            if ($formulaire->isValid()) {
+        if ($formulaire->handleRequest($request)->isValid()) {
+
+                // en attente serveur smtp
+
+//                $message = \Swift_Message::newInstance()
+//                    ->setSubject('Refuse de validation ')
+//                    ->setFrom('send@example.com')
+//                    ->setTo('recipient@example.com')
+//                    ->setBody(
+//                        $this->renderView(
+//                            'Emails/refusAnnonce.html.twig'
+//                        ),
+//                        'text/html'
+//                    );
+//                $this->get('mailer')->send($message);
+
                 $this->addFlash('info', "L'offre à bien été enregistrée.");
-            }
+                return $this->redirect($this->generateUrl('acceuil_responsable'));
+
         }
 
         return $this->render(
@@ -104,5 +118,31 @@ class ResponsableController extends Controller
         );
     }
 
+    public function validerAnnonceAction(Request $request)
+    {
+        $offreid = $request->get('offreId');
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Offre');
+
+        $offrevalider = $repository->find($offreid);
+        //si l'annonce n'es pas trouvé
+        if (null === $offrevalider) {
+            throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
+        }
+        $offrevalider->setEtatOffre('En ligne');
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($offrevalider);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('acceuil_responsable'));
+
+    }
+
+    public function refuserAnnonceAction(){
+
+    }
 
 }
