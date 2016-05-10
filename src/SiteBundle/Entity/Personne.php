@@ -64,6 +64,13 @@ class Personne
      */
     private $Adresse;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="isTuteur", type="boolean")
+     */
+    private $isTuteur;
+
 
     /**
      * Get id
@@ -210,5 +217,28 @@ class Personne
     public function setAdresse($Adresse)
     {
         $this->Adresse = $Adresse;
+    }
+
+    /**
+     * Set isTuteur
+     *
+     * @param boolean $isTuteur
+     * @return Personne
+     */
+    public function setisTuteur($isTuteur)
+    {
+        $this->isTuteur = $isTuteur;
+
+        return $this;
+    }
+
+    /**
+     * Get isTuteur
+     *
+     * @return boolean
+     */
+    public function getisTuteur()
+    {
+        return $this->isTuteur;
     }
 }

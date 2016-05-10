@@ -18,30 +18,44 @@
             <p>Prénom : {{ etudiant.laPersone.prenom }}</p>
         </div>
     </div>
+
     <div class="row">
+        {% if etudiant.laPersone.sexe  %}
         <div id="actions" class="col-sm-6 container">
             <p>Sexe : {{ etudiant.laPersone.sexe }}</p>
         </div>
+        {% endif %}
+
+        {% if etudiant.nationalite  %}
         <div id="actions" class="col-sm-6 container">
             <p>Nationnalité : {{ etudiant.nationalite }}</p>
         </div>
+        {% endif %}
     </div>
     <div class="row">
         <div id="actions" class="col-sm-6 container">
             <p>Date de naissance : {{ etudiant.dateNaissance | date('d-m-Y') }}</p>
         </div>
+        {% if etudiant.laPersone.Adresse  %}
         <div id="actions" class="col-sm-6 container">
             <p>Ville de naissance : {{ etudiant.villeNaissance }}</p>
         </div>
+        {% endif %}
     </div>
     <div class="row">
+        {% if etudiant.laPersone.mail  %}
         <div id="actions" class="col-sm-6 container">
             <p>Mail : {{ etudiant.laPersone.mail }}</p>
         </div>
+        {% endif %}
+        {% if etudiant.laPersone.telephone  %}
         <div id="actions" class="col-sm-6 container">
             <p>Téléphone : {{ etudiant.laPersone.telephone }}</p>
         </div>
+        {% endif %}
     </div>
+
+    {% if etudiant.laPersone.Adresse  %}
     <div class="row">
         <div id="actions" class="col-sm-12 container">
             <p>Adresse : {{ etudiant.laPersone.Adresse.adresse }}</p>
@@ -55,16 +69,21 @@
             <p>Ville : {{ etudiant.laPersone.Adresse.commune }}</p>
         </div>
     </div>
+    {% endif %}
+
+    {% if etudiant.numeroDossierCandidature  %}
     <div class="row">
         <div id="actions" class="col-sm-12 container">
             <p>Numéro dossier ciel2  : {{ etudiant.numeroDossierCandidature }}</p>
         </div>
     </div>
+    {% endif %}
 
     <hr>
 
 
-    {% if 'site_listeOffreEntreprise' == app.request.attributes.get('_route') %}
+    {% if not etudiant.laPersone.sexe  %}
+        <h1> veuillez completer votre profil </h1>
     {% endif %}
 
 
