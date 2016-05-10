@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new SiteBundle\SiteBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new Liuggio\ExcelBundle\LiuggioExcelBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

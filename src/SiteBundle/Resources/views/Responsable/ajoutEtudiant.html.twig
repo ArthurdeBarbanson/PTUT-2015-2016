@@ -1,7 +1,16 @@
 {% extends '::base.html.twig' %}
+{% block title %}
+    Ajouter des étudiants
+{% endblock %}
 
 {% block body %}
-    <h1>Ajouter un étudiant</h1>
-
-    {{ form(form) }}
+    <h1>Ajouter des étudiants</h1>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form(form) }}
+        </div>
+        <div class="col-md-6">
+            {{ form(formImport) }}
+        </div>
+    </div>
 {% endblock %}

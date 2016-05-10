@@ -3,6 +3,7 @@
 namespace SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Proxies\__CG__\SiteBundle\Entity\Personne;
 
 /**
  * Offre
@@ -73,6 +74,12 @@ class Offre
      * @ORM\JoinColumn(nullable=true)
      */
     private $Etudiant;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Personne")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $Tuteur;
 
 
 
@@ -261,6 +268,27 @@ class Offre
     public function setEtudiant($Etudiant)
     {
         $this->Etudiant = $Etudiant;
+    }
+
+    /**
+     * Get Tuteur
+     *
+     * @return Tuteur
+     */
+    public function getTuteur()
+    {
+        return $this->Tuteur;
+    }
+
+    /**
+     * Set Tuteur
+     *
+     * @param Personne $Tuteur
+     * @return Personne
+     */
+    public function setTuteur($Tuteur)
+    {
+        $this->Tuteur = $Tuteur;
     }
 
 
