@@ -110,7 +110,7 @@
     {% endif %}
 
     {% if route is sameas("site_detailsAnnonceResponsable") %}
-        <a class="btn btn-lg btn-success center-block" href="{{ path('validation_Anance', {'offreId': offre.id }) }}">
+        <a class="btn btn-lg btn-success" href="{{ path('validation_Annonce', {'offreId': offre.id }) }}">
             Valider cette offre d'aternance
         </a>
         <button class="btn btn-lg btn-danger center-block" data-toggle="modal" data-target="#refuserOffre">
@@ -129,7 +129,7 @@
                     </div>
                     <div class="modal-body">
 
-                            {{ form(form) }}
+                            {{ form(form_Responsable) }}
                     </div>
                 </div>
 
@@ -137,13 +137,9 @@
         </div>
 
             <script type="text/javascript">
-                {% if errorEtudiant is not sameas('') %}
                 jQuery(document).ready(function () {
-
-                    $('#postulerOffre').modal('show');
-
+                    $('#refuserOffre').modal('show');
                 });
-                {% endif %}
             </script>
 
     {% endif %}

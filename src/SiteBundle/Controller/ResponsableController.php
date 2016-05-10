@@ -5,6 +5,7 @@ namespace SiteBundle\Controller;
 use SiteBundle\Entity\Etudiant;
 use SiteBundle\Entity\Personne;
 use SiteBundle\Entity\User;
+use SiteBundle\Forms\Types\RefuserAnonce;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use SiteBundle\Forms\Types\AjoutEtudiant;
 use Symfony\Component\HttpFoundation\Request;
@@ -82,20 +83,11 @@ class ResponsableController extends Controller
             throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
         }
 
-        $form = $this->createForm(PostulerAnnonce::class);
-        $error = '';
+        $form = $this->createForm(RefuserAnonce::class);
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $offreEtudiantRepository = $this
-                    ->getDoctrine()
-                    ->getManager()
-                    ->getRepository('SiteBundle:EtudiantOffre');
-                $error = $offreEtudiantRepository->enregistrerOffre(
-                    $this->getUser()->getIdEtudiant()
-                    , $form->getData()
-                    , $offre);
                 $this->addFlash('info', "L'offre à bien été enregistrée.");
             }
         }
@@ -104,8 +96,8 @@ class ResponsableController extends Controller
             'SiteBundle:Default:detailsAnnonce.html.twig',
              [
                  'offre' => $offre,
-                'form' => $form->createView(),
-                 'errorEtudiant' => $error
+                 'form_Responsable' => $form->createView(),
+                 'form' => ''
             ]
         );
     }
