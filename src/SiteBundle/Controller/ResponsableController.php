@@ -2,6 +2,7 @@
 
 namespace SiteBundle\Controller;
 
+use SiteBundle\Entity\Adresse;
 use SiteBundle\Entity\Etudiant;
 use SiteBundle\Entity\Personne;
 use SiteBundle\Entity\User;
@@ -26,12 +27,12 @@ class ResponsableController extends Controller
             ->getManager()
             ->getRepository('SiteBundle:Etudiant');
 
-        $offres=$repositoryOffre->findBy(["etatOffre" => "En attente de validation"]);
-        $etudiants=$repositoryEtudiant->findAll();
+        $offres = $repositoryOffre->findBy(["etatOffre" => "En attente de validation"]);
+        $etudiants = $repositoryEtudiant->findAll();
 
-        return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig',[
+        return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig', [
             'offres' => $offres,
-            'etudiants'=>$etudiants
+            'etudiants' => $etudiants
         ]);
     }
 
@@ -88,12 +89,42 @@ class ResponsableController extends Controller
             $data = $formImport->getData();
             if (isset($data['csv'])) {
                 $etudiants = $this->chargerEtudiantDepuisCsv($data['csv']);
+                $em = $this->getDoctrine()->getManager();
+                foreach ($etudiants as $etudiant) {
+                    //setPassword
+                    $randomPassword = random_bytes(10);
+                    //set user
+                    $user = new User();
+                    $user->setUsername($etudiant->getLaPersone()->getMail());
+                    $encoder = $this->get('security.password_encoder');
+                    $encoded = $encoder->encodePassword($user, $randomPassword);
+                    $user->setPassword($encoded);
+                    $user->setIdEtudiant($etudiant);
+                    $user->setRoles(array('ROLE_ETUDIANT'));
+                    $em->persist($user);
+
+                    $em->flush();
+
+                    //envoie de mail
+                    $message = new \Swift_Message();
+                    $message
+                        ->setSubject('Hello Email')
+                        ->setFrom('no_reply@ptut.com')
+                        ->setTo($etudiant->getLaPersone()->getMail())
+                        ->setBody(
+                            $this->renderView(
+                                '@Site/Email/emailInscriptionEtudiant',
+                                array('password' => $randomPassword)
+                            ),
+                            'text/html'
+                        );
+                    $this->get('mailer')->send($message);
+                }
+
             }
-            $this->addFlash('erreur', "Une erreur est survenu lors de l'ajout des étudiants.");
         } else {
             $this->addFlash('erreur', "Une erreur est survenu lors de l'ajout des étudiants.");
         }
-
 
         return $this->render('SiteBundle:Responsable:ajoutEtudiant.html.twig', [
             'form' => $form->createView(),
@@ -103,20 +134,52 @@ class ResponsableController extends Controller
 
     private function chargerEtudiantDepuisCsv($path)
     {
+        $etudiants = array();
         $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
         $pages = $phpExcelObject->getAllSheets();
         foreach ($pages as $page) {
             $lignes = $page->getRowIterator();
             foreach ($lignes as $ligne) {
-                $cellIterator = $ligne->getCellIterator();
-                $cellIterator->setIterateOnlyExistingCells(false); // Loop all cells, even if it is not set
-                foreach ($cellIterator as $cell) {
-                    var_dump($cell);
-                    die;
-                }
+                $rowIndex = $ligne->getRowIndex();
+                if ($rowIndex == 0)
+                    continue;
+                $nom = $page->getCell('B' . $rowIndex)->getValue();
+                $prenom = $page->getCell('C' . $rowIndex)->getValue();
+                $adresseText = $page->getCell('E' . $rowIndex)->getValue();
+                $code_postal = $page->getCell('F' . $rowIndex)->getValue();
+                $commune = $page->getCell('G' . $rowIndex)->getValue();
+                $pays = $page->getCell('H' . $rowIndex)->getValue();
+                $mail = $page->getCell('L' . $rowIndex)->getValue();
+                $telephone = $page->getCell('N' . $rowIndex)->getValue();
+                $date_naissance = $page->getCell('S' . $rowIndex)->getValue();
+                $num_dossier = $page->getCell('R' . $rowIndex)->getValue();
+
+                //adresse
+                $adresse = new Adresse();
+                $adresse->setAdresse($adresseText);
+                $adresse->setCodePostal($code_postal);
+                $adresse->setCommune($commune);
+                $adresse->setPays($pays);
+
+                //personne
+                $personne = new Personne();
+                $personne->setNom($nom);
+                $personne->setPrenom($prenom);
+                $personne->setAdresse($adresse);
+                $personne->setisTuteur(false);
+                $personne->setMail($mail);
+                $personne->setTelephone($telephone);
+
+                //etudiant
+                $etudiant = new Etudiant();
+                $etudiant->setDateNaissance($date_naissance);
+                $etudiant->setLaPersone($personne);
+                $etudiant->setNumeroDossierCandidature($num_dossier);
+
+                array_push($etudiants, $etudiant);
             }
         }
-        die;
+        return $etudiants;
     }
 
     public function detailAnnonceAction(Request $request)
