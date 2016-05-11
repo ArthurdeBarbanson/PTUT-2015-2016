@@ -125,7 +125,6 @@ class EntrepriseController extends Controller
                     $personne->setSexe($data['Civilite']);
                     $personne->setPrenom($data['Prenom']);
                     $personne->setNom($data['Nom']);
-                    $personne->setIsAdmin(0);
                     $personne->setMail($data['Email']);
                     $personne->setTelephone($data['Tel']);
                     $personne->setAdresse($adresse);
