@@ -2,6 +2,7 @@
 
 namespace SiteBundle\Controller;
 
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use SiteBundle\Entity\Adresse;
 use SiteBundle\Entity\Etudiant;
 use SiteBundle\Entity\Personne;
@@ -105,9 +106,11 @@ class ResponsableController extends Controller
                     $user->setRoles(array('ROLE_ETUDIANT'));
 
                     $em->persist($user);
-                    var_dump($user->getIdEtudiant()->getDateNaissance());
-                    die;
-                    $em->flush();
+                    try {
+                        $em->flush();
+                    } catch (UniqueConstraintViolationException $exception) {
+                        $error = "Un utilisateur que vous tenté d'ajouter existe déjà.";
+                    }
 
                     //envoie de mail
                     //TODO envoie mail
@@ -156,8 +159,7 @@ class ResponsableController extends Controller
                 $pays = $page->getCell('H' . $rowIndex)->getValue();
                 $mail = $page->getCell('L' . $rowIndex)->getValue();
                 $telephone = $page->getCell('O' . $rowIndex)->getValue();
-                $date_naissance = \DateTime::createFromFormat('d.m.y', trim($page->getCell('S' . $rowIndex)->getValue()));
-                var_dump($date_naissance);
+                $date_naissance = \DateTime::createFromFormat('d/m/Y', trim($page->getCell('S' . $rowIndex)->getValue()));
                 $num_dossier = $page->getCell('R' . $rowIndex)->getValue();
 
                 //adresse
