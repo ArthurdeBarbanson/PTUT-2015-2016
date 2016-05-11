@@ -88,9 +88,9 @@ class ResponsableController extends Controller
         } elseif ($formImport->isSubmitted() && $formImport->isValid()) {
             $data = $formImport->getData();
             if (isset($data['csv'])) {
-                $etudiants = $this->chargerEtudiantDepuisCsv($data['csv']);
-                $em = $this->getDoctrine()->getManager();
+                $etudiants = $this->chargerEtudiantDepuisExcel($data['csv']);
                 foreach ($etudiants as $etudiant) {
+                    $em = $this->getDoctrine()->getManager();
                     //setPassword
                     $randomPassword = random_bytes(10);
                     //set user
@@ -101,12 +101,15 @@ class ResponsableController extends Controller
                     $user->setPassword($encoded);
                     $user->setIdEtudiant($etudiant);
                     $user->setRoles(array('ROLE_ETUDIANT'));
-                    $em->persist($user);
 
+                    $em->persist($user);
+                    var_dump($user->getIdEtudiant()->getDateNaissance());
+                    die;
                     $em->flush();
 
                     //envoie de mail
-                    $message = new \Swift_Message();
+                    //TODO envoie mail
+                    /*$message = new \Swift_Message();
                     $message
                         ->setSubject('Hello Email')
                         ->setFrom('no_reply@ptut.com')
@@ -118,7 +121,7 @@ class ResponsableController extends Controller
                             ),
                             'text/html'
                         );
-                    $this->get('mailer')->send($message);
+                    $this->get('mailer')->send($message);*/
                 }
 
             }
@@ -132,7 +135,7 @@ class ResponsableController extends Controller
         ]);
     }
 
-    private function chargerEtudiantDepuisCsv($path)
+    private function chargerEtudiantDepuisExcel($path)
     {
         $etudiants = array();
         $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($path);
@@ -141,17 +144,18 @@ class ResponsableController extends Controller
             $lignes = $page->getRowIterator();
             foreach ($lignes as $ligne) {
                 $rowIndex = $ligne->getRowIndex();
-                if ($rowIndex == 0)
+                if ($rowIndex == 1)
                     continue;
                 $nom = $page->getCell('B' . $rowIndex)->getValue();
-                $prenom = $page->getCell('C' . $rowIndex)->getValue();
+                $prenom = $page->getCell('D' . $rowIndex)->getValue();
                 $adresseText = $page->getCell('E' . $rowIndex)->getValue();
                 $code_postal = $page->getCell('F' . $rowIndex)->getValue();
                 $commune = $page->getCell('G' . $rowIndex)->getValue();
                 $pays = $page->getCell('H' . $rowIndex)->getValue();
                 $mail = $page->getCell('L' . $rowIndex)->getValue();
-                $telephone = $page->getCell('N' . $rowIndex)->getValue();
-                $date_naissance = $page->getCell('S' . $rowIndex)->getValue();
+                $telephone = $page->getCell('O' . $rowIndex)->getValue();
+                $date_naissance = \DateTime::createFromFormat('d.m.y', trim($page->getCell('S' . $rowIndex)->getValue()));
+                var_dump($date_naissance);
                 $num_dossier = $page->getCell('R' . $rowIndex)->getValue();
 
                 //adresse
