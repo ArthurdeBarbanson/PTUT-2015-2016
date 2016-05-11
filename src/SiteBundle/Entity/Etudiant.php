@@ -24,6 +24,11 @@ class Etudiant
     private $laPersone;
 
     /**
+     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Personne", cascade={"persist"})
+     */
+    private $leTuteur;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -300,5 +305,26 @@ class Etudiant
         $dateInterval = $this->dateNaissance->diff(new \DateTime());
 
         return $dateInterval->y;
+    }
+
+    /**
+     * Get leTuteur
+     *
+     * @return Personne
+     */
+    public function getleTuteur()
+    {
+        return $this->leTuteur;
+    }
+
+    /**
+     * Set leTuteur
+     *
+     * @param Personne $leTuteur
+     * @return Personne
+     */
+    public function setleTuteur(Personne $leTuteur)
+    {
+        $this->leTuteur = $leTuteur;
     }
 }
