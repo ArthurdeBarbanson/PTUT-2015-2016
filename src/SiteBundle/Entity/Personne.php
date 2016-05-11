@@ -59,7 +59,7 @@ class Personne
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Adresse")
+     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Adresse", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $Adresse;
