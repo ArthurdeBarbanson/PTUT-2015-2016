@@ -259,13 +259,13 @@ class ResponsableController extends Controller
 
     }
 
-    private function ajouterTripletteAction(request $request)
+    public function ajouterTripletteAction(request $request)
     {
         $modal = false;
         $repositoryTuteur = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('SiteBundle:Etudiant');
+            ->getRepository('SiteBundle:Personne');
 
         $tuteurs = $repositoryTuteur->findBy(["isTuteur" => "1"]);
         $em = $this->getDoctrine()->getManager();
@@ -290,12 +290,6 @@ class ResponsableController extends Controller
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $data = $form->getData();
-                $repositoryAdresse = $this
-                    ->getDoctrine()
-                    ->getManager()
-                    ->getRepository('SiteBundle:Adresse');
-
-                $adresse = $repositoryAdresse->find(2);
 
                 $tuteur = new Personne();
                 $tuteur->setSexe($data['Civilite']);
@@ -303,9 +297,7 @@ class ResponsableController extends Controller
                 $tuteur->setNom($data['Nom']);
                 $tuteur->setMail($data['Email']);
                 $tuteur->setTelephone($data['Tel']);
-                $tuteur->setAdresse($adresse);
                 $tuteur->setisTuteur(1);
-
                 $em->persist($tuteur);
                 $em->flush();
                 $this->addFlash('info', "L'annonce a été mis en attente de Validation.");

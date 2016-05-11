@@ -251,19 +251,11 @@ class EntrepriseController extends Controller
                     $personne = new Personne();
                     $map = new MAP();
 
-                    $repositoryAdresse = $this
-                        ->getDoctrine()
-                        ->getManager()
-                        ->getRepository('SiteBundle:Adresse');
-
-                    $adresse = $repositoryAdresse->find(1);
                     $personne->setSexe($data['Civilite']);
                     $personne->setPrenom($data['Prenom']);
                     $personne->setNom($data['Nom']);
-                    $personne->setIsAdmin(0);
                     $personne->setMail($data['Email']);
                     $personne->setTelephone($data['Tel']);
-                    $personne->setAdresse($adresse);
                     $map->setDateNaissance($data['DateN']);
                     $map->setLaPersone($personne);
                     $map->setFonction($data['Fonction']);
