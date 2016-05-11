@@ -26,6 +26,7 @@
                     <th class="col-md-2">Titre de l'offre</th>
                     <th class="col-md-2 text-center">Entreprise</th>
                     <th class="col-md-2 text-center">Maître de stage</th>
+                    <th class="col-md-2 text-center">Etat de l'offre</th>
                     <th class="col-md-2 text-center">Action</th>
                 </tr>
 
@@ -36,8 +37,17 @@
                         <td class="text-center">{{ offre.entreprise.RaisonSocial }}</td>
                         <td class="text-center">{{ offre.entreprise.Prenom }} {{ offre.entreprise.Nom }}</td>
                         <td class="text-center">
+                            {{ if offre.etatOffre == 'En attente de validation' }}
+                            <p class="text-danger">{{ offre.etatOffre }}</p>
+                            {% else %}
+                                <p class="text-warning">{{ offre.etatOffre }}</p>
+                            {% endif %}
+                            {#<p class="text-danger">{{ offre.etatOffre }}</p>#}
+
+                        </td>
+                        <td class="text-center">
                             <a href="{{ path('site_detailsAnnonceResponsable', {'offreId': offre.id }) }}"
-                               class="btn btn-lg btn-primary">A Valider</a>
+                               class="btn  btn-primary">A Valider</a>
                         </td>
 
                     </tr>

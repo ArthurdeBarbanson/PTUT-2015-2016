@@ -27,7 +27,7 @@ class ResponsableController extends Controller
             ->getManager()
             ->getRepository('SiteBundle:Etudiant');
 
-        $offres = $repositoryOffre->findBy(["etatOffre" => "En attente de validation"]);
+        $offres = $repositoryOffre->findAll();
         $etudiants = $repositoryEtudiant->findAll();
 
         return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig', [
