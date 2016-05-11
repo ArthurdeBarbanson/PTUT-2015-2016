@@ -26,28 +26,28 @@ class AjoutTuteur extends AbstractType
                 'required' => true,
             ))
             ->add('Nom', TextType::class, array(
-                'label' => 'Nom du maitre d\'apprentissage',
+                'label' => 'Nom du tuteur',
                 'constraints' => [
                     new NotBlank(),
                     new Length(['min' => 3])
                 ]
             ))
             ->add('Prenom', TextType::class, array(
-                'label' => 'Prenom du maitre d\'apprentissage',
+                'label' => 'Prenom du tuteur',
                 'constraints' => [
                     new NotBlank(),
                     new Length(['min' => 2])
                 ]
             ))
             ->add('Tel', TextType::class, array(
-                'label' => 'Telephone du maitre d\'apprentissage',
+                'label' => 'Telephone du tuteur',
                 'constraints' => [
                     new NotBlank(),
                     new Length(['min' => 10, 'max' => 12])
                 ]
             ))
             ->add('Email', TextType::class, array(
-                'label' => 'Email du maitre d\'apprentissage',
+                'label' => 'Email du tuteur',
                 'constraints' => [
                     new NotBlank(),
                     new Email()

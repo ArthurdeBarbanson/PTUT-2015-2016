@@ -261,7 +261,7 @@ class ResponsableController extends Controller
 
     public function ajouterTripletteAction(request $request)
     {
-        $modal = false;
+
         $repositoryTuteur = $this
             ->getDoctrine()
             ->getManager()
@@ -284,6 +284,7 @@ class ResponsableController extends Controller
                 $etu = $repository->find($etudiantid);
                 $tuteur = $repositoryTuteur->find($request->get('tuteur'));
                 $etu->setleTuteur($tuteur);
+                $em->flush();
                 return $this->redirect($this->generateUrl('acceuil_responsable'));
             }
 
@@ -302,13 +303,10 @@ class ResponsableController extends Controller
                 $em->flush();
                 $this->addFlash('info', "L'annonce a été mis en attente de Validation.");
 
-                return $this->redirect($this->generateUrl('acceuil_responsable'));
 
-            } else {
-                $modal = true;
                 return $this->render(
                     'SiteBundle:Responsable:ajoutTueur.html.twig',
-                    ['form' => $form->createView(), '$tuteurs' => $tuteurs, 'bool' => $modal]
+                    ['form' => $form->createView(),'assign'=>$assign->createView(), '$tuteurs' => $tuteurs]
                 );
 
             }
@@ -316,7 +314,7 @@ class ResponsableController extends Controller
 
         return $this->render(
             'SiteBundle:Responsable:ajoutTueur.html.twig',
-            ['form' => $form->createView(), '$tuteurs' => $tuteurs, 'bool' => $modal]
+            ['form' => $form->createView(),'assign'=>$assign->createView(), 'tuteurs' => $tuteurs]
         );
     }
 }
