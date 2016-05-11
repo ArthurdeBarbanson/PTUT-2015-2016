@@ -7,6 +7,8 @@ use SiteBundle\Entity\Etudiant;
 use SiteBundle\Entity\Personne;
 use SiteBundle\Entity\User;
 use SiteBundle\Forms\Types\AjoutEtudiantImport;
+use SiteBundle\Forms\Types\AjoutTuteur;
+use SiteBundle\Forms\Types\AssignerTuteur;
 use SiteBundle\Forms\Types\RefuserAnnonce;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use SiteBundle\Forms\Types\AjoutEtudiant;
@@ -259,14 +261,70 @@ class ResponsableController extends Controller
 
     private function ajouterTripletteAction(request $request)
     {
-
+        $modal = false;
         $repositoryTuteur = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('SiteBundle:Etudiant');
 
         $tuteurs = $repositoryTuteur->findBy(["isTuteur" => "1"]);
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(AjoutTuteur::class);
+        $assign = $this->createForm(AssignerTuteur::class);
+        if ($request->isMethod('post')) {
 
+            $assign->handleRequest($request);
+            if ($assign->get('submit')->isClicked()) {
+                $etudiantid = $request->get('etudiantId');
+                $repository = $this
+                    ->getDoctrine()
+                    ->getManager()
+                    ->getRepository('SiteBundle:Etudiant');
 
+                $etu = $repository->find($etudiantid);
+                $tuteur = $repositoryTuteur->find($request->get('tuteur'));
+                $etu->setleTuteur($tuteur);
+                return $this->redirect($this->generateUrl('acceuil_responsable'));
+            }
+
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $repositoryAdresse = $this
+                    ->getDoctrine()
+                    ->getManager()
+                    ->getRepository('SiteBundle:Adresse');
+
+                $adresse = $repositoryAdresse->find(2);
+
+                $tuteur = new Personne();
+                $tuteur->setSexe($data['Civilite']);
+                $tuteur->setPrenom($data['Prenom']);
+                $tuteur->setNom($data['Nom']);
+                $tuteur->setMail($data['Email']);
+                $tuteur->setTelephone($data['Tel']);
+                $tuteur->setAdresse($adresse);
+                $tuteur->setisTuteur(1);
+
+                $em->persist($tuteur);
+                $em->flush();
+                $this->addFlash('info', "L'annonce a été mis en attente de Validation.");
+
+                return $this->redirect($this->generateUrl('acceuil_responsable'));
+
+            } else {
+                $modal = true;
+                return $this->render(
+                    'SiteBundle:Responsable:ajoutTueur.html.twig',
+                    ['form' => $form->createView(), '$tuteurs' => $tuteurs, 'bool' => $modal]
+                );
+
+            }
+        }
+
+        return $this->render(
+            'SiteBundle:Responsable:ajoutTueur.html.twig',
+            ['form' => $form->createView(), '$tuteurs' => $tuteurs, 'bool' => $modal]
+        );
     }
 }

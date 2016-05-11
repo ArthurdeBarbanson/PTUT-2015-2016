@@ -9,8 +9,8 @@
         <h1>Assignez un tuteur</h1>
 
         <form id="assignez">
-            <label for="map">Maitre apprentissage</label>
-            <select name="map">
+            <label for="tuteur">Maitre apprentissage</label>
+            <select name="tuteur">
                 {% for tuteur in tuteurs %}
                     <option value="{{ tuteur.id }}">{{ tuteur.nom }} {{ tuteur.prenom }}</option>
                 {% endfor %}

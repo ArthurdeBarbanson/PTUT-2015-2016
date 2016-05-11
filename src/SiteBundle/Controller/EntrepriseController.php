@@ -229,7 +229,7 @@ class EntrepriseController extends Controller
                 if ($form->isValid()) {
                     $data = $form->getData();
 
-                    $map = $repositoryMap->find($request->request->get('map'));
+                    $map = $repositoryMap->find($request->get('map'));
 
                     $annonce->setEtatOffre("En attente de validation");
                     $annonce->setSujet($data['Sujet']);
