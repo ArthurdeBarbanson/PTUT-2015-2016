@@ -51,7 +51,7 @@ class EntrepriseType extends AbstractType
                 ]
             ])
             ->add('telephone')
-            ->add('adresse', new AdresseType())
+            ->add('Adresse', AdresseType::class)
             ->add('siteWeb')
 
 
