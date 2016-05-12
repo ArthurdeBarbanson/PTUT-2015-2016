@@ -308,7 +308,7 @@ class ResponsableController extends Controller
 
                 return $this->render(
                     'SiteBundle:Responsable:ajoutTueur.html.twig',
-                    ['form' => $form->createView(),'assign'=>$assign->createView(), '$tuteurs' => $tuteurs]
+                    ['form' => $form->createView(),'assign'=>$assign->createView(), 'tuteurs' => $tuteurs]
                 );
 
             }
