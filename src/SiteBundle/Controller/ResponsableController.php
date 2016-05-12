@@ -315,6 +315,7 @@ class ResponsableController extends Controller
                 $tuteur = $repositoryTuteur->find($request->get('tuteur'));
                 $etu->setleTuteur($tuteur);
                 $em->flush();
+                $this->addFlash('success', "Le tuteur a été assigné a cet étudiant");
                 return $this->redirect($this->generateUrl('acceuil_responsable'));
             }
 
@@ -331,9 +332,10 @@ class ResponsableController extends Controller
                 $tuteur->setisTuteur(1);
                 $em->persist($tuteur);
                 $em->flush();
-                $this->addFlash('info', "L'annonce a été mis en attente de Validation.");
+                $this->addFlash('success', "Le tuteur a été créé");
 
-
+                $form = $this->createForm(AjoutTuteur::class);
+                $tuteurs = $repositoryTuteur->findBy(["isTuteur" => "1"]);
                 return $this->render(
                     'SiteBundle:Responsable:ajoutTueur.html.twig',
                     ['form' => $form->createView(), 'assign' => $assign->createView(), 'tuteurs' => $tuteurs]

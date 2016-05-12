@@ -5,9 +5,9 @@
 {% block body %}
 
     <div id="assignéTuteur">
-
+        {{ include('template/messages') }}
         <h1>Assignez un tuteur</h1>
-
+        {{ include('template/messages') }}
         {{ form_start(assign) }}
         <label for="tuteur">Maitre apprentissage</label>
         <select name="tuteur">
@@ -20,7 +20,9 @@
     </div>
 
     <div id="creerTuteur">
+
         <h1>Creez un tuteur</h1>
+
         {{ form(form) }}
     </div>
 
