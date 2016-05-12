@@ -13,6 +13,7 @@ use SiteBundle\Forms\Types\AssignerTuteur;
 use SiteBundle\Forms\Types\RefuserAnnonce;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use SiteBundle\Forms\Types\AjoutEtudiant;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -71,64 +72,82 @@ class ResponsableController extends Controller
             $user->setRoles(array('ROLE_ETUDIANT'));
             $em->persist($user);
 
-            $em->flush();
+            try {
+                $em->flush();
+                //envoie de mail
+                $message = new \Swift_Message();
+                $message
+                    ->setSubject('Hello Email')
+                    ->setFrom('no_reply@ptut.com')
+                    ->setTo($data['Email'])
+                    ->setBody(
+                        $this->renderView(
+                            '@Site/Email/emailInscriptionEtudiant',
+                            array('password' => $randomPassword)
+                        ),
+                        'text/html'
+                    );
+                $this->get('mailer')->send($message);
 
-            //envoie de mail
-            $message = new \Swift_Message();
-            $message
-                ->setSubject('Hello Email')
-                ->setFrom('no_reply@ptut.com')
-                ->setTo($data['Email'])
-                ->setBody(
-                    $this->renderView(
-                        '@Site/Email/emailInscriptionEtudiant',
-                        array('password' => $randomPassword)
-                    ),
-                    'text/html'
-                );
-            $this->get('mailer')->send($message);
-            $this->addFlash('success', "l'étudiant à été ajouter !");
+                $this->addFlash('success', "l'étudiant à été ajouter !");
+            } catch (UniqueConstraintViolationException $exception) {
+                $this->addFlash('error', $data['Email'] . " est déjà associée à un autre compte.");
+            }
+
         } elseif ($formImport->isSubmitted() && $formImport->isValid()) {
             $data = $formImport->getData();
             if (isset($data['csv'])) {
                 $etudiants = $this->chargerEtudiantDepuisExcel($data['csv']);
+                $repositoryUser = $this
+                    ->getDoctrine()
+                    ->getManager()
+                    ->getRepository('SiteBundle:User');
+                $nombreUserExistantDeja = 0;
                 foreach ($etudiants as $etudiant) {
-                    $em = $this->getDoctrine()->getManager();
-                    //setPassword
-                    $randomPassword = random_bytes(10);
-                    //set user
-                    $user = new User();
-                    $user->setUsername($etudiant->getLaPersone()->getMail());
-                    $encoder = $this->get('security.password_encoder');
-                    $encoded = $encoder->encodePassword($user, $randomPassword);
-                    $user->setPassword($encoded);
-                    $user->setIdEtudiant($etudiant);
-                    $user->setRoles(array('ROLE_ETUDIANT'));
+                    $user = $repositoryUser->findBy(array("username" => $etudiant->getLaPersone()->getMail()));
+                    if (count($user) != 0) {
+                        $nombreUserExistantDeja++;
+                    } else {
+                        $em = $this->getDoctrine()->getManager();
+                        //setPassword
+                        $randomPassword = random_bytes(10);
+                        //set user
+                        $user = new User();
+                        $user->setUsername($etudiant->getLaPersone()->getMail());
+                        $encoder = $this->get('security.password_encoder');
+                        $encoded = $encoder->encodePassword($user, $randomPassword);
+                        $user->setPassword($encoded);
+                        $user->setIdEtudiant($etudiant);
+                        $user->setRoles(array('ROLE_ETUDIANT'));
 
-                    $em->persist($user);
-                    try {
-                        $em->flush();
-                    } catch (UniqueConstraintViolationException $exception) {
-                        $error = "Un utilisateur que vous tenté d'ajouter existe déjà.";
+                        $em->persist($user);
+                        try {
+                            $em->flush();
+                            //envoie de mail
+                            //TODO envoie mail
+                            /*$message = new \Swift_Message();
+                            $message
+                                ->setSubject('Hello Email')
+                                ->setFrom('no_reply@ptut.com')
+                                ->setTo($etudiant->getLaPersone()->getMail())
+                                ->setBody(
+                                    $this->renderView(
+                                        '@Site/Email/emailInscriptionEtudiant',
+                                        array('password' => $randomPassword)
+                                    ),
+                                    'text/html'
+                                );
+                            $this->get('mailer')->send($message);*/
+                        } catch (Exception $exception) {
+                            $this->addFlash('error', "Un erreur s'est produite, veuillez réessayer plus tard.");
+                        }
                     }
-
-                    //envoie de mail
-                    //TODO envoie mail
-                    /*$message = new \Swift_Message();
-                    $message
-                        ->setSubject('Hello Email')
-                        ->setFrom('no_reply@ptut.com')
-                        ->setTo($etudiant->getLaPersone()->getMail())
-                        ->setBody(
-                            $this->renderView(
-                                '@Site/Email/emailInscriptionEtudiant',
-                                array('password' => $randomPassword)
-                            ),
-                            'text/html'
-                        );
-                    $this->get('mailer')->send($message);*/
                 }
-
+                if ($nombreUserExistantDeja > 0) {
+                    $this->addFlash('success', $nombreUserExistantDeja . " n'ont pas été enregistrer car ils existaient déjà. Les autres étudiants on été ajoutés avec succès.");
+                } else {
+                    $this->addFlash('success', "Les étudiants on été ajoutés avec succès.");
+                }
             }
         } else {
             $this->addFlash('erreur', "Une erreur est survenu lors de l'ajout des étudiants.");
@@ -308,7 +327,7 @@ class ResponsableController extends Controller
 
                 return $this->render(
                     'SiteBundle:Responsable:ajoutTueur.html.twig',
-                    ['form' => $form->createView(),'assign'=>$assign->createView(), 'tuteurs' => $tuteurs]
+                    ['form' => $form->createView(), 'assign' => $assign->createView(), 'tuteurs' => $tuteurs]
                 );
 
             }
@@ -316,7 +335,7 @@ class ResponsableController extends Controller
 
         return $this->render(
             'SiteBundle:Responsable:ajoutTueur.html.twig',
-            ['form' => $form->createView(),'assign'=>$assign->createView(), 'tuteurs' => $tuteurs]
+            ['form' => $form->createView(), 'assign' => $assign->createView(), 'tuteurs' => $tuteurs]
         );
     }
 }

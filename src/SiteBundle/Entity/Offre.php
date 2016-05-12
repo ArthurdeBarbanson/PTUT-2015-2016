@@ -39,7 +39,7 @@ class Offre
     /**
      * @var string
      *
-     * @ORM\Column(name="LicenceConcerne", type="string", length=50)
+     * @ORM\Column(type="string", columnDefinition="enum('METINET', 'IEM')",nullable=true)
      */
     private $licenceConcerne;
 
@@ -75,11 +75,7 @@ class Offre
      */
     private $Etudiant;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Personne")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $Tuteur;
+
 
 
 
@@ -270,26 +266,6 @@ class Offre
         $this->Etudiant = $Etudiant;
     }
 
-    /**
-     * Get Tuteur
-     *
-     * @return Tuteur
-     */
-    public function getTuteur()
-    {
-        return $this->Tuteur;
-    }
-
-    /**
-     * Set Tuteur
-     *
-     * @param Personne $Tuteur
-     * @return Personne
-     */
-    public function setTuteur($Tuteur)
-    {
-        $this->Tuteur = $Tuteur;
-    }
 
 
 
