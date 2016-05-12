@@ -223,7 +223,29 @@ class ResponsableController extends Controller
             throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
         }
 
+        $formModifier = $this->createForm(RefuserAnnonce::class);
         $formulaire = $this->createForm(RefuserAnnonce::class);
+
+        if ($formModifier->handleRequest($request)->isValid()) {
+
+            // en attente serveur smtp
+
+//                $message = \Swift_Message::newInstance()
+//                    ->setSubject('Refuse de validation ')
+//                    ->setFrom('send@example.com')
+//                    ->setTo('recipient@example.com')
+//                    ->setBody(
+//                        $this->renderView(
+//                            'Emails/refusAnnonce.html.twig'
+//                        ),
+//                        'text/html'
+//                    );
+//                $this->get('mailer')->send($message);
+
+            $this->addFlash('info', "L'email à été envoyé !");
+            return $this->redirect($this->generateUrl('acceuil_responsable'));
+
+        }
 
         if ($formulaire->handleRequest($request)->isValid()) {
 
@@ -241,7 +263,7 @@ class ResponsableController extends Controller
 //                    );
 //                $this->get('mailer')->send($message);
 
-            $this->addFlash('info', "L'offre à bien été enregistrée.");
+            $this->addFlash('info', "L'email à été envoyé !");
             return $this->redirect($this->generateUrl('acceuil_responsable'));
 
         }
@@ -250,7 +272,8 @@ class ResponsableController extends Controller
             'SiteBundle:Default:detailsAnnonce.html.twig',
             [
                 'offre' => $offre,
-                'form_Responsable' => $formulaire->createView(),
+                'form_refus' => $formulaire->createView(),
+                'form_modif' => $formulaire->createView(),
                 'form' => $formulaire->createView(),
                 'errorEtudiant' => ''
             ]

@@ -122,9 +122,30 @@
             Refuser
         </button>
 
+        <a class="btn btn-lg btn-info" href="{{ path('acceuil_responsable') }}">
+            Retour
+        </a>
+
 
         <!-- Modal -->
         <div id="modifOffre" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-center">Demande de modification</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        {{ form(form_modif) }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="refuserOffre" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -134,7 +155,7 @@
                     </div>
                     <div class="modal-body">
 
-                        {{ form(form_Responsable) }}
+                        {{ form(form_refus) }}
                     </div>
                 </div>
 
