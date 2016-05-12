@@ -80,9 +80,9 @@ class Etudiant
     private $numeroDossierCandidature;
 
     /**
-     * @var string
+     * @var bool
      *
-     * @ORM\Column(name="Statut", type="string", length=255, nullable=true)
+     * @ORM\Column(name="statut", type="boolean", nullable=true)
      */
     private $statut;
 
@@ -239,7 +239,7 @@ class Etudiant
     /**
      * Set statut
      *
-     * @param string $statut
+     * @param boolean $statut
      * @return Etudiant
      */
     public function setStatut($statut)
@@ -252,7 +252,7 @@ class Etudiant
     /**
      * Get statut
      *
-     * @return string 
+     * @return boolean
      */
     public function getStatut()
     {
