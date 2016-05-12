@@ -54,7 +54,7 @@ class Etudiant
     /**
      * @var string
      *
-     * @ORM\Column(name="TypeLicence", type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", columnDefinition="enum('METINET', 'IEM')",nullable=true)
      */
     private $typeLicence;
 
