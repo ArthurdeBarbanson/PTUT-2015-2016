@@ -32,7 +32,7 @@ class Offre
     /**
      * @var string
      *
-     * @ORM\Column(type="string", columnDefinition="enum('En attente de validation', 'En ligne', 'Pourvue','En attente de modification')" ,nullable=true)
+     * @ORM\Column(name="etat_offre", type="string", columnDefinition="enum('En attente de validation', 'En ligne', 'Pourvue','En attente de modification')" ,nullable=true)
      */
     private $etatOffre;
 
@@ -40,7 +40,7 @@ class Offre
     /**
      * @var string
      *
-     * @ORM\Column(type="string", columnDefinition="enum('METINET', 'IEM')",nullable=true)
+     * @ORM\Column(name="licence_concerne",type="string", columnDefinition="enum('METINET', 'IEM')",nullable=true)
      */
     private $licenceConcerne;
 

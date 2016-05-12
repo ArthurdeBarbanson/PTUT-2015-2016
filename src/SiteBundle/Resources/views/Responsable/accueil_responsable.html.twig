@@ -26,21 +26,42 @@
                     <th class="col-md-2">Titre de l'offre</th>
                     <th class="col-md-2 text-center">Entreprise</th>
                     <th class="col-md-2 text-center">Maître de stage</th>
+                    <th class="col-md-2 text-center">Etat de l'offre</th>
                     <th class="col-md-2 text-center">Action</th>
                 </tr>
 
                 {% for offre in offres %}
-                    <tr>
-                        <td>{{ offre.DateDepot |date('d-m-Y') }}</td>
-                        <td>{{ offre.Titre }}</td>
-                        <td class="text-center">{{ offre.entreprise.RaisonSocial }}</td>
-                        <td class="text-center">{{ offre.entreprise.Prenom }} {{ offre.entreprise.Nom }}</td>
-                        <td class="text-center">
-                            <a href="{{ path('site_detailsAnnonceResponsable', {'offreId': offre.id }) }}"
-                               class="btn btn-lg btn-primary">A Valider</a>
-                        </td>
+                    {% if offre.etatOffre == 'En attente de validation' %}
+                        <tr>
+                            <td>{{ offre.DateDepot |date('d-m-Y') }}</td>
+                            <td>{{ offre.Titre }}</td>
+                            <td class="text-center">{{ offre.entreprise.RaisonSocial }}</td>
+                            <td class="text-center">{{ offre.entreprise.Prenom }} {{ offre.entreprise.Nom }}</td>
+                            <td class="text-center">
+                                <p class="text-danger">{{ offre.etatOffre }}</p>
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ path('site_detailsAnnonceResponsable', {'offreId': offre.id }) }}"
+                                   class="btn  btn-primary">A Valider</a>
+                            </td>
 
-                    </tr>
+                        </tr>
+                    {% elseif offre.etatOffre == 'En attente de modification'  %}
+                        <tr>
+                            <td>{{ offre.DateDepot |date('d-m-Y') }}</td>
+                            <td>{{ offre.Titre }}</td>
+                            <td class="text-center">{{ offre.entreprise.RaisonSocial }}</td>
+                            <td class="text-center">{{ offre.entreprise.Prenom }} {{ offre.entreprise.Nom }}</td>
+                            <td class="text-center">
+                                <p class="text-warning">{{ offre.etatOffre }}</p>
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ path('site_detailsAnnonceResponsable', {'offreId': offre.id }) }}"
+                                   class="btn  btn-primary">A Valider</a>
+                            </td>
+
+                        </tr>
+                    {% endif %}
                 {% endfor %}
             </table>
         </div>
@@ -54,9 +75,9 @@
             <table>
                 <tr>
                     <th class="col-md-2 text-center">Etudiant</th>
+                    <th class="col-md-2 text-center">état d'avancement</th>
                     <th class="col-md-2 text-center">Entreprise</th>
                     <th class="col-md-2 text-center">Maître de stage</th>
-                    <th class="col-md-2 text-center">état d'avancement</th>
                     <th class="col-md-2 text-center">Action</th>
                 </tr>
 
@@ -64,7 +85,9 @@
                     <tr>
                         <td>{{ etudiant.laPersone.prenom }} {{ etudiant.laPersone.nom }}</td>
                         <td>{{ etudiant.Statut }}</td>
-                        <td>{{ etudiant.Statut }}</td>
+                        <td></td>
+                        <td></td>
+
                         <td  class="text-center">
                             <a href="{{path('site_detailsAnnonceResponsable', {'offreId': etudiant.id }) }}" class="btn btn-lg btn-primary" >A Valider</a>
                         </td>
