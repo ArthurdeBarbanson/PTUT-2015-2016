@@ -45,7 +45,7 @@ class Personne
     /**
      * @var string
      *
-     * @ORM\Column(name="Sexe", type="string", length=5,nullable=true)
+     * @ORM\Column(type="string", columnDefinition="enum('M', 'F')",nullable=true)
      */
     private $sexe;
 
