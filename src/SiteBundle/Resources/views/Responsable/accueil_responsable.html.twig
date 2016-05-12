@@ -76,9 +76,9 @@
             <table>
                 <tr>
                     <th class="col-md-2 text-center">Etudiant</th>
+                    <th class="col-md-2 text-center">état d'avancement</th>
                     <th class="col-md-2 text-center">Entreprise</th>
                     <th class="col-md-2 text-center">Maître de stage</th>
-                    <th class="col-md-2 text-center">état d'avancement</th>
                     <th class="col-md-2 text-center">Action</th>
                 </tr>
 
@@ -86,7 +86,9 @@
                     <tr>
                         <td>{{ etudiant.laPersone.prenom }} {{ etudiant.laPersone.nom }}</td>
                         <td>{{ etudiant.Statut }}</td>
-                        <td>{{ etudiant.Statut }}</td>
+                        <td></td>
+                        <td></td>
+
                         <td  class="text-center">
                             <a href="{{path('site_detailsAnnonceResponsable', {'offreId': etudiant.id }) }}" class="btn btn-lg btn-primary" >A Valider</a>
                         </td>
