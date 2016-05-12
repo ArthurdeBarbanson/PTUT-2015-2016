@@ -67,9 +67,9 @@ class Personne
     /**
      * @var bool
      *
-     * @ORM\Column(name="isTuteur", type="boolean")
+     * @ORM\Column(name="isTuteur", type="boolean", )
      */
-    private $isTuteur;
+    private $isTuteur = false;
 
 
     /**
