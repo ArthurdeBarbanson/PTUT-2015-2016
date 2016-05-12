@@ -41,6 +41,9 @@ class OffreRepository extends EntityRepository
                 ->andWhere(
                     $query->expr()->in('o.licenceConcerne', $parametres['licence'])
                 );
+        $query->andWhere(
+            $query->expr()->eq('o.etatOffre', ':etatOffre')
+        )->setParameter('etatOffre', 'En ligne');
         return $query->getQuery()->getResult();
     }
 

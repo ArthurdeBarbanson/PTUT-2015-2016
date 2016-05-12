@@ -1,5 +1,8 @@
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% extends 'base.html.twig' %}
+{% block title %}
+    Liste des offres
+{% endblock %}
 {% block body %}
     <h1 class="text-center">Offres d'alternance des entreprises</h1>
     {{ form(form) }}
