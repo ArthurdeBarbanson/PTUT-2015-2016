@@ -81,7 +81,7 @@ class DefaultController extends Controller
                 ->getDoctrine()
                 ->getManager()
                 ->getRepository('SiteBundle:Offre');
-            $offres = $repository->findAll();
+            $offres = $repository->findBy(array('etatOffre' => 'En ligne'));
         }
 
         return $this->render('SiteBundle:Default:liste_offres.html.twig'
