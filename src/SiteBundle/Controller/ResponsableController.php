@@ -4,6 +4,7 @@ namespace SiteBundle\Controller;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use SiteBundle\Entity\Adresse;
+use SiteBundle\Entity\DossierInscription;
 use SiteBundle\Entity\Etudiant;
 use SiteBundle\Entity\Personne;
 use SiteBundle\Entity\User;
@@ -59,9 +60,14 @@ class ResponsableController extends Controller
             $personne->setPrenom($data['Prenom']);
             $personne->setMail($data['Email']);
 
+            //dossier
+            $dossier = new DossierInscription();
+            $dossier->setEtatDossier(0);
+
             //set etudiant
             $etudiant = new Etudiant();
             $etudiant->setLaPersone($personne);
+            $etudiant->setInscription($dossier);
             //set user
             $user = new User();
             $user->setUsername($data['Email']);
@@ -179,7 +185,6 @@ class ResponsableController extends Controller
                 $mail = $page->getCell('L' . $rowIndex)->getValue();
                 $telephone = $page->getCell('O' . $rowIndex)->getValue();
                 $date_naissance = \DateTime::createFromFormat('d/m/Y', trim($page->getCell('S' . $rowIndex)->getValue()));
-                $num_dossier = $page->getCell('R' . $rowIndex)->getValue();
 
                 //adresse
                 $adresse = new Adresse();
@@ -197,11 +202,15 @@ class ResponsableController extends Controller
                 $personne->setMail($mail);
                 $personne->setTelephone($telephone);
 
+                //dossier
+                $dossier = new DossierInscription();
+                $dossier->setEtatDossier(0);
+
                 //etudiant
                 $etudiant = new Etudiant();
                 $etudiant->setDateNaissance($date_naissance);
                 $etudiant->setLaPersone($personne);
-                $etudiant->setNumeroDossierCandidature($num_dossier);
+                $etudiant->setInscription($dossier);
 
                 array_push($etudiants, $etudiant);
             }
