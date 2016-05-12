@@ -36,6 +36,7 @@ class Offre
      */
     private $etatOffre;
 
+
     /**
      * @var string
      *
