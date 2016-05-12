@@ -31,8 +31,7 @@
                 </tr>
 
                 {% for offre in offres %}
-
-                    {#{{ if offre.etatOffre == 'En attente de validation' }}#}
+                    {% if offre.etatOffre == 'En attente de validation' %}
                         <tr>
                             <td>{{ offre.DateDepot |date('d-m-Y') }}</td>
                             <td>{{ offre.Titre }}</td>
@@ -47,22 +46,22 @@
                             </td>
 
                         </tr>
-                    {#{% else %}#}
-                        {#<tr>#}
-                            {#<td>{{ offre.DateDepot |date('d-m-Y') }}</td>#}
-                            {#<td>{{ offre.Titre }}</td>#}
-                            {#<td class="text-center">{{ offre.entreprise.RaisonSocial }}</td>#}
-                            {#<td class="text-center">{{ offre.entreprise.Prenom }} {{ offre.entreprise.Nom }}</td>#}
-                            {#<td class="text-center">#}
-                                {#<p class="text-warning">{{ offre.etatOffre }}</p>#}
-                            {#</td>#}
-                            {#<td class="text-center">#}
-                                {#<a href="{{ path('site_detailsAnnonceResponsable', {'offreId': offre.id }) }}"#}
-                                   {#class="btn  btn-primary">A Valider</a>#}
-                            {#</td>#}
+                    {% elseif offre.etatOffre == 'En attente de modification'  %}
+                        <tr>
+                            <td>{{ offre.DateDepot |date('d-m-Y') }}</td>
+                            <td>{{ offre.Titre }}</td>
+                            <td class="text-center">{{ offre.entreprise.RaisonSocial }}</td>
+                            <td class="text-center">{{ offre.entreprise.Prenom }} {{ offre.entreprise.Nom }}</td>
+                            <td class="text-center">
+                                <p class="text-warning">{{ offre.etatOffre }}</p>
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ path('site_detailsAnnonceResponsable', {'offreId': offre.id }) }}"
+                                   class="btn  btn-primary">A Valider</a>
+                            </td>
 
-                        {#</tr>#}
-                    {#{% endif %}#}
+                        </tr>
+                    {% endif %}
                 {% endfor %}
             </table>
         </div>

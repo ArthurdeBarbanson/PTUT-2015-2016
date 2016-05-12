@@ -251,6 +251,12 @@ class ResponsableController extends Controller
 //                    );
 //                $this->get('mailer')->send($message);
 
+            $offre->setEtatOffre('En attente de modification');
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($offre);
+            $em->flush();
+
             $this->addFlash('info', "L'email à été envoyé !");
             return $this->redirect($this->generateUrl('acceuil_responsable'));
 
