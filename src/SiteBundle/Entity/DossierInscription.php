@@ -26,12 +26,12 @@ class DossierInscription
      *
      * @ORM\Column(name="estSportifDeHautNiveau", type="boolean")
      */
-    private $estSportifDeHautNiveau;
+    private $estSportifDeHautNiveau = false;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", columnDefinition="enum('0','1','2','3','4')",nullable=true)
+     * @ORM\Column(type="string", columnDefinition="enum('0','1','2','3','4')")
      */
     private $etatDossier;
 
@@ -40,33 +40,33 @@ class DossierInscription
      *
      * @ORM\Column(name="Handicap", type="boolean")
      */
-    private $handicap;
+    private $handicap = false;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="SituationFamillale", type="string", length=50)
+     * @ORM\Column(name="SituationFamillale", type="string", length=50, nullable=true)
      */
     private $situationFamillale;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="INE", type="string", length=50)
+     * @ORM\Column(name="INE", type="string", length=50, nullable=true)
      */
     private $iNE;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="ancienDeLyon1", type="boolean")
+     * @ORM\Column(name="ancienDeLyon1", type="boolean", nullable=true)
      */
     private $ancienDeLyon1;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="NumeroSecuriteSocial", type="string", length=50)
+     * @ORM\Column(name="NumeroSecuriteSocial", type="string", length=50, nullable=true)
      */
     private $numeroSecuriteSocial;
 
