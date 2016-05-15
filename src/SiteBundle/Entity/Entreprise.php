@@ -92,8 +92,8 @@ class Entreprise
     private $telephone;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Adresse")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Adresse", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $Adresse;
 

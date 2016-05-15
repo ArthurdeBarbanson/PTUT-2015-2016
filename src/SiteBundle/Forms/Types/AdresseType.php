@@ -6,6 +6,7 @@ namespace SiteBundle\Forms\Types;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,7 +23,7 @@ class AdresseType extends AbstractType
     {
         $builder
             ->add('adresse', TextType::class)
-            ->add('codePostal', NumberType::class)
+            ->add('codePostal', IntegerType::class)
             ->add('commune', TextType::class)
             ->add('commune', TextType::class)
             ->add('pays', CountryType::class)
