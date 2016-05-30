@@ -10,7 +10,6 @@ use SiteBundle\Entity\Personne;
 use SiteBundle\Entity\User;
 use SiteBundle\Forms\Types\CreateAnnonce;
 use SiteBundle\Forms\Types\CreateMap;
-use SiteBundle\Forms\Types\EdditAnnonce;
 use SiteBundle\Forms\Types\EntrepriseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
