@@ -80,7 +80,7 @@ class Entreprise
     /**
      * @var string
      *
-     * @ORM\Column(name="SiteWeb", type="string", length=50)
+     * @ORM\Column(name="SiteWeb", type="string", length=50, nullable=true)
      */
     private $siteWeb;
 

@@ -150,7 +150,7 @@ class ResponsableController extends Controller
                     }
                 }
                 if ($nombreUserExistantDeja > 0) {
-                    $this->addFlash('success', $nombreUserExistantDeja . " n'ont pas été enregistrer car ils existaient déjà. Les autres étudiants on été ajoutés avec succès.");
+                    $this->addFlash('success', $nombreUserExistantDeja . "étudiants n'ont pas été enregistrer car ils existaient déjà. Les autres étudiants on été ajoutés avec succès.");
                 } else {
                     $this->addFlash('success', "Les étudiants on été ajoutés avec succès.");
                 }
