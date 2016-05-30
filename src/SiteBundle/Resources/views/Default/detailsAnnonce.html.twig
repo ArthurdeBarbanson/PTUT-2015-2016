@@ -122,7 +122,7 @@
             Refuser
         </button>
 
-        <a class="btn btn-lg btn-info" href="{{ path('acceuil_responsable') }}">
+        <a class="btn btn-lg btn_primary" href="{{ path('acceuil_responsable') }}">
             Retour
         </a>
 
@@ -137,7 +137,6 @@
                         <h4 class="modal-title text-center">Demande de modification</h4>
                     </div>
                     <div class="modal-body">
-
                         {{ form(form_modif) }}
                     </div>
                 </div>
@@ -154,7 +153,6 @@
                         <h4 class="modal-title text-center">Refuser cette offre d'aternance</h4>
                     </div>
                     <div class="modal-body">
-
                         {{ form(form_refus) }}
                     </div>
                 </div>
@@ -170,7 +168,4 @@
         </script>
 
     {% endif %}
-
-
-
 {% endblock %}

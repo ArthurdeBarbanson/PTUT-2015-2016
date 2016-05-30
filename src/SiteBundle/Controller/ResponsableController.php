@@ -226,6 +226,8 @@ class ResponsableController extends Controller
             ->getManager()
             ->getRepository('SiteBundle:Offre');
 
+        $em = $this->getDoctrine()->getManager();
+
         $offre = $repository->find($offreid);
         //si l'annonce n'es pas trouvé
         if (null === $offre) {
@@ -235,7 +237,7 @@ class ResponsableController extends Controller
         $formModifier = $this->createForm(RefuserAnnonce::class);
         $formulaire = $this->createForm(RefuserAnnonce::class);
 
-        if ($formModifier->handleRequest($request)->isValid()) {
+        if ( $formModifier->isSubmitted() && $formModifier->handleRequest($request)->isValid()) {
 
             // en attente serveur smtp
 
@@ -253,7 +255,7 @@ class ResponsableController extends Controller
 
             $offre->setEtatOffre('En attente de modification');
 
-            $em = $this->getDoctrine()->getManager();
+
             $em->persist($offre);
             $em->flush();
 
@@ -262,7 +264,7 @@ class ResponsableController extends Controller
 
         }
 
-        if ($formulaire->handleRequest($request)->isValid()) {
+            if ( $formulaire->isSubmitted() && $formulaire->handleRequest($request)->isValid()) {
 
             // en attente serveur smtp
 
@@ -277,8 +279,11 @@ class ResponsableController extends Controller
 //                        'text/html'
 //                    );
 //                $this->get('mailer')->send($message);
+            $em->remove($offre);
+            $em->flush();
 
             $this->addFlash('info', "L'email à été envoyé !");
+            $this->addFlash('info', "L'annonce a été suprimer !");
             return $this->redirect($this->generateUrl('acceuil_responsable'));
 
         }
