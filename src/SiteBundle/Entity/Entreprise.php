@@ -80,7 +80,7 @@ class Entreprise
     /**
      * @var string
      *
-     * @ORM\Column(name="SiteWeb", type="string", length=50)
+     * @ORM\Column(name="SiteWeb", type="string", length=50, nullable=true)
      */
     private $siteWeb;
 
@@ -92,8 +92,8 @@ class Entreprise
     private $telephone;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Adresse")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Adresse", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $Adresse;
 

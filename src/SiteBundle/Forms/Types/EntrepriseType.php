@@ -5,9 +5,11 @@ namespace SiteBundle\Forms\Types;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
@@ -51,12 +53,12 @@ class EntrepriseType extends AbstractType
                 ]
             ])
             ->add('telephone')
-            ->add('adresse', new AdresseType())
-            ->add('siteWeb')
-
-
-            ->add('nombrePersonne')
-
+            ->add('Adresse', AdresseType::class,
+                array('label' => 'Localisation'))
+            ->add('siteWeb', UrlType::class, array(
+                'required' => false,
+            ))
+            ->add('nombrePersonne', IntegerType::class)
             ->add('siret', TextType::class, [
                 'constraints' => [
                     new NotBlank()
@@ -72,8 +74,7 @@ class EntrepriseType extends AbstractType
                     new NotBlank()
                 ]
             ])
-
-            ->add('submit', SubmitType::class, ['label' => "s'inscrire", 'attr' => ['class' => 'btn-primary']]);
+            ->add('submit', SubmitType::class, ['label' => "S'inscrire", 'attr' => ['class' => 'btn-primary']]);
         ;
     }
     

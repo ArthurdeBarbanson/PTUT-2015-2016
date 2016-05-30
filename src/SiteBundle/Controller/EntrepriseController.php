@@ -288,15 +288,16 @@ class EntrepriseController extends Controller
     public function inscriptionAction(Request $request)
     {
         $entreprise = new Entreprise();
-        $form = $this->createForm(EntrepriseType::class, $entreprise);;
+        $form = $this->createForm(EntrepriseType::class, $entreprise);
 
-        if ($form->handleRequest($request)->isValid()) {
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($entreprise);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('success', 'Inscription terminé avec succès !');
+            $this->addFlash('success', 'Inscription terminé avec succès !');
 
             return $this->redirect($this->generateUrl('site_homepage'));
         }
