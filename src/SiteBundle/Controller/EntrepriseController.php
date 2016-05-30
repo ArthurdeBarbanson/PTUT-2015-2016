@@ -35,7 +35,7 @@ class EntrepriseController extends Controller
             ->getManager()
             ->getRepository('SiteBundle:Entreprise');
 
-        $entreprise = $repository->find($this->getUser()->getIdEntreprise());
+        $entreprise = $this->getUser()->getIdEntreprise();
 
         $repositoryOffre = $this
             ->getDoctrine()
@@ -69,7 +69,7 @@ class EntrepriseController extends Controller
                 ->getManager()
                 ->getRepository('SiteBundle:Entreprise');
 
-            $entreprise = $repository->find($this->getUser()->getIdEntreprise());
+            $entreprise = $this->getUser()->getIdEntreprise();
 
             $form = $this->createForm(CreateAnnonce::class);
             $form2 = $this->createForm(CreateMap::class);
