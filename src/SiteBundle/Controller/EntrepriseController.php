@@ -202,7 +202,7 @@ class EntrepriseController extends Controller
                     'required' => true,
                     'data' => $annonce->getLicenceConcerne()
                 ))
-                ->add('Sujet', TextAreaType::class, array(
+                ->add('Sujet', TextareaType::class, array(
                     'label' => 'Sujet (Description de la mission - Technologie)',
                     'data' => $annonce->getSujet(),
                     'constraints' => [

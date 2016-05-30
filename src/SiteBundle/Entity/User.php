@@ -187,11 +187,11 @@ class User implements UserInterface, \Serializable
     /**
      * Set idEntreprise
      *
-     * @param integer $idEntreprise
+     * @param \SiteBundle\Entity\Entreprise $idEntreprise
      *
      * @return User
      */
-    public function setIdEntreprise($idEntreprise)
+    public function setIdEntreprise(\SiteBundle\Entity\Entreprise $idEntreprise)
     {
         $this->id_entreprise = $idEntreprise;
 
@@ -201,7 +201,7 @@ class User implements UserInterface, \Serializable
     /**
      * Get idEntreprise
      *
-     * @return integer
+     * @return \SiteBundle\Entity\Entreprise
      */
     public function getIdEntreprise()
     {
