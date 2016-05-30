@@ -49,6 +49,7 @@ class EtudiantController extends Controller
                     $error = 'Vous devez importer votre CV en format PDF uniquement.';
                 }
             }
+
         }
 
         return $this->render(

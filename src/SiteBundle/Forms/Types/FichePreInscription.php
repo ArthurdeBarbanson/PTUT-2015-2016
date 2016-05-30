@@ -30,6 +30,7 @@ class FichePreInscription extends AbstractType
                     new NotBlank()
                 ]
             ])
+
             ->add('submit', SubmitType::class, ['label' => "Ajouter", 'attr' => ['class' => 'btn-primary']]);
     }
 }
