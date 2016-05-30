@@ -4,21 +4,23 @@ namespace SiteBundle\Controller;
 
 use DateTime;
 use SiteBundle\Entity\Entreprise;
-use SiteBundle\Entity\Offre;
 use SiteBundle\Entity\MAP;
+use SiteBundle\Entity\Offre;
 use SiteBundle\Entity\Personne;
-use SiteBundle\Forms\Types\EdditAnnonce;
+use SiteBundle\Entity\User;
 use SiteBundle\Forms\Types\CreateAnnonce;
 use SiteBundle\Forms\Types\CreateMap;
+use SiteBundle\Forms\Types\EdditAnnonce;
 use SiteBundle\Forms\Types\EntrepriseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -294,12 +296,27 @@ class EntrepriseController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entreprise);
-            $em->flush();
+            $user = new User();
+            $user->setIdEntreprise($entreprise);
+            $user->setRoles(array('ROLE_ENTREPRISE'));
+            $user->setUsername($entreprise->getMail());
 
-            $this->addFlash('success', 'Inscription terminé avec succès !');
+            //set password
+            $randomPassword = random_bytes(10);
+            $encoder = $this->get('security.password_encoder');
+            $encoded = $encoder->encodePassword($user, $randomPassword);
+            $user->setPassword($encoded);
+            $em->persist($user);
 
-            return $this->redirect($this->generateUrl('site_homepage'));
+
+            try {
+                $em->flush();
+                //TODO envoie de mail
+                $this->addFlash('success', 'Inscription terminé avec succès !');
+                return $this->redirect($this->generateUrl('site_homepage'));
+            } catch (Exception $exception) {
+                $this->addFlash('error', "Un erreur s'est produite, veuillez réessayer plus tard.");
+            }
         }
 
         return $this->render(
