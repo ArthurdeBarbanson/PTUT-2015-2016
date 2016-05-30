@@ -1,8 +1,8 @@
 <!-- message succes -->
 {% for flashMessage in app.session.flashbag.get('success') %}
 
-    <div class="alert alert-success">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <div class="alert alert-pop-up alert-success">
+        <button class="close" data-dismiss="alert" aria-label="close">   &times;</button>
         {{ flashMessage }}
     </div>
 
@@ -10,8 +10,8 @@
 <!-- message info -->
 {% for flashMessage in app.session.flashbag.get('info') %}
 
-    <div class="alert alert-info">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <div class="alert alert-pop-up alert-info">
+        <button class="close" data-dismiss="alert" aria-label="close">   &times;</button>
         {{ flashMessage }}
     </div>
 
@@ -19,8 +19,8 @@
 <!-- message warning -->
 {% for flashMessage in app.session.flashbag.get('warning') %}
 
-    <div class="alert alert-warning">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <div class="alert alert-pop-up alert-warning">
+        <button class="close" data-dismiss="alert" aria-label="close">   &times;</button>
         {{ flashMessage }}
     </div>
 
@@ -28,8 +28,8 @@
 <!-- message danger -->
 {% for flashMessage in app.session.flashbag.get('error') %}
 
-    <div class="alert alert-danger">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <div class="alert alert-pop-up alert-danger">
+        <button class="close" data-dismiss="alert" aria-label="close">   &times;</button>
         {{ flashMessage }}
     </div>
 

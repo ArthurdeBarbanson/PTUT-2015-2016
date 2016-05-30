@@ -26,7 +26,8 @@ class AdresseType extends AbstractType
             ->add('codePostal', IntegerType::class)
             ->add('commune', TextType::class)
             ->add('commune', TextType::class)
-            ->add('pays', CountryType::class)
+            ->add('pays', CountryType::class,
+                array('data' => 'FR'))
         ;
     }
 

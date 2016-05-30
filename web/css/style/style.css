@@ -14,21 +14,35 @@ and open the template in the editor.
     padding: 20px;
 }
 
+.alert-pop-up {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2000;
+    border-color: #A8BBA0;
+}
+
 .margTop100 {
     margin-top: 100px;
 }
+
 .margTop10 {
     margin-top: 10px;
 }
+
 .margR10 {
     margin-right: 10px;
 }
+
 .margTop50 {
     margin-top: 50px;
 }
-.margR5{
+
+.margR5 {
     margin-right: 5px;
 }
+
 .margB10 {
     margin-bottom: 10px;
 }
@@ -95,10 +109,11 @@ body {
     border-radius: 0px;
 }
 
-.red{
+.red {
 
     color: red;
 }
-.noir{
-    color : black;
+
+.noir {
+    color: black;
 }
