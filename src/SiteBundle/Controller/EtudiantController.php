@@ -3,6 +3,7 @@
 namespace SiteBundle\Controller;
 
 use SiteBundle\Forms\Types\AjoutPdfEtu;
+use SiteBundle\Forms\Types\FichePreInscription;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -19,6 +20,7 @@ class EtudiantController extends Controller
         $etudiant = $repository->find($this->getUser()->getIdEtudiant());
 
         $form = $this->createForm(AjoutPdfEtu::class);
+        $formPreInscription = $this->createForm(FichePreInscription::class);
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
@@ -53,7 +55,8 @@ class EtudiantController extends Controller
             'SiteBundle:Etudiant:accueil_etudiant.html.twig', [
                 'form' => $form->createView(),
                 'error' => $error,
-                'etudiant' => $etudiant
+                'etudiant' => $etudiant,
+                'formPreInscription' => $formPreInscription
             ]
         );
     }
