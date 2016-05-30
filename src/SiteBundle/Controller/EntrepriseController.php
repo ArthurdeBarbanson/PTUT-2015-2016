@@ -10,7 +10,6 @@ use SiteBundle\Entity\Personne;
 use SiteBundle\Entity\User;
 use SiteBundle\Forms\Types\CreateAnnonce;
 use SiteBundle\Forms\Types\CreateMap;
-use SiteBundle\Forms\Types\EdditAnnonce;
 use SiteBundle\Forms\Types\EntrepriseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -36,7 +35,7 @@ class EntrepriseController extends Controller
             ->getManager()
             ->getRepository('SiteBundle:Entreprise');
 
-        $entreprise = $repository->find($this->getUser()->getIdEntreprise());
+        $entreprise = $this->getUser()->getIdEntreprise();
 
         $repositoryOffre = $this
             ->getDoctrine()
@@ -70,7 +69,7 @@ class EntrepriseController extends Controller
                 ->getManager()
                 ->getRepository('SiteBundle:Entreprise');
 
-            $entreprise = $repository->find($this->getUser()->getIdEntreprise());
+            $entreprise = $this->getUser()->getIdEntreprise();
 
             $form = $this->createForm(CreateAnnonce::class);
             $form2 = $this->createForm(CreateMap::class);
@@ -202,7 +201,7 @@ class EntrepriseController extends Controller
                     'required' => true,
                     'data' => $annonce->getLicenceConcerne()
                 ))
-                ->add('Sujet', TextAreaType::class, array(
+                ->add('Sujet', TextareaType::class, array(
                     'label' => 'Sujet (Description de la mission - Technologie)',
                     'data' => $annonce->getSujet(),
                     'constraints' => [
