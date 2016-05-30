@@ -95,11 +95,13 @@
         <h3> veuillez completer votre profil </h3>
 
         {% else %}
+
             <div class="row">
                 <div id="actions" class="col-sm-12 container">
                     <h2>Avancement du dossier :</h2>
                 </div>
             </div>
+            {% if etudiant.laPersone.sexe %}
             <div class="row">
                 <div id="actions" class="col-sm-12 container">
                     <h3>Etape 1 : Trouver une entreprise </h3>
