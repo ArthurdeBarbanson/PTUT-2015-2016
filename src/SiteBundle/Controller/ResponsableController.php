@@ -319,7 +319,7 @@ class ResponsableController extends Controller
 
     }
 
-    public function ajouterTripletteAction(request $request)
+    public function ajouterTripletteAction(Request $request)
     {
 
         $repositoryTuteur = $this
