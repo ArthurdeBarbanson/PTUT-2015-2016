@@ -455,7 +455,7 @@ class EntrepriseController extends Controller
 
         $offre = $repository->find($postulantId);
 
-        $offre->setEtat("Refus");
+        $offre->setEtat("Refuser");
         $em->flush();
         return $this->redirect($this->generateUrl('site_accueilEntreprise'));
 

@@ -43,7 +43,7 @@
 
                         {% for postulant in postulants %}
 
-                            {% if postulant.offre.id == offre.id %}
+                            {% if postulant.offre.id == offre.id and postulant.etat != "Refuser" %}
 
                                 <tr>
                                     <td>{{ postulant.etudiant.laPersone.nom }} {{ postulant.etudiant.laPersone.prenom }}</td>
