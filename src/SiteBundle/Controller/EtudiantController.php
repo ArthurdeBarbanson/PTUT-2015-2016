@@ -17,8 +17,18 @@ class EtudiantController extends Controller
             ->getDoctrine()
             ->getManager()
             ->getRepository('SiteBundle:Etudiant');
+        $repository2 = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Offre');
+        $repository3 = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Entreprise');
 
         $etudiant = $repository->find($this->getUser()->getIdEtudiant());
+        $offre  = $repository2->findBy(['Etudiant' => $this->getUser()->getIdEtudiant()]);
+        $entreprise = $repository3->find($offre[0]->getEntreprise()->getId());
 
         $form = $this->createForm(AjoutPdfEtu::class);
         $formPreInscription = $this->createForm(FichePreInscription::class);
@@ -58,7 +68,8 @@ class EtudiantController extends Controller
                 'form2' => $form->createView(),
                 'error' => $error,
                 'etudiant' => $etudiant,
-                'formPreInscription' => $formPreInscription->createView()
+                'formPreInscription' => $formPreInscription->createView(),
+                'entreprise' => $entreprise
             ]
         );
     }
