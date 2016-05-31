@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>{{ entreprise.raisonSocial }}</h1>
+    <div class="row">
+        <div class="col-md-3">Raison sociale :</div>
+        <div class="col-md-9">{{ entreprise.raisonSocial }}</div>
+        <div>{{ entreprise.description }}</div>
+        <div class="col-md-3">Adresse :</div>
+        <div class="col-md-9">{{ entreprise.adresse.adresse }}</div>
+        <div class="col-md-3">Code postal :</div>
+        <div class="col-md-9">{{ entreprise.adresse.codePostal }}</div>
+        <div class="col-md-3">Ville :</div>
+        <div class="col-md-9">{{ entreprise.adresse.commune }}</div>
+        <div class="col-md-3">Pays :</div>
+        <div class="col-md-9">{{ entreprise.adresse.pays }}</div>
+        <div class="col-md-12"><h3>Contact</h3></div>
+        <div class="col-md-3">Nom :</div>
+        <div class="col-md-9">{{ entreprise.nom }}</div>
+        <div class="col-md-3">Prenom :</div>
+        <div class="col-md-9">{{ entreprise.prenom }}</div>
+        <div class="col-md-3">E-mail :</div>
+        <div class="col-md-9">{{ entreprise.mail }}</div>
+        <div class="col-md-3">Téléphone :</div>
+        <div class="col-md-9">{{ entreprise.telephone }}</div>
+        {% if entreprise.siteWeb is not null %}
+            <div class="col-md-3">Site web :</div>
+            <div class="col-md-9">{{ entreprise.siteWeb }}</div>
+        {% endif %}
+
+    </div>
+{% endblock %}
