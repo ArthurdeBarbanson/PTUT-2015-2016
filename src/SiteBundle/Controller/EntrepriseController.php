@@ -3,6 +3,7 @@
 namespace SiteBundle\Controller;
 
 use DateTime;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use SiteBundle\Entity\Entreprise;
 use SiteBundle\Entity\MAP;
 use SiteBundle\Entity\Offre;
@@ -313,6 +314,8 @@ class EntrepriseController extends Controller
                 //TODO envoie de mail
                 $this->addFlash('success', 'Inscription terminé avec succès !');
                 return $this->redirect($this->generateUrl('site_homepage'));
+            } catch (UniqueConstraintViolationException $exception) {
+                $this->addFlash('error', "Cette adresse est déjà utilisé par un autre utilisateur.");
             } catch (Exception $exception) {
                 $this->addFlash('error', "Un erreur s'est produite, veuillez réessayer plus tard.");
             }
