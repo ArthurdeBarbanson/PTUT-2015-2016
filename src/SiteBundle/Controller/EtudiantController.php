@@ -54,10 +54,10 @@ class EtudiantController extends Controller
 
         return $this->render(
             'SiteBundle:Etudiant:accueil_etudiant.html.twig', [
-                'form' => $form->createView(),
+                'form2' => $form->createView(),
                 'error' => $error,
                 'etudiant' => $etudiant,
-                'formPreInscription' => $formPreInscription
+                'formPreInscription' => $formPreInscription->createView()
             ]
         );
     }
