@@ -84,7 +84,8 @@
                 {% for etudiant in etudiants %}
                     <tr>
                         <td>{{ etudiant.laPersone.prenom }} {{ etudiant.laPersone.nom }}</td>
-                        <td>{{ etudiant.Statut }}</td>
+                        <td>{{ etudiant.DossierInscription.etatDossier }}</td>
+                        {#<td>{{ dump(etudiant.DossierInscription) }}</td>#}
                         <td></td>
                         <td></td>
 
