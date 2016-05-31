@@ -6,6 +6,7 @@ use SiteBundle\Forms\Types\AjoutPdfEtu;
 use SiteBundle\Forms\Types\FichePreInscription;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EtudiantController extends Controller
 {
@@ -16,8 +17,18 @@ class EtudiantController extends Controller
             ->getDoctrine()
             ->getManager()
             ->getRepository('SiteBundle:Etudiant');
+        $repository2 = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Offre');
+        $repository3 = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Entreprise');
 
         $etudiant = $repository->find($this->getUser()->getIdEtudiant());
+        $offre  = $repository2->findBy(['Etudiant' => $this->getUser()->getIdEtudiant()]);
+        $entreprise = $repository3->find($offre[0]->getEntreprise()->getId());
 
         $form = $this->createForm(AjoutPdfEtu::class);
         $formPreInscription = $this->createForm(FichePreInscription::class);
@@ -57,8 +68,30 @@ class EtudiantController extends Controller
                 'form2' => $form->createView(),
                 'error' => $error,
                 'etudiant' => $etudiant,
-                'formPreInscription' => $formPreInscription->createView()
+                'formPreInscription' => $formPreInscription->createView(),
+                'entreprise' => $entreprise
             ]
         );
+    }
+
+    public function detailsEntrepriseAction(Request $request)
+    {
+
+        $entrepriseId = $request->get('entrepriseId');
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Entreprise');
+
+        $entreprise = $repository->find($entrepriseId);
+        //si l'annonce n'es pas trouvé
+        if (null === $entreprise) {
+            throw new NotFoundHttpException("L'entreprise n'a pas été trouvée.");
+        }
+
+        return $this->render(
+            'SiteBundle:Etudiant:detailsEntreprise.html.twig', ['entreprise' => $entreprise]
+        );
+
     }
 }

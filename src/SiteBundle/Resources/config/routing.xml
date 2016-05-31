@@ -21,6 +21,7 @@
     <route id="site_detailsAnnonceEntreprise" path="/entreprise/details_annonce/{annonceId}">
         <default key="_controller">SiteBundle:Default:detailAnnonce</default>
     </route>
+
     <route id="edditAnnonceAnnonceEntreprise" path="/entreprise/modifie_annonce/{annonceId}">
         <default key="_controller">SiteBundle:Entreprise:edditAnnonce</default>
     </route>
@@ -36,6 +37,12 @@
     <route id="site_detailsPostulant" path="/entreprise/detailsPostulants/{postulantId}">
         <default key="_controller">SiteBundle:Entreprise:detailsPostulants</default>
     </route>
+    <route id="site_refusPostulant" path="/entreprise/detailsPostulants/refus/{postulantId}">
+        <default key="_controller">SiteBundle:Entreprise:refusPostulants</default>
+    </route>
+    <route id="site_accepterPostulant" path="/entreprise/detailsPostulants/accepter/{postulantId}">
+        <default key="_controller">SiteBundle:Entreprise:accepterPostulants</default>
+    </route>
 
     <route id="site_impressionPostulant" path="/entreprise/impressionPostulants/{postulantId}">
     <default key="_controller">SiteBundle:Entreprise:impressionPostulants</default>
@@ -45,6 +52,10 @@
     </route>
 
     <!-- Etudiant -->
+    <route id="detailsEntreprise" path="/etudiant/details_entreprise/{entrepriseId}">
+        <default key="_controller">SiteBundle:Etudiant:detailsEntreprise</default>
+    </route>
+
     <route id="site_detailsAnnonceEtudiant" path="/etudiant/details_annonce/{annonceId}">
         <default key="_controller">SiteBundle:Default:detailAnnonce</default>
     </route>

@@ -3,6 +3,7 @@
 namespace SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Intl\Intl;
 
 /**
  * Adresse
@@ -150,5 +151,11 @@ class Adresse
     public function getPays()
     {
         return $this->pays;
+    }
+
+
+    public function getNomPays()
+    {
+        return Intl::getRegionBundle()->getCountryName($this->getPays());
     }
 }

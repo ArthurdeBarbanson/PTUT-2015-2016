@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Detail entreprise {{ entreprise.raisonSocial }}
+{% endblock %}
+{% block body %}
+    <h1>{{ entreprise.raisonSocial }}</h1>
+    <div class="row">
+        <div class="col-md-3"><strong>Raison sociale :</strong></div>
+        <div class="col-md-9">{{ entreprise.raisonSocial }}</div>
+        <div class="col-md-3"><strong>Description :</strong></div>
+        <div class="col-md-9">{{ entreprise.description }}</div>
+        <div class="col-md-3"><strong>Adresse :</strong></div>
+        <div class="col-md-9">{{ entreprise.adresse.adresse }}</div>
+        <div class="col-md-3"><strong>Code postal :</strong></div>
+        <div class="col-md-9">{{ entreprise.adresse.codePostal }}</div>
+        <div class="col-md-3"><strong>Ville :</strong></div>
+        <div class="col-md-9">{{ entreprise.adresse.commune }}</div>
+        <div class="col-md-3"><strong>Pays :</strong></div>
+        <div class="col-md-9">{{ entreprise.adresse.nomPays }}</div>
+        <div class="col-md-12"><h3>Contact</h3></div>
+        <div class="col-md-3"><strong>Nom :</strong></div>
+        <div class="col-md-9">{{ entreprise.nom }}</div>
+        <div class="col-md-3"><strong>Prenom :</strong></div>
+        <div class="col-md-9">{{ entreprise.prenom }}</div>
+        <div class="col-md-3"><strong>E-mail :</strong></div>
+        <div class="col-md-9">{{ entreprise.mail }}</div>
+        <div class="col-md-3"><strong>Téléphone :</strong></div>
+        <div class="col-md-9">{{ entreprise.telephone }}</div>
+        {% if entreprise.siteWeb is not null %}
+            <div class="col-md-3"><strong>Site web :</strong></div>
+            <div class="col-md-9"><a href="{{ entreprise.siteWeb }}" target="_blank">{{ entreprise.siteWeb }}</a></div>
+        {% endif %}
+
+    </div>
+    <div class="text-center">
+        <a class="btn btn-default" href="{{ path('site_accueilEtudiant') }}">Retour</a>
+    </div>
+{% endblock %}
