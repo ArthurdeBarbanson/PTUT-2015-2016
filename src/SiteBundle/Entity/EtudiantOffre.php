@@ -48,6 +48,12 @@ class EtudiantOffre
      */
     private $Offre;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="etat", type="string", columnDefinition="enum('Accepter','Refuser','Attente Entreprise','Attente Etudiant')" ,nullable=true)
+     */
+    private $etat;
 
 
 
@@ -152,5 +158,29 @@ class EtudiantOffre
     public function getOffre()
     {
         return $this->Offre;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param string $etat
+     *
+     * @return EtudiantOffre
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return string
+     */
+    public function getEtat()
+    {
+        return $this->etat;
     }
 }
