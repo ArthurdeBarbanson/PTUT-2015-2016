@@ -349,28 +349,6 @@ class EntrepriseController extends Controller
 
     }
 
-    public function detailsEntrepriseAction(Request $request)
-    {
-
-        $entrepriseId = $request->get('entrepriseId');
-        $repository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:Entreprise');
-
-        $entreprise = $repository->find($entrepriseId);
-        //si l'annonce n'es pas trouvé
-        if (null === $entreprise) {
-            throw new NotFoundHttpException("L'entreprise n'a pas été trouvée.");
-        }
-
-        return $this->render(
-            'SiteBundle:Entreprise:detailsEntreprise.html.twig', ['entreprise' => $entreprise]
-
-        );
-
-    }
-
     public function impressionPostulantsAction(Request $request)
     {
         $postulantId = $request->get('postulantId');

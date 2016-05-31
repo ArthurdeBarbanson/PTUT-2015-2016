@@ -6,6 +6,7 @@ use SiteBundle\Forms\Types\AjoutPdfEtu;
 use SiteBundle\Forms\Types\FichePreInscription;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EtudiantController extends Controller
 {
@@ -60,5 +61,26 @@ class EtudiantController extends Controller
                 'formPreInscription' => $formPreInscription->createView()
             ]
         );
+    }
+
+    public function detailsEntrepriseAction(Request $request)
+    {
+
+        $entrepriseId = $request->get('entrepriseId');
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Entreprise');
+
+        $entreprise = $repository->find($entrepriseId);
+        //si l'annonce n'es pas trouvé
+        if (null === $entreprise) {
+            throw new NotFoundHttpException("L'entreprise n'a pas été trouvée.");
+        }
+
+        return $this->render(
+            'SiteBundle:Etudiant:detailsEntreprise.html.twig', ['entreprise' => $entreprise]
+        );
+
     }
 }
