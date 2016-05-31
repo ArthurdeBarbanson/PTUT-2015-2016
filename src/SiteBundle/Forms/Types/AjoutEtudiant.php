@@ -3,6 +3,7 @@
 namespace SiteBundle\Forms\Types;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -30,6 +31,13 @@ class AjoutEtudiant extends AbstractType
                     new NotBlank()
                 ]
             ])
+            ->add('Lpconcerne', ChoiceType::class, array(
+                'label' => 'Type de licence',
+                'choices' => array('IEM' => 'IEM', 'METINET' => 'METINET', 'Aucune' => null),
+                'multiple' => false,
+                'expanded' => true,
+                'preferred_choices' => array('Aucune'),
+            ))
             ->add('submit', SubmitType::class, ['label' => "Ajouter", 'attr' => ['class' => 'btn-primary']]);
     }
 }
