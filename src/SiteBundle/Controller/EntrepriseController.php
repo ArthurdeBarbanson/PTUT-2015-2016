@@ -405,4 +405,38 @@ class EntrepriseController extends Controller
         return $this->redirect($this->generateUrl('site_accueilEntreprise'));
 
     }
+
+    public function accepterPostulantsAction (Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $postulantId = $request->get('postulantId');
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:EtudiantOffre');
+
+        $offre = $repository->find($postulantId);
+
+        $offre->setEtat("Attente Etudiant");
+        $em->flush();
+        return $this->redirect($this->generateUrl('site_accueilEntreprise'));
+    }
+
+    public function refusPostulantsAction (Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $postulantId = $request->get('postulantId');
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:EtudiantOffre');
+
+        $offre = $repository->find($postulantId);
+
+        $offre->setEtat("Refus");
+        $em->flush();
+        return $this->redirect($this->generateUrl('site_accueilEntreprise'));
+
+    }
+
 }
