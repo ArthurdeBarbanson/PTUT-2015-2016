@@ -90,8 +90,120 @@ class FichePreInscription extends AbstractType
                 'required' => true
             ])
             ->add('isTransfert', CheckboxType::class, [
-                'label'    => 'isTransfert',
+                'label'    => 'Oui',
                 'required' => true
+            ])
+            ->add('DerpartementDernierDiplome', TextType::class, [
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'attr' => [
+                    'placeholder' => 'Departement'
+                ]
+            ])
+            ->add('AnneeDernierDiplome', TextType::class, [
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'attr' => [
+                    'placeholder' => 'Annee'
+                ]
+            ])
+            ->add('EtablissementDernierDiplome', TextType::class, [
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'attr' => [
+                    'placeholder' => 'Etablissement'
+                ]
+            ])
+            ->add('IntituleDernierDiplome', TextType::class, [
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'attr' => [
+                    'placeholder' => 'Intitule'
+                ]
+            ])
+            ->add('NomAutreEtablissement', TextType::class, [
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'attr' => [
+                    'placeholder' => 'Nom'
+                ]
+            ])
+            ->add('TypeAutreEtablissement', TextType::class, [
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'attr' => [
+                    'placeholder' => 'Type'
+                ]
+            ])
+            ->add('DepartementAutreEtablissement', TextType::class, [
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'attr' => [
+                    'placeholder' => 'Departement'
+                ]
+            ])
+            ->add('AnneeAutreEtablissement', TextType::class, [
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'attr' => [
+                    'placeholder' => 'Annee'
+                ]
+            ])
+            ->add('CodeAutreEtablissement', TextType::class, [
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'attr' => [
+                    'placeholder' => 'Code'
+                ]
+            ])
+            ->add('isInscrit', CheckboxType::class, [
+                'label'    => 'Oui',
+                'required' => true
+            ])
+            ->add('isInscriptionMainteanue', CheckboxType::class, [
+                'label'    => 'Oui',
+                'required' => true
+            ])
+            ->add('AnneePremiereInscription', TextType::class, [
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'attr' => [
+                    'placeholder' => 'Annee'
+                ]
+            ])
+            ->add('AnneeUniversitePremiereInscription', TextType::class, [
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'attr' => [
+                    'placeholder' => 'Annee'
+                ]
+            ])
+            ->add('NomPremiereInscription', TextType::class, [
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'attr' => [
+                    'placeholder' => 'Annee'
+                ]
+            ])
+            ->add('AnneeSUPPremiereInscription', TextType::class, [
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'attr' => [
+                    'placeholder' => 'Annee'
+                ]
             ])
 
 

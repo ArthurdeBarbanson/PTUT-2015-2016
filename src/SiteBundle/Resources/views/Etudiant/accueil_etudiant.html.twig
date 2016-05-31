@@ -27,7 +27,7 @@
             </div>
         {% else %}
             <div id="actions" class="col-sm-6 container">
-                <p class="alert-danger">Sexe : </p>
+                <strong class="text-danger">Sexe : </strong>
             </div>
         {% endif %}
 
@@ -37,7 +37,7 @@
             </div>
         {% else %}
             <div id="actions" class="col-sm-6 container">
-                <p class="alert-danger">Nationnalité : "A remplir</p>
+                <strong class="text-danger">Nationnalité : "A remplir</strong>
             </div>
         {% endif %}
     </div>
@@ -51,7 +51,7 @@
             </div>
         {% else %}
             <div id="actions" class="col-sm-6 container">
-                <p class="alert-danger">Ville de naissance : </p>
+                <strong class="text-danger">Ville de naissance : </strong>
             </div>
         {% endif %}
     </div>
@@ -62,7 +62,7 @@
             </div>
         {% else %}
             <div id="actions" class="col-sm-6 container">
-                <p class="alert-danger">Mail : </p>
+                <strong class="text-danger">Mail : </strong>
             </div>
         {% endif %}
         {% if etudiant.laPersone.telephone %}
@@ -71,7 +71,7 @@
             </div>
         {% else %}
             <div id="actions" class="col-sm-6 container">
-                <p class="alert-danger">Téléphone : </p>
+                <strong class="text-danger">Téléphone : </strong>
             </div>
         {% endif %}
     </div>
@@ -93,15 +93,15 @@
     {% else %}
         <div class="row">
             <div id="actions" class="col-sm-12 container">
-                <p class="alert-danger">Adresse : </p>
+                <strong class="text-danger">Adresse : </strong>
             </div>
         </div>
         <div class="row">
             <div id="actions" class="col-sm-6 container">
-                <p class="alert-danger">Code Postal : </p>
+                <strong class="text-danger">Code Postal : </strong>
             </div>
             <div id="actions" class="col-sm-6 container">
-                <p class="alert-danger">Ville : </p>
+                <strong class="text-danger">Ville : </strong>
             </div>
         </div>
     {% endif %}
@@ -115,7 +115,7 @@
     {% else %}
         <div class="row">
             <div id="actions" class="col-sm-12 container">
-                <p class="alert-danger">Numéro dossier ciel2 : </p>
+                <strong class="text-danger">Numéro dossier ciel2 : </strong>
             </div>
         </div>
     {% endif %}
@@ -129,7 +129,7 @@
     {% else %}
         <div class="row">
             <div id="actions" class="col-sm-12 container">
-                <p class="alert-danger">CV : </p>
+                <strong class="text-danger">CV : </strong>
             </div>
         </div>
     {% endif %}
@@ -189,7 +189,8 @@
                         <div class="row">
 
                             <div class="col-lg-4">
-                                <h4>Bac ou equivalent :</h4>
+                                <ins>Bac ou equivalent :</ins>
+                                <br><br>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -240,7 +241,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                    <h4>Dernier établissement fréquenté :</h4>
+                                <br>
+                                    <ins>Dernier établissement fréquenté :</ins>
+                                <br><br>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -291,21 +294,185 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 control-label required"> Est Transfert  : </label>
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.isTransfert , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
 
                             </div>
                             <div class="col-lg-4">
+                                <ins>Dernier diplome obtenue :</ins>
+                                <br><br>
                                 <div class="row">
-                                    <div class="col-md-6">     </div>
-                                    <div class="col-md-6">   </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.IntituleDernierDiplome , ' Intitulé : ', {'label_attr': {'class': 'col-sm-5'}}) }}
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.IntituleDernierDiplome , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.DerpartementDernierDiplome , 'Departement : ', {'label_attr': {'class': 'col-sm-5'}}) }}
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.DerpartementDernierDiplome , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.AnneeDernierDiplome , ' Année : ', {'label_attr': {'class': 'col-sm-5'}}) }}
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.AnneeDernierDiplome , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.EtablissementDernierDiplome , ' Etablissement : ', {'label_attr': {'class': 'col-sm-5'}}) }}
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.EtablissementDernierDiplome , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <ins>Inscrit autre établissement :</ins>
+                                <br><br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.NomAutreEtablissement , ' Nom : ', {'label_attr': {'class': 'col-sm-5'}}) }}
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.NomAutreEtablissement , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.TypeAutreEtablissement , ' Type : ', {'label_attr': {'class': 'col-sm-5'}}) }}
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.TypeAutreEtablissement , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.DepartementAutreEtablissement , ' Departement : ', {'label_attr': {'class': 'col-sm-5'}}) }}
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.DepartementAutreEtablissement , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.AnneeAutreEtablissement , ' Annee : ', {'label_attr': {'class': 'col-sm-5'}}) }}
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.AnneeAutreEtablissement , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.CodeAutreEtablissement , ' Code : ', {'label_attr': {'class': 'col-sm-5'}}) }}
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.CodeAutreEtablissement , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 control-label required"> Est Inscrit  : </label>
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.isInscrit , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 control-label required"> Inscription Maintenue  : </label>
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.isInscriptionMainteanue , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
+
+
                             <div class="col-lg-4">
+                                <ins>Premiere inscription:</ins>
+                                <br><br>
                                 <div class="row">
-                                    <div class="col-md-6">   </div>
-                                    <div class="col-md-6">   </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.AnneePremiereInscription , ' Inscription lyon 1 : ', {'label_attr': {'class': 'col-sm-7'}}) }}
+                                            <div class="col-sm-5">
+                                                {{ form_widget(formPreInscription.AnneePremiereInscription , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.AnneeUniversitePremiereInscription , ' Université française : ', {'label_attr': {'class': 'col-sm-7'}}) }}
+                                            <div class="col-sm-5">
+                                                {{ form_widget(formPreInscription.AnneeUniversitePremiereInscription , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.NomPremiereInscription , ' Nom : ', {'label_attr': {'class': 'col-sm-7'}}) }}
+                                            <div class="col-sm-5">
+                                                {{ form_widget(formPreInscription.NomPremiereInscription , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.AnneeSUPPremiereInscription , ' En enseignement superieur : ', {'label_attr': {'class': 'col-sm-7'}}) }}
+                                            <div class="col-sm-5">
+                                                {{ form_widget(formPreInscription.AnneeSUPPremiereInscription , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
