@@ -329,4 +329,28 @@ class Etudiant
     {
         $this->leTuteur = $leTuteur;
     }
+
+    /**
+     * Set dossierInscription
+     *
+     * @param \SiteBundle\Entity\DossierInscription $dossierInscription
+     *
+     * @return Etudiant
+     */
+    public function setDossierInscription(\SiteBundle\Entity\DossierInscription $dossierInscription = null)
+    {
+        $this->DossierInscription = $dossierInscription;
+
+        return $this;
+    }
+
+    /**
+     * Get dossierInscription
+     *
+     * @return \SiteBundle\Entity\DossierInscription
+     */
+    public function getDossierInscription()
+    {
+        return $this->DossierInscription;
+    }
 }
