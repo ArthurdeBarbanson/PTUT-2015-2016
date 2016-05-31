@@ -51,13 +51,32 @@
                                     <td class="text-center"><a target="_blank"
                                                                href="{{ asset(postulant.etudiant.cv) }}"><span
                                                     class="glyphicon glyphicon-eye-open "></span></a></td>
-                                    <td class="text-center"><a href=""><span
+                                    <td class="text-center"><a data-toggle="modal"
+                                                               data-target="#LettreMotivation{{ postulant.offre.id }}"><span
                                                     class="glyphicon glyphicon-eye-open"></span></a></td>
                                     <td class="text-center"><a
                                                 href="{{ path('site_detailsPostulant', {'postulantId': postulant.id }) }}"><span
                                                     class="glyphicon glyphicon-eye-open margR5"></span></a><a
                                                 href="{{ path('site_impressionPostulant', {'postulantId': postulant.id }) }}"
                                                 target="_blank"><span class="glyphicon glyphicon-print"></span></a></td>
+                                    <!-- Modal lettre motivation -->
+                                    <div id="LettreMotivation{{ postulant.offre.id }}" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close"
+                                                            data-dismiss="modal">&times;</button>
+                                                    <h4>Lettre de motivation
+                                                        de {{ postulant.etudiant.laPersone.nom }} {{ postulant.etudiant.laPersone.prenom }}</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>{{ postulant.lettreMotivation }}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </tr>
                             {% else %}
                                 <tr>
