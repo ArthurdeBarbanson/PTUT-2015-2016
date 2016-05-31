@@ -37,6 +37,12 @@
     <route id="site_detailsPostulant" path="/entreprise/detailsPostulants/{postulantId}">
         <default key="_controller">SiteBundle:Entreprise:detailsPostulants</default>
     </route>
+    <route id="site_refusPostulant" path="/entreprise/detailsPostulants/refus/{postulantId}">
+        <default key="_controller">SiteBundle:Entreprise:refusPostulants</default>
+    </route>
+    <route id="site_accepterPostulant" path="/entreprise/detailsPostulants/accepter/{postulantId}">
+        <default key="_controller">SiteBundle:Entreprise:accepterPostulants</default>
+    </route>
 
     <route id="site_impressionPostulant" path="/entreprise/impressionPostulants/{postulantId}">
     <default key="_controller">SiteBundle:Entreprise:impressionPostulants</default>
