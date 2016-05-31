@@ -25,6 +25,7 @@ class EtudiantOffreRepository extends EntityRepository
             $etudiant_offre->setLettreMotivation($data['lettreMotivation']);
             $etudiant_offre->setOffre($offre);
             $etudiant_offre->setEtudiant($etudiant);
+            $etudiant_offre->setEtat("Attente Entreprise");
 
             $this->_em->persist($etudiant_offre);
             $this->_em->flush();

@@ -94,4 +94,27 @@ class EtudiantController extends Controller
         );
 
     }
+
+    public function listeOffrePostulerAction(Request $request)
+    {
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Etudiant');
+
+        $etudiant = $repository->find($this->getUser()->getIdEtudiant());
+
+        $repositoryPostulant = $this->getDoctrine()->getManager()->getRepository('SiteBundle:EtudiantOffre');
+        $offresP = $repositoryPostulant->findBy(array("Etudiant" => $etudiant, "etat" => "Attente Entreprise"));
+        $offresV = $repositoryPostulant->findBy(array("Etudiant" => $etudiant, "etat" => "Attente Etudiant"));
+        $offresR = $repositoryPostulant->findBy(array("Etudiant" => $etudiant, "etat" => "Refuser"));
+
+        return $this->render(
+            'SiteBundle:Etudiant:liste_offre_postuler_Etudiant.html.twig', [
+                'offresP' =>  $offresP,
+                'offresR' =>   $offresR,
+                'offresV' =>   $offresV,
+            ]
+        );
+    }
 }

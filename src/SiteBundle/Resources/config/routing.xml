@@ -67,6 +67,9 @@
     <route id="site_listeOffreEtudiant" path="/etudiant/liste_offres">
         <default key="_controller">SiteBundle:Default:listeOffres</default>
     </route>
+    <route id="site_listeOffrePostulerEtudiant" path="/etudiant/liste_offres_postuler">
+        <default key="_controller">SiteBundle:Etudiant:listeOffrePostuler</default>
+    </route>
 
     <route id="site_impressionAnnonceEtudiant" path="/etudiant/impression_annonce/{annonceId}">
         <default key="_controller">SiteBundle:Default:impressionAnnonce</default>
