@@ -1,5 +1,5 @@
 {% extends '::base.html.twig' %}
-{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% form_theme form2 'bootstrap_3_layout.html.twig' %}
 {% block title %}
     Accueil étudiant
 {% endblock %}
@@ -92,7 +92,7 @@
 
 
     {% if not etudiant.laPersone.sexe %}
-        <h3> veuillez completer votre profil </h3>
+        <h3> Veuillez completer votre profil </h3>
 
         {% else %}
 
@@ -134,7 +134,7 @@
                 <div id="actions" class="col-sm-12 container">
                     <h3>Etape 3 : Dossiers inscription pédagogique (Date limite 31 août 2016) </h3>
                     <p> Champs à remplire obligatoirement </p>
-                    <div class="panel panel-info">...</div>
+                    <div class="panel panel-info"> {{ form(formPreInscription) }} </div>
 
                     <p>Ce dossier d'inscription dûment compléter (pièce justificatif compris ) devra nous être retourné impérativement.
                     DES QUE POSSIBLE par voie postal uniquement à l'adresse suivante.</p>
@@ -176,7 +176,7 @@
                         <h5><strong>Vous possédez déjà un CV :</strong> <a href="{{ asset(app.user.idEtudiant.cv) }}"
                                                                            target="_blank">Voir mon CV</a></h5>
                     {% endif %}
-                    {{ form(form) }}
+                    {{ form(form2) }}
                     {% if error is not sameas('') %}
                         <p class="red">{{ error }}</p>
                     {% endif %}
