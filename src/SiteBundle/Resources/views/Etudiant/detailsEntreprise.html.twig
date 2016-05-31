@@ -1,4 +1,7 @@
 {% extends 'base.html.twig' %}
+{% block title %}
+    Detail entreprise {{ entreprise.raisonSocial }}
+{% endblock %}
 {% block body %}
     <h1>{{ entreprise.raisonSocial }}</h1>
     <div class="row">
