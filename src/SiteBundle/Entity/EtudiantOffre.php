@@ -52,7 +52,7 @@ class EtudiantOffre
     /**
      * @var string
      *
-     * @ORM\Column(name="etat", type="string", columnDefinition="enum('Accepter','Refuser','Attente Entreprise','Attente Etudiant')" ,nullable=true)
+     * @ORM\Column(name="etat", type="string", columnDefinition="enum('Accepter','Refuser','Attente Entreprise','Attente Etudiant')" ,nullable=true , options={"default":"Attente Entreprise"})
      */
     private $etat;
 
