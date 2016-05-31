@@ -3,6 +3,7 @@
 namespace SiteBundle\Controller;
 
 use DateTime;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use SiteBundle\Entity\Entreprise;
 use SiteBundle\Entity\MAP;
 use SiteBundle\Entity\Offre;
@@ -45,7 +46,7 @@ class EntrepriseController extends Controller
         $offresValidations = $repositoryOffre->findBy(array("Entreprise" => $entreprise, "etatOffre" => "En attente de validation"));
         $offres = $repositoryOffre->findBy(array("Entreprise" => $entreprise, "etatOffre" => "En ligne"));
         $offresPourvues = $repositoryOffre->findBy(array("Entreprise" => $entreprise, "etatOffre" => "Pourvue"));
-
+        $offresModification = $repositoryOffre->findBy(array("Entreprise" => $entreprise, "etatOffre" => "En attente de modification"));
         $repositoryPostulant = $this->getDoctrine()->getManager()->getRepository('SiteBundle:EtudiantOffre');
         $result = array();
         foreach ($offres as $offre) {
@@ -56,7 +57,7 @@ class EntrepriseController extends Controller
         }
         return $this->render(
             'SiteBundle:Entreprise:accueil_entreprise.html.twig',
-            ['offresLigne' => $offres, 'offresValidations' => $offresValidations, 'offresPourvues' => $offresPourvues, 'postulantOffres' => $result]
+            ['offresLigne' => $offres, 'offresValidations' => $offresValidations, 'offresPourvues' => $offresPourvues, 'postulantOffres' => $result ,'offresModification' => $offresModification]
         );
     }
 
@@ -313,6 +314,8 @@ class EntrepriseController extends Controller
                 //TODO envoie de mail
                 $this->addFlash('success', 'Inscription terminé avec succès !');
                 return $this->redirect($this->generateUrl('site_homepage'));
+            } catch (UniqueConstraintViolationException $exception) {
+                $this->addFlash('error', "Cette adresse est déjà utilisé par un autre utilisateur.");
             } catch (Exception $exception) {
                 $this->addFlash('error', "Un erreur s'est produite, veuillez réessayer plus tard.");
             }

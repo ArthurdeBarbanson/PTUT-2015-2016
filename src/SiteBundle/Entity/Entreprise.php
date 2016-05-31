@@ -3,6 +3,7 @@
 namespace SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Entreprise
@@ -58,6 +59,11 @@ class Entreprise
 
     /**
      * @var string
+     *
+     * @Assert\Regex(
+     *     pattern="/[0-9]{14}/",
+     *     message="Le numéro siret est invalide."
+     * )
      *
      * @ORM\Column(name="Siret", type="string", length=50)
      */
