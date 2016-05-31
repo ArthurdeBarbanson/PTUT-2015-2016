@@ -15,17 +15,17 @@ class FichePreInscription extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Prenom', TextType::class, [
+            ->add('BacOuEquivalent', TextType::class, [
                 'constraints' => [
                     new NotBlank()
                 ]
             ])
-            ->add('Nom', TextType::class, [
+            ->add('DernierEtablissementFrequente', TextType::class, [
                 'constraints' => [
                     new NotBlank()
                 ]
             ])
-            ->add('Email', EmailType::class, [
+            ->add('DernierDiplomeObtenue', EmailType::class, [
                 'constraints' => [
                     new NotBlank()
                 ]
