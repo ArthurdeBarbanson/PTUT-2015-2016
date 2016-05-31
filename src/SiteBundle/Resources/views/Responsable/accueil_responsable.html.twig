@@ -15,89 +15,131 @@
 
     </div>
 
-    <div class="panel panel-danger">
-        <div class="panel-heading">
-            <h3>offres en attente de validation</h3>
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">Gestion des offres</a></li>
+        <li><a data-toggle="tab" href="#menu1">Gestion etudiant </a></li>
+        <li><a data-toggle="tab" href="#menu2">Paramètre</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3>offres en attente de validation</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table>
+                            <tr>
+                                <th class="col-md-2">Date</th>
+                                <th class="col-md-2">Titre de l'offre</th>
+                                <th class="col-md-2 text-center">Entreprise</th>
+                                <th class="col-md-2 text-center">Maître de stage</th>
+                                <th class="col-md-2 text-center">Etat de l'offre</th>
+                                <th class="col-md-2 text-center">Action</th>
+                            </tr>
+
+                            {% for offre in offres %}
+                                {% if offre.etatOffre == 'En attente de validation' %}
+                                    <tr>
+                                        <td>{{ offre.DateDepot |date('d-m-Y') }}</td>
+                                        <td>{{ offre.Titre }}</td>
+                                        <td class="text-center">{{ offre.entreprise.RaisonSocial }}</td>
+                                        <td class="text-center">{{ offre.entreprise.Prenom }} {{ offre.entreprise.Nom }}</td>
+                                        <td class="text-center">
+                                            <p class="text-danger">{{ offre.etatOffre }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ path('site_detailsAnnonceResponsable', {'offreId': offre.id }) }}"
+                                               class="btn  btn-primary">A Valider</a>
+                                        </td>
+
+                                    </tr>
+                                {% elseif offre.etatOffre == 'En attente de modification'  %}
+                                    <tr>
+                                        <td>{{ offre.DateDepot |date('d-m-Y') }}</td>
+                                        <td>{{ offre.Titre }}</td>
+                                        <td class="text-center">{{ offre.entreprise.RaisonSocial }}</td>
+                                        <td class="text-center">{{ offre.entreprise.Prenom }} {{ offre.entreprise.Nom }}</td>
+                                        <td class="text-center">
+                                            <p class="text-warning">{{ offre.etatOffre }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ path('site_detailsAnnonceResponsable', {'offreId': offre.id }) }}"
+                                               class="btn  btn-primary">A Valider</a>
+                                        </td>
+
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </table>
+                    </div>
+
+            </div>
+
         </div>
-        <div class="panel-body">
-            <table>
-                <tr>
-                    <th class="col-md-2">Date</th>
-                    <th class="col-md-2">Titre de l'offre</th>
-                    <th class="col-md-2 text-center">Entreprise</th>
-                    <th class="col-md-2 text-center">Maître de stage</th>
-                    <th class="col-md-2 text-center">Etat de l'offre</th>
-                    <th class="col-md-2 text-center">Action</th>
-                </tr>
 
-                {% for offre in offres %}
-                    {% if offre.etatOffre == 'En attente de validation' %}
+        <div id="menu1" class="tab-pane fade">
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3>Liste des étudiants</h3>
+                </div>
+                <div class="panel-body">
+                    <table>
                         <tr>
-                            <td>{{ offre.DateDepot |date('d-m-Y') }}</td>
-                            <td>{{ offre.Titre }}</td>
-                            <td class="text-center">{{ offre.entreprise.RaisonSocial }}</td>
-                            <td class="text-center">{{ offre.entreprise.Prenom }} {{ offre.entreprise.Nom }}</td>
-                            <td class="text-center">
-                                <p class="text-danger">{{ offre.etatOffre }}</p>
-                            </td>
-                            <td class="text-center">
-                                <a href="{{ path('site_detailsAnnonceResponsable', {'offreId': offre.id }) }}"
-                                   class="btn  btn-primary">A Valider</a>
-                            </td>
-
+                            <th class="col-md-2 text-center">Etudiant</th>
+                            <th class="col-md-2 text-center">état d'avancement</th>
+                            <th class="col-md-2 text-center">Entreprise</th>
+                            <th class="col-md-2 text-center">Maître de stage</th>
+                            <th class="col-md-2 text-center">Tuteur pédagogique</th>
+                            <th class="col-md-2 text-center">Action</th>
                         </tr>
-                    {% elseif offre.etatOffre == 'En attente de modification'  %}
-                        <tr>
-                            <td>{{ offre.DateDepot |date('d-m-Y') }}</td>
-                            <td>{{ offre.Titre }}</td>
-                            <td class="text-center">{{ offre.entreprise.RaisonSocial }}</td>
-                            <td class="text-center">{{ offre.entreprise.Prenom }} {{ offre.entreprise.Nom }}</td>
-                            <td class="text-center">
-                                <p class="text-warning">{{ offre.etatOffre }}</p>
-                            </td>
-                            <td class="text-center">
-                                <a href="{{ path('site_detailsAnnonceResponsable', {'offreId': offre.id }) }}"
-                                   class="btn  btn-primary">A Valider</a>
-                            </td>
 
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-            </table>
+                        {% for etudiant in etudiants %}
+                            <tr>
+                                <td>{{ etudiant.laPersone.prenom }} {{ etudiant.laPersone.nom }}</td>
+
+                                {% if etudiant.DossierInscription.etatDossier == '0' %}
+                                    <td><p class="text-danger">premier connexion</p></td>
+
+                                {% elseif etudiant.DossierInscription.etatDossier == '1'  %}
+                                    <td><p class="text-warning">Cherche une entreprise</p></td>
+
+                                {% elseif etudiant.DossierInscription.etatDossier == '2'  %}
+                                <td><p class="text-info">pré-inscription du Contrat</p></td>
+
+                                {% elseif etudiant.DossierInscription.etatDossier == '3'  %}
+                                <td>Dossier inscription pédagogique</td>
+
+                                {% elseif etudiant.DossierInscription.etatDossier == '4'  %}
+                                <td><p class="text-success">signature du contrat</p></td>
+                                {% endif %}
+
+                                {#<td>{{ dump(etudiant.DossierInscription) }}</td>#}
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                                <td  class="text-center">
+                                    <a href="{{path('site_detailsAnnonceResponsable', {'offreId': etudiant.id }) }}" class="btn btn-lg btn-primary" >A Valider</a>
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="menu2" class="tab-pane fade">
+            <h3>Paramettre SMTP</h3>
+
+            <p></p>
         </div>
     </div>
 
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <h3>Liste des étudiants</h3>
-        </div>
-        <div class="panel-body">
-            <table>
-                <tr>
-                    <th class="col-md-2 text-center">Etudiant</th>
-                    <th class="col-md-2 text-center">état d'avancement</th>
-                    <th class="col-md-2 text-center">Entreprise</th>
-                    <th class="col-md-2 text-center">Maître de stage</th>
-                    <th class="col-md-2 text-center">Action</th>
-                </tr>
 
-                {% for etudiant in etudiants %}
-                    <tr>
-                        <td>{{ etudiant.laPersone.prenom }} {{ etudiant.laPersone.nom }}</td>
-                        <td>{{ etudiant.DossierInscription.etatDossier }}</td>
-                        {#<td>{{ dump(etudiant.DossierInscription) }}</td>#}
-                        <td></td>
-                        <td></td>
-
-                        <td  class="text-center">
-                            <a href="{{path('site_detailsAnnonceResponsable', {'offreId': etudiant.id }) }}" class="btn btn-lg btn-primary" >A Valider</a>
-                        </td>
-
-                    </tr>
-                {% endfor %}
-            </table>
-        </div>
-    </div>
 
 
 {% endblock %}
