@@ -114,6 +114,23 @@
             {% endfor %}
         </div>
     </div>
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <h3>Offre en attente de modification demander par le Responsable de la licence</h3>
+        </div>
+        <div class="panel-body">
+            {% for offreM in offresModification %}
+                    <small><a href="{{ path('edditAnnonceAnnonceEntreprise', {'annonceId': offreM.id }) }}"><span
+                                    class="glyphicon glyphicon-pencil margR5 "></span></a> <a
+                                href="{{ path('site_detailsAnnonceEntreprise', {'annonceId': offreM.id }) }}"><span
+                                    class="glyphicon glyphicon-search margR5"></span></a><a
+                                href="{{ path('site_supprAnnonce', {'annonceId': offreM.id}) }}"><span
+                                    class="glyphicon glyphicon-trash"></span></a></small>
+                </h4>
+
+            {% endfor %}
+        </div>
+    </div>
     <div class="panel panel-success">
         <div class="panel-heading">
             <h3>Offre Pourvue</h3></div>

@@ -46,7 +46,7 @@ class EntrepriseController extends Controller
         $offresValidations = $repositoryOffre->findBy(array("Entreprise" => $entreprise, "etatOffre" => "En attente de validation"));
         $offres = $repositoryOffre->findBy(array("Entreprise" => $entreprise, "etatOffre" => "En ligne"));
         $offresPourvues = $repositoryOffre->findBy(array("Entreprise" => $entreprise, "etatOffre" => "Pourvue"));
-
+        $offresModification = $repositoryOffre->findBy(array("Entreprise" => $entreprise, "etatOffre" => "En attente de modification"));
         $repositoryPostulant = $this->getDoctrine()->getManager()->getRepository('SiteBundle:EtudiantOffre');
         $result = array();
         foreach ($offres as $offre) {
@@ -57,7 +57,7 @@ class EntrepriseController extends Controller
         }
         return $this->render(
             'SiteBundle:Entreprise:accueil_entreprise.html.twig',
-            ['offresLigne' => $offres, 'offresValidations' => $offresValidations, 'offresPourvues' => $offresPourvues, 'postulantOffres' => $result]
+            ['offresLigne' => $offres, 'offresValidations' => $offresValidations, 'offresPourvues' => $offresPourvues, 'postulantOffres' => $result ,'offresModification' => $offresModification]
         );
     }
 

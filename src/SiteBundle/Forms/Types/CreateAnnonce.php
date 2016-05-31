@@ -24,7 +24,7 @@ class CreateAnnonce extends AbstractType
             ))
             ->add('Lpconcerne', ChoiceType::class, array(
                 'label' => 'Lp concerné',
-                'choices' => array('IEM' => 'LP IEM', 'METINET' => 'LP METINET'),
+                'choices' => array('IEM' => 'IEM', 'METINET' => 'METINET'),
                 'multiple' => false,
                 'expanded'=>true,
                 'required' => true,
