@@ -241,17 +241,17 @@ class ResponsableController extends Controller
 
             // en attente serveur smtp
 
-//                $message = \Swift_Message::newInstance()
-//                    ->setSubject('Refuse de validation ')
-//                    ->setFrom('send@example.com')
-//                    ->setTo('recipient@example.com')
-//                    ->setBody(
-//                        $this->renderView(
-//                            'Emails/refusAnnonce.html.twig'
-//                        ),
-//                        'text/html'
-//                    );
-//                $this->get('mailer')->send($message);
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Refuse de validation ')
+                    ->setFrom('')
+                    ->setTo('recipient@example.com')
+                    ->setBody(
+                        $this->renderView(
+                            'Emails/refusAnnonce.html.twig'
+                        ),
+                        'text/html'
+                    );
+                $this->get('mailer')->send($message);
 
             $offre->setEtatOffre('En attente de modification');
 
