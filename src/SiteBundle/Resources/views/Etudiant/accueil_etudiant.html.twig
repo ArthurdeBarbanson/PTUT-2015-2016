@@ -170,7 +170,7 @@
                     </p>
 
                     <p>Vous consulter la fiche de votre entreprise pour remplir le formulaire :
-                        <button class="btn btn-info" disabled>
+                        <button class="btn btn-info"  data-toggle="modal" data-target="#FicheEntreprise">
                             Fiche entreprise
                         </button></p>
                     <p> Une fois cette étape faite le responsable de formation validera celle-ci afin que vous puissiez passer à l'étape suivante.</p>
@@ -180,7 +180,138 @@
                 <div id="actions" class="col-sm-12 container">
                     <h3>Etape 3 : Dossiers inscription pédagogique (Date limite 31 août 2016) </h3>
                     <p> Champs à remplire obligatoirement </p>
-                    <div class="panel panel-info"> {{ form(formPreInscription) }} </div>
+                    <div class="panel panel-info">
+                        <div class="panel-body">
+
+
+
+
+                        <div class="row">
+
+                            <div class="col-lg-4">
+                                <h4>Bac ou equivalent :</h4>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.Intitule , ' Intitulé : ', {'label_attr': {'class': 'col-sm-5'}}) }}
+                                            <div class="col-sm-7">
+                                                 {{ form_widget(formPreInscription.Intitule , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.Mention , ' Mention : ', {'label_attr': {'class': 'col-sm-5'}}) }}
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.Mention , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.Type , ' Type : ', {'label_attr': {'class': 'col-sm-5'}}) }}
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.Type , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.Departement , ' Département  : ', {'label_attr': {'class': 'col-sm-5'}}) }}
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.Departement , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.Nom , ' Nom  : ', {'label_attr': {'class': 'col-sm-5'}}) }}
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.Nom , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <h4>Dernier établissement fréquenté :</h4>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.NomDernier , ' Nom  : ', {'label_attr': {'class': 'col-sm-5'}}) }}
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.NomDernier , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.DepartementDernier , ' Département  : ', {'label_attr': {'class': 'col-sm-5'}}) }}
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.DepartementDernier , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.AnneDernier , ' Annee  : ', {'label_attr': {'class': 'col-sm-5'}}) }}
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.AnneDernier , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formPreInscription.TypeDernier , ' Type  : ', {'label_attr': {'class': 'col-sm-5'}}) }}
+                                            <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.TypeDernier , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 control-label required"> Est Lyon  : </label>
+                                             <div class="col-sm-7">
+                                                {{ form_widget(formPreInscription.isLyon , {'attr': {'class': 'col-sm-12'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-md-6">     </div>
+                                    <div class="col-md-6">   </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-md-6">   </div>
+                                    <div class="col-md-6">   </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    </div>
 
                     <p>Ce dossier d'inscription dûment compléter (pièce justificatif compris ) devra nous être retourné impérativement.
                     DES QUE POSSIBLE par voie postal uniquement à l'adresse suivante.</p>
@@ -226,6 +357,53 @@
                     {% if error is not sameas('') %}
                         <p class="red">{{ error }}</p>
                     {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="FicheEntreprise" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                   <h1>Fiche Entreprise</h1>
+                </div>
+                <div class="modal-body">
+                    <h1>{{ entreprise.raisonSocial }}</h1>
+                    <div class="row">
+                        <div class="col-md-3"><strong>Raison sociale :</strong></div>
+                        <div class="col-md-9">{{ entreprise.raisonSocial }}</div>
+                        <div class="col-md-3"><strong>Description :</strong></div>
+                        <div class="col-md-9">{{ entreprise.description }}</div>
+                        <div class="col-md-3"><strong>Adresse :</strong></div>
+                        <div class="col-md-9">{{ entreprise.adresse.adresse }}</div>
+                        <div class="col-md-3"><strong>Code postal :</strong></div>
+                        <div class="col-md-9">{{ entreprise.adresse.codePostal }}</div>
+                        <div class="col-md-3"><strong>Ville :</strong></div>
+                        <div class="col-md-9">{{ entreprise.adresse.commune }}</div>
+                        <div class="col-md-3"><strong>Pays :</strong></div>
+                        <div class="col-md-9">{{ entreprise.adresse.nomPays }}</div>
+                        <div class="col-md-12"><h3>Contact</h3></div>
+                        <div class="col-md-3"><strong>Nom :</strong></div>
+                        <div class="col-md-9">{{ entreprise.nom }}</div>
+                        <div class="col-md-3"><strong>Prenom :</strong></div>
+                        <div class="col-md-9">{{ entreprise.prenom }}</div>
+                        <div class="col-md-3"><strong>E-mail :</strong></div>
+                        <div class="col-md-9">{{ entreprise.mail }}</div>
+                        <div class="col-md-3"><strong>Téléphone :</strong></div>
+                        <div class="col-md-9">{{ entreprise.telephone }}</div>
+                        {% if entreprise.siteWeb is not null %}
+                            <div class="col-md-3"><strong>Site web :</strong></div>
+                            <div class="col-md-9"><a href="{{ entreprise.siteWeb }}" target="_blank">{{ entreprise.siteWeb }}</a></div>
+                        {% endif %}
+
+                    </div>
+                    <div class="text-center">
+                        <a class="btn btn-default" href="{{ path('site_accueilEtudiant') }}">Retour</a>
+                    </div>
                 </div>
             </div>
 
