@@ -1,5 +1,5 @@
 {% extends '::base.html.twig' %}
-{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% form_theme form2 'bootstrap_3_layout.html.twig' %}
 {% block title %}
     Accueil étudiant
 {% endblock %}
@@ -25,11 +25,19 @@
             <div id="actions" class="col-sm-6 container">
                 <p>Sexe : {{ etudiant.laPersone.sexe }}</p>
             </div>
+        {% else %}
+            <div id="actions" class="col-sm-6 container">
+                <p class="alert-danger">Sexe : </p>
+            </div>
         {% endif %}
 
         {% if etudiant.nationalite %}
             <div id="actions" class="col-sm-6 container">
                 <p>Nationnalité : {{ etudiant.nationalite }}</p>
+            </div>
+        {% else %}
+            <div id="actions" class="col-sm-6 container">
+                <p class="alert-danger">Nationnalité : "A remplir</p>
             </div>
         {% endif %}
     </div>
@@ -41,6 +49,10 @@
             <div id="actions" class="col-sm-6 container">
                 <p>Ville de naissance : {{ etudiant.villeNaissance }}</p>
             </div>
+        {% else %}
+            <div id="actions" class="col-sm-6 container">
+                <p class="alert-danger">Ville de naissance : </p>
+            </div>
         {% endif %}
     </div>
     <div class="row">
@@ -48,10 +60,18 @@
             <div id="actions" class="col-sm-6 container">
                 <p>Mail : {{ etudiant.laPersone.mail }}</p>
             </div>
+        {% else %}
+            <div id="actions" class="col-sm-6 container">
+                <p class="alert-danger">Mail : </p>
+            </div>
         {% endif %}
         {% if etudiant.laPersone.telephone %}
             <div id="actions" class="col-sm-6 container">
                 <p>Téléphone : {{ etudiant.laPersone.telephone }}</p>
+            </div>
+        {% else %}
+            <div id="actions" class="col-sm-6 container">
+                <p class="alert-danger">Téléphone : </p>
             </div>
         {% endif %}
     </div>
@@ -70,12 +90,32 @@
                 <p>Ville : {{ etudiant.laPersone.Adresse.commune }}</p>
             </div>
         </div>
+    {% else %}
+        <div class="row">
+            <div id="actions" class="col-sm-12 container">
+                <p class="alert-danger">Adresse : </p>
+            </div>
+        </div>
+        <div class="row">
+            <div id="actions" class="col-sm-6 container">
+                <p class="alert-danger">Code Postal : </p>
+            </div>
+            <div id="actions" class="col-sm-6 container">
+                <p class="alert-danger">Ville : </p>
+            </div>
+        </div>
     {% endif %}
 
     {% if etudiant.numeroDossierCandidature %}
         <div class="row">
             <div id="actions" class="col-sm-12 container">
                 <p>Numéro dossier ciel2 : {{ etudiant.numeroDossierCandidature }}</p>
+            </div>
+        </div>
+    {% else %}
+        <div class="row">
+            <div id="actions" class="col-sm-12 container">
+                <p class="alert-danger">Numéro dossier ciel2 : </p>
             </div>
         </div>
     {% endif %}
@@ -86,13 +126,19 @@
                 <p>CV : <a href="{{ asset(app.user.idEtudiant.cv) }}" target="_blank">Cliquer ici</a></p>
             </div>
         </div>
+    {% else %}
+        <div class="row">
+            <div id="actions" class="col-sm-12 container">
+                <p class="alert-danger">CV : </p>
+            </div>
+        </div>
     {% endif %}
 
     <hr>
 
 
     {% if not etudiant.laPersone.sexe %}
-        <h3> veuillez completer votre profil </h3>
+        <h3> Veuillez completer votre profil </h3>
 
         {% else %}
 
@@ -134,7 +180,7 @@
                 <div id="actions" class="col-sm-12 container">
                     <h3>Etape 3 : Dossiers inscription pédagogique (Date limite 31 août 2016) </h3>
                     <p> Champs à remplire obligatoirement </p>
-                    <div class="panel panel-info">...</div>
+                    <div class="panel panel-info"> {{ form(formPreInscription) }} </div>
 
                     <p>Ce dossier d'inscription dûment compléter (pièce justificatif compris ) devra nous être retourné impérativement.
                     DES QUE POSSIBLE par voie postal uniquement à l'adresse suivante.</p>
@@ -176,7 +222,7 @@
                         <h5><strong>Vous possédez déjà un CV :</strong> <a href="{{ asset(app.user.idEtudiant.cv) }}"
                                                                            target="_blank">Voir mon CV</a></h5>
                     {% endif %}
-                    {{ form(form) }}
+                    {{ form(form2) }}
                     {% if error is not sameas('') %}
                         <p class="red">{{ error }}</p>
                     {% endif %}

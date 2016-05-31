@@ -67,6 +67,7 @@ class ResponsableController extends Controller
             //set etudiant
             $etudiant = new Etudiant();
             $etudiant->setLaPersone($personne);
+            $etudiant->setTypeLicence($data['Lpconcerne']);
             $etudiant->setInscription($dossier);
             //set user
             $user = new User();
@@ -81,7 +82,7 @@ class ResponsableController extends Controller
             try {
                 $em->flush();
                 //envoie de mail
-                $message = new \Swift_Message();
+                /*$message = new \Swift_Message();
                 $message
                     ->setSubject('Hello Email')
                     ->setFrom('no_reply@ptut.com')
@@ -93,7 +94,7 @@ class ResponsableController extends Controller
                         ),
                         'text/html'
                     );
-                $this->get('mailer')->send($message);
+                $this->get('mailer')->send($message);*/
 
                 $this->addFlash('success', "l'étudiant à été ajouter !");
             } catch (UniqueConstraintViolationException $exception) {
@@ -318,7 +319,7 @@ class ResponsableController extends Controller
 
     }
 
-    public function ajouterTripletteAction(request $request)
+    public function ajouterTripletteAction(Request $request)
     {
 
         $repositoryTuteur = $this
