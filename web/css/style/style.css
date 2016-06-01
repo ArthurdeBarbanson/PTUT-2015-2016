@@ -24,6 +24,24 @@ and open the template in the editor.
     border-radius: 1px;
 }
 
+.backgroundDisable {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: .50;
+    filter: alpha(opacity=00);
+    z-index: 1999;
+    display: none;
+}
+
+.messsage-pop-up {
+    white-space: nowrap;
+    padding-right: 20px;
+}
+
 .margTop100 {
     margin-top: 100px;
 }
