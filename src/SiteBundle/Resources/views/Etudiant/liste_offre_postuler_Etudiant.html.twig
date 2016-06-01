@@ -18,17 +18,20 @@
 
                 <table class="table table-bordered">
                     <tr>
+                        <th class="col-md-2 text-center">Date</th>
                         <th class="col-md-2 text-center">Intitulé de l'annonce</th>
                         <th class="col-md-2 text-center">Entreprise</th>
+                        <th class="col-md-2 text-center">Lp concerné</th>
                         <th class="col-md-2 text-center">Action</th>
 
                     </tr>
                     {% for offre in offresV %}
-                        <tr>{{ offre.offre.titre }}
-                            <td><a                       href="{{ path('site_detailsAnnonceEtudiant', {'annonceId': offre.offre.id }) }}"><span
-                                            class="glyphicon glyphicon-search margR5"></span></a></td>
+                        <tr>
+                            <td>{{ offre.date|date("d/m/Y") }}</td>
+                            <td><a                       href="{{ path('site_detailsAnnonceEtudiant', {'annonceId': offre.offre.id }) }}">{{ offre.offre.titre }}</a></td>
                             <td> <a                       href="#">{{ offre.offre.entreprise.raisonSocial }} </a></td>
-                            <td> <button href="#">Validez cette offre </button></td>
+                            <td>{{ offre.offre.licenceConcerne }}</td>
+                            <td> <a href="{{ path('site_accepterOffreEtudiant', {'annonceId': offre.offre.id}) }}">Validez cette offre <span class="glyphicon glyphicon-ok"></span></a></td>
                         </tr>
 
                     {% endfor %}
@@ -47,15 +50,17 @@
             <div class="panel-body">
                 <table class="table table-bordered">
                     <tr>
+                        <th class="col-md-2 text-center">Date</th>
                         <th class="col-md-2 text-center">Intitulé de l'annonce</th>
                         <th class="col-md-2 text-center">Entreprise</th>
-
+                        <th class="col-md-2 text-center">Lp concerné</th>
 
                     </tr>
                     {% for offre in offresP %}
+                        <td> {{ offre.date|date("d/m/Y") }} </td>
                         <td><a href="{{ path('site_detailsAnnonceEtudiant', {'annonceId': offre.offre.id }) }}">{{ offre.offre.titre }}</a></td>
                         <td> <a href="{{ path('site_detailsAnnonceEntreprise', {'annonceId': offre.offre.entreprise.id }) }}">{{ offre.offre.entreprise.raisonSocial  }}</a>  </td>
-
+                        <td>{{ offre.offre.licenceConcerne }}</td>
 
                     {% endfor %}
                 </table>
@@ -74,14 +79,17 @@
 
             <table class="table table-bordered">
                 <tr>
+                    <th class="col-md-2 text-center">Date</th>
                     <th class="col-md-2 text-center">Intitulé de l'annonce</th>
                     <th class="col-md-2 text-center">Entreprise</th>
+                    <th class="col-md-2 text-center">Lp concerné</th>
                 </tr>
                 {% for offre in offresR %}
                     <tr>
+                        <td>{{ offre.date|date("d/m/Y") }}</td>
                         <td>{{ offre.offre.titre }}</td>
-                        <td> <a href="{{ path('site_detailsAnnonceEntreprise', {'annonceId': offre.offre.entreprise.id }) }}">{{ offre.offre.entreprise.raisonSocial }} </a>
-                        </td>
+                        <td> <a href="{{ path('site_detailsAnnonceEntreprise', {'annonceId': offre.offre.entreprise.id }) }}">{{ offre.offre.entreprise.raisonSocial }} </a></td>
+                        <td>{{ offre.offre.licenceConcerne }}</td>
                     </tr>
                 {% endfor %}
             </table>
