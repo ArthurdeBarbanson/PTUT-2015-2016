@@ -284,7 +284,6 @@ class ResponsableController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $offre = $repository->find($offreid);
-        var_dump($offre);
         //si l'annonce n'es pas trouvé
         if (null === $offre) {
             throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
@@ -357,7 +356,9 @@ class ResponsableController extends Controller
                 'form_refus' => $formulaire->createView(),
                 'form_modif' => $formModifier->createView(),
                 'form' => $form->createView(),
-                'errorEtudiant' => ''
+                'error_refus' => $formulaire->getErrors(),
+                'error_modif' => $formulaire->getErrors(),
+                'errorEtudiant' => '',
             ]
         );
     }
