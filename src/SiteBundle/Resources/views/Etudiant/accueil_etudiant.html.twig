@@ -135,17 +135,15 @@
 
     <hr>
 
-
+    <div class="row">
+        <div id="actions" class="col-sm-12 container">
+            <h2>Avancement du dossier :</h2>
+        </div>
+    </div>
     {% if etudiant.DossierInscription.etatDossier == "0" %}
         <h3> Veuillez completer votre profil </h3>
 
         {% elseif etudiant.DossierInscription.etatDossier == "1" %}
-
-            <div class="row">
-                <div id="actions" class="col-sm-12 container">
-                    <h2>Avancement du dossier :</h2>
-                </div>
-            </div>
 
             <div class="row">
                 <div id="actions" class="col-sm-12 container">
@@ -161,6 +159,9 @@
                 </div>
             </div>
         {% elseif etudiant.DossierInscription.etatDossier == "2" %}
+        <div class="row">
+            <div id="actions" class="col-sm-12 container"> <h3>Etape 1 : Trouver une entreprise </h3> </div>
+        </div>
             <div class="row">
                 <div id="actions" class="col-sm-12 container">
                     <h3>Etape 2 : Pré inscription contrat </h3>
@@ -177,6 +178,12 @@
                 </div>
             </div>
         {% elseif etudiant.DossierInscription.etatDossier == "3" %}
+        <div class="row">
+            <div id="actions" class="col-sm-12 container"> <h3>Etape 1 : Trouver une entreprise </h3> </div>
+        </div>
+        <div class="row">
+            <div id="actions" class="col-sm-12 container"> <h3>Etape 2 : Pré inscription contrat </h3> </div>
+        </div>
             <div class="row">
                 <div id="actions" class="col-sm-12 container">
                     <h3>Etape 3 : Dossiers inscription pédagogique (Date limite 31 août 2016) </h3>
@@ -493,6 +500,15 @@
                 </div>
             </div>
         {% elseif etudiant.DossierInscription.etatDossier == "4" %}
+        <div class="row">
+            <div id="actions" class="col-sm-12 container"> <h3>Etape 1 : Trouver une entreprise </h3> </div>
+        </div>
+        <div class="row">
+            <div id="actions" class="col-sm-12 container"> <h3>Etape 2 : Pré inscription contrat </h3> </div>
+        </div>
+        <div class="row">
+            <div id="actions" class="col-sm-12 container"> <h3>Etape 3 : Dossiers inscription pédagogique (Date limite 31 août 2016) </h3> </div>
+        </div>
             <div class="row">
                 <div id="actions" class="col-sm-12 container">
                     <h3> Etape 4 : Signature du contrat </h3>
