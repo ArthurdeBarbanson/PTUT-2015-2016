@@ -284,44 +284,36 @@ class ResponsableController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $offre = $repository->find($offreid);
+        var_dump($offre);
         //si l'annonce n'es pas trouvé
         if (null === $offre) {
             throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
         }
-//        $formModifier = $this->createFormBuilder()
-//            ->add('Message', TextareaType::class,[
-//                'constraints'=>[
-//                    new NotBlank()
-//                ]
-//            ])
-//            ->add('modifier', SubmitType::class, [
-//                'label' => 'modifier',
-//                'attr' => ['class' => 'btn btn-default  center-block'],
-//            ])
-//            ->getForm();
+
         $formModifier = $this->createForm(RefuserAnnonceType::class);
         $formulaire = $this->createForm(ModifierAnnonceType::class);
         $form = $this->createForm(ModifierAnnonceType::class);
 
             $formModifier->handleRequest($request);
             if ($formModifier->get('submit')->isClicked() && $formModifier->isSubmitted() &&  $formModifier->isValid()) {
-
+                    $data=$formModifier->getData();
                 // en attente serveur smtp
 
-//                $message = \Swift_Message::newInstance()
-//                    ->setSubject('Refuse de validation ')
-//                    ->setFrom('')
-//                    ->setTo('recipient@example.com')
-//                    ->setBody(
-//                        $this->renderView(
-//                            'Emails/refusAnnonce.html.twig'
-//                        ),
-//                        'text/html'
-//                    );
-//                $this->get('mailer')->send($message);
+                $message = \Swift_Message::newInstance()
+                    ->setSubject("Demande de modification de l'annonce ")
+                    ->setFrom('arthurdebarbanson@gmail.com')
+                    ->setTo('recipient@example.com')
+                    ->setBody(
+                        $this->renderView(
+                            'Emails/ModificationAnnonce.html.twig',[
+                                'message'=> $data['Message']
+                            ]
+                        ),
+                        'text/html'
+                    );
+                $this->get('mailer')->send($message);
 
                 $offre->setEtatOffre('En attente de modification');
-
 
                 $em->persist($offre);
                 $em->flush();
@@ -332,20 +324,23 @@ class ResponsableController extends Controller
 
             $formulaire->handleRequest($request);
             if ($formulaire->get('submit')->isClicked() && $formulaire->isSubmitted() && $formulaire->isValid()) {
+                $data2=$formulaire->getData();
 
                 // en attente serveur smtp
 
-//                $message = \Swift_Message::newInstance()
-//                    ->setSubject('Refuse de validation ')
-//                    ->setFrom('send@example.com')
-//                    ->setTo('recipient@example.com')
-//                    ->setBody(
-//                        $this->renderView(
-//                            'Emails/refusAnnonce.html.twig'
-//                        ),
-//                        'text/html'
-//                    );
-//                $this->get('mailer')->send($message);
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Refuse de validation')
+                    ->setFrom('arthurdebarbanson@gmail.com')
+                    ->setTo('recipient@example.com')
+                    ->setBody(
+                        $this->renderView(
+                            'Emails/refusAnnonce.html.twig',[
+                                'message'=> $data2['Message']
+                            ]
+                        ),
+                        'text/html'
+                    );
+                $this->get('mailer')->send($message);
                 $em->remove($offre);
                 $em->flush();
 
