@@ -96,20 +96,18 @@
 
             </div>
         </div>
-        {% block javascripts %}
-            <script type="text/javascript">
-                {% if errorEtudiant is not sameas('') %}
-                jQuery(document).ready(function ($) {
+        {#{% block javascripts %}#}
+            {#<script type="text/javascript">#}
+                {#{% if errorEtudiant is not sameas('') %}#}
+                {#jQuery(document).ready(function ($) {#}
 
-                    $('#postulerOffre').modal('show');
+                    {#$('#postulerOffre').modal('show');#}
 
-                });
-                {% endif %}
-            </script>
-        {% endblock %}
-    {% endif %}
-
-    {% if route is sameas("site_detailsAnnonceResponsable") %}
+                {#});#}
+                {#{% endif %}#}
+            {#</script>#}
+        {#{% endblock %}#}
+    {% elseif route is sameas("site_detailsAnnonceResponsable") %}
 
         <a class="btn btn-lg btn-success" href="{{ path('validation_Annonce', {'offreId': offre.id }) }}">
             Valider
@@ -160,12 +158,36 @@
             </div>
         </div>
 
-        <script type="text/javascript">
-            jQuery(document).ready(function () {
-                $('#modifOffre').modal('show');
-                $('#refuserOffre').modal('show');
-            });
-        </script>
+        {#<script type="text/javascript">#}
+            {#jQuery(document).ready(function () {#}
+                {#$('#modifOffre').modal('show');#}
+                {#$('#refuserOffre').modal('show');#}
+            {#});#}
+        {#</script>#}
 
     {% endif %}
+
+
+    {% block javascripts %}
+        <script type="text/javascript">
+            {% if errorEtudiant is not sameas('') %}
+            jQuery(document).ready(function ($) {
+
+                $('#postulerOffre').modal('show');
+
+            });
+
+
+                {% if error is not sameas('') %}
+                jQuery(document).ready(function ($) {
+
+                    $('#modifOffre').modal('show');
+                    $('#refuserOffre').modal('show');
+
+                });
+                {% endif %}
+
+            {% endif %}
+        </script>
+    {% endblock %}
 {% endblock %}
