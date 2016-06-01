@@ -282,7 +282,7 @@ class Etudiant
      */
     public function getInscription()
     {
-        return $this->DossierInscriptionInscription;
+        return $this->DossierInscription;
     }
 
     /**
