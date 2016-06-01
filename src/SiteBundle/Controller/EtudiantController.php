@@ -28,8 +28,11 @@ class EtudiantController extends Controller
 
         $etudiant = $repository->find($this->getUser()->getIdEtudiant());
         $offre  = $repository2->findBy(['Etudiant' => $this->getUser()->getIdEtudiant()]);
-        if($offre[0]->getEntreprise()->getId() != null){
+
+        if(!empty($offre[0])){
             $entreprise = $repository3->find($offre[0]->getEntreprise()->getId());
+        }else{
+            $entreprise = null;
         }
 
 
