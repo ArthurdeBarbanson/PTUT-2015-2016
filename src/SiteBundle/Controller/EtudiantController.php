@@ -2,8 +2,10 @@
 
 namespace SiteBundle\Controller;
 
+use SiteBundle\Entity\Adresse;
 use SiteBundle\Forms\Types\AjoutPdfEtu;
 use SiteBundle\Forms\Types\FichePreInscription;
+use SiteBundle\Forms\Types\ModifierEtudiant;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -13,34 +15,24 @@ class EtudiantController extends Controller
     public function accueilAction(Request $request)
     {
         $error = '';
-        $repository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:Etudiant');
-        $repository2 = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:Offre');
-        $repository3 = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:Entreprise');
+        $repositoryEtudiant = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
+        $repositoryOffre = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Offre');
+        $repositoryEntreprise = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Entreprise');
 
-        $etudiant = $repository->find($this->getUser()->getIdEtudiant());
-        $offre  = $repository2->findBy(['Etudiant' => $this->getUser()->getIdEtudiant()]);
-
+        $etudiant = $repositoryEtudiant->find($this->getUser()->getIdEtudiant());
+        $offre  = $repositoryOffre->findBy(['Etudiant' => $this->getUser()->getIdEtudiant()]);
         if(!empty($offre[0])){
-            $entreprise = $repository3->find($offre[0]->getEntreprise()->getId());
-        }else{
-            $entreprise = null;
-        }
+            $entreprise = $repositoryEntreprise->find($offre[0]->getEntreprise()->getId());
+        }else{$entreprise = null;}
 
 
         $form = $this->createForm(AjoutPdfEtu::class);
         $formPreInscription = $this->createForm(FichePreInscription::class);
+        $formModificationEtudiant = $this->createForm(ModifierEtudiant::class);
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
+            $formModificationEtudiant->handleRequest($request);
             if ($form->isValid()) {
                 $date = new \DateTime();
                 $annee = $date->format('Y');
@@ -66,6 +58,62 @@ class EtudiantController extends Controller
                     $error = 'Vous devez importer votre CV en format PDF uniquement.';
                 }
             }
+            if ($formModificationEtudiant->isValid()) {
+                $data = $formModificationEtudiant->getData();
+                $em = $this->getDoctrine()->getManager();
+
+                $etudiant = $repositoryEtudiant->find($this->getUser()->getIdEtudiant());
+
+                $etudiant->getDossierInscription()->setEtatDossier("1");
+
+                $etudiant->getLaPersone()->setNom($data["Nom"]);
+                $etudiant->getLaPersone()->setPrenom($data["Prenom"]);
+                $etudiant->getLaPersone()->setTelephone($data["Telephone"]);
+                $etudiant->getLaPersone()->setSexe($data["Civilite"]);
+                $etudiant->getLaPersone()->setMail($data["Email"]);
+                $etudiant->getLaPersone()->setSexe($data["Civilite"]);
+
+
+                $etudiant->setNationalite($data["Nationalite"]);
+                $etudiant->setVilleNaissance($data["VilleNaissance"]);
+                $etudiant->setNumeroDossierCandidature($data["NumeroCiel2"]);
+                $etudiant->setDateNaissance($data["DateNaissance"]);
+
+                if($etudiant->getLaPersone()->getAdresse() == null){
+
+                    $Adresse = new Adresse();
+                    $Adresse->setCodePostal($data["CodePostal"]);
+                    $Adresse->setAdresse($data["Adresse"]);
+                    $Adresse->setCommune($data["Commune"]);
+                    $Adresse->setPays("France");
+
+                    $etudiant->getLaPersone()->setAdresse($Adresse);
+
+                }else{
+
+                    $repositoryAdresse = $this
+                        ->getDoctrine()
+                        ->getManager()
+                        ->getRepository('SiteBundle:Adresse');
+
+                    $Adresse = $repositoryAdresse->find($etudiant->getLaPersone()->getAdresse());
+                    $Adresse->setCodePostal($data["CodePostal"]);
+                    $Adresse->setAdresse($data["Adresse"]);
+                    $Adresse->setCommune($data["Commune"]);
+                    $Adresse->setPays("France");
+                    $etudiant->getLaPersone()->setAdresse($Adresse);
+                }
+
+                $em->persist($etudiant);
+
+                try {
+                    $em->flush();
+                    $this->addFlash('success', "l'étudiant à été modifier !");
+                } catch (UniqueConstraintViolationException $exception) {
+                    $this->addFlash('error', $data['Email'] . " est déjà associée à un autre compte.");
+                }
+
+                }
 
         }
 
@@ -75,7 +123,8 @@ class EtudiantController extends Controller
                 'error' => $error,
                 'etudiant' => $etudiant,
                 'formPreInscription' => $formPreInscription->createView(),
-                'entreprise' => $entreprise
+                'entreprise' => $entreprise,
+                'formModificationEtudiant' => $formModificationEtudiant->createView()
             ]
         );
     }

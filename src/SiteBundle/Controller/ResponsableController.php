@@ -19,10 +19,6 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-
-
-
-
 class ResponsableController extends Controller
 {
     public function accueilAction()
@@ -43,6 +39,54 @@ class ResponsableController extends Controller
         return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig', [
             'offres' => $offres,
             'etudiants' => $etudiants
+        ]);
+    }
+
+    public function ajouterNouveauResponsableLicenceAction(Request $request)
+    {
+
+        $form = $this->createForm(ResponsableAjoutResponsableType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $randomPassword = random_bytes(10);
+            //set user
+            $user = new User();
+            $user->setUsername($data['Email']);
+            $user->setTypeLicence($data['Lpconcerne']);
+            $encoder = $this->get('security.password_encoder');
+            $encoded = $encoder->encodePassword($user, $randomPassword);
+            $user->setPassword($encoded);
+            $user->setRoles(array('ROLE_ADMIN'));
+            $em->persist($user);
+
+            try {
+                $em->flush();
+                //TODO envoie de mail
+                /*$message = new \Swift_Message();
+                $message
+                    ->setSubject('Hello Email')
+                    ->setFrom('no_reply@ptut.com')
+                    ->setTo($data['Email'])
+                    ->setBody(
+                        $this->renderView(
+                            '@Site/Email/emailInscriptionEtudiant',
+                            array('password' => $randomPassword)
+                        ),
+                        'text/html'
+                    );
+                $this->get('mailer')->send($message);*/
+
+                $this->addFlash('success', "Le responsable a été ajouter !");
+            } catch (UniqueConstraintViolationException $exception) {
+                $this->addFlash('error', $data['Email'] . " est déjà associée à un autre compte.");
+            }
+        }
+
+        return $this->render('SiteBundle:Responsable:ajouterResponsableLicence.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 
@@ -101,7 +145,7 @@ class ResponsableController extends Controller
                     );
                 $this->get('mailer')->send($message);*/
 
-                $this->addFlash('success', "l'étudiant à été ajouter !");
+                $this->addFlash('success', "L'étudiant a été ajouter !");
             } catch (UniqueConstraintViolationException $exception) {
                 $this->addFlash('error', $data['Email'] . " est déjà associée à un autre compte.");
             }
@@ -151,7 +195,7 @@ class ResponsableController extends Controller
                                 );
                             $this->get('mailer')->send($message);*/
                         } catch (Exception $exception) {
-                            $this->addFlash('error', "Un erreur s'est produite, veuillez réessayer plus tard.");
+                            $this->addFlash('error', "Une erreur s'est produite, veuillez réessayer plus tard.");
                         }
                     }
                 }

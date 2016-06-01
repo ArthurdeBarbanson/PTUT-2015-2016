@@ -84,6 +84,10 @@
         <default key="_controller">SiteBundle:Responsable:accueil</default>
     </route>
 
+    <route id="responsable_ajout_responsable" path="/responsable/ajout/responsable">
+        <default key="_controller">SiteBundle:Responsable:ajouterNouveauResponsableLicence</default>
+    </route>
+
     <route id="site_detailsAnnonceResponsable" path="/responsable/details_annonce/{offreId}">
         <default key="_controller">SiteBundle:Responsable:detailAnnonce</default>
     </route>
