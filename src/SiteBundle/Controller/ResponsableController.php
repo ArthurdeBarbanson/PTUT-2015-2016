@@ -13,6 +13,7 @@ use SiteBundle\Forms\Types\AjoutTuteur;
 use SiteBundle\Forms\Types\AssignerTuteur;
 use SiteBundle\Forms\Types\ModifierAnnonceType;
 use SiteBundle\Forms\Types\RefuserAnnonceType;
+use SiteBundle\Forms\Types\SMTPType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use SiteBundle\Forms\Types\AjoutEtudiant;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -37,9 +38,12 @@ class ResponsableController extends Controller
         $offres = $repositoryOffre->findAll();
         $etudiants = $repositoryEtudiant->findAll();
 
+        $smtpForm= $this->createForm(SMTPType::class);
+
         return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig', [
             'offres' => $offres,
-            'etudiants' => $etudiants
+            'etudiants' => $etudiants,
+            'smtp_form' => $smtpForm->createView()
         ]);
     }
 
