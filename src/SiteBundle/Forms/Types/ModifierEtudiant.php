@@ -18,7 +18,7 @@ class ModifierEtudiant extends AbstractType
     {
         $builder
             ->add('Civilite', ChoiceType::class, array(
-                'choices' => array('H' => 'Monsieur', 'F' => 'Madame'),
+                'choices' => array(' Homme ' => 'Monsieur', 'Femme ' => 'Madame'),
                 'label' => 'Civilité',
                 'multiple' => false,
                 'expanded' => true,

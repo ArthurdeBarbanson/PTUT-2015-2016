@@ -591,48 +591,65 @@
                         {{ form_start(formModificationEtudiant) }}
 
                         <div class="col-md-12">
+
                         <div class="row">
                         <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Civilite , ' Civilite : ') }} </strong></div>
                         <div class="col-md-9">{{ form_widget(formModificationEtudiant.Civilite , {'attr': {'class': 'col-sm-12 form-inline'}}) }}</div>
                         </div>
                         <div class="row">
                         <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Prenom , ' Prenom : ') }}</strong></div>
-                        <div class="col-md-9">{{ form_widget(formModificationEtudiant.Prenom , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                        <div class="col-md-9">{{ form_widget(formModificationEtudiant.Prenom ,{'value' : etudiant.laPersone.prenom  } , {'attr': {'class': 'col-sm-12'}}) }}</div>
                         </div>
                         <div class="row">
                         <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Nom , ' Nom : ') }}</strong></div>
-                        <div class="col-md-9">{{ form_widget(formModificationEtudiant.Nom , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                        <div class="col-md-9">{{ form_widget(formModificationEtudiant.Nom ,{'value' :etudiant.laPersone.nom  } , {'attr': {'class': 'col-sm-12'}}) }}</div>
                         </div>
                         <div class="row">
                         <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Telephone , ' Telephone : ') }}</strong></div>
-                        <div class="col-md-9">{{ form_widget(formModificationEtudiant.Telephone , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                        <div class="col-md-9">{{ form_widget(formModificationEtudiant.Telephone ,{'value' : etudiant.laPersone.telephone  }, {'attr': {'class': 'col-sm-12'}}) }}</div>
                         </div>
                         <div class="row">
                         <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Email , ' Email : ') }}</strong></div>
-                        <div class="col-md-9">{{ form_widget(formModificationEtudiant.Email , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                        <div class="col-md-9">{{ form_widget(formModificationEtudiant.Email ,{'value' : etudiant.laPersone.mail  }, {'attr': {'class': 'col-sm-12'}}) }}</div>
                         </div>
                         <div class="row">
                         <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Nationalite , ' Nationalite : ') }}</strong></div>
-                        <div class="col-md-9">{{ form_widget(formModificationEtudiant.Nationalite , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                        <div class="col-md-9">{{ form_widget(formModificationEtudiant.Nationalite ,{'value' : etudiant.nationalite  }, {'attr': {'class': 'col-sm-12'}}) }}</div>
                         </div>
                         <div class="row">
                         <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.VilleNaissance , ' VilleNaissance : ') }}</strong></div>
-                        <div class="col-md-9">{{ form_widget(formModificationEtudiant.VilleNaissance , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                        <div class="col-md-9">{{ form_widget(formModificationEtudiant.VilleNaissance ,{'value' : etudiant.villeNaissance  }, {'attr': {'class': 'col-sm-12'}}) }}</div>
                         </div>
                         <hr>
+                            {% if etudiant.laPersone.Adresse %}
                         <div class="col-md-12"><h3>Adresse</h3></div>
                         <div class="row">
                         <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Commune , ' Commune : ') }}</strong></div>
-                        <div class="col-md-9">{{ form_widget(formModificationEtudiant.Commune , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                        <div class="col-md-9">{{ form_widget(formModificationEtudiant.Commune , {'value' :  etudiant.laPersone.Adresse.commune } , {'attr': {'class': 'col-sm-12'}}) }}</div>
                         </div>
                         <div class="row">
                         <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Adresse , ' Adresse : ') }}</strong></div>
-                        <div class="col-md-9">{{ form_widget(formModificationEtudiant.Adresse , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                        <div class="col-md-9">{{ form_widget(formModificationEtudiant.Adresse , {'value' :  etudiant.laPersone.Adresse.adresse } , {'attr': {'class': 'col-sm-12'}}) }}</div>
                         </div>
                         <div class="row">
                         <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.CodePostal , ' CodePostal : ') }}</strong></div>
-                        <div class="col-md-9">{{ form_widget(formModificationEtudiant.CodePostal , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                        <div class="col-md-9">{{ form_widget(formModificationEtudiant.CodePostal , {'value' :  etudiant.laPersone.Adresse.codePostal } , {'attr': {'class': 'col-sm-12'}}) }}</div>
                         </div>
+                            {% else %}
+                                <div class="col-md-12"><h3>Adresse</h3></div>
+                                <div class="row">
+                                    <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Commune , ' Commune : ') }}</strong></div>
+                                    <div class="col-md-9">{{ form_widget(formModificationEtudiant.Commune  , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Adresse , ' Adresse : ') }}</strong></div>
+                                    <div class="col-md-9">{{ form_widget(formModificationEtudiant.Adresse  , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.CodePostal , ' CodePostal : ') }}</strong></div>
+                                    <div class="col-md-9">{{ form_widget(formModificationEtudiant.CodePostal , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                                </div>
+                            {% endif %}
 
                     </div>
 
