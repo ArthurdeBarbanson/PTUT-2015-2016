@@ -275,6 +275,10 @@ class ResponsableController extends Controller
 
     public function detailAnnonceAction(Request $request)
     {
+        $errors_refus='';
+        $errors_modif='';
+
+
         $offreid = $request->get('offreId');
         $repository = $this
             ->getDoctrine()
@@ -319,6 +323,8 @@ class ResponsableController extends Controller
 
                 $this->addFlash('info', "L'email à été envoyé !");
             return $this->redirectToRoute('acceuil_responsable');
+            }else{
+                $errors_modif=$formModifier->getErrors();
             }
 
             $formulaire->handleRequest($request);
@@ -347,6 +353,8 @@ class ResponsableController extends Controller
                 $this->addFlash('info', "L'annonce a été suprimer !");
                 return $this->redirectToRoute('acceuil_responsable');
 
+            }else{
+                $errors_refus=$formulaire->getErrors();
             }
 
         return $this->render(
@@ -356,8 +364,8 @@ class ResponsableController extends Controller
                 'form_refus' => $formulaire->createView(),
                 'form_modif' => $formModifier->createView(),
                 'form' => $form->createView(),
-                'error_refus' => $formulaire->getErrors(),
-                'error_modif' => $formulaire->getErrors(),
+                'error_refus' => $errors_refus,
+                'error_modif' => $errors_modif,
                 'errorEtudiant' => '',
             ]
         );
