@@ -1,18 +1,18 @@
 <!-- message succes -->
 {% for flashMessage in app.session.flashbag.get('success') %}
 
-    <div class="alert alert-pop-up alert-success">
-        <button class="close" data-dismiss="alert" aria-label="close">   &times;</button>
-        {{ flashMessage }}
+    <div id="success-message" class="alert alert-pop-up alert-success">
+        <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+        <p class="messsage-pop-up">{{ flashMessage }}</p>
     </div>
 
 {% endfor %}
 <!-- message info -->
 {% for flashMessage in app.session.flashbag.get('info') %}
 
-    <div class="alert alert-pop-up alert-info">
-        <button class="close" data-dismiss="alert" aria-label="close">   &times;</button>
-        {{ flashMessage }}
+    <div id="info-message" class="alert alert-pop-up alert-info">
+        <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+        <p class="messsage-pop-up">{{ flashMessage }}</p>
     </div>
 
 {% endfor %}
@@ -20,17 +20,20 @@
 {% for flashMessage in app.session.flashbag.get('warning') %}
 
     <div class="alert alert-pop-up alert-warning">
-        <button class="close" data-dismiss="alert" aria-label="close">   &times;</button>
-        {{ flashMessage }}
+        <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+        <p class="messsage-pop-up">{{ flashMessage }}</p>
     </div>
 
 {% endfor %}
 <!-- message danger -->
 {% for flashMessage in app.session.flashbag.get('error') %}
 
-    <div class="alert alert-pop-up alert-danger">
-        <button class="close" data-dismiss="alert" aria-label="close">   &times;</button>
-        {{ flashMessage }}
+    <div id="erreur-message" class="alert alert-pop-up alert-danger">
+        <button onclick="enableScreen();" class="close" data-dismiss="alert"
+                aria-label="close">&times;</button>
+        <p class="messsage-pop-up">{{ flashMessage }}</p>
+        <button onclick="enableScreen();" data-dismiss="alert" class="btn btn-danger center-block margTop10">OK</button>
     </div>
 
 {% endfor %}
+

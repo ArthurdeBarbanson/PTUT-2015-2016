@@ -58,6 +58,13 @@ class User implements UserInterface, \Serializable
      */
     private $password;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", columnDefinition="enum('METINET', 'IEM')",nullable=true)
+     */
+    private $typeLicence;
+
     public function __construct()
     {
         
@@ -230,5 +237,29 @@ class User implements UserInterface, \Serializable
     public function getIdEtudiant()
     {
         return $this->id_etudiant;
+    }
+
+    /**
+     * Set typeLicence
+     *
+     * @param string $typeLicence
+     *
+     * @return User
+     */
+    public function setTypeLicence($typeLicence)
+    {
+        $this->typeLicence = $typeLicence;
+
+        return $this;
+    }
+
+    /**
+     * Get typeLicence
+     *
+     * @return string
+     */
+    public function getTypeLicence()
+    {
+        return $this->typeLicence;
     }
 }
