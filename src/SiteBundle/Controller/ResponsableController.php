@@ -18,6 +18,7 @@ use SiteBundle\Forms\Types\AjoutEtudiant;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use SiteBundle\Forms\Types\ResponsableAjoutResponsableType;
 
 class ResponsableController extends Controller
 {
