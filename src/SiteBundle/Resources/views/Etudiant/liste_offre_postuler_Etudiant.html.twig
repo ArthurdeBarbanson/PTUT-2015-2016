@@ -1,58 +1,92 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-<ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">Annonces où vous avez été retenu</a></li>
-    <li><a data-toggle="tab" href="#menu1">Annonces où vous avez postulé</a></li>
-    <li><a data-toggle="tab" href="#menu2">Annonces où vous avez été refusé</a></li>
-</ul>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">Annonces où vous avez été retenu</a></li>
+        <li><a data-toggle="tab" href="#menu1">Annonces où vous avez postulé</a></li>
+        <li><a data-toggle="tab" href="#menu2">Annonces où vous avez été refusé</a></li>
+    </ul>
 
-<div class="tab-content">
+    <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
-        <h3>Annonces où vous avez été retenu</h3>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3>Annonces où vous avez été retenu</h3>
+            </div>
+            <div class="panel-body">
+                <p> Parmis ces offres où vous avez été retenu , vous devez en validez qu'une seule qui sera definitive. Si vous n'avez pas d'offre dans section continuez a <a href="{{ path('site_listeOffreEtudiant') }}">postulez à des offres.</a> </p>
 
-      Parmis ces offres où vous avez été retenu , vous devez en validez qu'une seule qui sera definitive. Si vous n'avez pas d'offre dans section continuez a <a href="{{ path('site_listeOffreEtudiant') }}">postulez à des offres.</a>
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="col-md-2 text-center">Intitulé de l'annonce</th>
+                        <th class="col-md-2 text-center">Entreprise</th>
+                        <th class="col-md-2 text-center">Action</th>
 
-        {% for offre in offresV %}
-        <h4>{{ offre.offre.titre }}
-            <small> <a                       href="{{ path('site_detailsAnnonceEtudiant', {'annonceId': offre.offre.id }) }}"><span
-                            class="glyphicon glyphicon-search margR5"></span></a></small>
-                <small> <a                       href="#">{{ offre.offre.entreprise.raisonSocial }} </a></small>
-                <button href="#">Validez cette offre </button>
-        </h4>
+                    </tr>
+                    {% for offre in offresV %}
+                        <tr>{{ offre.offre.titre }}
+                            <td><a                       href="{{ path('site_detailsAnnonceEtudiant', {'annonceId': offre.offre.id }) }}"><span
+                                            class="glyphicon glyphicon-search margR5"></span></a></td>
+                            <td> <a                       href="#">{{ offre.offre.entreprise.raisonSocial }} </a></td>
+                            <td> <button href="#">Validez cette offre </button></td>
+                        </tr>
 
-    {% endfor %}
-
-
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
     </div>
-    <div id="menu1" class="tab-pane fade">
-        <h3>Annonces où vous avez postulé</h3>
-        {% for offre in offresP %}
-            <h4>{{ offre.offre.titre }}
-                <small> <a                       href="{{ path('site_detailsAnnonceEtudiant', {'annonceId': offre.offre.id }) }}"><span
-                                class="glyphicon glyphicon-search margR5"></span></a>   </small>
-                    <small> <a                       href="{{ path('site_detailsAnnonceEntreprise', {'annonceId': offre.offre.entreprise.id }) }}">{{ offre.offre.entreprise.raisonSocial  }}</a>
-                        </small>
-            </h4>
 
-        {% endfor %}
+
+
+    <div id="menu1" class="tab-pane fade">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3>Annonces où vous avez postulé</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="col-md-2 text-center">Intitulé de l'annonce</th>
+                        <th class="col-md-2 text-center">Entreprise</th>
+
+
+                    </tr>
+                    {% for offre in offresP %}
+                        <td><a href="{{ path('site_detailsAnnonceEtudiant', {'annonceId': offre.offre.id }) }}">{{ offre.offre.titre }}</a></td>
+                        <td> <a href="{{ path('site_detailsAnnonceEntreprise', {'annonceId': offre.offre.entreprise.id }) }}">{{ offre.offre.entreprise.raisonSocial  }}</a>  </td>
+
+
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
     </div>
 
     <div id="menu2" class="tab-pane fade">
-        <h3>Annonces où vous avez été refusé</h3>
-        <p>Voici les annonces où vous avez postulés et où vous n'avez pas eté retenu ou bien </p>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3>Annonces où vous avez été refusé</h3>
+        </div>
+        <div class="panel-body">
+            <p>Voici les annonces où vous avez postulés et où vous n'avez pas eté retenu ou bien </p>
 
-        {% for offre in offresR %}
-            <h4>{{ offre.offre.titre }}
-                <small> <a                       href="{{ path('site_detailsAnnonceEtudiant', {'annonceId': offre.offre.id }) }}"><span
-                                class="glyphicon glyphicon-search margR5"></span></a>   </small>
-                <small> <a                       href="{{ path('site_detailsAnnonceEntreprise', {'annonceId': offre.offre.entreprise.id }) }}">offre.offre.entreprise.raisonSocial </a>
-                </small>
-            </h4>
 
-        {% endfor %}
+            <table class="table table-bordered">
+                <tr>
+                    <th class="col-md-2 text-center">Intitulé de l'annonce</th>
+                    <th class="col-md-2 text-center">Entreprise</th>
+                </tr>
+                {% for offre in offresR %}
+                    <tr>
+                        <td>{{ offre.offre.titre }}</td>
+                        <td> <a href="{{ path('site_detailsAnnonceEntreprise', {'annonceId': offre.offre.entreprise.id }) }}">{{ offre.offre.entreprise.raisonSocial }} </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
-</div>
 
 
 {% endblock %}
