@@ -28,7 +28,13 @@ class EtudiantController extends Controller
 
         $etudiant = $repository->find($this->getUser()->getIdEtudiant());
         $offre  = $repository2->findBy(['Etudiant' => $this->getUser()->getIdEtudiant()]);
-        $entreprise = $repository3->find($offre[0]->getEntreprise()->getId());
+
+        if(!empty($offre[0])){
+            $entreprise = $repository3->find($offre[0]->getEntreprise()->getId());
+        }else{
+            $entreprise = null;
+        }
+
 
         $form = $this->createForm(AjoutPdfEtu::class);
         $formPreInscription = $this->createForm(FichePreInscription::class);

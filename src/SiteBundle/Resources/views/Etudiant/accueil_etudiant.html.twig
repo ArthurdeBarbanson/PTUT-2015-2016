@@ -184,8 +184,7 @@
                         <div class="panel-body">
 
 
-
-
+                            {{ form_start(formPreInscription) }}
                         <div class="row">
 
                             <div class="col-lg-4">
@@ -475,7 +474,7 @@
 
                             </div>
                         </div>
-
+                            {{ form_end(formPreInscription) }}
 
                     </div>
                     </div>
@@ -530,6 +529,7 @@
         </div>
     </div>
 
+    {% if entreprise %}
     <!-- Modal -->
     <div id="FicheEntreprise" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -576,6 +576,7 @@
 
         </div>
     </div>
+    {% endif %}
 
     {% block javascripts %}
         <script type="text/javascript">
