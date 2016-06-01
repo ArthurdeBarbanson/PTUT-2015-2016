@@ -4,6 +4,7 @@ namespace SiteBundle\Controller;
 
 use SiteBundle\Forms\Types\AjoutPdfEtu;
 use SiteBundle\Forms\Types\FichePreInscription;
+use SiteBundle\Forms\Types\ModifierEtudiant;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -13,31 +14,20 @@ class EtudiantController extends Controller
     public function accueilAction(Request $request)
     {
         $error = '';
-        $repository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:Etudiant');
-        $repository2 = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:Offre');
-        $repository3 = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:Entreprise');
+        $repositoryEtudiant = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
+        $repositoryOffre = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Offre');
+        $repositoryEntreprise = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Entreprise');
 
-        $etudiant = $repository->find($this->getUser()->getIdEtudiant());
-        $offre  = $repository2->findBy(['Etudiant' => $this->getUser()->getIdEtudiant()]);
-
+        $etudiant = $repositoryEtudiant->find($this->getUser()->getIdEtudiant());
+        $offre  = $repositoryOffre->findBy(['Etudiant' => $this->getUser()->getIdEtudiant()]);
         if(!empty($offre[0])){
-            $entreprise = $repository3->find($offre[0]->getEntreprise()->getId());
-        }else{
-            $entreprise = null;
-        }
+            $entreprise = $repositoryEntreprise->find($offre[0]->getEntreprise()->getId());
+        }else{$entreprise = null;}
 
 
         $form = $this->createForm(AjoutPdfEtu::class);
         $formPreInscription = $this->createForm(FichePreInscription::class);
+        $formModificationEtudiant = $this->createForm(ModifierEtudiant::class);
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
@@ -75,7 +65,8 @@ class EtudiantController extends Controller
                 'error' => $error,
                 'etudiant' => $etudiant,
                 'formPreInscription' => $formPreInscription->createView(),
-                'entreprise' => $entreprise
+                'entreprise' => $entreprise,
+                'formModificationEtudiant' => $formModificationEtudiant->createView()
             ]
         );
     }
