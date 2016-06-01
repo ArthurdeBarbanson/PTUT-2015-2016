@@ -120,6 +120,7 @@
         </div>
         <div class="panel-body">
             {% for offreM in offresModification %}
+                <h4>{{ offreM.titre }}
                     <small><a href="{{ path('edditAnnonceAnnonceEntreprise', {'annonceId': offreM.id }) }}"><span
                                     class="glyphicon glyphicon-pencil margR5 "></span></a> <a
                                 href="{{ path('site_detailsAnnonceEntreprise', {'annonceId': offreM.id }) }}"><span
