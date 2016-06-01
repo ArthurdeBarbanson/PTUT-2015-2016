@@ -22,7 +22,6 @@ class Etudiant
      * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Personne", cascade={"persist"})
      */
     private $laPersone;
-
     /**
      * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Personne", cascade={"persist"})
      */
@@ -51,35 +50,30 @@ class Etudiant
      */
     private $cV;
 
-
     /**
      * @var string
      *
      * @ORM\Column(type="string", columnDefinition="enum('METINET', 'IEM')",nullable=true)
      */
     private $typeLicence;
-
     /**
      * @var string
      *
      * @ORM\Column(name="VilleNaissance", type="string", length=255, nullable=true)
      */
     private $villeNaissance;
-
     /**
      * @var string
      *
      * @ORM\Column(name="Nationalite", type="string", length=255, nullable=true)
      */
     private $nationalite;
-
     /**
      * @var string
      *
      * @ORM\Column(name="NumeroDossierCandidature", type="string", length=255, nullable=true)
      */
     private $numeroDossierCandidature;
-
     /**
      * @var bool
      *

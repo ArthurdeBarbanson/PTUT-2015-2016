@@ -2,6 +2,7 @@
 
 namespace SiteBundle\Controller;
 
+use SiteBundle\Entity\Adresse;
 use SiteBundle\Forms\Types\AjoutPdfEtu;
 use SiteBundle\Forms\Types\FichePreInscription;
 use SiteBundle\Forms\Types\ModifierEtudiant;
@@ -31,6 +32,7 @@ class EtudiantController extends Controller
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
+            $formModificationEtudiant->handleRequest($request);
             if ($form->isValid()) {
                 $date = new \DateTime();
                 $annee = $date->format('Y');
@@ -56,6 +58,59 @@ class EtudiantController extends Controller
                     $error = 'Vous devez importer votre CV en format PDF uniquement.';
                 }
             }
+            if ($formModificationEtudiant->isValid()) {
+                $data = $formModificationEtudiant->getData();
+                $em = $this->getDoctrine()->getManager();
+
+                $etudiant = $repositoryEtudiant->find($this->getUser()->getIdEtudiant());
+
+                $etudiant->getDossierInscription()->setEtatDossier("1");
+
+                $etudiant->getLaPersone()->setNom($data["Nom"]);
+                $etudiant->getLaPersone()->setPrenom($data["Prenom"]);
+                $etudiant->getLaPersone()->setTelephone($data["Telephone"]);
+                $etudiant->getLaPersone()->setSexe($data["Civilite"]);
+                $etudiant->getLaPersone()->setMail($data["Email"]);
+                $etudiant->getLaPersone()->setSexe($data["Civilite"]);
+
+
+                $etudiant->setNationalite($data["Nationalite"]);
+                $etudiant->setVilleNaissance($data["VilleNaissance"]);
+                if($etudiant->getLaPersone()->getAdresse() == null){
+
+                    $Adresse = new Adresse();
+                    $Adresse->setCodePostal($data["CodePostal"]);
+                    $Adresse->setAdresse($data["Adresse"]);
+                    $Adresse->setCommune($data["Commune"]);
+                    $Adresse->setPays("France");
+
+                    $etudiant->getLaPersone()->setAdresse($Adresse);
+
+                }else{
+
+                    $repositoryAdresse = $this
+                        ->getDoctrine()
+                        ->getManager()
+                        ->getRepository('SiteBundle:Adresse');
+
+                    $Adresse = $repositoryAdresse->find($etudiant->getLaPersone()->getAdresse());
+                    $Adresse->setCodePostal($data["CodePostal"]);
+                    $Adresse->setAdresse($data["Adresse"]);
+                    $Adresse->setCommune($data["Commune"]);
+                    $Adresse->setPays("France");
+                    $etudiant->getLaPersone()->setAdresse($Adresse);
+                }
+
+                $em->persist($etudiant);
+
+                try {
+                    $em->flush();
+                    $this->addFlash('success', "l'étudiant à été modifier !");
+                } catch (UniqueConstraintViolationException $exception) {
+                    $this->addFlash('error', $data['Email'] . " est déjà associée à un autre compte.");
+                }
+
+                }
 
         }
 
