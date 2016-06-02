@@ -35,10 +35,10 @@
                         {{ include('template/menu_entreprise.html.twig') }}
                     {% endif %}
                     <ul class="nav navbar-nav navbar-right">
-                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                             <li><a href="{{ path('logout') }}">Déconnexion</a></li>
                         {% else %}
-                            <li style="background-color: #D4D4D4;"><a href="{{ path('login') }}">Connexion</a></li>
+                            <li><a href="{{ path('login') }}">Connexion</a></li>
                         {% endif %}
                     </ul>
                 </div>
