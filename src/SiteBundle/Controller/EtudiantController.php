@@ -2,6 +2,7 @@
 
 namespace SiteBundle\Controller;
 
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use SiteBundle\Entity\Adresse;
 use SiteBundle\Entity\Etudiant;
 use SiteBundle\Entity\EtudiantOffre;
@@ -152,7 +153,7 @@ class EtudiantController extends Controller
 
     }
 
-    public function listeOffrePostulerAction(Request $request)
+    public function listeOffrePostulerAction()
     {
         $repository = $this
             ->getDoctrine()
