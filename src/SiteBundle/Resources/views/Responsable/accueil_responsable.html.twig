@@ -19,7 +19,7 @@
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#home">Gestion des offres</a></li>
         <li><a data-toggle="tab" href="#menu1">Gestion etudiant </a></li>
-        <li><a data-toggle="tab" href="#menu2">Paramètre</a></li>
+        <li><a data-toggle="tab" href="#menu2">Paramettre</a></li>
     </ul>
 
     <div class="tab-content">
@@ -123,7 +123,9 @@
                                 <td></td>
 
                                 <td  class="text-center">
-                                    <a href="{{path('site_detailsAnnonceResponsable', {'offreId': etudiant.id }) }}" class="btn btn-lg btn-primary" >A Valider</a>
+                                    {% if etudiant.DossierInscription.etatDossier == '2' %}
+                                        <a href="{{path('validation_etat_etudiant', {'EtudiantId': etudiant.id }) }}" class="btn btn-primary" >A Valider</a>
+                                    {% endif %}
                                 </td>
 
                             </tr>

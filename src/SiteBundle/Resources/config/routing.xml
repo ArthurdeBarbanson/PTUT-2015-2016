@@ -95,9 +95,12 @@
     </route>
     <route id="site_AssigneTuteurResponsable" path="/responsable/assigner_tuteur/{etudiantId}">
         <default key="_controller">SiteBundle:Responsable:ajouterTriplette</default>
-</route>
+    </route>
     <route id="validation_Annonce" path="/responsable/validation_annonce/{offreId}">
         <default key="_controller">SiteBundle:Responsable:validerAnnonce</default>
+    </route>
+    <route id="validation_etat_etudiant" path="/responsable/validation-etape">
+        <default key="_controller">SiteBundle:Responsable:validerEtatEtudiant</default>
     </route>
     <!--security-->
     <route id="login" path="/login">

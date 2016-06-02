@@ -157,27 +157,24 @@
     {% set route = app.request.attributes.get('_route') %}
 
     <script type="text/javascript">
-        {% if route is sameas("site_detailsAnnonceEtudiant") %}
-            {% if errorEtudiant is not sameas('') %}
-                jQuery(document).ready(function ($) {
+        $(function(){
+        {% if errorEtudiant is not sameas('') %}
                     $('#postulerOffre').modal('show');
-
-                });
             {% endif %}
-        {% endif %}
-
 
         {% if error_refus is not sameas('') %}
-            $(function(){
-                $('#refuserOffre').modal('show');
-            });
-        {% elseif error_modif is not sameas('') %}
-            $(function(){
-                $('#modifOffre').modal('show');
-            });
-        {% endif %}
 
-        $(function () {
+                $('#refuserOffre').modal('show');
+            console.log('erreur refus');
+
+        {% elseif error_modif is not sameas('') %}
+
+                $('#modifOffre').modal('show');
+
+            console.log('erreur modif');
+
+
+            {% endif %}
 
             $("#refus").submit(function (event) {
                 event.preventDefault(); // EmpÃªcher le rechargement de la page.

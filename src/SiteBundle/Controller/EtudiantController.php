@@ -115,7 +115,7 @@ class EtudiantController extends Controller
                     $this->addFlash('error', $data['Email'] . " est déjà associée à un autre compte.");
                 }
 
-                }
+            }
 
         }
 
@@ -173,5 +173,32 @@ class EtudiantController extends Controller
                 'offresV' =>   $offresV,
             ]
         );
+    }
+
+    public function accepterAnnonceAction($annonceId)
+
+    {   $em = $this->getDoctrine()->getManager();
+        $repositoryEtudiant = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
+        $repositoryOffre = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Offre');
+        $repositoryEtuOffre = $this->getDoctrine()->getManager()->getRepository('SiteBundle:EtudiantOffre');
+        $etudiant = $repositoryEtudiant->find($this->getUser()->getIdEtudiant());
+        $offre = $repositoryOffre->find($annonceId);
+        $offre->setEtudiant($etudiant);
+        $offre->setEtatOffre("Pourvue");
+        $etudiant->getDossierInscription()->setEtatDossier("2");
+        $em->flush();
+        $offres = $repositoryEtuOffre->findBy(array("Offre"=>$offre));
+        foreach ($offres as $offreetu) {
+
+            if($offreetu->getEtudiant()!=$etudiant){
+                $offreetu->setEtat("Refuser");
+            }else {
+
+                $offreetu->setEtat("Accepter");
+            }
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('site_accueilEtudiant'));
     }
 }
