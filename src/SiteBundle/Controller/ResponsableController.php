@@ -293,12 +293,12 @@ class ResponsableController extends Controller
             throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
         }
 
-        $formModifier = $this->createForm(RefuserAnnonceType::class);
-        $formulaire = $this->createForm(ModifierAnnonceType::class);
-        $form = $this->createForm(ModifierAnnonceType::class);
+        $formulaire = $this->createForm(RefuserAnnonceType::class);
+        $formModifier = $this->createForm(ModifierAnnonceType::class);
+        $form = $this->createForm(AjoutEtudiant::class);
 
             $formModifier->handleRequest($request);
-            if ($formModifier->get('submit')->isClicked() && $formModifier->isSubmitted() &&  $formModifier->isValid()) {
+            if ($formModifier->isSubmitted() &&  $formModifier->isValid()) {
                     $data=$formModifier->getData();
                 // en attente serveur smtp
 
@@ -328,7 +328,7 @@ class ResponsableController extends Controller
             }
 
             $formulaire->handleRequest($request);
-            if ($formulaire->get('submit')->isClicked() && $formulaire->isSubmitted() && $formulaire->isValid()) {
+            if ($formulaire->isSubmitted() && $formulaire->isValid()) {
                 $data2=$formulaire->getData();
 
                 // en attente serveur smtp
@@ -453,5 +453,25 @@ class ResponsableController extends Controller
             'SiteBundle:Responsable:ajoutTueur.html.twig',
             ['form' => $form->createView(), 'assign' => $assign->createView(), 'tuteurs' => $tuteurs]
         );
+    }
+
+    public function validerEtatEtudiantAction(Request $request){
+
+        $idEtudiant=$request->get('EtudiantId');
+
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Etudiant');
+
+        $etudiant = $repository->find($idEtudiant);
+
+        $em = $this->getDoctrine()->getManager();
+        $etudiant->getDossierInscription()->setEtatDossier('3');
+
+        $em->persist($etudiant);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('acceuil_responsable'));
     }
 }
