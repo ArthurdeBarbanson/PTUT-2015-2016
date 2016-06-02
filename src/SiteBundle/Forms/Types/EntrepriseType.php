@@ -34,13 +34,15 @@ class EntrepriseType extends AbstractType
                 'constraints' => [
                     new NotBlank(),
                     new Length(['min' => 3])
-                ]
+                ],
+                'label' => 'Nom du contact'
             ])
             ->add('prenom', TextType::class, [
                 'constraints' => [
                     new NotBlank(),
                     new Length(['min' => 3])
-                ]
+                ],
+                'label' => 'Prenom du contact'
             ])
             ->add('mail', EmailType::class, [
                 'constraints' => [
@@ -50,7 +52,8 @@ class EntrepriseType extends AbstractType
                         'checkMX'=>true,
                         'checkHost'=>true
                     ])
-                ]
+                ],
+                'label' => 'E-mail du contact'
             ])
             ->add('telephone')
             ->add('Adresse', AdresseType::class,
