@@ -3,6 +3,8 @@
 namespace SiteBundle\Controller;
 
 use SiteBundle\Entity\Adresse;
+use SiteBundle\Entity\Etudiant;
+use SiteBundle\Entity\EtudiantOffre;
 use SiteBundle\Forms\Types\AjoutPdfEtu;
 use SiteBundle\Forms\Types\FichePreInscription;
 use SiteBundle\Forms\Types\ModifierEtudiant;

@@ -11,13 +11,15 @@ use SiteBundle\Entity\User;
 use SiteBundle\Forms\Types\AjoutEtudiantImport;
 use SiteBundle\Forms\Types\AjoutTuteur;
 use SiteBundle\Forms\Types\AssignerTuteur;
-use SiteBundle\Forms\Types\RefuserAnnonce;
-use SiteBundle\Forms\Types\ResponsableAjoutResponsableType;
+use SiteBundle\Forms\Types\ModifierAnnonceType;
+use SiteBundle\Forms\Types\RefuserAnnonceType;
+use SiteBundle\Forms\Types\SMTPType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use SiteBundle\Forms\Types\AjoutEtudiant;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use SiteBundle\Forms\Types\ResponsableAjoutResponsableType;
 
 class ResponsableController extends Controller
 {
@@ -36,9 +38,12 @@ class ResponsableController extends Controller
         $offres = $repositoryOffre->findAll();
         $etudiants = $repositoryEtudiant->findAll();
 
+        $smtpForm= $this->createForm(SMTPType::class);
+
         return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig', [
             'offres' => $offres,
-            'etudiants' => $etudiants
+            'etudiants' => $etudiants,
+            'smtp_form' => $smtpForm->createView()
         ]);
     }
 
@@ -270,6 +275,10 @@ class ResponsableController extends Controller
 
     public function detailAnnonceAction(Request $request)
     {
+        $errors_refus='';
+        $errors_modif='';
+
+
         $offreid = $request->get('offreId');
         $repository = $this
             ->getDoctrine()
@@ -284,68 +293,80 @@ class ResponsableController extends Controller
             throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
         }
 
-        $formModifier = $this->createForm(RefuserAnnonce::class);
-        $formulaire = $this->createForm(RefuserAnnonce::class);
+        $formModifier = $this->createForm(RefuserAnnonceType::class);
+        $formulaire = $this->createForm(ModifierAnnonceType::class);
+        $form = $this->createForm(ModifierAnnonceType::class);
 
-        if ( $formModifier->isSubmitted() && $formModifier->handleRequest($request)->isValid()) {
-
-            // en attente serveur smtp
+            $formModifier->handleRequest($request);
+            if ($formModifier->get('submit')->isClicked() && $formModifier->isSubmitted() &&  $formModifier->isValid()) {
+                    $data=$formModifier->getData();
+                // en attente serveur smtp
 
                 $message = \Swift_Message::newInstance()
-                    ->setSubject('Refuse de validation ')
-                    ->setFrom('')
+                    ->setSubject("Demande de modification de l'annonce ")
+                    ->setFrom('arthurdebarbanson@gmail.com')
                     ->setTo('recipient@example.com')
                     ->setBody(
                         $this->renderView(
-                            'Emails/refusAnnonce.html.twig'
+                            'Emails/ModificationAnnonce.html.twig',[
+                                'message'=> $data['Message']
+                            ]
                         ),
                         'text/html'
                     );
                 $this->get('mailer')->send($message);
 
-            $offre->setEtatOffre('En attente de modification');
+                $offre->setEtatOffre('En attente de modification');
 
+                $em->persist($offre);
+                $em->flush();
 
-            $em->persist($offre);
-            $em->flush();
+                $this->addFlash('info', "L'email à été envoyé !");
+            return $this->redirectToRoute('acceuil_responsable');
+            }else{
+                $errors_modif=$formModifier->getErrors();
+            }
 
-            $this->addFlash('info', "L'email à été envoyé !");
-            return $this->redirect($this->generateUrl('acceuil_responsable'));
+            $formulaire->handleRequest($request);
+            if ($formulaire->get('submit')->isClicked() && $formulaire->isSubmitted() && $formulaire->isValid()) {
+                $data2=$formulaire->getData();
 
-        }
+                // en attente serveur smtp
 
-            if ( $formulaire->isSubmitted() && $formulaire->handleRequest($request)->isValid()) {
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Refuse de validation')
+                    ->setFrom('arthurdebarbanson@gmail.com')
+                    ->setTo('recipient@example.com')
+                    ->setBody(
+                        $this->renderView(
+                            'Emails/refusAnnonce.html.twig',[
+                                'message'=> $data2['Message']
+                            ]
+                        ),
+                        'text/html'
+                    );
+                $this->get('mailer')->send($message);
+                $em->remove($offre);
+                $em->flush();
 
-            // en attente serveur smtp
+                $this->addFlash('info', "L'email à été envoyé !");
+                $this->addFlash('info', "L'annonce a été suprimer !");
+                return $this->redirectToRoute('acceuil_responsable');
 
-//                $message = \Swift_Message::newInstance()
-//                    ->setSubject('Refuse de validation ')
-//                    ->setFrom('send@example.com')
-//                    ->setTo('recipient@example.com')
-//                    ->setBody(
-//                        $this->renderView(
-//                            'Emails/refusAnnonce.html.twig'
-//                        ),
-//                        'text/html'
-//                    );
-//                $this->get('mailer')->send($message);
-            $em->remove($offre);
-            $em->flush();
-
-            $this->addFlash('info', "L'email à été envoyé !");
-            $this->addFlash('info', "L'annonce a été suprimer !");
-            return $this->redirect($this->generateUrl('acceuil_responsable'));
-
-        }
+            }else{
+                $errors_refus=$formulaire->getErrors();
+            }
 
         return $this->render(
             'SiteBundle:Default:detailsAnnonce.html.twig',
             [
                 'offre' => $offre,
                 'form_refus' => $formulaire->createView(),
-                'form_modif' => $formulaire->createView(),
-                'form' => $formulaire->createView(),
-                'errorEtudiant' => ''
+                'form_modif' => $formModifier->createView(),
+                'form' => $form->createView(),
+                'error_refus' => $errors_refus,
+                'error_modif' => $errors_modif,
+                'errorEtudiant' => '',
             ]
         );
     }

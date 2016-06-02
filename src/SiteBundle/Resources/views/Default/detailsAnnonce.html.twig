@@ -3,6 +3,8 @@
 {% block title %}
     Détails de l'offre {{ offre.titre }}
 {% endblock %}
+
+
 {% block body %}
     <h1 class="text-center margB20">{{ offre.titre }} </h1>
 
@@ -96,33 +98,20 @@
 
             </div>
         </div>
-        {% block javascripts %}
-            <script type="text/javascript">
-                {% if errorEtudiant is not sameas('') %}
-                jQuery(document).ready(function ($) {
+    {% elseif route is sameas("site_detailsAnnonceResponsable") %}
 
-                    $('#postulerOffre').modal('show');
-
-                });
-                {% endif %}
-            </script>
-        {% endblock %}
-    {% endif %}
-
-    {% if route is sameas("site_detailsAnnonceResponsable") %}
-
-        <a class="btn btn-lg btn-success" href="{{ path('validation_Annonce', {'offreId': offre.id }) }}">
+        <a class="btn btn-success" href="{{ path('validation_Annonce', {'offreId': offre.id }) }}">
             Valider
         </a>
-        <button class="btn btn-lg btn-warning" data-toggle="modal" data-target="#modifOffre">
+        <button class="btn btn-warning" data-toggle="modal" data-target="#modifOffre">
             Demande de modification
         </button>
 
-        <button class="btn btn-lg btn-danger" data-toggle="modal" data-target="#refuserOffre">
+        <button class="btn btn-danger" data-toggle="modal" data-target="#refuserOffre">
             Refuser
         </button>
 
-        <a class="btn btn-lg btn_primary" href="{{ path('acceuil_responsable') }}">
+        <a class="btn btn_primary" href="{{ path('acceuil_responsable') }}">
             Retour
         </a>
 
@@ -154,18 +143,62 @@
                     </div>
                     <div class="modal-body">
                         {{ form(form_refus) }}
+
                     </div>
                 </div>
 
             </div>
         </div>
 
-        <script type="text/javascript">
-            jQuery(document).ready(function () {
-                $('#modifOffre').modal('show');
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {% set route = app.request.attributes.get('_route') %}
+
+    <script type="text/javascript">
+        {% if route is sameas("site_detailsAnnonceEtudiant") %}
+            {% if errorEtudiant is not sameas('') %}
+                jQuery(document).ready(function ($) {
+                    $('#postulerOffre').modal('show');
+
+                });
+            {% endif %}
+        {% endif %}
+
+
+        {% if error_refus is not sameas('') %}
+            $(function(){
                 $('#refuserOffre').modal('show');
             });
-        </script>
+        {% elseif error_modif is not sameas('') %}
+            $(function(){
+                $('#modifOffre').modal('show');
+            });
+        {% endif %}
 
-    {% endif %}
+        $(function () {
+
+            $("#refus").submit(function (event) {
+                event.preventDefault(); // EmpÃªcher le rechargement de la page.
+                $.ajax({
+                    url: "{{path("site_detailsAnnonceResponsable", {'offreId': offre.id })}}",
+                    type: "post",
+                    data: $("#ParrainageWifiPlusieursPersonnes").serialize(),
+                    error: function () {
+                        $('#modifOffre').modal('show');
+                        $('#modifOffre').html(data);
+//                        alert($("#ParrainageWifiPlusieursPersonnes").serialize().valueOf());
+                    },
+                    success: function (data) {
+
+//                        $('#modifOffre').html(data);
+                    }
+                });
+
+                return false;
+            });
+        });
+
+    </script>
 {% endblock %}

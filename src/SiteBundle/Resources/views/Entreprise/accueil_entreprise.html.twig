@@ -46,7 +46,7 @@
                             {% if postulant.offre.id == offre.id and postulant.etat != "Refuser" %}
 
                                 <tr>
-                                    <td>{{ postulant.etudiant.laPersone.nom }} {{ postulant.etudiant.laPersone.prenom }}</td>
+                                    <td {% if postulant.etat=="Attente Etudiant" %} style="color:darkgreen" {% endif %}>{{ postulant.etudiant.laPersone.nom }} {{ postulant.etudiant.laPersone.prenom }}</td>
                                     <td class="text-center">{{ postulant.etudiant.getAge() }} ans</td>
                                     <td class="text-center"><a target="_blank"
                                                                href="{{ asset(postulant.etudiant.cv) }}"><span
@@ -78,7 +78,8 @@
                                         </div>
                                     </div>
                                 </tr>
-                            {% else %}
+
+                            {% elseif postulant.etat != "Refuser" %}
                                 <tr>
                                     <td class="alert alert-warning" colspan="5">Aucun étudiant a postulé à cette
                                         offre.
