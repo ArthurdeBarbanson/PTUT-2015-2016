@@ -41,7 +41,7 @@ class SecurityController extends Controller
         $encoded = $encoder->encodePassword($user, 'Reynald');
         $user->setPassword($encoded);
 
-        $user->setRoles(array('ROLE_ETUDIANT', 'ROLE_ADMIN', 'ROLE_ENTREPRISE'));
+        $user->setRoles(array('ROLE_ADMIN', 'ROLE_ENTREPRISE'));
         $user->setIdEntreprise($entreprise);
         $user->setUsername('Reynald');
 

@@ -9,6 +9,7 @@ use SiteBundle\Entity\EtudiantOffre;
 use SiteBundle\Forms\Types\AjoutPdfEtu;
 use SiteBundle\Forms\Types\FichePreInscription;
 use SiteBundle\Forms\Types\ModifierEtudiant;
+use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -21,13 +22,15 @@ class EtudiantController extends Controller
         $repositoryEtudiant = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
         $repositoryOffre = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Offre');
         $repositoryEntreprise = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Entreprise');
-
+        $repositoryDirigeant = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Dirigeant');
         $etudiant = $repositoryEtudiant->find($this->getUser()->getIdEtudiant());
         $offre  = $repositoryOffre->findBy(['Etudiant' => $this->getUser()->getIdEtudiant()]);
         if(!empty($offre[0])){
             $entreprise = $repositoryEntreprise->find($offre[0]->getEntreprise()->getId());
-        }else{$entreprise = null;}
-
+            $dirigeants = $repositoryDirigeant->findBy(array("Entreprise"=>$entreprise));
+        }else{$entreprise = null;
+                $dirigeants = null;
+        }
 
         $form = $this->createForm(AjoutPdfEtu::class);
         $formPreInscription = $this->createForm(FichePreInscription::class);
@@ -127,6 +130,7 @@ class EtudiantController extends Controller
                 'etudiant' => $etudiant,
                 'formPreInscription' => $formPreInscription->createView(),
                 'entreprise' => $entreprise,
+                'dirigeants' => $dirigeants,
                 'formModificationEtudiant' => $formModificationEtudiant->createView()
             ]
         );
@@ -200,7 +204,7 @@ class EtudiantController extends Controller
             $em->flush();
         }
 
-        $message = \Swift_Message::newInstance()
+        $message = Swift_Message::newInstance()
             ->setSubject("Validation Alternant LP".$offre->getLicenceConcerne())
             ->setFrom('arthurdebarbanson@gmail.com')
             ->setTo($offre->getEntreprise()->getMail())
@@ -208,7 +212,7 @@ class EtudiantController extends Controller
                 . "a egalement validez votre offre. L'etudiant doit maintenant s'inscrire au pret de l'ecole et de formasup. Une fois ces étapes terminées le contrat sera alors mis en place. Cordialement");
         $this->get('mailer')->send($message);
 
-        $message = \Swift_Message::newInstance()
+        $message = Swift_Message::newInstance()
             ->setSubject("[".$offre->getLicenceConcerne()."] Changement Etape " . $etudiant->getLaPersone()->getNom() . $etudiant->getLaPersone()->getPrenom() )
             ->setFrom('arthurdebarbanson@gmail.com')
             ->setTo("adrien.peytavie@univ-lyon1.fr")

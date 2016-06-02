@@ -81,8 +81,7 @@
 
                             {% elseif postulant.etat != "Refuser" %}
                                 <tr>
-                                    <td class="alert alert-warning" colspan="5">Aucun étudiant a postulé à cette
-                                        offre.
+                                    <td class="alert alert-warning" colspan="5">Aucun étudiant a postulé à cette offre.
                                     </td>
                                 </tr>
                             {% endif %}
@@ -147,7 +146,7 @@
                     <th class="col-md-2">Nom Prenom</th>
                     <th class="col-md-2 text-center">Age</th>
                     <th class="col-md-2 text-center">CV</th>
-                    <th class="col-md-2 text-center">Lettre De Motivation</th>
+                    <th class="col-md-2 text-center">Etat du dossier d'inscription</th>
                     <th class="col-md-2 text-center">Profil</th>
                 </tr>
                 <tr>
@@ -155,9 +154,19 @@
                     <td class="text-center">{{ offreP.etudiant.getAge() }} ans</td>
                     <td class="text-center"><a target="_blank" href="{{ asset(offreP.etudiant.cv) }}"><span
                                     class="glyphicon glyphicon-eye-open "></span></a></td>
-                    <td class="text-center"><a href=""><span class="glyphicon glyphicon-eye-open"></span></a></td>
-                    <td class="text-center"><a href="#"><span class="glyphicon glyphicon-eye-open margR10"></span></a><a
-                                href=""><span class="glyphicon glyphicon-print"></span></a></td>
+
+                    {% if offreP.etudiant.DossierInscription.etatDossier == '2'  %}
+                        <td><p class="text-danger">Pré-inscription du Contrat</p></td>
+
+                    {% elseif offreP.etudiant.DossierInscription.etatDossier == '3'  %}
+                        <td><p class="text-info">Dossier inscription pédagogique</p></td>
+
+                    {% elseif offreP.etudiant.DossierInscription.etatDossier == '4'  %}
+                        <td><p class="text-success">Signature du contrat</p></td>
+                    {% endif %}
+                    <td class="text-center"><a
+                                href="{{ path('site_detailsEtudiant', {'offreId': offreP.id }) }}"><span
+                                    class="glyphicon glyphicon-eye-open margR5"></span></a></td>
                 </tr>
 
                 </table>{% endfor %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Alternant pour l'offre {{ offre.titre }}</h1>
+    <div>
+        <p><label>Nom : </label> {{ offre.etudiant.laPersone.nom }}</p>
+        <p><label>Prenom : </label> {{ offre.etudiant.laPersone.prenom }}</p>
+        <p><label>Sexe : </label> {{ offre.etudiant.laPersone.sexe }}</p>
+        <p><label>Email : </label> {{ offre.etudiant.laPersone.mail }}</p>
+        <p><label>Téléphone : </label> {{ offre.etudiant.laPersone.telephone }}</p>
+        <p><label>Adresse
+                : </label> {{ offre.etudiant.laPersone.adresse.commune }} {{ offre.etudiant.laPersone.adresse.codePostal }}         </p>
+        <p><label>CV : </label> <a target="_blank" href="{{ asset(offre.etudiant.cv) }}"><span
+                        class="glyphicon glyphicon-eye-open"></span></a></p>
+
+    </div>
+    <div class="text-center">
+        <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-envelope"></span> Contacter</a>
+        <a class="btn btn-default" href="{{ path('site_accueilEntreprise') }}">Retour</a>
+    </div>
+
+{% endblock %}
