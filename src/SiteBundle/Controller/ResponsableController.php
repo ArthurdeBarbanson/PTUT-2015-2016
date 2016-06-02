@@ -38,7 +38,7 @@ class ResponsableController extends Controller
         $offres = $repositoryOffre->findAll();
         $etudiants = $repositoryEtudiant->findAll();
 
-        $smtpForm= $this->createForm(SMTPType::class);
+        $smtpForm = $this->createForm(SMTPType::class);
 
         return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig', [
             'offres' => $offres,
@@ -69,20 +69,19 @@ class ResponsableController extends Controller
 
             try {
                 $em->flush();
-                //TODO envoie de mail
-                /*$message = new \Swift_Message();
+                $message = new \Swift_Message();
                 $message
-                    ->setSubject('Hello Email')
+                    ->setSubject('Inscription')
                     ->setFrom('no_reply@ptut.com')
                     ->setTo($data['Email'])
                     ->setBody(
                         $this->renderView(
-                            '@Site/Email/emailInscriptionEtudiant',
+                            ':Emails:ajoutResponsable.html.twig',
                             array('password' => $randomPassword)
                         ),
                         'text/html'
                     );
-                $this->get('mailer')->send($message);*/
+                $this->get('mailer')->send($message);
 
                 $this->addFlash('success', "Le responsable a été ajouter !");
             } catch (UniqueConstraintViolationException $exception) {
@@ -135,20 +134,19 @@ class ResponsableController extends Controller
 
             try {
                 $em->flush();
-                //envoie de mail
-                /*$message = new \Swift_Message();
+                $message = new \Swift_Message();
                 $message
                     ->setSubject('Hello Email')
                     ->setFrom('no_reply@ptut.com')
                     ->setTo($data['Email'])
                     ->setBody(
                         $this->renderView(
-                            '@Site/Email/emailInscriptionEtudiant',
+                            ':Emails:ajoutEtudiant.html.twig',
                             array('password' => $randomPassword)
                         ),
                         'text/html'
                     );
-                $this->get('mailer')->send($message);*/
+                $this->get('mailer')->send($message);
 
                 $this->addFlash('success', "L'étudiant a été ajouter !");
             } catch (UniqueConstraintViolationException $exception) {
@@ -184,21 +182,19 @@ class ResponsableController extends Controller
                         $em->persist($user);
                         try {
                             $em->flush();
-                            //envoie de mail
-                            //TODO envoie mail
-                            /*$message = new \Swift_Message();
+                            $message = new \Swift_Message();
                             $message
                                 ->setSubject('Hello Email')
                                 ->setFrom('no_reply@ptut.com')
                                 ->setTo($etudiant->getLaPersone()->getMail())
                                 ->setBody(
                                     $this->renderView(
-                                        '@Site/Email/emailInscriptionEtudiant',
+                                        ':template:menu_etudiant.html.twig',
                                         array('password' => $randomPassword)
                                     ),
                                     'text/html'
                                 );
-                            $this->get('mailer')->send($message);*/
+                            $this->get('mailer')->send($message);
                         } catch (Exception $exception) {
                             $this->addFlash('error', "Une erreur s'est produite, veuillez réessayer plus tard.");
                         }
@@ -275,8 +271,8 @@ class ResponsableController extends Controller
 
     public function detailAnnonceAction(Request $request)
     {
-        $errors_refus='';
-        $errors_modif='';
+        $errors_refus = '';
+        $errors_modif = '';
 
 
         $offreid = $request->get('offreId');
@@ -297,65 +293,65 @@ class ResponsableController extends Controller
         $formModifier = $this->createForm(ModifierAnnonceType::class);
         $form = $this->createForm(AjoutEtudiant::class);
 
-            $formModifier->handleRequest($request);
-            if ($formModifier->isSubmitted() &&  $formModifier->isValid()) {
-                    $data=$formModifier->getData();
-                // en attente serveur smtp
+        $formModifier->handleRequest($request);
+        if ($formModifier->isSubmitted() && $formModifier->isValid()) {
+            $data = $formModifier->getData();
+            // en attente serveur smtp
 
-                $message = \Swift_Message::newInstance()
-                    ->setSubject("Demande de modification de l'annonce ")
-                    ->setFrom('arthurdebarbanson@gmail.com')
-                    ->setTo('recipient@example.com')
-                    ->setBody(
-                        $this->renderView(
-                            'Emails/ModificationAnnonce.html.twig',[
-                                'message'=> $data['Message']
-                            ]
-                        ),
-                        'text/html'
-                    );
-                $this->get('mailer')->send($message);
+            $message = \Swift_Message::newInstance()
+                ->setSubject("Demande de modification de l'annonce ")
+                ->setFrom('arthurdebarbanson@gmail.com')
+                ->setTo('recipient@example.com')
+                ->setBody(
+                    $this->renderView(
+                        'Emails/ModificationAnnonce.html.twig', [
+                            'message' => $data['Message']
+                        ]
+                    ),
+                    'text/html'
+                );
+            $this->get('mailer')->send($message);
 
-                $offre->setEtatOffre('En attente de modification');
+            $offre->setEtatOffre('En attente de modification');
 
-                $em->persist($offre);
-                $em->flush();
+            $em->persist($offre);
+            $em->flush();
 
-                $this->addFlash('info', "L'email à été envoyé !");
+            $this->addFlash('info', "L'email à été envoyé !");
             return $this->redirectToRoute('acceuil_responsable');
-            }else{
-                $errors_modif=$formModifier->getErrors();
-            }
+        } else {
+            $errors_modif = $formModifier->getErrors();
+        }
 
-            $formulaire->handleRequest($request);
-            if ($formulaire->isSubmitted() && $formulaire->isValid()) {
-                $data2=$formulaire->getData();
+        $formulaire->handleRequest($request);
+        if ($formulaire->isSubmitted() && $formulaire->isValid()) {
+            $data2 = $formulaire->getData();
 
-                // en attente serveur smtp
+            // en attente serveur smtp
 
-                $message = \Swift_Message::newInstance()
-                    ->setSubject('Refuse de validation')
-                    ->setFrom('arthurdebarbanson@gmail.com')
-                    ->setTo('recipient@example.com')
-                    ->setBody(
-                        $this->renderView(
-                            'Emails/refusAnnonce.html.twig',[
-                                'message'=> $data2['Message']
-                            ]
-                        ),
-                        'text/html'
-                    );
-                $this->get('mailer')->send($message);
-                $em->remove($offre);
-                $em->flush();
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Refuse de validation')
+                ->setFrom('arthurdebarbanson@gmail.com')
+                ->setTo('recipient@example.com')
+                ->setBody(
+                    $this->renderView(
+                        'Emails/refusAnnonce.html.twig', [
+                            'message' => $data2['Message']
+                        ]
+                    ),
+                    'text/html'
+                );
+            $this->get('mailer')->send($message);
+            $em->remove($offre);
+            $em->flush();
 
-                $this->addFlash('info', "L'email à été envoyé !");
-                $this->addFlash('info', "L'annonce a été suprimer !");
-                return $this->redirectToRoute('acceuil_responsable');
+            $this->addFlash('info', "L'email à été envoyé !");
+            $this->addFlash('info', "L'annonce a été suprimer !");
+            return $this->redirectToRoute('acceuil_responsable');
 
-            }else{
-                $errors_refus=$formulaire->getErrors();
-            }
+        } else {
+            $errors_refus = $formulaire->getErrors();
+        }
 
         return $this->render(
             'SiteBundle:Default:detailsAnnonce.html.twig',
@@ -455,9 +451,10 @@ class ResponsableController extends Controller
         );
     }
 
-    public function validerEtatEtudiantAction(Request $request){
+    public function validerEtatEtudiantAction(Request $request)
+    {
 
-        $idEtudiant=$request->get('EtudiantId');
+        $idEtudiant = $request->get('EtudiantId');
 
         $repository = $this
             ->getDoctrine()
