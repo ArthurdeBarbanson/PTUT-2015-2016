@@ -200,6 +200,21 @@ class EtudiantController extends Controller
             $em->flush();
         }
 
+        $message = \Swift_Message::newInstance()
+            ->setSubject("Validation Alternant LP".$offre->getLicenceConcerne())
+            ->setFrom('arthurdebarbanson@gmail.com')
+            ->setTo($offre->getEntreprise()->getMail())
+            ->setBody("Madame, Monsieur " . $offre->getEntreprise()->getNom().". J'ai le plaisir de vous annoncez que l'etudiant" . $etudiant->getLaPersone()->getNom() . $etudiant->getLaPersone()->getPrenom()
+                . "a egalement validez votre offre. L'etudiant doit maintenant s'inscrire au pret de l'ecole et de formasup. Une fois ces étapes terminées le contrat sera alors mis en place. Cordialement");
+        $this->get('mailer')->send($message);
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject("[".$offre->getLicenceConcerne()."] Changement Etape " . $etudiant->getLaPersone()->getNom() . $etudiant->getLaPersone()->getPrenom() )
+            ->setFrom('arthurdebarbanson@gmail.com')
+            ->setTo("adrien.peytavie@univ-lyon1.fr")
+            ->setBody("Bonjour, ce message vous est transmis car". $etudiant->getLaPersone()->getNom() . $etudiant->getLaPersone()->getPrenom() . "a validé l'étape 1 et trouvé une. Cordialement" );
+        $this->get('mailer')->send($message);
+
         return $this->redirect($this->generateUrl('site_accueilEtudiant'));
     }
 }
