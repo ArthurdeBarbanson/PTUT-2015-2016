@@ -31,9 +31,15 @@ class Dirigeant
     /**
      * @var string
      *
-     * @ORM\Column(name="Fonction", type="string", length=50)
+     * @ORM\Column(name="fonction",type="string", columnDefinition="enum('Dirigeant', 'DRH')",nullable=true)
      */
     private $fonction;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Entreprise")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Entreprise;
 
 
 
@@ -89,5 +95,29 @@ class Dirigeant
     public function setLaPersone(Personne $laPersone)
     {
         $this->laPersone = $laPersone;
+    }
+
+    /**
+     * Set entreprise
+     *
+     * @param \SiteBundle\Entity\Entreprise $entreprise
+     *
+     * @return Dirigeant
+     */
+    public function setEntreprise(\SiteBundle\Entity\Entreprise $entreprise)
+    {
+        $this->Entreprise = $entreprise;
+
+        return $this;
+    }
+
+    /**
+     * Get entreprise
+     *
+     * @return \SiteBundle\Entity\Entreprise
+     */
+    public function getEntreprise()
+    {
+        return $this->Entreprise;
     }
 }
