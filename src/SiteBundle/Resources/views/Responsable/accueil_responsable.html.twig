@@ -119,7 +119,7 @@
 
                                 {% set entreprise = 'false' %}
                                 {% for offre in offres %}
-                                    {% if etudiant.id == offre.Etudiant.id and offre.entreprise.RaisonSocial is not empty %}
+                                    {% if offre.Etudiant is not null and etudiant.id == offre.Etudiant.id and offre.entreprise.RaisonSocial is not empty %}
                                         <td>{{ offre.entreprise.RaisonSocial }}</td>
                                         {% set entreprise = 'true' %}
                                     {% endif %}
@@ -131,7 +131,7 @@
 
                                 {% set maitre = 'false' %}
                                 {% for offre in offres %}
-                                    {% if etudiant.id == offre.Etudiant.id %}
+                                    {% if  offre.Etudiant is not null and etudiant.id == offre.Etudiant.id %}
                                         <td>{{ offre.MAP.laPersone.prenom }} {{ offre.MAP.laPersone.nom }}</td>
                                         {% set maitre = 'true' %}
                                     {% endif %}
