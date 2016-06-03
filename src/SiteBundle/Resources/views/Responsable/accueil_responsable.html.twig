@@ -19,7 +19,7 @@
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#home">Gestion des offres</a></li>
         <li><a data-toggle="tab" href="#menu1">Gestion etudiant </a></li>
-        <li><a data-toggle="tab" href="#menu2">Paramettre</a></li>
+        <li><a data-toggle="tab" href="#menu2">Parametre</a></li>
     </ul>
 
     <div class="tab-content">
@@ -29,8 +29,8 @@
                     <div class="panel-heading">
                         <h3>offres en attente de validation</h3>
                     </div>
-                    <div class="panel-body">
-                        <table>
+                    <div class="panel-body ">
+                        <table class="table table-bordered">
                             <tr>
                                 <th class="col-md-2">Date</th>
                                 <th class="col-md-2">Titre de l'offre</th>
@@ -93,8 +93,8 @@
                             <th class="col-md-2 text-center">état d'avancement</th>
                             <th class="col-md-2 text-center">Entreprise</th>
                             <th class="col-md-2 text-center">Maître de stage</th>
-                            <th class="col-md-2 text-center">Tuteur pédagogique</th>
-                            <th class="col-md-2 text-center">Action</th>
+                            <th class="col-md-3 text-center">Tuteur pédagogique</th>
+                            <th class="col-md-1 text-center">Action</th>
                         </tr>
 
                         {% for etudiant in etudiants %}
@@ -132,7 +132,7 @@
                                 {% set maitre = 'false' %}
                                 {% for offre in offres %}
                                     {% if  offre.Etudiant is not null and etudiant.id == offre.Etudiant.id %}
-                                        <td>{{ offre.MAP.laPersone.prenom }} {{ offre.MAP.laPersone.nom }}</td>
+                                        <td>{{ offre.MAP.laPersone.nom }} {{ offre.MAP.laPersone.prenom }}</td>
                                         {% set maitre = 'true' %}
                                     {% endif %}
                                 {% endfor %}
@@ -141,7 +141,14 @@
                                     <td><p class="text-warning">Aucun maître de stage</p></td>
                                 {% endif %}
 
-                                <td></td>
+                                <td>
+                                    {% if etudiant.leTuteur is empty %}
+                                    <p class="text-danger" >Aucun tuteur assigné à cet etudiant</p>
+                                    {% else %}
+                                    <p>{{ etudiant.leTuteur.nom }} {{ etudiant.leTuteur.prenom }}</p>
+                                    {% endif %}
+                                    <p><a href="{{ path('site_AssigneTuteurResponsable', {'etudiantId': etudiant.id }) }}">Assigner un tuteur à l'etudiant</a></p>
+                                </td>
 
                                 <td  class="text-center">
                                     {% if etudiant.DossierInscription.etatDossier == '2' %}
@@ -155,7 +162,7 @@
             </div>
         </div>
         <div id="menu2" class="tab-pane fade">
-            <h3>Paramettre SMTP</h3>
+            <h3>Parametre SMTP</h3>
 
             {{ form(smtp_form) }}
 
