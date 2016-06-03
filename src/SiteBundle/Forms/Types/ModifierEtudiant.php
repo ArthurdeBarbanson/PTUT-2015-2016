@@ -7,6 +7,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -40,10 +42,9 @@ class ModifierEtudiant extends AbstractType
                     new NotBlank()
                 ]
             ])
-            ->add('DateNaissance',DateType::class,[
-                'widget' =>'single_text'
+            ->add('DateNaissance', DateType::class, [
+                'widget' => 'single_text'
             ])
-
             ->add('NumeroCiel2', TextType::class, [
                 'constraints' => [
                     new NotBlank()
@@ -67,7 +68,16 @@ class ModifierEtudiant extends AbstractType
             ->add('Commune', TextType::class)
             ->add('Adresse', TextType::class)
             ->add('CodePostal', IntegerType::class)
-
+            ->add('verif_mdp', PasswordType::class, [
+                'required' => false
+            ])
+            ->add('newPassword', RepeatedType::class, array(
+                'type' => PasswordType::class,
+                'invalid_message' => 'Les mots de passe doivent être identique.',
+                'required' => false,
+                'first_options' => array('label' => 'Mot de passe'),
+                'second_options' => array('label' => 'Répéter mot de passe'),
+            ))
             ->add('submit', SubmitType::class, ['label' => "Enregistrer", 'attr' => ['class' => 'btn-primary']]);
     }
 }
