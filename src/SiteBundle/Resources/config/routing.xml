@@ -26,7 +26,7 @@
         <default key="_controller">SiteBundle:Entreprise:edditAnnonce</default>
     </route>
 
-    <route id="site_edditEntreprise" path="/entreprise/modifie_entreprise/{entrepriseId}">
+    <route id="site_edditEntreprise" path="/entreprise/modifie_entreprise">
         <default key="_controller">SiteBundle:Entreprise:edditEntreprise</default>
     </route>
 

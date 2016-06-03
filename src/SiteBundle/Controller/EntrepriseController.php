@@ -287,8 +287,11 @@ class EntrepriseController extends Controller
         }
     }
 
-    public function edditEntrepriseAction($entrepriseId)
+    public function edditEntrepriseAction(Request $request)
     {
+        $entreprise = $this->getUser()->getIdEntreprise();
+
+
     }
 
     public function inscriptionAction(Request $request)
