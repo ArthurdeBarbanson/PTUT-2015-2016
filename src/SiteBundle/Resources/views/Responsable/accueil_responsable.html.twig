@@ -152,7 +152,7 @@
 
                                 <td  class="text-center">
                                     {% if etudiant.DossierInscription.etatDossier == '2' %}
-                                        <a href="{{path('validation_etat_etudiant', {'EtudiantId': etudiant.id }) }}" class="btn btn-primary" >A Valider</a>
+                                        <button class="btn btn-primary" id="validationEtape2" >A Valider</button>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -163,14 +163,28 @@
         </div>
         <div id="menu2" class="tab-pane fade">
             <h3>Parametre SMTP</h3>
-
             {{ form(smtp_form) }}
-
             <p></p>
         </div>
     </div>
+{% endblock %}
 
+{% block javascripts %}
+<script type="text/javascript">
 
+    $(function(){
+       $('#validationEtape2').click(function(){
+           {#$.post("{{path('validation_etat_etudiant'}}");#}
+           {#$.ajax({#}
+               {#url: "{{path("validation_etat_etudiant"}}",#}
+               {#type: "post"#}
+           {#});#}
+       });
+    });
 
+    $(function(){
+//        $.post()
+    });
 
+</script>
 {% endblock %}
