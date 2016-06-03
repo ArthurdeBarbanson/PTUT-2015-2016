@@ -68,16 +68,6 @@ class ModifierEtudiant extends AbstractType
             ->add('Commune', TextType::class)
             ->add('Adresse', TextType::class)
             ->add('CodePostal', IntegerType::class)
-            ->add('verif_mdp', PasswordType::class, [
-                'required' => false
-            ])
-            ->add('newPassword', RepeatedType::class, array(
-                'type' => PasswordType::class,
-                'invalid_message' => 'Les mots de passe doivent être identique.',
-                'required' => false,
-                'first_options' => array('label' => 'Mot de passe'),
-                'second_options' => array('label' => 'Répéter mot de passe'),
-            ))
             ->add('submit', SubmitType::class, ['label' => "Enregistrer", 'attr' => ['class' => 'btn-primary']]);
     }
 }

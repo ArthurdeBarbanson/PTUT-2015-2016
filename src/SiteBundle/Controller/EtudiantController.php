@@ -64,7 +64,7 @@ class EtudiantController extends Controller
                     $error = 'Vous devez importer votre CV en format PDF uniquement.';
                 }
             }
-            if ($formModificationEtudiant->isValid()) {
+            if ($formModificationEtudiant->isValid() || $formModificationEtudiant->isSubmitted()) {
                 $data = $formModificationEtudiant->getData();
                 $em = $this->getDoctrine()->getManager();
 
@@ -109,7 +109,7 @@ class EtudiantController extends Controller
                     $Adresse->setPays("France");
                     $etudiant->getLaPersone()->setAdresse($Adresse);
                 }
-
+                
                 $em->persist($etudiant);
 
                 try {
