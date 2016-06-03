@@ -61,6 +61,10 @@
         <default key="_controller">SiteBundle:Etudiant:detailsEntreprise</default>
     </route>
 
+    <route id="modif_mot_de_passe" path="/etudiant/modification_mot_de_passe">
+        <default key="_controller">SiteBundle:Etudiant:modificationMotPasse</default>
+    </route>
+
     <route id="site_detailsAnnonceEtudiant" path="/etudiant/details_annonce/{annonceId}">
         <default key="_controller">SiteBundle:Default:detailAnnonce</default>
     </route>
