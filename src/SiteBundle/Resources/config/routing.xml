@@ -22,8 +22,12 @@
         <default key="_controller">SiteBundle:Default:detailAnnonce</default>
     </route>
 
-    <route id="edditAnnonceAnnonceEntreprise" path="/entreprise/modifie_annonce/{annonceId}">
+    <route id="edditAnnonceEntreprise" path="/entreprise/modifie_annonce/{annonceId}">
         <default key="_controller">SiteBundle:Entreprise:edditAnnonce</default>
+    </route>
+
+    <route id="site_edditEntreprise" path="/entreprise/modifie_entreprise">
+        <default key="_controller">SiteBundle:Entreprise:edditEntreprise</default>
     </route>
 
     <route id="inscriptionEntreprise" path="/inscription">
@@ -59,6 +63,10 @@
     <!-- Etudiant -->
     <route id="detailsEntreprise" path="/etudiant/details_entreprise/{entrepriseId}">
         <default key="_controller">SiteBundle:Etudiant:detailsEntreprise</default>
+    </route>
+
+    <route id="modif_mot_de_passe" path="/etudiant/modification_mot_de_passe">
+        <default key="_controller">SiteBundle:Etudiant:modificationMotPasse</default>
     </route>
 
     <route id="site_detailsAnnonceEtudiant" path="/etudiant/details_annonce/{annonceId}">

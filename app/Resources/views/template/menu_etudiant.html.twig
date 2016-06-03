@@ -1,6 +1,17 @@
+{% if app.user.idEtudiant %}
 <ul class="nav navbar-nav">
-    <li><a href="{{ path('site_accueilEtudiant') }}" class="navbar-brand">{{ app.user.idEtudiant.laPersone.prenom }}</a>
+    <li class="dropdown">
+        <a href="#" class="navbar-brand dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+           aria-expanded="false">{{ app.user.idEtudiant.laPersone.prenom }}<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="{{ path('site_accueilEtudiant') }}">Accueil</a></li>
+            <li><a href="{{ path('modif_mot_de_passe') }}">Modifier mot de passe</a></li>
+        </ul>
     </li>
+    {% if app.user.idEtudiant.inscription.etatDossier ==  1 %}
     <li><a href="{{ path('site_listeOffrePostulerEtudiant') }}">Mes offres</a></li>
     <li><a href="{{ path('site_listeOffreEtudiant') }}">Rechercher des offres</a></li>
+    {% endif %}
 </ul>
+{% endif %}
+

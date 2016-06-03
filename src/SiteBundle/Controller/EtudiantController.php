@@ -9,8 +9,10 @@ use SiteBundle\Entity\EtudiantOffre;
 use SiteBundle\Forms\Types\AjoutPdfEtu;
 use SiteBundle\Forms\Types\FichePreInscription;
 use SiteBundle\Forms\Types\ModifierEtudiant;
+use SiteBundle\Forms\Types\MotDePasseEtudiant;
 use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -133,6 +135,37 @@ class EtudiantController extends Controller
                 'dirigeants' => $dirigeants,
                 'formModificationEtudiant' => $formModificationEtudiant->createView()
             ]
+        );
+    }
+
+    public function modificationMotPasseAction(Request $request)
+    {
+        $form = $this->createForm(MotDePasseEtudiant::class);
+
+        if ($request->isMethod('post')) {
+            $form->handleRequest($request);
+            if ($form->isValid() && $form->isSubmitted()) {
+                $data = $form->getData();
+                $verification = $data["verif_mdp"];
+                $mdp = $data['password'];
+                $encoder = $this->get('security.password_encoder');
+                $em = $this->getDoctrine()->getManager();
+                if ($encoder->isPasswordValid($this->getUser(), $verification)) {
+                    $user = $this->getUser();
+                    $user->setPassword($encoder->encodePassword($user, $mdp));
+                    $em->persist($user);
+                    try {
+                        $em->flush();
+                        $this->addFlash('success', "Mot de passe modifié avec succès.");
+                    } catch (Exception $ex) {
+                        $this->addFlash('error', "Erreur lors de la modification du mot de passe.");
+                    }
+                }
+            }
+        }
+
+        return $this->render(
+            'SiteBundle:Etudiant:modification_mot_de_passe.html.twig', ['form' => $form->createView()]
         );
     }
 
