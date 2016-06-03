@@ -160,41 +160,38 @@
         $(function(){
         {% if errorEtudiant is not sameas('') %}
                     $('#postulerOffre').modal('show');
+
             {% endif %}
-
-        {% if error_refus is not sameas('') %}
-
+        {%if error_refus is not sameas('') %}
+            $(function(){
                 $('#refuserOffre').modal('show');
+            });
             console.log('erreur refus');
-
-        {% elseif error_modif is not sameas('') %}
-
+            {% endif %}
+        {% if error_modif is not sameas('') %}
                 $('#modifOffre').modal('show');
-
             console.log('erreur modif');
-
-
             {% endif %}
 
-            $("#refus").submit(function (event) {
-                event.preventDefault(); // EmpÃªcher le rechargement de la page.
-                $.ajax({
-                    url: "{{path("site_detailsAnnonceResponsable", {'offreId': offre.id })}}",
-                    type: "post",
-                    data: $("#ParrainageWifiPlusieursPersonnes").serialize(),
-                    error: function () {
-                        $('#modifOffre').modal('show');
-                        $('#modifOffre').html(data);
-//                        alert($("#ParrainageWifiPlusieursPersonnes").serialize().valueOf());
-                    },
-                    success: function (data) {
+            {#$("#refus").submit(function (event) {#}
+                {#event.preventDefault(); // EmpÃªcher le rechargement de la page.#}
+                {#$.ajax({#}
+                    {#url: "{{path("site_detailsAnnonceResponsable", {'offreId': offre.id })}}",#}
+                    {#type: "post",#}
+                    {#data: $("#ParrainageWifiPlusieursPersonnes").serialize(),#}
+                    {#error: function () {#}
+                        {#$('#modifOffre').modal('show');#}
+                        {#$('#modifOffre').html(data);#}
+{#//                        alert($("#ParrainageWifiPlusieursPersonnes").serialize().valueOf());#}
+                    {#},#}
+                    {#success: function (data) {#}
 
-//                        $('#modifOffre').html(data);
-                    }
-                });
+{#//                        $('#modifOffre').html(data);#}
+                    {#}#}
+                {#});#}
 
-                return false;
-            });
+                {#return false;#}
+            {#});#}
         });
 
     </script>

@@ -25,6 +25,9 @@ class ResponsableController extends Controller
 {
     public function accueilAction()
     {
+        $typeLp= $this->getUser()->getTypeLicence();
+
+
         $repositoryOffre = $this
             ->getDoctrine()
             ->getManager()
@@ -35,8 +38,26 @@ class ResponsableController extends Controller
             ->getManager()
             ->getRepository('SiteBundle:Etudiant');
 
-        $offres = $repositoryOffre->findAll();
-        $etudiants = $repositoryEtudiant->findAll();
+        if($typeLp == 'getTypeLicence'){
+
+        }
+
+        switch($typeLp){
+            case 'METINET':
+                $offres = $repositoryOffre->findBy(['licenceConcerne'=>'METINET']);
+                $etudiants = $repositoryEtudiant->findBy(['typeLicence'=>'METINET']);
+                break;
+
+            case 'IEM':
+                $offres = $repositoryOffre->findBy(['licenceConcerne'=>'IEM']);
+                $etudiants = $repositoryEtudiant->findBy(['typeLicence'=>'IEM']);
+                break;
+
+            default:
+                $etudiants = $repositoryEtudiant->findAll();
+                $offres = $repositoryOffre->findAll();
+                break;
+        }
 
         $smtpForm = $this->createForm(SMTPType::class);
 
