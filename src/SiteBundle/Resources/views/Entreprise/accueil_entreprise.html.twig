@@ -103,7 +103,7 @@
         <div class="panel-body">
             {% for offreV in offresValidations %}
                 <h4>{{ offreV.titre }}
-                    <small><a href="{{ path('edditAnnonceAnnonceEntreprise', {'annonceId': offreV.id }) }}"><span
+                    <small><a href="{{ path('edditAnnonceEntreprise', {'annonceId': offreV.id }) }}"><span
                                     class="glyphicon glyphicon-pencil margR5 "></span></a> <a
                                 href="{{ path('site_detailsAnnonceEntreprise', {'annonceId': offreV.id }) }}"><span
                                     class="glyphicon glyphicon-search margR5"></span></a><a
@@ -121,7 +121,7 @@
         <div class="panel-body">
             {% for offreM in offresModification %}
                 <h4>{{ offreM.titre }}
-                    <small><a href="{{ path('edditAnnonceAnnonceEntreprise', {'annonceId': offreM.id }) }}"><span
+                    <small><a href="{{ path('edditAnnonceEntreprise', {'annonceId': offreM.id }) }}"><span
                                     class="glyphicon glyphicon-pencil margR5 "></span></a> <a
                                 href="{{ path('site_detailsAnnonceEntreprise', {'annonceId': offreM.id }) }}"><span
                                     class="glyphicon glyphicon-search margR5"></span></a><a

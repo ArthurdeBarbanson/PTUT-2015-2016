@@ -22,8 +22,12 @@
         <default key="_controller">SiteBundle:Default:detailAnnonce</default>
     </route>
 
-    <route id="edditAnnonceAnnonceEntreprise" path="/entreprise/modifie_annonce/{annonceId}">
+    <route id="edditAnnonceEntreprise" path="/entreprise/modifie_annonce/{annonceId}">
         <default key="_controller">SiteBundle:Entreprise:edditAnnonce</default>
+    </route>
+
+    <route id="site_edditEntreprise" path="/entreprise/modifie_entreprise/{entrepriseId}">
+        <default key="_controller">SiteBundle:Entreprise:edditEntreprise</default>
     </route>
 
     <route id="inscriptionEntreprise" path="/inscription">

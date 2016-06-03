@@ -287,6 +287,10 @@ class EntrepriseController extends Controller
         }
     }
 
+    public function edditEntrepriseAction($entrepriseId)
+    {
+    }
+
     public function inscriptionAction(Request $request)
     {
         $entreprise = new Entreprise();
