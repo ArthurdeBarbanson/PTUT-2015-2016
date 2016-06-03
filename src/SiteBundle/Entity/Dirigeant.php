@@ -36,7 +36,7 @@ class Dirigeant
     private $fonction;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Entreprise")
+     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Entreprise")
      * @ORM\JoinColumn(nullable=false)
      */
     private $Entreprise;
