@@ -148,16 +148,18 @@
         <div class="row">
             <div id="actions" class="col-sm-12 container">
                 <h3>Etape 1 : Trouver une entreprise </h3>
-                <p> Vous devez trouver une entreprise. Pour celà vous pouvez consulter les annonces des entreprises sur notre site.
+                <p> Vous devez trouver une entreprise. Pour celà vous pouvez consulter les annonces des entreprises sur
+                    notre site.
                     <a href="{{ path('site_listeOffreEtudiant') }}" class="btn btn-info"> Consulter Annonce</a>
                 </p>
 
                 <p>Vous pouvez également joindre un cv à votre profil :
                     <button class="btn btn-primary" data-toggle="modal" data-target="#ajouterCV">
                         Ajouter/Modifier mon CV
-                    </button></p>
+                    </button>
+                </p>
             </div>
-        </div>
+            </div>
     {% elseif etudiant.DossierInscription.etatDossier == "2" %}
         <div class="row">
             <div id="actions" class="col-sm-12 container"> <h3 class="text-success">Etape 1 : Trouver une entreprise <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></h3> </div>
@@ -166,17 +168,20 @@
             <div id="actions" class="col-sm-12 container">
                 <h3>Etape 2 : Pré inscription contrat </h3>
                 <p> Vous devez remplir le fomulaire de cette adresse
-                    <a href="http://www.fsarl-ufa.com/fdp/rl1-26-sil-option-concepteur-et-gestionnaire-de-site-internet-metinet?crew=15" class="btn btn-info" target="_blank">
+                    <a href="http://www.fsarl-ufa.com/fdp/rl1-26-sil-option-concepteur-et-gestionnaire-de-site-internet-metinet?crew=15"
+                       class="btn btn-info" target="_blank">
                         Fiche de pré-inscription rentrée</a>
                 </p>
 
                 <p>Vous consulter la fiche de votre entreprise pour remplir le formulaire :
-                    <button class="btn btn-info"  data-toggle="modal" data-target="#FicheEntreprise">
+                    <button class="btn btn-info" data-toggle="modal" data-target="#FicheEntreprise">
                         Fiche entreprise
-                    </button></p>
-                <p> Une fois cette étape faite le responsable de formation validera celle-ci afin que vous puissiez passer à l'étape suivante.</p>
+                    </button>
+                </p>
+                <p> Une fois cette étape faite le responsable de formation validera celle-ci afin que vous puissiez
+                    passer à l'étape suivante.</p>
             </div>
-        </div>
+            </div>
     {% elseif etudiant.DossierInscription.etatDossier == "3" %}
         <div class="row">
             <div id="actions" class="col-sm-12 container"> <h3 class="text-success">Etape 1 : Trouver une entreprise <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></h3> </div>
@@ -435,6 +440,7 @@
 
                             </div>
 
+
                             <div class="col-lg-4">
                                 <ins>Premiere inscription:</ins>
                                 <br><br>
@@ -486,7 +492,8 @@
                     </div>
                 </div>
 
-                <p>Ce dossier d'inscription dûment compléter (pièce justificatif compris ) devra nous être retourné impérativement.
+                <p>Ce dossier d'inscription dûment compléter (pièce justificatif compris ) devra nous être retourné
+                    impérativement.
                     DES QUE POSSIBLE par voie postal uniquement à l'adresse suivante.</p>
                 <p style="text-align: center">
                     IUT LYON1 SITE DE LA DOUA <br>
@@ -494,10 +501,13 @@
                     1 rue de la Technologie <br>
                     69622 VILLEURBANNE CEDEX
                 </p>
-                <p> Verifier puis imprimer le dossier pré-remplie : <a href="#" target="_blank">Cliquez ici si vous avez rempli le tableau ci-dessus</a> </p>
-                <p> Vous devrez joindre en plus du dossier les pièces demandé dans ce document : <a href="#" target="_blank">Pièce supplémentaire</a> </p>
+                <p> Verifier puis imprimer le dossier pré-remplie : <a href="#" target="_blank">Cliquez ici si vous avez
+                        rempli le tableau ci-dessus</a></p>
+                <p> Vous devrez joindre en plus du dossier les pièces demandé dans ce document : <a href="#"
+                                                                                                    target="_blank">Pièce
+                        supplémentaire</a></p>
             </div>
-        </div>
+            </div>
     {% elseif etudiant.DossierInscription.etatDossier == "4" %}
         <div class="row">
             <div id="actions" class="col-sm-12 container"> <h3 class="text-success">Etape 1 : Trouver une entreprise <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></h3> </div>
@@ -513,7 +523,7 @@
                 <h3> Etape 4 : Signature du contrat </h3>
                 <p> Après signature du contrat veuilllez donner un copie au secrétariat.</p>
             </div>
-        </div>
+            </div>
     {% endif %}
 
 
@@ -627,72 +637,116 @@
 
                         <div class="col-md-12">
 
-                            <div class="row">
-                                <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Civilite , ' Civilite : ') }} </strong></div>
-                                <div class="col-md-9">{{ form_widget(formModificationEtudiant.Civilite , {'attr': {'class': 'col-sm-12 form-inline'}}) }}</div>
+                            <div class="row margB10">
+                                <div class="col-md-3">
+                                    <strong>{{ form_label(formModificationEtudiant.Civilite , ' Civilite : ') }} </strong>
+                                </div>
+                                <div class="col-md-9">{{ form_widget(formModificationEtudiant.Civilite ,{'value' : etudiant.laPersone.sexe  }, {'attr': {'class': 'col-sm-12 form-inline'}}) }}</div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Prenom , ' Prenom : ') }}</strong></div>
+                            <div class="row margB10">
+                                <div class="col-md-3">
+                                    <strong>{{ form_label(formModificationEtudiant.Prenom , ' Prenom : ') }}</strong>
+                                </div>
                                 <div class="col-md-9">{{ form_widget(formModificationEtudiant.Prenom ,{'value' : etudiant.laPersone.prenom  } , {'attr': {'class': 'col-sm-12'}}) }}</div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Nom , ' Nom : ') }}</strong></div>
+                            <div class="row margB10">
+                                <div class="col-md-3">
+                                    <strong>{{ form_label(formModificationEtudiant.Nom , ' Nom : ') }}</strong></div>
                                 <div class="col-md-9">{{ form_widget(formModificationEtudiant.Nom ,{'value' :etudiant.laPersone.nom  } , {'attr': {'class': 'col-sm-12'}}) }}</div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Telephone , ' Telephone : ') }}</strong></div>
+                            <div class="row margB10">
+                                <div class="col-md-3">
+                                    <strong>{{ form_label(formModificationEtudiant.Telephone , ' Telephone : ') }}</strong>
+                                </div>
                                 <div class="col-md-9">{{ form_widget(formModificationEtudiant.Telephone ,{'value' : etudiant.laPersone.telephone  }, {'attr': {'class': 'col-sm-12'}}) }}</div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.DateNaissance , ' Date Naissance : ') }}</strong></div>
+                            <div class="row margB10">
+                                <div class="col-md-3">
+                                    <strong>{{ form_label(formModificationEtudiant.DateNaissance , ' Date Naissance : ') }}</strong>
+                                </div>
                                 <div class="col-md-9">{{ form_widget(formModificationEtudiant.DateNaissance ,{'value' : etudiant.dateNaissance |date('d-m-Y') }, {'attr': {'class': 'col-sm-12'}}) }}</div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.NumeroCiel2 , ' Numero Ciel2 : ') }}</strong></div>
+                            <div class="row margB10">
+                                <div class="col-md-3">
+                                    <strong>{{ form_label(formModificationEtudiant.NumeroCiel2 , ' Numero Ciel2 : ') }}</strong>
+                                </div>
                                 <div class="col-md-9">{{ form_widget(formModificationEtudiant.NumeroCiel2 ,{'value' : etudiant.numeroDossierCandidature  }, {'attr': {'class': 'col-sm-12'}}) }}</div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Email , ' Email : ') }}</strong></div>
+                            <div class="row margB10">
+                                <div class="col-md-3">
+                                    <strong>{{ form_label(formModificationEtudiant.Email , ' Email : ') }}</strong>
+                                </div>
                                 <div class="col-md-9">{{ form_widget(formModificationEtudiant.Email ,{'value' : etudiant.laPersone.mail  }, {'attr': {'class': 'col-sm-12'}}) }}</div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Nationalite , ' Nationalite : ') }}</strong></div>
+                            <div class="row margB10">
+                                <div class="col-md-3">
+                                    <strong>{{ form_label(formModificationEtudiant.Nationalite , ' Nationalite : ') }}</strong>
+                                </div>
                                 <div class="col-md-9">{{ form_widget(formModificationEtudiant.Nationalite ,{'value' : etudiant.nationalite  }, {'attr': {'class': 'col-sm-12'}}) }}</div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.VilleNaissance , ' VilleNaissance : ') }}</strong></div>
+                            <div class="row margB10">
+                                <div class="col-md-3">
+                                    <strong>{{ form_label(formModificationEtudiant.VilleNaissance , ' VilleNaissance : ') }}</strong>
+                                </div>
                                 <div class="col-md-9">{{ form_widget(formModificationEtudiant.VilleNaissance ,{'value' : etudiant.villeNaissance  }, {'attr': {'class': 'col-sm-12'}}) }}</div>
                             </div>
                             <hr>
                             {% if etudiant.laPersone.Adresse %}
                                 <div class="col-md-12"><h3>Adresse</h3></div>
-                                <div class="row">
-                                    <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Commune , ' Commune : ') }}</strong></div>
+                                <div class="row margB10">
+                                    <div class="col-md-3">
+                                        <strong>{{ form_label(formModificationEtudiant.Commune , ' Commune : ') }}</strong>
+                                    </div>
                                     <div class="col-md-9">{{ form_widget(formModificationEtudiant.Commune , {'value' :  etudiant.laPersone.Adresse.commune } , {'attr': {'class': 'col-sm-12'}}) }}</div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Adresse , ' Adresse : ') }}</strong></div>
+                                <div class="row margB10">
+                                    <div class="col-md-3">
+                                        <strong>{{ form_label(formModificationEtudiant.Adresse , ' Adresse : ') }}</strong>
+                                    </div>
                                     <div class="col-md-9">{{ form_widget(formModificationEtudiant.Adresse , {'value' :  etudiant.laPersone.Adresse.adresse } , {'attr': {'class': 'col-sm-12'}}) }}</div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.CodePostal , ' CodePostal : ') }}</strong></div>
+                                <div class="row margB10">
+                                    <div class="col-md-3">
+                                        <strong>{{ form_label(formModificationEtudiant.CodePostal , ' CodePostal : ') }}</strong>
+                                    </div>
                                     <div class="col-md-9">{{ form_widget(formModificationEtudiant.CodePostal , {'value' :  etudiant.laPersone.Adresse.codePostal } , {'attr': {'class': 'col-sm-12'}}) }}</div>
                                 </div>
                             {% else %}
                                 <div class="col-md-12"><h3>Adresse</h3></div>
-                                <div class="row">
+                                <div class="row margB10">
                                     <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Commune , ' Commune : ') }}</strong></div>
                                     <div class="col-md-9">{{ form_widget(formModificationEtudiant.Commune  , {'attr': {'class': 'col-sm-12'}}) }}</div>
                                 </div>
-                                <div class="row">
+                                <div class="row margB10">
                                     <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Adresse , ' Adresse : ') }}</strong></div>
                                     <div class="col-md-9">{{ form_widget(formModificationEtudiant.Adresse  , {'attr': {'class': 'col-sm-12'}}) }}</div>
                                 </div>
-                                <div class="row">
+                                <div class="row margB10">
                                     <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.CodePostal , ' CodePostal : ') }}</strong></div>
                                     <div class="col-md-9">{{ form_widget(formModificationEtudiant.CodePostal , {'attr': {'class': 'col-sm-12'}}) }}</div>
                                 </div>
                             {% endif %}
+                            <hr>
+                            <div class="col-md-12"><h3>Modifier mon mot de passe</h3></div>
+                            <div class="row margB10">
+                                <div class="col-md-3">
+                                    <strong>{{ form_label(formModificationEtudiant.verif_mdp , 'Verification du mot de passe : ') }}</strong>
+                                </div>
+                                <div class="col-md-9">{{ form_widget(formModificationEtudiant.verif_mdp  , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                            </div>
+                            <div class="row margB10">
+                                <div class="col-md-3">
+                                    <strong>{{ form_label(formModificationEtudiant.newPassword.first , 'Nouveau mot de passe : ') }}</strong>
+                                </div>
+                                <div class="col-md-9">{{ form_widget(formModificationEtudiant.newPassword.first  , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                            </div>
+                            <div class="row margB10">
+                                <div class="col-md-3">
+                                    <strong>{{ form_label(formModificationEtudiant.newPassword.second  , 'Répétez votre mot de passe : ') }}</strong>
+                                </div>
+                                <div class="col-md-9">{{ form_widget(formModificationEtudiant.newPassword.second  , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                            </div>
+                        </div>
 
                         </div>
 
