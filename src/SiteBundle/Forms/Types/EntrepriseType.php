@@ -6,6 +6,7 @@ namespace SiteBundle\Forms\Types;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -55,7 +56,12 @@ class EntrepriseType extends AbstractType
                 ],
                 'label' => 'E-mail du contact'
             ])
-            ->add('telephone')
+            ->add('telephone', NumberType::class, [
+                'label' => 'Telephone du contact',
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['min' => 10, 'max' => 12])]
+            ])
             ->add('Adresse', AdresseType::class,
                 array('label' => 'Localisation'))
             ->add('siteWeb', UrlType::class, array(

@@ -4,8 +4,13 @@ namespace SiteBundle\Controller;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use SiteBundle\Entity\Adresse;
+use SiteBundle\Entity\BacOuEquivalent;
+use SiteBundle\Entity\DernierDiplomeObtenu;
+use SiteBundle\Entity\DernierEtablissementFrequente;
 use SiteBundle\Entity\Etudiant;
 use SiteBundle\Entity\EtudiantOffre;
+use SiteBundle\Entity\InscriptionAutreEtablissement;
+use SiteBundle\Entity\PremiereInscription;
 use SiteBundle\Forms\Types\AjoutPdfEtu;
 use SiteBundle\Forms\Types\FichePreInscription;
 use SiteBundle\Forms\Types\ModifierEtudiant;
@@ -25,8 +30,10 @@ class EtudiantController extends Controller
         $repositoryOffre = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Offre');
         $repositoryEntreprise = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Entreprise');
         $repositoryDirigeant = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Dirigeant');
+
         $etudiant = $repositoryEtudiant->find($this->getUser()->getIdEtudiant());
         $offre  = $repositoryOffre->findBy(['Etudiant' => $this->getUser()->getIdEtudiant()]);
+
         if(!empty($offre[0])){
             $entreprise = $repositoryEntreprise->find($offre[0]->getEntreprise()->getId());
             $dirigeants = $repositoryDirigeant->findBy(array("Entreprise"=>$entreprise));
@@ -41,6 +48,7 @@ class EtudiantController extends Controller
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
             $formModificationEtudiant->handleRequest($request);
+            $formPreInscription->handleRequest($request);
             if ($form->isValid()) {
                 $date = new \DateTime();
                 $annee = $date->format('Y');
@@ -119,6 +127,106 @@ class EtudiantController extends Controller
                     $this->addFlash('success', "l'étudiant à été modifier !");
                 } catch (UniqueConstraintViolationException $exception) {
                     $this->addFlash('error', $data['Email'] . " est déjà associée à un autre compte.");
+                }
+
+            }
+
+
+            if ($formPreInscription->isValid() || $formPreInscription->isSubmitted()) {
+                $data = $formPreInscription->getData();
+                $em = $this->getDoctrine()->getManager();
+
+                $msg  = '';
+                $msgError = '';
+
+                $BacOuEquivalent = new BacOuEquivalent();
+                $BacOuEquivalent->setDossierInscription($etudiant->getDossierInscription());
+                $BacOuEquivalent->setIntitule($data["Intitule"]);
+                $BacOuEquivalent->setMention($data["Mention"]);
+                $BacOuEquivalent->setTypeEtablissementObtention($data["Type"]);
+                $BacOuEquivalent->setDepartementEtablissementObtention($data["Departement"]);
+                $BacOuEquivalent->setNomEtablissementObtention($data["Nom"]);
+
+
+                $em->persist($BacOuEquivalent);
+                try {
+                    $em->flush();
+                    $msg .= "Je pense que les informations liées au Bac ou équivalent ont été enregistré ";
+                } catch (UniqueConstraintViolationException $exception) {
+                    $msgError .=" Je pense que les informations liées au Bac ou équivalent ont été enregistré ";
+                }
+
+                $DernierEtablissementFrequente = new DernierEtablissementFrequente();
+                $DernierEtablissementFrequente->setDossierInscription($etudiant->getDossierInscription());
+                $DernierEtablissementFrequente->setNom($data["NomDernier"]);
+                $DernierEtablissementFrequente->setDepartement($data["DepartementDernier"]);
+                $DernierEtablissementFrequente->setAnnee($data["AnneDernier"]);
+                $DernierEtablissementFrequente->setType($data["TypeDernier"]);
+                $DernierEtablissementFrequente->setEstLyon1($data["isLyon"]);
+                $DernierEtablissementFrequente->setEstTransfert($data["isTransfert"]);
+
+                $em->persist($DernierEtablissementFrequente);
+                try {
+                    $em->flush();
+                    $msg .= "Je pense que les informations liées au Dernier Etablissement Frequente ont été enregistré ";
+                } catch (UniqueConstraintViolationException $exception) {
+                    $msgError .=" Je pense que les informations liées au Dernier Etablissement Frequente ont été enregistré  ";
+                }
+
+                $DernierDiplomeObtenu = new DernierDiplomeObtenu();
+                $DernierDiplomeObtenu->setDossierInscription($etudiant->getDossierInscription());
+                $DernierDiplomeObtenu->setEtablissement($data["EtablissementDernierDiplome"]);
+                $DernierDiplomeObtenu->setDepartement($data["DerpartementDernierDiplome"]);
+                $DernierDiplomeObtenu->setAnnee($data["AnneeDernierDiplome"]);
+                $DernierDiplomeObtenu->setLeDiplomeObtenue($data["IntituleDernierDiplome"]);
+
+                $em->persist($DernierDiplomeObtenu);
+                try {
+                    $em->flush();
+                    $msg .= "Je pense que les informations liées au Dernier Diplome Obtenu ont été enregistré ";
+                } catch (UniqueConstraintViolationException $exception) {
+                    $msgError .=" Je pense que les informations liées au Dernier Diplome Obtenu ont été enregistré ";
+                }
+
+                $InscriptionAutreEtablissement = new InscriptionAutreEtablissement();
+                $InscriptionAutreEtablissement->setDossierInscription($etudiant->getDossierInscription());
+                $InscriptionAutreEtablissement->setDepartmentEtablissement($data["DepartementAutreEtablissement"]);
+                $InscriptionAutreEtablissement->setNomEtablissement($data["NomAutreEtablissement"]);
+                $InscriptionAutreEtablissement->setTypeEtablissement($data["TypeAutreEtablissement"]);
+                $InscriptionAutreEtablissement->setAnneeEtablissement($data["AnneeAutreEtablissement"]);
+                $InscriptionAutreEtablissement->setCodeEtablissement($data["CodeAutreEtablissement"]);
+                $InscriptionAutreEtablissement->setEstInscrit($data["isInscrit"]);
+                $InscriptionAutreEtablissement->setEstInscriptionMaintenu($data["isInscriptionMainteanue"]);
+
+                $em->persist($InscriptionAutreEtablissement);
+                try {
+                    $em->flush();
+                    $msg .= "Je pense que les informations liées au Inscription Autre Etablissement ont été enregistré ";
+                } catch (UniqueConstraintViolationException $exception) {
+                    $msgError .=" Je pense que les informations liées au Inscription Autre Etablissement ont été enregistré ";
+                }
+
+                $PremiereInscription = new  PremiereInscription();
+                $PremiereInscription->setDossierInscription($etudiant->getDossierInscription());
+                $PremiereInscription->setAnneeInscriptionLyon1($data["AnneePremiereInscription"]);
+                $PremiereInscription->setAnneeUniversiteFrancaise($data["AnneeUniversitePremiereInscription"]);
+                $PremiereInscription->setNomUniversite($data["NomPremiereInscription"]);
+                $PremiereInscription->setAnneeEnseignementSuperieur($data["AnneeSUPPremiereInscription"]);
+
+                $em->persist($PremiereInscription);
+
+                try {
+                    $em->flush();
+                    $msg .= "Je pense que les informations liées au Premiere Inscription ont été enregistré ";
+                } catch (UniqueConstraintViolationException $exception) {
+                    $msgError .=" Je pense que les informations liées au  Premiere Inscription ont été enregistré ";
+                }
+
+                if( $msg != ''){
+                    $this->addFlash('success', $msg);
+                }
+                if( $msgError != ''){
+                    $this->addFlash('error', $msgError);
                 }
 
             }

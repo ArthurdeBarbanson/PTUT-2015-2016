@@ -4,6 +4,8 @@ namespace SiteBundle\Forms\Types;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -69,13 +71,8 @@ class FichePreInscription extends AbstractType
                     'placeholder' => 'Departement'
                 ]
             ])
-            ->add('AnneDernier', TextType::class, [
-                'constraints' => [
-                    new NotBlank()
-                ],
-                'attr' => [
-                    'placeholder' => 'Annee'
-                ]
+            ->add('AnneDernier', DateType::class, [
+                'widget' => 'single_text'
             ])
             ->add('TypeDernier', TextType::class, [
                 'constraints' => [
@@ -85,12 +82,18 @@ class FichePreInscription extends AbstractType
                     'placeholder' => 'Type'
                 ]
             ])
-            ->add('isLyon', CheckboxType::class, [
-                'label'    => 'Oui',
+            ->add('isLyon', ChoiceType::class, [
+                'choices' => array(' Oui ' => '1', 'Nom ' => '0'),
+                'label' => 'isLyon',
+                'multiple' => false,
+                'expanded' => true,
                 'required' => true
             ])
-            ->add('isTransfert', CheckboxType::class, [
-                'label'    => 'Oui',
+            ->add('isTransfert', ChoiceType::class, [
+                'choices' => array(' Oui ' => '1', 'Nom ' => '0'),
+                'label' => 'isTransfert',
+                'multiple' => false,
+                'expanded' => true,
                 'required' => true
             ])
             ->add('DerpartementDernierDiplome', TextType::class, [
@@ -101,13 +104,8 @@ class FichePreInscription extends AbstractType
                     'placeholder' => 'Departement'
                 ]
             ])
-            ->add('AnneeDernierDiplome', TextType::class, [
-                'constraints' => [
-                    new NotBlank()
-                ],
-                'attr' => [
-                    'placeholder' => 'Annee'
-                ]
+            ->add('AnneeDernierDiplome', DateType::class, [
+                'widget' => 'single_text'
             ])
             ->add('EtablissementDernierDiplome', TextType::class, [
                 'constraints' => [
@@ -149,13 +147,8 @@ class FichePreInscription extends AbstractType
                     'placeholder' => 'Departement'
                 ]
             ])
-            ->add('AnneeAutreEtablissement', TextType::class, [
-                'constraints' => [
-                    new NotBlank()
-                ],
-                'attr' => [
-                    'placeholder' => 'Annee'
-                ]
+            ->add('AnneeAutreEtablissement', DateType::class, [
+                'widget' => 'single_text'
             ])
             ->add('CodeAutreEtablissement', TextType::class, [
                 'constraints' => [
@@ -165,45 +158,36 @@ class FichePreInscription extends AbstractType
                     'placeholder' => 'Code'
                 ]
             ])
-            ->add('isInscrit', CheckboxType::class, [
-                'label'    => 'Oui',
+            ->add('isInscrit', ChoiceType::class, [
+                'choices' => array(' Oui ' => '1', 'Nom ' => '0'),
+                'label' => 'isInscrit',
+                'multiple' => false,
+                'expanded' => true,
                 'required' => true
             ])
-            ->add('isInscriptionMainteanue', CheckboxType::class, [
-                'label'    => 'Oui',
+            ->add('isInscriptionMainteanue', ChoiceType::class, [
+                'choices' => array(' Oui ' => '1', 'Nom ' => '0'),
+                'label' => 'isInscriptionMaintenue',
+                'multiple' => false,
+                'expanded' => true,
                 'required' => true
             ])
-            ->add('AnneePremiereInscription', TextType::class, [
-                'constraints' => [
-                    new NotBlank()
-                ],
-                'attr' => [
-                    'placeholder' => 'Annee'
-                ]
+            ->add('AnneePremiereInscription', DateType::class, [
+                'widget' => 'single_text'
             ])
-            ->add('AnneeUniversitePremiereInscription', TextType::class, [
-                'constraints' => [
-                    new NotBlank()
-                ],
-                'attr' => [
-                    'placeholder' => 'Annee'
-                ]
+            ->add('AnneeUniversitePremiereInscription',DateType::class, [
+                'widget' => 'single_text'
             ])
             ->add('NomPremiereInscription', TextType::class, [
                 'constraints' => [
                     new NotBlank()
                 ],
                 'attr' => [
-                    'placeholder' => 'Annee'
+                    'placeholder' => 'Nom'
                 ]
             ])
-            ->add('AnneeSUPPremiereInscription', TextType::class, [
-                'constraints' => [
-                    new NotBlank()
-                ],
-                'attr' => [
-                    'placeholder' => 'Annee'
-                ]
+            ->add('AnneeSUPPremiereInscription', DateType::class, [
+                'widget' => 'single_text'
             ])
 
 
