@@ -9,15 +9,20 @@ use SiteBundle\Entity\MAP;
 use SiteBundle\Entity\Offre;
 use SiteBundle\Entity\Personne;
 use SiteBundle\Entity\User;
+use SiteBundle\Forms\Types\AdresseType;
 use SiteBundle\Forms\Types\CreateAnnonce;
 use SiteBundle\Forms\Types\CreateMap;
 use SiteBundle\Forms\Types\EntrepriseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -289,9 +294,93 @@ class EntrepriseController extends Controller
 
     public function edditEntrepriseAction(Request $request)
     {
-        $entreprise = $this->getUser()->getIdEntreprise();
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Entreprise');
+
+        $entreprise = $repository->find($this->getUser()->getIdEntreprise());
 
 
+        $form = $this->createFormBuilder()
+            ->add('raisonSocial', TextType::class, [
+                'constraints' => [
+                    new NotBlank()
+                ] ,
+                'data' => $entreprise->getRaisonSocial()
+            ])
+            ->add('nom', TextType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['min' => 3])
+                ],
+                'label' => 'Nom du contact',
+                'data' => $entreprise->getNom()
+            ])
+            ->add('prenom', TextType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['min' => 3])
+                ],
+                'label' => 'Prenom du contact'                ,
+                'data' => $entreprise->getPrenom()
+            ])
+            ->add('mail', EmailType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    new Email([
+                        'strict'=> false,
+                        'checkMX'=>true,
+                        'checkHost'=>true
+                    ])
+                ],
+                'label' => 'E-mail du contact',
+                'data' => $entreprise->getMail()
+            ])
+            ->add('telephone', NumberType::class, [
+                'label' => 'Telephone du contact',
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['min' => 10, 'max' => 12])]
+            ])
+            ->add('Adresse', AdresseType::class,
+                array('label' => 'Localisation'))
+            ->add('siteWeb', UrlType::class, array(
+                'required' => false,
+                'data'=> $entreprise->getSiteWeb()
+            ))
+            ->add('nombrePersonne', IntegerType::class, [  'data' => $entreprise->getSiret()])
+            ->add('siret', TextType::class, [
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'data' => $entreprise->getSiret()
+            ])
+            ->add('aPE', TextType::class, [
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'data' => $entreprise->getAPE()
+            ])
+            ->add('description', TextareaType::class, [
+                'constraints' => [
+                    new NotBlank()
+                ],
+                'data' => $entreprise->getDescription()
+            ])
+            ->add('submit', SubmitType::class, ['label' => "S'inscrire",
+                    'attr' => ['class' => 'btn-primary']])
+            ->add('cancel', SubmitType::class, array(
+                'label' => 'Annulez',
+                'attr' => ['formnovalidate' => 'formnovalidate', 'class' => 'btn-default btn-lg col-lg-1 col-lg-offset-1', 'style' => "margin-top:20px"],
+
+            ))
+            ->getForm();
+
+        return $this->render(
+            'SiteBundle:Entreprise:modification_entreprise.html.twig:',
+            ['form' => $form->createView()]
+        );
     }
 
     public function inscriptionAction(Request $request)
