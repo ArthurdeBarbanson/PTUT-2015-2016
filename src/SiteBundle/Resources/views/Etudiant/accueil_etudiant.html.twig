@@ -586,14 +586,15 @@
                             <div class="col-md-3"><strong>Ville :</strong></div>
                             <div class="col-md-9">{{ entreprise.adresse.commune }}</div>
                             <div class="col-md-3"><strong>Pays :</strong></div>
-                            <div class="col-md-9">{{ entreprise.adresse.nomPays }} </div><br/>
+                            <div class="col-md-9">{{ entreprise.adresse.nomPays }} </div>
+
                             {% for dirigeant in dirigeants %}
-                                <div class="col-md-3"><strong>Nom du {{ dirigeant.fonction }} :</strong></div>
-                                <div class="col-md-9">{{ dirigeant.laPersone.nom }}</div>
-                                <div class="col-md-3"><strong>Prenom du {{ dirigeant.fonction }} :</strong></div>
-                                <div class="col-md-9">{{ dirigeant.laPersone.prenom }}</div>
-                                <div class="col-md-3"><strong>Mail du {{ dirigeant.fonction }} :</strong></div>
-                                <div class="col-md-9">{{ dirigeant.laPersone.mail }}</div>
+                                <div class="col-md-4"><strong>Nom du {{ dirigeant.fonction }} :</strong></div>
+                                <div class="col-md-8">{{ dirigeant.laPersone.nom }}</div>
+                                <div class="col-md-4"><strong>Prenom du {{ dirigeant.fonction }} :</strong></div>
+                                <div class="col-md-8">{{ dirigeant.laPersone.prenom }}</div>
+                                <div class="col-md-4"><strong>Mail du {{ dirigeant.fonction }} :</strong></div>
+                                <div class="col-md-8">{{ dirigeant.laPersone.mail }}</div>
 
                             {% endfor %}
 
