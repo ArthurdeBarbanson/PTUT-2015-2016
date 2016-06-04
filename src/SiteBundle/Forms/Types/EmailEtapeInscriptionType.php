@@ -24,7 +24,7 @@ class EmailEtapeInscriptionType extends AbstractType
             ->add('etape5', TextareaType::class)
             ->add('etape6', TextareaType::class)
             ->add('submit', SubmitType::class, [
-                'label' => 'Poster',
+                'label' => 'Modifier',
                 'attr' => ['class' => 'btn-primary btn-lg center-block', 'style' => "margin-top:20px"],
             ]);
         ;
