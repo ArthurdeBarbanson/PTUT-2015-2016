@@ -57,13 +57,6 @@ class Email
     private $port;
 
     /**
-     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\EmailEtapeInscription", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $etapeliste;
-
-
-    /**
      * Get id
      *
      * @return int
@@ -191,29 +184,5 @@ class Email
     public function getPort()
     {
         return $this->port;
-    }
-
-    /**
-     * Set etapeliste
-     *
-     * @param \SiteBundle\Entity\EmailEtapeInscription $etapeliste
-     *
-     * @return Email
-     */
-    public function setEtapeliste(\SiteBundle\Entity\EmailEtapeInscription $etapeliste = null)
-    {
-        $this->etapeliste = $etapeliste;
-
-        return $this;
-    }
-
-    /**
-     * Get etapeliste
-     *
-     * @return \SiteBundle\Entity\EmailEtapeInscription
-     */
-    public function getEtapeliste()
-    {
-        return $this->etapeliste;
     }
 }

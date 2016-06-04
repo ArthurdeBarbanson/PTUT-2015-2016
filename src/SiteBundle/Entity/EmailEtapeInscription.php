@@ -24,42 +24,42 @@ class EmailEtapeInscription
     /**
      * @var string
      *
-     * @ORM\Column(name="etape1", type="text", unique=true)
+     * @ORM\Column(name="etape1", type="text")
      */
     private $etape1;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="etape2", type="text", unique=true)
+     * @ORM\Column(name="etape2", type="text")
      */
     private $etape2;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="etape3", type="text", unique=true)
+     * @ORM\Column(name="etape3", type="text")
      */
     private $etape3;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="etape4", type="text", unique=true)
+     * @ORM\Column(name="etape4", type="text")
      */
     private $etape4;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="etape5", type="text", unique=true)
+     * @ORM\Column(name="etape5", type="text")
      */
     private $etape5;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="etape6", type="text", unique=true)
+     * @ORM\Column(name="etape6", type="text")
      */
     private $etape6;
 
@@ -218,3 +218,4 @@ class EmailEtapeInscription
         return $this->etape6;
     }
 }
+
