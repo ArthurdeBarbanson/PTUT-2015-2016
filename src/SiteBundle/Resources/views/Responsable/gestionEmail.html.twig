@@ -3,17 +3,7 @@
 
 <h3>gestion de mail des étapes</h3>
 
-    <form>
-        <textarea name="etape1" id="etape1"></textarea>
-        <textarea name="etape2" id="etape1"></textarea>
-        <textarea name="etape" id="etape1"></textarea>
-        <textarea name="etape1" id="etape1"></textarea>
-        <textarea name="etape1" id="etape1"></textarea>
-        <textarea name="etape1" id="etape1"></textarea>
-        <textarea name="etape1" id="etape1"></textarea>
-        <textarea name="etape1" id="etape1"></textarea>
-    </form>
-
+    {{ form(form_email) }}
 
 {% endblock %}
 
@@ -23,13 +13,13 @@
 <script>
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
-    CKEDITOR.replace( 'etape1' );
-    CKEDITOR.replace( 'etape2' );
-    CKEDITOR.replace( 'etape3' );
-    CKEDITOR.replace( 'etape4' );
-    CKEDITOR.replace( 'etape5' );
-    CKEDITOR.replace( 'etape6' );
-    CKEDITOR.replace( 'etape7' );
+    CKEDITOR.replace( 'email_etape_inscription_etape1' );
+    CKEDITOR.replace( 'email_etape_inscription_etape2' );
+    CKEDITOR.replace( 'email_etape_inscription_etape3' );
+    CKEDITOR.replace( 'email_etape_inscription_etape4' );
+    CKEDITOR.replace( 'email_etape_inscription_etape5' );
+    CKEDITOR.replace( 'email_etape_inscription_etape6' );
+    CKEDITOR.replace( 'email_etape_inscription_etape7' );
 </script>
 
 {% endblock %}

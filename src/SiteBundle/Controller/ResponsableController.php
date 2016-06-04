@@ -8,9 +8,12 @@ use SiteBundle\Entity\DossierInscription;
 use SiteBundle\Entity\Etudiant;
 use SiteBundle\Entity\Personne;
 use SiteBundle\Entity\User;
+use SiteBundle\Entity\EmailEtapeInscription;
+
 use SiteBundle\Forms\Types\AjoutEtudiantImport;
 use SiteBundle\Forms\Types\AjoutTuteur;
 use SiteBundle\Forms\Types\AssignerTuteur;
+use SiteBundle\Forms\Types\EmailEtapeInscriptionType;
 use SiteBundle\Forms\Types\ModifierAnnonceType;
 use SiteBundle\Forms\Types\RefuserAnnonceType;
 use SiteBundle\Forms\Types\SMTPType;
@@ -490,10 +493,11 @@ class ResponsableController extends Controller
 
     public function emailAction(){
 
-
+        $listeEmails=new EmailEtapeInscription();
+        $emailform=$this->createForm(EmailEtapeInscriptionType::class, $listeEmails);
 
         return $this->render('SiteBundle:Responsable:gestionEmail.html.twig', [
-//            'offres' => $offres,
+            'form_email' => $emailform->createView(),
 
         ]);
 
