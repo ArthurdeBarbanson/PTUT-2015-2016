@@ -27,7 +27,6 @@ class ResponsableController extends Controller
     {
         $typeLp= $this->getUser()->getTypeLicence();
 
-
         $repositoryOffre = $this
             ->getDoctrine()
             ->getManager()
@@ -37,10 +36,6 @@ class ResponsableController extends Controller
             ->getDoctrine()
             ->getManager()
             ->getRepository('SiteBundle:Etudiant');
-
-        if($typeLp == 'getTypeLicence'){
-
-        }
 
         switch($typeLp){
             case 'METINET':
@@ -492,4 +487,17 @@ class ResponsableController extends Controller
 
         return $this->redirect($this->generateUrl('acceuil_responsable'));
     }
+
+    public function emailAction(){
+
+
+
+        return $this->render('SiteBundle:Responsable:gestionEmail.html.twig', [
+//            'offres' => $offres,
+
+        ]);
+
+    }
+
+
 }

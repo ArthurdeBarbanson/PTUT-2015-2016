@@ -115,6 +115,9 @@
     <route id="validation_etat_etudiant" path="/responsable/validation-etape">
         <default key="_controller">SiteBundle:Responsable:validerEtatEtudiant</default>
     </route>
+    <route id="gestion_email" path="/responsable/email/etape">
+        <default key="_controller">SiteBundle:Responsable:email</default>
+    </route>
     <!--security-->
     <route id="login" path="/login">
         <default key="_controller">SiteBundle:Security:login</default>
