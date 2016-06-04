@@ -491,26 +491,34 @@ class ResponsableController extends Controller
         return $this->redirect($this->generateUrl('acceuil_responsable'));
     }
 
-    public function emailAction(){
+    public function emailAction(Request $request){
 
         $repository = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('SiteBundle:EmailEtapeInscription');
         $listeEmails=$repository->find(1);
-var_dump($listeEmails);
-
 
         $emailEtape=new EmailEtapeInscription();
-        $emailEtape->setEtape1($listeEmails['etape1']);
-        $emailEtape->setEtape2($listeEmails['etape2']);
-        $emailEtape->setEtape3($listeEmails['etape3']);
-        $emailEtape->setEtape4($listeEmails['etape4']);
-        $emailEtape->setEtape5($listeEmails['etape5']);
-        $emailEtape->setEtape6($listeEmails['etape6']);
-        $emailEtape->setEtape7($listeEmails['etape7']);
+        $emailEtape->setEtape1($listeEmails->getEtape1());
+        $emailEtape->setEtape2($listeEmails->getEtape2());
+        $emailEtape->setEtape3($listeEmails->getEtape3());
+        $emailEtape->setEtape4($listeEmails->getEtape4());
+        $emailEtape->setEtape5($listeEmails->getEtape5());
+        $emailEtape->setEtape6($listeEmails->getEtape6());
 
         $emailform=$this->createForm(EmailEtapeInscriptionType::class, $listeEmails);
+
+        $emailform->handleRequest($request);
+        if($emailform->isValid()){
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($emailEtape);
+            $em->flush();
+            $this->addFlash('info', "Les modifications on été enregistrer");
+
+        }
+
 
         return $this->render('SiteBundle:Responsable:gestionEmail.html.twig', [
             'form_email' => $emailform->createView(),

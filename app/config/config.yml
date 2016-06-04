@@ -65,11 +65,12 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
-    port:  "%mailer_port%"
+    transport: smtp
+    host:      smtp.iutinfobourg.fr
+    username:  noreply-suivilpmetinet@iutinfobourg.fr
+    password:  METINET01
+    port:  587
+    encryption: tls
     spool:     { type: memory }
 
 assetic:
