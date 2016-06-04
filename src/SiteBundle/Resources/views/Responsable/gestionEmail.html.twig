@@ -3,5 +3,33 @@
 
 <h3>gestion de mail des étapes</h3>
 
+    <form>
+        <textarea name="etape1" id="etape1"></textarea>
+        <textarea name="etape2" id="etape1"></textarea>
+        <textarea name="etape" id="etape1"></textarea>
+        <textarea name="etape1" id="etape1"></textarea>
+        <textarea name="etape1" id="etape1"></textarea>
+        <textarea name="etape1" id="etape1"></textarea>
+        <textarea name="etape1" id="etape1"></textarea>
+        <textarea name="etape1" id="etape1"></textarea>
+    </form>
+
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('ckeditor/config.js') }}"></script>
+<script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script>
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace( 'etape1' );
+    CKEDITOR.replace( 'etape2' );
+    CKEDITOR.replace( 'etape3' );
+    CKEDITOR.replace( 'etape4' );
+    CKEDITOR.replace( 'etape5' );
+    CKEDITOR.replace( 'etape6' );
+    CKEDITOR.replace( 'etape7' );
+</script>
 
 {% endblock %}
