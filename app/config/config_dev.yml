@@ -31,7 +31,7 @@ monolog:
         #    level:  info
 
 swiftmailer:
-#    delivery_address: me@example.com
+    delivery_address: noreply-suivilpmetinet@iutinfobourg.fr
     host:      smtp.iutinfobourg.fr
     username:  noreply-suivilpmetinet@iutinfobourg.fr
     password:  METINET01
