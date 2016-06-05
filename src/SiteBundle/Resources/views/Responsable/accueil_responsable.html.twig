@@ -152,7 +152,7 @@
 
                                 <td  class="text-center">
                                     {% if etudiant.DossierInscription.etatDossier == '2' %}
-                                        <button class="btn btn-primary" id="validationEtape2" >A Valider</button>
+                                        <button onclick="validerEtape({{ etudiant.id }})" class="btn btn-primary validationEtape2" >A Valider</button>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -172,16 +172,26 @@
 {% block javascripts %}
 <script type="text/javascript">
 
-    $(function(){
-       $('#validationEtape2').click(function(){
-           {#$.post("{{path('validation_etat_etudiant'}}");#}
-           $.ajax({
-               {#url: "{{path("validation_etat_etudiant"}}",#}
-               type: "post"
-           });
+    function validerEtape(id){
+        $('.validationEtape2').click(function(){
+            {#$.post("{{path('validation_etat_etudiant'}}");#}
+            $.ajax({
+                type: 'POST',
+                url: "{{ path('validation_etat_etudiant')}} ",
+                data: { 'EtudiantId': id},
+                success:function(data){
+                    $('#menu1 .panel-body').html(data);
+                    console.log('success !');
 
-           console.log('Click !!');
-       });
+                }
+
+            });
+
+            console.log('Click !!');
+        });
+    }
+    $(function(){
+
     });
 
     $(function(){
