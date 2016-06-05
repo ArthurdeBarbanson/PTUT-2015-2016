@@ -175,10 +175,12 @@
     $(function(){
        $('#validationEtape2').click(function(){
            {#$.post("{{path('validation_etat_etudiant'}}");#}
-           {#$.ajax({#}
+           $.ajax({
                {#url: "{{path("validation_etat_etudiant"}}",#}
-               {#type: "post"#}
-           {#});#}
+               type: "post"
+           });
+
+           console.log('Click !!');
        });
     });
 
