@@ -320,6 +320,7 @@ class ResponsableController extends Controller
             $data2 = $formulaire->getData();
 
             // en attente serveur smtp
+//            $this->get('site.mailer')->sendMessage('');
 
             $message = \Swift_Message::newInstance()
                 ->setSubject('Refuse de validation')
