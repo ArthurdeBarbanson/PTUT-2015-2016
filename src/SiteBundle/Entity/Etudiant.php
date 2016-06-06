@@ -79,6 +79,14 @@ class Etudiant
      * @ORM\Column(name="NumeroDossierCandidature", type="string", length=255, nullable=true)
      */
     private $numeroDossierCandidature;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="DossierAdmission", type="string", length=255, nullable=true)
+     */
+    private $dossierAdmission;
+
     /**
      * @var bool
      *
@@ -86,11 +94,18 @@ class Etudiant
      */
     private $statut;
 
+    /**
+     * @var boolean $isAdmissible
+     *
+     * @ORM\Column(name="isAdmissible", type="boolean")
+     */
+    private $isAdmissible = false;
+
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -113,7 +128,7 @@ class Etudiant
     /**
      * Get dateNaissance
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateNaissance()
     {
@@ -136,7 +151,7 @@ class Etudiant
     /**
      * Get cV
      *
-     * @return string 
+     * @return string
      */
     public function getCV()
     {
@@ -159,7 +174,7 @@ class Etudiant
     /**
      * Get typeLicence
      *
-     * @return string 
+     * @return string
      */
     public function getTypeLicence()
     {
@@ -183,7 +198,7 @@ class Etudiant
     /**
      * Get villeNaissance
      *
-     * @return string 
+     * @return string
      */
     public function getVilleNaissance()
     {
@@ -206,7 +221,7 @@ class Etudiant
     /**
      * Get nationalite
      *
-     * @return string 
+     * @return string
      */
     public function getNationalite()
     {
@@ -229,7 +244,7 @@ class Etudiant
     /**
      * Get numeroDossierCandidature
      *
-     * @return string 
+     * @return string
      */
     public function getNumeroDossierCandidature()
     {
@@ -375,5 +390,53 @@ class Etudiant
     public function getSession()
     {
         return $this->Session;
+    }
+
+    /**
+     * Set dossierAdmission
+     *
+     * @param string $dossierAdmission
+     *
+     * @return Etudiant
+     */
+    public function setDossierAdmission($dossierAdmission)
+    {
+        $this->dossierAdmission = $dossierAdmission;
+
+        return $this;
+    }
+
+    /**
+     * Get dossierAdmission
+     *
+     * @return string
+     */
+    public function getDossierAdmission()
+    {
+        return $this->dossierAdmission;
+    }
+
+    /**
+     * Set isAdmissible
+     *
+     * @param boolean $isAdmissible
+     *
+     * @return Etudiant
+     */
+    public function setIsAdmissible($isAdmissible)
+    {
+        $this->isAdmissible = $isAdmissible;
+
+        return $this;
+    }
+
+    /**
+     * Get isAdmissible
+     *
+     * @return boolean
+     */
+    public function getIsAdmissible()
+    {
+        return $this->isAdmissible;
     }
 }
