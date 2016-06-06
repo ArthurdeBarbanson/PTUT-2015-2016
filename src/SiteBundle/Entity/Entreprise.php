@@ -62,7 +62,7 @@ class Entreprise
      *
      * @Assert\Regex(
      *     pattern="/[0-9]{14}/",
-     *     message="Le numéro siret est invalide."
+     *     message="Le numéro siret est invalide. Il doit comporter 14 caractères."
      * )
      *
      * @ORM\Column(name="Siret", type="string", length=50)
@@ -92,6 +92,11 @@ class Entreprise
 
     /**
      * @var string
+     *
+     * * @Assert\Regex(
+     *     pattern="/[0-9]{10-12}/",
+     *     message="Le numéro de téléphone est invalide."
+     * )
      *
      * @ORM\Column(name="Telephone", type="string", length=50)
      */
