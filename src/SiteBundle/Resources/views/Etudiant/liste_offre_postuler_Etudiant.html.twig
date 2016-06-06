@@ -36,7 +36,7 @@
                                     <button class="btn dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span> </button>
                                     <ul class="dropdown-menu">
                                         <li><a href="{{ path('site_accepterOffreEtudiant', {'annonceId': offre.offre.id}) }}">Valider cette offre <span class="glyphicon glyphicon-ok"></span></a></li>
-                                        <li><a href="{{ path('site_refuserOffreEtudiant', {'annonceId': offre.offre.id}) }}">Refuser cette offre <span class="glyphicon glyphicon-ok"></span></a></li>
+                                        <li><a href="{{ path('site_refuserOffreEtudiant', {'annonceId': offre.id}) }}">Refuser cette offre <span class="glyphicon glyphicon-remove"></span></a></li>
 
                                     </ul>
                                 </div>
@@ -80,10 +80,10 @@
     <div id="menu2" class="tab-pane fade">
     <div class="panel panel-info">
         <div class="panel-heading">
-            <h3>Annonces où vous avez été refusé</h3>
+            <h3>Annonces refusées</h3>
         </div>
         <div class="panel-body">
-            <p>Voici les annonces où vous avez postulés et où vous n'avez pas eté retenu ou bien </p>
+            <p>Voici les annonces où vous avez postulés et où vous n'avez pas eté retenu ou bien les annonces que vous avez refusées.</p>
 
 
             <table class="table table-bordered">

@@ -15,7 +15,6 @@ use SiteBundle\Forms\Types\AjoutPdfEtu;
 use SiteBundle\Forms\Types\FichePreInscription;
 use SiteBundle\Forms\Types\ModifierEtudiant;
 use SiteBundle\Forms\Types\MotDePasseEtudiant;
-use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
@@ -353,8 +352,8 @@ class EtudiantController extends Controller
 
             if($etuoffre->getEtudiant()!=$etudiant){
                 if ($etuoffre->getEtat()=="Attente Etudiant"){
-                    $message = Swift_Message::newInstance()
-                        ->setSubject("Validation Alternant LP".$offre->getLicenceConcerne())
+                    $message = \Swift_Message::newInstance()
+                        ->setSubject("Alternant LP".$offre->getLicenceConcerne())
                         ->setFrom('arthurdebarbanson@gmail.com')
                         ->setTo($offre->getEntreprise()->getMail())
                         ->setBody("Madame, Monsieur " . $offre->getEntreprise()->getNom().". L'etudiant" . $etudiant->getLaPersone()->getNom() . $etudiant->getLaPersone()->getPrenom()
@@ -368,7 +367,7 @@ class EtudiantController extends Controller
             }
             $em->flush();
         }
-        $message = Swift_Message::newInstance()
+        $message = \Swift_Message::newInstance()
             ->setSubject("Validation Alternant LP".$offre->getLicenceConcerne())
             ->setFrom('arthurdebarbanson@gmail.com')
             ->setTo($offre->getEntreprise()->getMail())
@@ -376,7 +375,7 @@ class EtudiantController extends Controller
                 . "a egalement validez votre offre. L'etudiant doit maintenant s'inscrire au pret de l'ecole et de formasup. Une fois ces étapes terminées le contrat sera alors mis en place. Cordialement");
         $this->get('mailer')->send($message);
 
-        $message = Swift_Message::newInstance()
+        $message = \Swift_Message::newInstance()
             ->setSubject("[".$offre->getLicenceConcerne()."] Changement Etape " . $etudiant->getLaPersone()->getNom() . $etudiant->getLaPersone()->getPrenom() )
             ->setFrom('arthurdebarbanson@gmail.com')
             ->setTo("iut@yopmail.fr")
@@ -389,13 +388,22 @@ class EtudiantController extends Controller
     public function refuserAnnonceAction($annonceId)
     {
         $em = $this->getDoctrine()->getManager();
-        $repositoryOffre = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Offre');
-        $offre = $repositoryOffre->find($annonceId);
-        $offre->setEtatOffre("Pourvue");
+        $repositoryOffreetu= $this->getDoctrine()->getManager()->getRepository('SiteBundle:EtudiantOffre');
+        $offreetu = $repositoryOffreetu->find($annonceId);
+        $offreetu->setEtat("Refuser");
+        $repositoryEtudiant = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
+        $etudiant = $repositoryEtudiant->find($this->getUser()->getIdEtudiant());
         $em->flush();
-
-        return $this->redirect($this->generateUrl('site_accueilEtudiant'));
+        $message = \Swift_Message::newInstance()
+            ->setSubject("Alternant LP".$offreetu->getOffre()->getLicenceConcerne())
+            ->setFrom('arthurdebarbanson@gmail.com')
+            ->setTo($offreetu->getOffre()->getEntreprise()->getMail())
+            ->setBody("Madame, Monsieur " . $offreetu->getOffre()->getEntreprise()->getNom().". L'etudiant" . $etudiant->getLaPersone()->getNom() . $etudiant->getLaPersone()->getPrenom()
+                . "à finalement refuser votre offre ou bien accepter une autre offre. Votre annonce reste donc en ligne. Cordialement");
+        $this->get('mailer')->send($message);
+        return $this->redirect($this->generateUrl('site_listeOffrePostulerEtudiant'));
     }
+
     public function impressionDossierInsciptionAction(Request $request)
     {
         $dossierID = $request->get('dossierId');

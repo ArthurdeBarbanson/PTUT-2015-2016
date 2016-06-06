@@ -75,7 +75,7 @@
     <route id="site_accepterOffreEtudiant" path="/etudiant/accepter_offre/{annonceId}">
         <default key="_controller">SiteBundle:Etudiant:accepterAnnonce</default>
     </route>
-    <route id="site_accepterOffreEtudiant" path="/etudiant/refuser_offre/{annonceId}">
+    <route id="site_refuserOffreEtudiant" path="/etudiant/refuser_offre/{annonceId}">
         <default key="_controller">SiteBundle:Etudiant:refuserAnnonce</default>
     </route>
     <route id="site_accueilEtudiant" path="/etudiant">
