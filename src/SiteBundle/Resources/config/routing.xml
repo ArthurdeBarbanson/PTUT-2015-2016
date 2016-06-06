@@ -89,6 +89,9 @@
     <route id="site_impressionAnnonceEtudiant" path="/etudiant/impression_annonce/{annonceId}">
         <default key="_controller">SiteBundle:Default:impressionAnnonce</default>
     </route>
+    <route id="site_impressionAnnonceEtudiant" path="/etudiant/impression_dossier/{dossierId}">
+        <default key="_controller">SiteBundle:Default:impressionAnnonce</default>
+    </route>
 
     <!--Responsable-->
     <route id="responsableAjoutEtudiant" path="/responsable/ajout/etudiant">

@@ -366,7 +366,7 @@ class EtudiantController extends Controller
 
     public function impressionDossierInsciptionAction(Request $request)
     {
-        $dossierID = $request->get('postulantId');
+        $dossierID = $request->get('dossierId');
         $repository = $this
             ->getDoctrine()
             ->getManager()
