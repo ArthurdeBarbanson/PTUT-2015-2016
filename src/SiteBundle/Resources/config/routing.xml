@@ -95,6 +95,10 @@
         <default key="_controller">SiteBundle:Responsable:ajoutEtudiant</default>
     </route>
 
+    <route id="responsableAjoutPromotion" path="/responsable/ajout/promotion">
+        <default key="_controller">SiteBundle:Responsable:ajoutPromotion</default>
+    </route>
+
     <route id="acceuil_responsable" path="/responsable">
         <default key="_controller">SiteBundle:Responsable:accueil</default>
     </route>
