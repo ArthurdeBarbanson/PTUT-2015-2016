@@ -11,6 +11,7 @@ use SiteBundle\Entity\User;
 use SiteBundle\Entity\EmailEtapeInscription;
 
 use SiteBundle\Forms\Types\AjoutEtudiantImport;
+use SiteBundle\Forms\Types\AjoutPromotionType;
 use SiteBundle\Forms\Types\AjoutTuteur;
 use SiteBundle\Forms\Types\AssignerTuteur;
 use SiteBundle\Forms\Types\EmailEtapeInscriptionType;
@@ -208,6 +209,20 @@ class ResponsableController extends Controller
         return $this->render('SiteBundle:Responsable:ajoutEtudiant.html.twig', [
             'form' => $form->createView(),
             'formImport' => $formImport->createView(),
+        ]);
+    }
+
+    public function ajoutPromotionAction(Request $request)
+    {
+        $form = $this->createForm(AjoutPromotionType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+        }
+
+        return $this->render('SiteBundle:Responsable:ajouter_promo.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
