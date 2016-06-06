@@ -44,5 +44,10 @@
             <argument type="service" id="doctrine.dbal.default_connection" />
         </service>
 
+        <service id="site.mailer" class="SiteBundle\Service\Email">
+            <argument type="service" id="mailer" />
+            <argument type="service" id="templating" />
+        </service>
+
     </services>
 </container>

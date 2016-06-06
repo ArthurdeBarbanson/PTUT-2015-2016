@@ -24,64 +24,6 @@
 
     <div class="tab-content">
         <div id="home" class="tab-pane fade in active">
-
-                <div class="panel panel-danger">
-                    <div class="panel-heading">
-                        <h3>offres en attente de validation</h3>
-                    </div>
-                    <div class="panel-body ">
-                        <table class="table table-bordered">
-                            <tr>
-                                <th class="col-md-2">Date</th>
-                                <th class="col-md-2">Titre de l'offre</th>
-                                <th class="col-md-2 text-center">Entreprise</th>
-                                <th class="col-md-2 text-center">Maître de stage</th>
-                                <th class="col-md-2 text-center">Etat de l'offre</th>
-                                <th class="col-md-2 text-center">Action</th>
-                            </tr>
-
-                            {% for offre in offres %}
-                                {% if offre.etatOffre == 'En attente de validation' %}
-                                    <tr>
-                                        <td>{{ offre.DateDepot |date('d-m-Y') }}</td>
-                                        <td>{{ offre.Entreprise.raisonSocial}}</td>
-                                        <td class="text-center">{{ offre.entreprise.RaisonSocial }}</td>
-                                        <td class="text-center">{{ offre.entreprise.Prenom }} {{ offre.entreprise.Nom }}</td>
-                                        <td class="text-center">
-                                            <p class="text-danger">{{ offre.etatOffre }}</p>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="{{ path('site_detailsAnnonceResponsable', {'offreId': offre.id }) }}"
-                                               class="btn  btn-primary">A Valider</a>
-                                        </td>
-
-                                    </tr>
-                                {% elseif offre.etatOffre == 'En attente de modification'  %}
-                                    <tr>
-                                        <td>{{ offre.DateDepot |date('d-m-Y') }}</td>
-                                        <td>{{ offre.Titre }}</td>
-                                        <td class="text-center">{{ offre.entreprise.RaisonSocial }}</td>
-                                        <td class="text-center">{{ offre.entreprise.Prenom }} {{ offre.entreprise.Nom }}</td>
-                                        <td class="text-center">
-                                            <p class="text-warning">{{ offre.etatOffre }}</p>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="{{ path('site_detailsAnnonceResponsable', {'offreId': offre.id }) }}"
-                                               class="btn  btn-primary">A Valider</a>
-                                        </td>
-
-                                    </tr>
-                                {% endif %}
-                            {% endfor %}
-                        </table>
-                    </div>
-
-            </div>
-
-        </div>
-
-        <div id="menu1" class="tab-pane fade">
-
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3>Liste des étudiants</h3>
@@ -108,13 +50,13 @@
                                     <td><p class="text-warning">Cherche une entreprise</p></td>
 
                                 {% elseif etudiant.DossierInscription.etatDossier == '2'  %}
-                                <td><p class="text-danger">Pré-inscription du Contrat</p></td>
+                                    <td><p class="text-danger">Pré-inscription du Contrat</p></td>
 
                                 {% elseif etudiant.DossierInscription.etatDossier == '3'  %}
-                                <td><p class="text-info">Dossier inscription pédagogique</p></td>
+                                    <td><p class="text-info">Dossier inscription pédagogique</p></td>
 
                                 {% elseif etudiant.DossierInscription.etatDossier == '4'  %}
-                                <td><p class="text-success">Signature du contrat</p></td>
+                                    <td><p class="text-success">Signature du contrat</p></td>
                                 {% endif %}
 
                                 {% set entreprise = 'false' %}
@@ -143,16 +85,17 @@
 
                                 <td>
                                     {% if etudiant.leTuteur is empty %}
-                                    <p class="text-danger" >Aucun tuteur assigné à cet etudiant</p>
+                                        <p class="text-danger" >Aucun tuteur assigné à cet etudiant</p>
                                     {% else %}
-                                    <p>{{ etudiant.leTuteur.nom }} {{ etudiant.leTuteur.prenom }}</p>
+                                        <p>{{ etudiant.leTuteur.nom }} {{ etudiant.leTuteur.prenom }}</p>
                                     {% endif %}
                                     <p><a href="{{ path('site_AssigneTuteurResponsable', {'etudiantId': etudiant.id }) }}">Assigner un tuteur à l'etudiant</a></p>
                                 </td>
 
                                 <td  class="text-center">
                                     {% if etudiant.DossierInscription.etatDossier == '2' %}
-                                        <button class="btn btn-primary" id="validationEtape2" >A Valider</button>
+                                        <p><a href="{{ path('validation_etat_etudiant', {'EtudiantId': etudiant.id }) }}" class="btn btn-primary">Valider étape 2</a></p>
+                                        {#<button onclick="validerEtape({{ etudiant.id }})" class="btn btn-primary validationEtape2" >A Valider</button>#}
                                     {% endif %}
                                 </td>
                             </tr>
@@ -160,6 +103,64 @@
                     </table>
                 </div>
             </div>
+
+        </div>
+
+        <div id="menu1" class="tab-pane fade">
+
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3>offres en attente de validation</h3>
+                </div>
+                <div class="panel-body ">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="col-md-2">Date</th>
+                            <th class="col-md-2">Titre de l'offre</th>
+                            <th class="col-md-2 text-center">Entreprise</th>
+                            <th class="col-md-2 text-center">Maître de stage</th>
+                            <th class="col-md-2 text-center">Etat de l'offre</th>
+                            <th class="col-md-2 text-center">Action</th>
+                        </tr>
+
+                        {% for offre in offres %}
+                            {% if offre.etatOffre == 'En attente de validation' %}
+                                <tr>
+                                    <td>{{ offre.DateDepot |date('d-m-Y') }}</td>
+                                    <td>{{ offre.Entreprise.raisonSocial}}</td>
+                                    <td class="text-center">{{ offre.entreprise.RaisonSocial }}</td>
+                                    <td class="text-center">{{ offre.entreprise.Prenom }} {{ offre.entreprise.Nom }}</td>
+                                    <td class="text-center">
+                                        <p class="text-danger">{{ offre.etatOffre }}</p>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ path('site_detailsAnnonceResponsable', {'offreId': offre.id }) }}"
+                                           class="btn  btn-primary">A Valider</a>
+                                    </td>
+
+                                </tr>
+                            {% elseif offre.etatOffre == 'En attente de modification'  %}
+                                <tr>
+                                    <td>{{ offre.DateDepot |date('d-m-Y') }}</td>
+                                    <td>{{ offre.Titre }}</td>
+                                    <td class="text-center">{{ offre.entreprise.RaisonSocial }}</td>
+                                    <td class="text-center">{{ offre.entreprise.Prenom }} {{ offre.entreprise.Nom }}</td>
+                                    <td class="text-center">
+                                        <p class="text-warning">{{ offre.etatOffre }}</p>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ path('site_detailsAnnonceResponsable', {'offreId': offre.id }) }}"
+                                           class="btn  btn-primary">A Valider</a>
+                                    </td>
+
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+
+            </div>
+
         </div>
         <div id="menu2" class="tab-pane fade">
             <h3>Parametre SMTP</h3>
@@ -167,24 +168,4 @@
             <p></p>
         </div>
     </div>
-{% endblock %}
-
-{% block javascripts %}
-<script type="text/javascript">
-
-    $(function(){
-       $('#validationEtape2').click(function(){
-           {#$.post("{{path('validation_etat_etudiant'}}");#}
-           {#$.ajax({#}
-               {#url: "{{path("validation_etat_etudiant"}}",#}
-               {#type: "post"#}
-           {#});#}
-       });
-    });
-
-    $(function(){
-//        $.post()
-    });
-
-</script>
 {% endblock %}

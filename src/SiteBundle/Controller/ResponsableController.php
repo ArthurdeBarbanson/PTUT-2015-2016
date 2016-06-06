@@ -323,6 +323,7 @@ class ResponsableController extends Controller
             $data2 = $formulaire->getData();
 
             // en attente serveur smtp
+//            $this->get('site.mailer')->sendMessage('');
 
             $message = \Swift_Message::newInstance()
                 ->setSubject('Refuse de validation')
@@ -464,7 +465,7 @@ class ResponsableController extends Controller
         $em->persist($etudiant);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('acceuil_responsable'));
+        return $this->redirectToRoute('acceuil_responsable');
     }
 
     public function emailAction(Request $request){
@@ -494,8 +495,6 @@ class ResponsableController extends Controller
             $this->addFlash('info', "Les modifications on été enregistrer");
 
         }
-
-
         return $this->render('SiteBundle:Responsable:gestionEmail.html.twig', [
             'form_email' => $emailform->createView(),
         ]);
