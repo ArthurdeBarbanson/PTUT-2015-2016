@@ -2,6 +2,7 @@
 
 namespace SiteBundle\Forms\Types;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -38,6 +39,12 @@ class AjoutEtudiant extends AbstractType
                 'expanded' => true,
                 'preferred_choices' => array('Aucune'),
             ))
+            ->add('promo', EntityType::class, [
+                'label' => 'Promotion',
+                'choices' => $options['data'],
+                'class' => 'SiteBundle\Entity\Session',
+                'choice_label' => 'anneeScolaire',
+            ])
             ->add('submit', SubmitType::class, ['label' => "Ajouter", 'attr' => ['class' => 'btn-primary']]);
     }
 }

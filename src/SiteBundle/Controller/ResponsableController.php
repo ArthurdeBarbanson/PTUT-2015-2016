@@ -115,15 +115,16 @@ class ResponsableController extends Controller
 
     public function ajoutEtudiantAction(Request $request)
     {
-        $form = $this->createForm(AjoutEtudiant::class);
-        $formImport = $this->createForm(AjoutEtudiantImport::class);
+        $em = $this->getDoctrine()->getManager();
+        $promos = $em->getRepository('SiteBundle:Session')->findAll();
+        $form = $this->createForm(AjoutEtudiant::class, $promos);
+        $formImport = $this->createForm(AjoutEtudiantImport::class, $promos);
 
         $form->handleRequest($request);
         $formImport->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $em = $this->getDoctrine()->getManager();
             $randomPassword = random_bytes(10);
 
             //set personne
@@ -141,6 +142,7 @@ class ResponsableController extends Controller
             $etudiant->setLaPersone($personne);
             $etudiant->setTypeLicence($data['Lpconcerne']);
             $etudiant->setInscription($dossier);
+            $etudiant->setSession($data['promo']);
             //set user
             $user = new User();
             $user->setUsername($data['Email']);
@@ -177,6 +179,7 @@ class ResponsableController extends Controller
                         $randomPassword = random_bytes(10);
                         //set user
                         $user = new User();
+                        $etudiant->setSession($data['promo']);
                         $user->setUsername($etudiant->getLaPersone()->getMail());
                         $encoder = $this->get('security.password_encoder');
                         $encoded = $encoder->encodePassword($user, $randomPassword);
