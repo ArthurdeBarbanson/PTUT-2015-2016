@@ -372,6 +372,7 @@ class EtudiantController extends Controller
             ->getManager()
             ->getRepository('SiteBundle:DossierInscription');
 
+
         $Dossier = $repository->find($dossierID);
         //si l'annonce n'es pas trouvé
         if (null === $Dossier) {
