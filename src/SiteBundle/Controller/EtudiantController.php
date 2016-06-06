@@ -357,14 +357,14 @@ class EtudiantController extends Controller
                         ->setSubject("Validation Alternant LP".$offre->getLicenceConcerne())
                         ->setFrom('arthurdebarbanson@gmail.com')
                         ->setTo($offre->getEntreprise()->getMail())
-                        ->setBody("Madame, Monsieur " . $offre->getEntreprise()->getNom().". J'ai le plaisir de vous annoncez que l'etudiant" . $etudiant->getLaPersone()->getNom() . $etudiant->getLaPersone()->getPrenom()
-                            . "a egalement validez votre offre. L'etudiant doit maintenant s'inscrire au pret de l'ecole et de formasup. Une fois ces étapes terminées le contrat sera alors mis en place. Cordialement");
+                        ->setBody("Madame, Monsieur " . $offre->getEntreprise()->getNom().". L'etudiant" . $etudiant->getLaPersone()->getNom() . $etudiant->getLaPersone()->getPrenom()
+                            . "à finalement refuser votre offre ou bien accepter une autre offre. Votre annonce reste donc en ligne. Cordialement");
                     $this->get('mailer')->send($message);
 
                 }
                 $etuoffre->setEtat("Refuser");
 
-
+                $em->flush();
             }
             $em->flush();
         }
@@ -388,6 +388,13 @@ class EtudiantController extends Controller
 
     public function refuserAnnonceAction($annonceId)
     {
+        $em = $this->getDoctrine()->getManager();
+        $repositoryOffre = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Offre');
+        $offre = $repositoryOffre->find($annonceId);
+        $offre->setEtatOffre("Pourvue");
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('site_accueilEtudiant'));
     }
     public function impressionDossierInsciptionAction(Request $request)
     {
