@@ -26,6 +26,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -217,12 +218,12 @@ class EntrepriseController extends Controller
                 ))
                 ->add('submit', SubmitType::class, [
                     'label' => 'Poster',
-                    'attr' => ['class' => 'btn-primary btn-lg  col-lg-1 col-lg-offset-4', 'style' => "margin-top:20px"],
+                    'attr' => ['class' => 'btn-primary margTop10'],
 
                 ])
                 ->add('cancel', SubmitType::class, array(
                     'label' => 'Annulez',
-                    'attr' => ['formnovalidate' => 'formnovalidate', 'class' => 'btn-default btn-lg col-lg-1 col-lg-offset-1', 'style' => "margin-top:20px"],
+                    'attr' => ['formnovalidate' => 'formnovalidate', 'class' => 'btn-default margTop10'],
 
                 ))
                 ->getForm();
@@ -294,10 +295,8 @@ class EntrepriseController extends Controller
 
     public function edditEntrepriseAction(Request $request)
     {
-        $repository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:Entreprise');
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('SiteBundle:Entreprise');
 
         $entreprise = $repository->find($this->getUser()->getIdEntreprise());
 
@@ -306,14 +305,13 @@ class EntrepriseController extends Controller
             ->add('raisonSocial', TextType::class, [
                 'constraints' => [
                     new NotBlank()
-                ] ,
+                ],
                 'data' => $entreprise->getRaisonSocial()
             ])
-            ->add('nom', TextType::class, [
-                'constraints' => [
-                    new NotBlank(),
-                    new Length(['min' => 3])
-                ],
+            ->add('nom', TextType::class,['constraints' => [
+                new NotBlank(),
+                new Length(['min' => 3])
+            ],
                 'label' => 'Nom du contact',
                 'data' => $entreprise->getNom()
             ])
@@ -322,34 +320,34 @@ class EntrepriseController extends Controller
                     new NotBlank(),
                     new Length(['min' => 3])
                 ],
-                'label' => 'Prenom du contact'                ,
+                'label' => 'Prenom du contact',
                 'data' => $entreprise->getPrenom()
             ])
             ->add('mail', EmailType::class, [
                 'constraints' => [
                     new NotBlank(),
                     new Email([
-                        'strict'=> false,
-                        'checkMX'=>true,
-                        'checkHost'=>true
+                        'strict' => false,
+                        'checkMX' => true,
+                        'checkHost' => true
                     ])
                 ],
                 'label' => 'E-mail du contact',
                 'data' => $entreprise->getMail()
             ])
-            ->add('telephone', NumberType::class, [
+            ->add('telephone', TextType::class, [
                 'label' => 'Telephone du contact',
+                'data' => $entreprise->getTelephone(),
                 'constraints' => [
                     new NotBlank(),
                     new Length(['min' => 10, 'max' => 12])]
             ])
-            ->add('Adresse', AdresseType::class,
-                array('label' => 'Localisation'))
+
             ->add('siteWeb', UrlType::class, array(
                 'required' => false,
-                'data'=> $entreprise->getSiteWeb()
+                'data' => $entreprise->getSiteWeb()
             ))
-            ->add('nombrePersonne', IntegerType::class, [  'data' => $entreprise->getSiret()])
+            ->add('nombrePersonne', IntegerType::class, ['data' => $entreprise->getNombrePersonne()])
             ->add('siret', TextType::class, [
                 'constraints' => [
                     new NotBlank()
@@ -368,20 +366,52 @@ class EntrepriseController extends Controller
                 ],
                 'data' => $entreprise->getDescription()
             ])
-            ->add('submit', SubmitType::class, ['label' => "S'inscrire",
-                    'attr' => ['class' => 'btn-primary']])
+            ->add('Adresse', AdresseType::class, array('label' => 'Localisation',
+                'data'=>$entreprise->getAdresse()   ))
+
+
+            ->add('submit', SubmitType::class, ['label' => "Modifier",
+                'attr' => ['class' => 'btn-primary']])
             ->add('cancel', SubmitType::class, array(
                 'label' => 'Annulez',
-                'attr' => ['formnovalidate' => 'formnovalidate', 'class' => 'btn-default btn-lg col-lg-1 col-lg-offset-1', 'style' => "margin-top:20px"],
+                'attr' => ['formnovalidate' => 'formnovalidate', 'class' => 'btn-default'],
 
             ))
             ->getForm();
+        if ($request->isMethod('post')) {
+            $form->handleRequest($request);
+            if ($form->get('cancel')->isClicked()) {
 
+                return $this->redirect($this->generateUrl('site_accueilEntreprise'));
+            }
+            if ($form->isValid()) {
+                $data = $form->getData();
+
+                $entreprise->setRaisonSocial($data["raisonSocial"]);
+                $entreprise->setPrenom($data["prenom"]);
+                $entreprise->setAdresse($data["Adresse"]);
+                $entreprise->setAPE($data["aPE"]);
+                $entreprise->setNom($data["nom"]);
+                $entreprise->setTelephone($data["telephone"]);
+                $entreprise->setSiteWeb($data["siteWeb"]);
+                $entreprise->setNombrePersonne($data["nombrePersonne"]);
+                $entreprise->setSiret($data["siret"]);
+                $entreprise->setDescription($data["description"]);
+                $entreprise->setMail($data["mail"]);
+
+
+                $em->flush();
+                $this->addFlash('info', "L'entreprise a été mise a jour.");
+
+                return $this->redirect($this->generateUrl('site_accueilEntreprise'));
+            }
+        }
         return $this->render(
-            'SiteBundle:Entreprise:modification_entreprise.html.twig:',
+            'SiteBundle:Entreprise:modification_entreprise.html.twig',
             ['form' => $form->createView()]
         );
     }
+
 
     public function inscriptionAction(Request $request)
     {
