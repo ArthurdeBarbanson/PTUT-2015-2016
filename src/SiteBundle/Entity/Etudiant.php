@@ -15,6 +15,11 @@ class Etudiant
 
 
     /**
+     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Session", cascade={"persist"})
+     */
+    private $Session;
+
+    /**
      * @ORM\OneToOne(targetEntity="SiteBundle\Entity\DossierInscription", cascade={"persist"})
      */
     private $DossierInscription;
@@ -346,5 +351,29 @@ class Etudiant
     public function getDossierInscription()
     {
         return $this->DossierInscription;
+    }
+
+    /**
+     * Set session
+     *
+     * @param \SiteBundle\Entity\Session $session
+     *
+     * @return Etudiant
+     */
+    public function setSession(\SiteBundle\Entity\Session $session = null)
+    {
+        $this->Session = $session;
+
+        return $this;
+    }
+
+    /**
+     * Get session
+     *
+     * @return \SiteBundle\Entity\Session
+     */
+    public function getSession()
+    {
+        return $this->Session;
     }
 }

@@ -153,20 +153,6 @@ class ResponsableController extends Controller
 
             try {
                 $em->flush();
-                $message = new \Swift_Message();
-                $message
-                    ->setSubject('Hello Email')
-                    ->setFrom('no_reply@ptut.com')
-                    ->setTo($data['Email'])
-                    ->setBody(
-                        $this->renderView(
-                            ':Emails:ajoutEtudiant.html.twig',
-                            array('password' => $randomPassword)
-                        ),
-                        'text/html'
-                    );
-                $this->get('mailer')->send($message);
-
                 $this->addFlash('success', "L'étudiant a été ajouter !");
             } catch (UniqueConstraintViolationException $exception) {
                 $this->addFlash('error', $data['Email'] . " est déjà associée à un autre compte.");
@@ -201,28 +187,15 @@ class ResponsableController extends Controller
                         $em->persist($user);
                         try {
                             $em->flush();
-                            $message = new \Swift_Message();
-                            $message
-                                ->setSubject('Hello Email')
-                                ->setFrom('no_reply@ptut.com')
-                                ->setTo($etudiant->getLaPersone()->getMail())
-                                ->setBody(
-                                    $this->renderView(
-                                        ':template:menu_etudiant.html.twig',
-                                        array('password' => $randomPassword)
-                                    ),
-                                    'text/html'
-                                );
-                            $this->get('mailer')->send($message);
+                            if ($nombreUserExistantDeja > 0) {
+                                $this->addFlash('success', $nombreUserExistantDeja . "étudiants n'ont pas été enregistrer car ils existaient déjà. Les autres étudiants on été ajoutés avec succès.");
+                            } else {
+                                $this->addFlash('success', "Les étudiants on été ajoutés avec succès.");
+                            }
                         } catch (Exception $exception) {
                             $this->addFlash('error', "Une erreur s'est produite, veuillez réessayer plus tard.");
                         }
                     }
-                }
-                if ($nombreUserExistantDeja > 0) {
-                    $this->addFlash('success', $nombreUserExistantDeja . "étudiants n'ont pas été enregistrer car ils existaient déjà. Les autres étudiants on été ajoutés avec succès.");
-                } else {
-                    $this->addFlash('success', "Les étudiants on été ajoutés avec succès.");
                 }
             }
         } else {

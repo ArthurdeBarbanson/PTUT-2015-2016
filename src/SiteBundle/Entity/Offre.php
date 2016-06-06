@@ -3,7 +3,7 @@
 namespace SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use SiteBundle\Entity\Personne;
+use SiteBundle\Entity\Session;
 
 /**
  * Offre
@@ -75,6 +75,11 @@ class Offre
      * @ORM\JoinColumn(nullable=true)
      */
     private $Etudiant;
+
+    /**
+     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Session", cascade={"persist"})
+     */
+    private $Session;
 
 
 
@@ -270,4 +275,28 @@ class Offre
 
 
 
+
+    /**
+     * Set session
+     *
+     * @param \SiteBundle\Entity\Session $session
+     *
+     * @return Offre
+     */
+    public function setSession(\SiteBundle\Entity\Session $session = null)
+    {
+        $this->Session = $session;
+
+        return $this;
+    }
+
+    /**
+     * Get session
+     *
+     * @return \SiteBundle\Entity\Session
+     */
+    public function getSession()
+    {
+        return $this->Session;
+    }
 }
