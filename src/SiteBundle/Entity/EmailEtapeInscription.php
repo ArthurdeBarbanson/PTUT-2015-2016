@@ -24,7 +24,7 @@ class EmailEtapeInscription
     /**
      * @var string
      *
-     * @ORM\Column(name="etape", type="text")
+     * @ORM\Column(name="etape", type="string", columnDefinition="enum('Etape 1', 'Etape 2', 'Etape 3','Etape 4','Etape 5','Etape 6')" ,nullable=true)
      */
     private $etape;
 
