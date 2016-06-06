@@ -21,7 +21,7 @@ class AjoutPromotionType extends AbstractType
             ->add('dateFin', DateType::class, [
                 'label' => 'Date de fin'
             ])
-            ->add('libelle', TextType::class, [
+            ->add('anneeScolaire', TextType::class, [
                 'label' => 'Libelle',
                 'attr' => ['placeholder' => '2000/2001']
             ])

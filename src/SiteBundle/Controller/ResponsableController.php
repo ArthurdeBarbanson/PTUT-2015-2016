@@ -7,6 +7,7 @@ use SiteBundle\Entity\Adresse;
 use SiteBundle\Entity\DossierInscription;
 use SiteBundle\Entity\Etudiant;
 use SiteBundle\Entity\Personne;
+use SiteBundle\Entity\Session;
 use SiteBundle\Entity\User;
 use SiteBundle\Entity\EmailEtapeInscription;
 
@@ -214,11 +215,19 @@ class ResponsableController extends Controller
 
     public function ajoutPromotionAction(Request $request)
     {
-        $form = $this->createForm(AjoutPromotionType::class);
+        $promotion = new Session();
+        $form = $this->createForm(AjoutPromotionType::class, $promotion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($promotion);
+            try {
+                $em->flush();
+                $this->addFlash('success', 'La promotion a bien été ajouté.');
+            } catch (\Exception $ex) {
+                $this->addFlash('error', 'Une erreur est survenue.');
+            }
         }
 
         return $this->render('SiteBundle:Responsable:ajouter_promo.html.twig', [
