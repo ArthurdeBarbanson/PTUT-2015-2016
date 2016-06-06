@@ -19,6 +19,7 @@ use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EtudiantController extends Controller
@@ -361,5 +362,34 @@ class EtudiantController extends Controller
         $this->get('mailer')->send($message);
 
         return $this->redirect($this->generateUrl('site_accueilEtudiant'));
+    }
+
+    public function impressionDossierInsciptionAction(Request $request)
+    {
+        $dossierID = $request->get('postulantId');
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:DossierInscription');
+
+        $Dossier = $repository->find($dossierID);
+        //si l'annonce n'es pas trouvé
+        if (null === $Dossier) {
+            throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
+        }
+
+
+        $html = $this->renderView(
+            'SiteBundle:Etudiant:ImpressionDossierInscriptionPage1.html.twig', ['Dossier' => $Dossier]
+        );
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="Dossier.pdf"'
+            )
+        );
     }
 }
