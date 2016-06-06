@@ -125,7 +125,7 @@ class EtudiantController extends Controller
 
                 try {
                     $em->flush();
-                    $this->addFlash('success', "l'étudiant à été modifier !");
+                    $this->addFlash('success', "L'étudiant à été modifier !");
                 } catch (UniqueConstraintViolationException $exception) {
                     $this->addFlash('error', $data['Email'] . " est déjà associée à un autre compte.");
                 }
