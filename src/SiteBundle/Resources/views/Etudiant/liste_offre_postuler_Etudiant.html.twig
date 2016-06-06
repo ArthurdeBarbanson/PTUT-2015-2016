@@ -31,7 +31,16 @@
                             <td><a                       href="{{ path('site_detailsAnnonceEtudiant', {'annonceId': offre.offre.id }) }}">{{ offre.offre.titre }}</a></td>
                             <td> <a                       href="#">{{ offre.offre.entreprise.raisonSocial }} </a></td>
                             <td>{{ offre.offre.licenceConcerne }}</td>
-                            <td> <a href="{{ path('site_accepterOffreEtudiant', {'annonceId': offre.offre.id}) }}">Validez cette offre <span class="glyphicon glyphicon-ok"></span></a></td>
+                            <td class="text-center"> <div class="btn-group">
+                                    <button class="btn">Action</button>
+                                    <button class="btn dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span> </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ path('site_accepterOffreEtudiant', {'annonceId': offre.offre.id}) }}">Valider cette offre <span class="glyphicon glyphicon-ok"></span></a></li>
+                                        <li><a href="{{ path('site_refuserOffreEtudiant', {'annonceId': offre.offre.id}) }}">Refuser cette offre <span class="glyphicon glyphicon-ok"></span></a></li>
+
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
 
                     {% endfor %}
