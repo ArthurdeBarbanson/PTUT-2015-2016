@@ -24,7 +24,7 @@ class Session
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="AnneeScolaire", type="date")
+     * @ORM\Column(name="AnneeScolaire" ,type="string", length=20 , nullable=true)
      */
     private $anneeScolaire;
 
