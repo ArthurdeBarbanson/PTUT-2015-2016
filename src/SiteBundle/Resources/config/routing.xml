@@ -90,7 +90,7 @@
         <default key="_controller">SiteBundle:Default:impressionAnnonce</default>
     </route>
     <route id="site_impressionDossierInsciptionEtudiant" path="/etudiant/impression_dossier/{dossierId}">
-        <default key="_controller">SiteBundle:Default:impressionDossierInsciption</default>
+        <default key="_controller">SiteBundle:Etudiant:impressionDossierInsciption</default>
     </route>
 
     <!--Responsable-->
