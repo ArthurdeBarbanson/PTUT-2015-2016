@@ -83,6 +83,7 @@ class EntrepriseType extends AbstractType
                     new NotBlank()
                 ]
             ])
+            ->add('nom')
             ->add('submit', SubmitType::class, ['label' => "S'inscrire", 'attr' => ['class' => 'btn-primary']]);
         ;
     }
