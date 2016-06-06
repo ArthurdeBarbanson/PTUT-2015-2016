@@ -35,11 +35,7 @@ class PieceJointe
      */
     private $chemin;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\EmailEtapeInscription")
-     * @ORM\JoinColumn(name="email_etape_inscription_id", referencedColumnName="id")
-     */
-    private $EmailEtapeInscription;
+
 
 
     /**
@@ -100,27 +96,4 @@ class PieceJointe
         return $this->chemin;
     }
 
-    /**
-     * Set emailEtapeInscription
-     *
-     * @param \SiteBundle\Entity\EmailEtapeInscription $emailEtapeInscription
-     *
-     * @return PieceJointe
-     */
-    public function setEmailEtapeInscription(\SiteBundle\Entity\EmailEtapeInscription $emailEtapeInscription = null)
-    {
-        $this->EmailEtapeInscription = $emailEtapeInscription;
-
-        return $this;
-    }
-
-    /**
-     * Get emailEtapeInscription
-     *
-     * @return \SiteBundle\Entity\EmailEtapeInscription
-     */
-    public function getEmailEtapeInscription()
-    {
-        return $this->EmailEtapeInscription;
-    }
 }

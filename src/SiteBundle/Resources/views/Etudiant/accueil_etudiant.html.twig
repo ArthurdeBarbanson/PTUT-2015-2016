@@ -501,7 +501,7 @@
                     1 rue de la Technologie <br>
                     69622 VILLEURBANNE CEDEX
                 </p>
-                <p> Verifier puis imprimer le dossier pré-remplie : <a href="#" target="_blank">Cliquez ici si vous avez
+                <p> Verifier puis imprimer le dossier pré-remplie : <a href="{{ path('site_impressionDossierInsciptionEtudiant', {'dossierId': etudiant.DossierInscription.id }) }}" target="_blank">Cliquez ici si vous avez
                         rempli le tableau ci-dessus</a></p>
                 <p> Vous devrez joindre en plus du dossier les pièces demandé dans ce document : <a href="#"
                                                                                                     target="_blank">Pièce
@@ -687,7 +687,7 @@
                             </div>
                             <div class="row margB10">
                                 <div class="col-md-3">
-                                    <strong>{{ form_label(formModificationEtudiant.VilleNaissance , ' VilleNaissance : ') }}</strong>
+                                    <strong>{{ form_label(formModificationEtudiant.VilleNaissance , ' Ville Naissance : ') }}</strong>
                                 </div>
                                 <div class="col-md-9">{{ form_widget(formModificationEtudiant.VilleNaissance ,{'value' : etudiant.villeNaissance  }, {'attr': {'class': 'col-sm-12'}}) }}</div>
                             </div>
