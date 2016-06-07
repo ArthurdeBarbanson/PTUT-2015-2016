@@ -277,8 +277,6 @@ class EtudiantController extends Controller
         );
     }
 
-
-
     public function detailsEntrepriseAction(Request $request)
     {
 
