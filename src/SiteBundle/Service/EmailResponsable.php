@@ -38,8 +38,8 @@ class EmailResponsable extends Email
             ->setTo($adresseMail)
             ->setSubject("Demande de modification de l'annonce : ")
             ->setBody(
-                $this->renderView(
-                    'Emails/ModifierAnnonce.html.twig', [
+                $this->templating->render(
+                    '::Emails:ModifierAnnonce.html.twig', [
                         'message' => $message
                     ]
                 )
