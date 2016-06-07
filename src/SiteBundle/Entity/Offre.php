@@ -47,7 +47,7 @@ class Offre
     /**
      * @var string
      *
-     * @ORM\Column(name="Sujet", type="text")
+     * @ORM\Column(name="Sujet", type="text",nullable=true)
      */
     private $sujet;
 

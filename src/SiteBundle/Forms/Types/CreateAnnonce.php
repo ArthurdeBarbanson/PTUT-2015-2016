@@ -5,6 +5,7 @@ namespace SiteBundle\Forms\Types;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -39,13 +40,17 @@ class CreateAnnonce extends AbstractType
 
         ))
         ->add('Sujet', TextAreaType::class,array(
-                'label' =>'Sujet (Description de la mission - Technologie)',
-                'constraints' => [
-                    new NotBlank(),
-                    new Length(['min' => 50])
-                ]
+                'label' =>'Sujet format textuel (Description de la mission - Technologie)',
+'required'=> false
             )
         )
+
+            ->add('pdf', FileType::class, [
+                'label' => 'Ou sujet format document (Description de la mission - Technologie)',
+                'attr' => ['accept' => 'application/pdf , application/vnd.openxmlformats-officedocument.wordprocessingml.document , application/msword'],
+                'required'=> false
+            ])
+
 
         ->add('submit', SubmitType::class, [
             'label' => 'Poster',
