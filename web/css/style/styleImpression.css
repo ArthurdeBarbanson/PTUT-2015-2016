@@ -1,0 +1,12 @@
+.img-Impression {
+    border: 0;
+    height: 85px;
+}
+.span-Impression{
+    border-radius: 30px;
+    border-width: 4px;
+    border-style: solid;
+    font-size: 20px;
+    padding: 10px;
+    margin-right: 10pX;
+}

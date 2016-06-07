@@ -5,18 +5,19 @@
             <div class="panel panel-info">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="pull-left col-sm-6">
-                            <span>1</span>
+                        <div class="pull-left col-sm-1">
+                            <span class="span-Impression">1 </span>
                         </div>
-                        <div class="pull-right col-sm-6">
-                            <span>Année Universitaire 2015/2016</span>
+                        <div class="pull-left col-sm-5">
+                            <img class="img-Impression pull-left" src="{{ asset('image/logo-lyon1.png') }}" alt="Université Claude Bernard Lyon 1" />
+                        </div>
+
+                        <div class=" col-sm-6 text-center">
+                            <span class="pull-right">Année Universitaire 2015/2016</span>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="pull-left col-sm-3">
-                            <img src="" alt="Université Claude Bernard Lyon 1" />
-                        </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-12 text-center">
                             <h1>Dossier d'inscription</h1>
                         </div>
                     </div>
@@ -32,10 +33,10 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <p>N° étudiant :    </p>
+                            <p>N° étudiant :   </p>
                         </div>
                         <div class="col-sm-6">
-                            <p> N° dossier de candidature :</p>
+                            <p> N° dossier de candidature : {{ Etudiant.numeroDossierCandidature }}</p>
                         </div>
                     </div>
                 </div>
@@ -49,9 +50,10 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="pull-left col-sm-6">
-                            <span>2 <strong>ETAT CIVIL</strong></span>
+                            <span class="span-Impression">2</span> <strong>ETAT CIVIL</strong>
                         </div>
                     </div>
+                    <br><br>
                     <div class="row">
                         <div class="col-sm-6">
                             <p>Nom :    </p>
@@ -104,9 +106,10 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="pull-left col-sm-6">
-                            <span>3</span>
+                            <span class="span-Impression">3</span>
                         </div>
                     </div>
+                    <br><br>
                     <div class="row">
                         <div class="col-sm-12">
                             <p> <strong>Êtes-vous atteint d'un handicap ? </strong>    </p>
@@ -122,9 +125,10 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="pull-left col-sm-6">
-                            <span>4</span>
+                            <span class="span-Impression">4</span>
                         </div>
                     </div>
+                    <br><br>
                     <div class="row">
                         <div class="col-sm-12">
                             <p><strong> Situation militaire :</strong> Incorporable</p>
@@ -140,9 +144,10 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="pull-left col-sm-6">
-                            <span>5</span>
+                            <span class="span-Impression">5</span>
                         </div>
                     </div>
+                    <br><br>
                     <div class="row">
                         <div class="col-sm-6">
                             <p><strong> Prenière inscription    </strong> (dans un établissement en France)</p>
@@ -186,9 +191,10 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="pull-left col-sm-6">
-                            <span>6</span><strong>Baccalauréat ou équivalence</strong>
+                            <span class="span-Impression">6</span> <strong>Baccalauréat ou équivalence</strong>
                         </div>
                     </div>
+                    <br><br>
                     <div class="row">
                         <div class="col-sm-12">
                            Année d'obtention             Intitulé
@@ -223,9 +229,10 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="pull-left col-sm-6">
-                            <span>7</span><strong>Adresse</strong>
+                            <span class="span-Impression">7</span><strong>Adresse</strong>
                         </div>
                     </div>
+                    <br><br>
                     <div class="row">
                         <div class="col-sm-12">
                            Adresse :

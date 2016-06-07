@@ -405,19 +405,18 @@ class EtudiantController extends Controller
     public function impressionDossierInsciptionAction(Request $request)
     {
         $dossierID = $request->get('dossierId');
-        $repository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:DossierInscription');
+        $repositoryDossier = $this->getDoctrine()->getManager()->getRepository('SiteBundle:DossierInscription');
+        $repositoryEtudiant = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
 
 
-        $Dossier = $repository->find($dossierID);
+        $Dossier = $repositoryDossier->find($dossierID);
+        $Etudiant = $repositoryEtudiant->find( $this->getUser()->getIdEtudiant());
         //si l'annonce n'es pas trouvé
         if (null === $Dossier) {
             throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
         }
 
-
+        /**
         $html = $this->renderView(
             'SiteBundle:Etudiant:ImpressionDossierInscriptionPage1.html.twig', ['Dossier' => $Dossier]
         );
@@ -429,6 +428,14 @@ class EtudiantController extends Controller
                 'Content-Type' => 'application/pdf',
                 'Content-Disposition' => 'attachment; filename="Dossier.pdf"'
             )
+        );**/
+
+        return $this->render(
+            'SiteBundle:Etudiant:ImpressionDossierInscriptionPage1.html.twig', [
+                'Dossier' =>  $Dossier,
+                'Etudiant' =>  $Etudiant
+            ]
         );
+
     }
 }
