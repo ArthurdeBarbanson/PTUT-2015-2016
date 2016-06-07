@@ -342,9 +342,11 @@ class ResponsableController extends Controller
 
             $this->addFlash('info', "L'email à été envoyé !");
             return $this->redirectToRoute('acceuil_responsable');
-        } else {
-            $errors_modif = $formModifier->getErrors();
         }
+//        else {
+//            $errors_modif = $formModifier->getErrors();
+//            var_dump($errors_modif);
+//        }
 
         $formulaire->handleRequest($request);
         if ($formulaire->isSubmitted() && $formulaire->isValid()) {
@@ -359,9 +361,10 @@ class ResponsableController extends Controller
             $this->addFlash('info', "L'annonce a été suprimer !");
             return $this->redirectToRoute('acceuil_responsable');
 
-        } else {
-            $errors_refus = $formulaire->getErrors();
         }
+//        else {
+//            $errors_refus = $formulaire->getErrors();
+//        }
 
         return $this->render(
             'SiteBundle:Default:detailsAnnonce.html.twig',
