@@ -121,7 +121,4 @@
   <route id="testAdresseForm" path="/testAdresseForm">
     <default key="_controller">SiteBundle:Test:adresseFormTest</default>
   </route>
-  <route id="email_test" path="/responsable/emailTest">
-    <default key="_controller">SiteBundle:Test:emailTest</default>
-  </route>
 </routes>

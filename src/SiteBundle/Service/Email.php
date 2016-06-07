@@ -22,7 +22,7 @@ class Email
         $this->templating = $templating;
     }
 
-    protected function sendMessage($from, $to, $subject, $body)
+    public function sendEmail($from, $to, $subject, $body)
     {
         $mail = \Swift_Message::newInstance();
 
