@@ -21,6 +21,7 @@ class EntretienType extends AbstractType
     {
         $builder
             ->add('commentaire', TextareaType::class, [
+                'required' => false
             ])
             ->add('datePassage', DateTimeType::class, [
                 'label' => 'Date de passage',

@@ -18,6 +18,7 @@ use SiteBundle\Forms\Types\AjoutTuteur;
 use SiteBundle\Forms\Types\AssignerTuteur;
 use SiteBundle\Forms\Types\EmailEtapeInscriptionType;
 use SiteBundle\Forms\Types\EmailType;
+use SiteBundle\Forms\Types\EntretienType;
 use SiteBundle\Forms\Types\ModifierAnnonceType;
 use SiteBundle\Forms\Types\PostulerAnnonce;
 use SiteBundle\Forms\Types\RefuserAnnonceType;
@@ -430,7 +431,7 @@ class ResponsableController extends Controller
                     ->setSubject('Tuteur')
                     ->setFrom('no_reply@ptut.com')
                     ->setTo($etu->getLaPersone()->getMail())
-                    ->setBody("Bonjour".  $etu->getLaPersone()->getNom() . $etu->getLaPersone()->getPrenom().  ". " . $tuteur->getNom() . $tuteur->getPrenom() . " viens de vous etre attribué en tant que tuteur pédagogique. Merci de prendre contact avec lui par mail dans les plus proche delais. Cordialement"
+                    ->setBody("Bonjour" . $etu->getLaPersone()->getNom() . $etu->getLaPersone()->getPrenom() . ". " . $tuteur->getNom() . $tuteur->getPrenom() . " viens de vous etre attribué en tant que tuteur pédagogique. Merci de prendre contact avec lui par mail dans les plus proche delais. Cordialement"
                     );
                 $this->get('mailer')->send($message);
 
@@ -526,6 +527,40 @@ class ResponsableController extends Controller
 
     public function listeEtudiantAdmissibleAction(Request $request)
     {
-        //TODO 
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Etudiant');
+
+        $etudiants = $repository->findBy(['isAdmissible' => false]);
+        return $this->render(
+            'SiteBundle:Responsable:liste_etudiant_admissible.html.twig',
+            ['etudiants' => $etudiants]
+        );
+    }
+
+    public function detailDossierAdmissionAction(Request $request)
+    {
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Etudiant');
+
+        $etudiant = $repository->find($request->get('idEtudiant'));
+        if ($etudiant == null) {
+            throw new NotFoundHttpException("Le dossier n'a pas pu être trouvé.");
+        }
+        if ($etudiant->getDossierAdmission() == null) {
+            $dossierAdmission = new DossierAdmission();
+            $dossierAdmission->setEtatDossier('0');
+            $etudiant->setDossierAdmission($dossierAdmission);
+        }
+
+        $form = $this->createForm(EntretienType::class);
+        return $this->render(
+            'SiteBundle:Responsable:detail_dossier_admission.html.twig',
+            ['etudiant' => $etudiant,
+                'form' => $form->createView()]
+        );
     }
 }
