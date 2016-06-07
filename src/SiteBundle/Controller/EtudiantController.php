@@ -424,10 +424,14 @@ class EtudiantController extends Controller
         $dossierID = $request->get('dossierId');
         $repositoryDossier = $this->getDoctrine()->getManager()->getRepository('SiteBundle:DossierInscription');
         $repositoryEtudiant = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
+        $repositoryPremiereInscription = $this->getDoctrine()->getManager()->getRepository('SiteBundle:PremiereInscription');
+        $repositoryBacOuEquivalent = $this->getDoctrine()->getManager()->getRepository('SiteBundle:BacOuEquivalent');
 
 
         $Dossier = $repositoryDossier->find($dossierID);
-        $Etudiant = $repositoryEtudiant->find( $this->getUser()->getIdEtudiant());
+        $Etudiant = $repositoryEtudiant->findBy(["DossierInscription"=>$Dossier]);
+        $PremiereInscription = $repositoryPremiereInscription->findBy(["DossierInscription"=>$Dossier]);
+        $BacOuEquivalent = $repositoryBacOuEquivalent->findBy(["DossierInscription"=>$Dossier]);
         //si l'annonce n'es pas trouvé
         if (null === $Dossier) {
             throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
@@ -450,7 +454,9 @@ class EtudiantController extends Controller
         return $this->render(
             'SiteBundle:Etudiant:ImpressionDossierInscriptionPage1.html.twig', [
                 'Dossier' =>  $Dossier,
-                'Etudiant' =>  $Etudiant
+                'Etudiant' =>  $Etudiant[0],
+                'PremiereInscription' => $PremiereInscription[0],
+                'BacOuEquivalent' => $BacOuEquivalent[0]
             ]
         );
 

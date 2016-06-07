@@ -89,6 +89,14 @@ class Offre
     private $typeContrat;
 
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="document", type="string", length=255)
+     */
+    private $document;
+
+
 
 
 
@@ -329,5 +337,29 @@ class Offre
     public function getTypeContrat()
     {
         return $this->typeContrat;
+    }
+
+    /**
+     * Set document
+     *
+     * @param string $document
+     *
+     * @return Offre
+     */
+    public function setDocument($document)
+    {
+        $this->document = $document;
+
+        return $this;
+    }
+
+    /**
+     * Get document
+     *
+     * @return string
+     */
+    public function getDocument()
+    {
+        return $this->document;
     }
 }
