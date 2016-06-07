@@ -424,6 +424,15 @@ class ResponsableController extends Controller
                 $tuteur = $repositoryTuteur->find($request->get('tuteur'));
                 $etu->setleTuteur($tuteur);
                 $em->flush();
+                $message = new \Swift_Message();
+                $message
+                    ->setSubject('Tuteur')
+                    ->setFrom('no_reply@ptut.com')
+                    ->setTo($etu->getLaPersone()->getMail())
+                    ->setBody("Bonjour".  $etu->getLaPersone()->getNom() . $etu->getLaPersone()->getPrenom().  ". " . $tuteur->getNom() . $tuteur->getPrenom() . " viens de vous etre attribué en tant que tuteur pédagogique. Merci de prendre contact avec lui par mail dans les plus proche delais. Cordialement"
+                    );
+                $this->get('mailer')->send($message);
+
                 $this->addFlash('success', "Le tuteur a été assigné a cet étudiant");
                 return $this->redirect($this->generateUrl('acceuil_responsable'));
             }

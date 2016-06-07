@@ -3,6 +3,7 @@
 namespace SiteBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Proxies\__CG__\SiteBundle\Entity\Etudiant;
 use SiteBundle\Entity\EtudiantOffre;
 
 /**
@@ -13,7 +14,7 @@ use SiteBundle\Entity\EtudiantOffre;
  */
 class EtudiantOffreRepository extends EntityRepository
 {
-    public function enregistrerOffre($etudiant, $data, $offre)
+    public function enregistrerOffre(Etudiant $etudiant, $data, $offre)
     {
         if ($this->findOneBy(
                 array('Offre' => $offre, 'Etudiant' => $etudiant)
@@ -24,6 +25,7 @@ class EtudiantOffreRepository extends EntityRepository
             $etudiant_offre->setDate(new \DateTime());
             $etudiant_offre->setLettreMotivation($data['lettreMotivation']);
             $etudiant_offre->setOffre($offre);
+            $etudiant_offre->setSession($etudiant->getSession());
             $etudiant_offre->setEtudiant($etudiant);
             $etudiant_offre->setEtat("Attente Entreprise");
 
