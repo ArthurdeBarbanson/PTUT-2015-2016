@@ -1,137 +1,127 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<routes xmlns="http://symfony.com/schema/routing"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
-    <route id="site_homepage" path="/">
-        <default key="_controller">SiteBundle:Default:index</default>
-    </route>
-    <!-- Entreprise -->
-    <route id="site_accueilEntreprise" path="/entreprise">
-        <default key="_controller">SiteBundle:Entreprise:accueil</default>
-    </route>
-    <route id="site_ajoutAnnonce" path="/entreprise/ajout_annonce">
-        <default key="_controller">SiteBundle:Entreprise:ajoutAnnonce</default>
-    </route>
-    <route id="site_detailsAnnonceEntreprise" path="/entreprise/details_annonce/{annonceId}">
-        <default key="_controller">SiteBundle:Default:detailAnnonce</default>
-    </route>
-    <route id="edditAnnonceEntreprise" path="/entreprise/modifie_annonce/{annonceId}">
-        <default key="_controller">SiteBundle:Entreprise:edditAnnonce</default>
-    </route>
-    <route id="site_edditEntreprise" path="/entreprise/modifie_entreprise">
-        <default key="_controller">SiteBundle:Entreprise:edditEntreprise</default>
-    </route>
-    <route id="inscriptionEntreprise" path="/inscription">
-        <default key="_controller">SiteBundle:Entreprise:inscription</default>
-    </route>
-    <route id="site_listeOffreEntreprise" path="/entreprise/liste_offres">
-        <default key="_controller">SiteBundle:Default:listeOffres</default>
-    </route>
-    <route id="site_detailsPostulant" path="/entreprise/detailsPostulants/{postulantId}">
-        <default key="_controller">SiteBundle:Entreprise:detailsPostulants</default>
-    </route>
-    <route id="site_detailsEtudiant" path="/entreprise/detailsEtudiant/{offreId}">
-        <default key="_controller">SiteBundle:Entreprise:detailsEtudiant</default>
-    </route>
-    <route id="site_refusPostulant" path="/entreprise/detailsPostulants/refus/{postulantId}">
-        <default key="_controller">SiteBundle:Entreprise:refusPostulants</default>
-    </route>
-    <route id="site_accepterPostulant" path="/entreprise/detailsPostulants/accepter/{postulantId}">
-        <default key="_controller">SiteBundle:Entreprise:accepterPostulants</default>
-    </route>
-    <route id="site_impressionPostulant" path="/entreprise/impressionPostulants/{postulantId}">
-        <default key="_controller">SiteBundle:Entreprise:impressionPostulants</default>
-    </route>
-    <route id="site_supprAnnonce" path="/entreprise/supprimeAnnonnce/{annonceId}">
-        <default key="_controller">SiteBundle:Entreprise:supprAnnonce</default>
-    </route>
-    <!-- Etudiant -->
-    <route id="detailsEntreprise" path="/etudiant/details_entreprise/{entrepriseId}">
-        <default key="_controller">SiteBundle:Etudiant:detailsEntreprise</default>
-    </route>
-    <route id="modif_mot_de_passe" path="/etudiant/modification_mot_de_passe">
-        <default key="_controller">SiteBundle:Etudiant:modificationMotPasse</default>
-    </route>
-
-    <route id="site_detailsAnnonceEtudiant" path="/etudiant/details_annonce/{annonceId}">
-        <default key="_controller">SiteBundle:Default:detailAnnonce</default>
-    </route>
-    <route id="site_accepterOffreEtudiant" path="/etudiant/accepter_offre/{annonceId}">
-        <default key="_controller">SiteBundle:Etudiant:accepterAnnonce</default>
-    </route>
-    <route id="site_accueilEtudiant" path="/etudiant">
-        <default key="_controller">SiteBundle:Etudiant:accueil</default>
-    </route>
-    <route id="site_listeOffreEtudiant" path="/etudiant/liste_offres">
-        <default key="_controller">SiteBundle:Default:listeOffres</default>
-    </route>
-    <route id="site_listeOffrePostulerEtudiant" path="/etudiant/liste_offres_postuler">
-        <default key="_controller">SiteBundle:Etudiant:listeOffrePostuler</default>
-    </route>
-    <route id="site_impressionAnnonceEtudiant" path="/etudiant/impression_annonce/{annonceId}">
-        <default key="_controller">SiteBundle:Default:impressionAnnonce</default>
-    </route>
-    <route id="site_impressionDossierInsciptionEtudiant" path="/etudiant/impression_dossier/{dossierId}">
-        <default key="_controller">SiteBundle:Etudiant:impressionDossierInsciption</default>
-    </route>
-    <!--Responsable-->
-    <route id="responsableAjoutEtudiant" path="/responsable/ajout/etudiant">
-        <default key="_controller">SiteBundle:Responsable:ajoutEtudiant</default>
-    </route>
-
-    <route id="responsableListeEtudiantAdmissible" path="/responsable/etudiants_admissible">
-        <default key="_controller">SiteBundle:Responsable:listeEtudiantAdmissible</default>
-    </route>
-
-    <route id="responsableAjoutPromotion" path="/responsable/ajout/promotion">
-        <default key="_controller">SiteBundle:Responsable:ajoutPromotion</default>
-    </route>
-    <route id="acceuil_responsable" path="/responsable">
-        <default key="_controller">SiteBundle:Responsable:accueil</default>
-    </route>
-
-    <route id="acceuil_responsable_menu1" path="/responsable#menu1">
-        <default key="_controller">SiteBundle:Responsable:accueil</default>
-    </route>
-
-
-    <route id="responsable_ajout_responsable" path="/responsable/ajout/responsable">
-        <default key="_controller">SiteBundle:Responsable:ajouterNouveauResponsableLicence</default>
-    </route>
-
-    <route id="site_detailsAnnonceResponsable" path="/responsable/details_annonce/{offreId}">
-        <default key="_controller">SiteBundle:Responsable:detailAnnonce</default>
-    </route>
-    <route id="site_AssigneTuteurResponsable" path="/responsable/assigner_tuteur/{etudiantId}">
-        <default key="_controller">SiteBundle:Responsable:ajouterTriplette</default>
-    </route>
-    <route id="validation_Annonce" path="/responsable/validation_annonce/{offreId}">
-        <default key="_controller">SiteBundle:Responsable:validerAnnonce</default>
-    </route>
-    <route id="validation_etat_etudiant" path="/responsable/validation-etape">
-        <default key="_controller">SiteBundle:Responsable:validerEtatEtudiant</default>
-    </route>
-    <route id="gestion_email" path="/responsable/email/etape">
-        <default key="_controller">SiteBundle:Responsable:email</default>
-    </route>
-    <!--security-->
-    <route id="login" path="/login">
-        <default key="_controller">SiteBundle:Security:login</default>
-    </route>
-
-    <route id="login_check" path="/login_check"/>
-    <route id="logout" path="/logout"/>
-
-    <route id="test" path="/etudiant/test">
-        <default key="_controller">SiteBundle:Default:test</default>
-    </route>
-
-    <route id="ajout" path="/ajoutReynald">
-        <default key="_controller">SiteBundle:Security:createUser</default>
-    </route>
-
-    <!--test-->
-    <route id="testAdresseForm" path="/testAdresseForm">
-        <default key="_controller">SiteBundle:Test:adresseFormTest</default>
-    </route>
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns="http://symfony.com/schema/routing" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+  <route id="site_homepage" path="/">
+    <default key="_controller">SiteBundle:Default:index</default>
+  </route>
+  <!-- Entreprise -->
+  <route id="site_accueilEntreprise" path="/entreprise">
+    <default key="_controller">SiteBundle:Entreprise:accueil</default>
+  </route>
+  <route id="site_ajoutAnnonce" path="/entreprise/ajout_annonce">
+    <default key="_controller">SiteBundle:Entreprise:ajoutAnnonce</default>
+  </route>
+  <route id="site_detailsAnnonceEntreprise" path="/entreprise/details_annonce/{annonceId}">
+    <default key="_controller">SiteBundle:Default:detailAnnonce</default>
+  </route>
+  <route id="edditAnnonceEntreprise" path="/entreprise/modifie_annonce/{annonceId}">
+    <default key="_controller">SiteBundle:Entreprise:edditAnnonce</default>
+  </route>
+  <route id="site_edditEntreprise" path="/entreprise/modifie_entreprise">
+    <default key="_controller">SiteBundle:Entreprise:edditEntreprise</default>
+  </route>
+  <route id="inscriptionEntreprise" path="/inscription">
+    <default key="_controller">SiteBundle:Entreprise:inscription</default>
+  </route>
+  <route id="site_listeOffreEntreprise" path="/entreprise/liste_offres">
+    <default key="_controller">SiteBundle:Default:listeOffres</default>
+  </route>
+  <route id="site_detailsPostulant" path="/entreprise/detailsPostulants/{postulantId}">
+    <default key="_controller">SiteBundle:Entreprise:detailsPostulants</default>
+  </route>
+  <route id="site_detailsEtudiant" path="/entreprise/detailsEtudiant/{offreId}">
+    <default key="_controller">SiteBundle:Entreprise:detailsEtudiant</default>
+  </route>
+  <route id="site_refusPostulant" path="/entreprise/detailsPostulants/refus/{postulantId}">
+    <default key="_controller">SiteBundle:Entreprise:refusPostulants</default>
+  </route>
+  <route id="site_accepterPostulant" path="/entreprise/detailsPostulants/accepter/{postulantId}">
+    <default key="_controller">SiteBundle:Entreprise:accepterPostulants</default>
+  </route>
+  <route id="site_impressionPostulant" path="/entreprise/impressionPostulants/{postulantId}">
+    <default key="_controller">SiteBundle:Entreprise:impressionPostulants</default>
+  </route>
+  <route id="site_supprAnnonce" path="/entreprise/supprimeAnnonnce/{annonceId}">
+    <default key="_controller">SiteBundle:Entreprise:supprAnnonce</default>
+  </route>
+  <!-- Etudiant -->
+  <route id="detailsEntreprise" path="/etudiant/details_entreprise/{entrepriseId}">
+    <default key="_controller">SiteBundle:Etudiant:detailsEntreprise</default>
+  </route>
+  <route id="modif_mot_de_passe" path="/etudiant/modification_mot_de_passe">
+    <default key="_controller">SiteBundle:Etudiant:modificationMotPasse</default>
+  </route>
+  <route id="site_detailsAnnonceEtudiant" path="/etudiant/details_annonce/{annonceId}">
+    <default key="_controller">SiteBundle:Default:detailAnnonce</default>
+  </route>
+  <route id="site_accepterOffreEtudiant" path="/etudiant/accepter_offre/{annonceId}">
+    <default key="_controller">SiteBundle:Etudiant:accepterAnnonce</default>
+  </route>
+  <route id="site_accueilEtudiant" path="/etudiant">
+    <default key="_controller">SiteBundle:Etudiant:accueil</default>
+  </route>
+  <route id="site_listeOffreEtudiant" path="/etudiant/liste_offres">
+    <default key="_controller">SiteBundle:Default:listeOffres</default>
+  </route>
+  <route id="site_listeOffrePostulerEtudiant" path="/etudiant/liste_offres_postuler">
+    <default key="_controller">SiteBundle:Etudiant:listeOffrePostuler</default>
+  </route>
+  <route id="site_impressionAnnonceEtudiant" path="/etudiant/impression_annonce/{annonceId}">
+    <default key="_controller">SiteBundle:Default:impressionAnnonce</default>
+  </route>
+  <route id="site_impressionDossierInsciptionEtudiant" path="/etudiant/impression_dossier/{dossierId}">
+    <default key="_controller">SiteBundle:Etudiant:impressionDossierInsciption</default>
+  </route>
+  <!--Responsable-->
+  <route id="responsableAjoutEtudiant" path="/responsable/ajout/etudiant">
+    <default key="_controller">SiteBundle:Responsable:ajoutEtudiant</default>
+  </route>
+  <route id="responsableListeEtudiantAdmissible" path="/responsable/etudiants_admissible">
+    <default key="_controller">SiteBundle:Responsable:listeEtudiantAdmissible</default>
+  </route>
+  <route id="responsableAjoutPromotion" path="/responsable/ajout/promotion">
+    <default key="_controller">SiteBundle:Responsable:ajoutPromotion</default>
+  </route>
+  <route id="acceuil_responsable" path="/responsable">
+    <default key="_controller">SiteBundle:Responsable:accueil</default>
+  </route>
+  <route id="acceuil_responsable_menu1" path="/responsable#menu1">
+    <default key="_controller">SiteBundle:Responsable:accueil</default>
+  </route>
+  <route id="responsable_ajout_responsable" path="/responsable/ajout/responsable">
+    <default key="_controller">SiteBundle:Responsable:ajouterNouveauResponsableLicence</default>
+  </route>
+  <route id="site_detailsAnnonceResponsable" path="/responsable/details_annonce/{offreId}">
+    <default key="_controller">SiteBundle:Responsable:detailAnnonce</default>
+  </route>
+  <route id="site_AssigneTuteurResponsable" path="/responsable/assigner_tuteur/{etudiantId}">
+    <default key="_controller">SiteBundle:Responsable:ajouterTriplette</default>
+  </route>
+  <route id="validation_Annonce" path="/responsable/validation_annonce/{offreId}">
+    <default key="_controller">SiteBundle:Responsable:validerAnnonce</default>
+  </route>
+  <route id="validation_etat_etudiant" path="/responsable/validation-etape">
+    <default key="_controller">SiteBundle:Responsable:validerEtatEtudiant</default>
+  </route>
+  <route id="gestion_email" path="/responsable/email/etape">
+    <default key="_controller">SiteBundle:Responsable:email</default>
+  </route>
+  <!--security-->
+  <route id="login" path="/login">
+    <default key="_controller">SiteBundle:Security:login</default>
+  </route>
+  <route id="login_check" path="/login_check"/>
+  <route id="logout" path="/logout"/>
+  <route id="test" path="/etudiant/test">
+    <default key="_controller">SiteBundle:Default:test</default>
+  </route>
+  <route id="ajout" path="/ajoutReynald">
+    <default key="_controller">SiteBundle:Security:createUser</default>
+  </route>
+  <!--test-->
+  <route id="testAdresseForm" path="/testAdresseForm">
+    <default key="_controller">SiteBundle:Test:adresseFormTest</default>
+  </route>
+  <route id="email_test" path="/responsable/emailTest">
+    <default key="_controller">SiteBundle:Test:emailTest</default>
+  </route>
 </routes>
