@@ -17,6 +17,7 @@ use SiteBundle\Forms\Types\AjoutPromotionType;
 use SiteBundle\Forms\Types\AjoutTuteur;
 use SiteBundle\Forms\Types\AssignerTuteur;
 use SiteBundle\Forms\Types\EmailEtapeInscriptionType;
+use SiteBundle\Forms\Types\EmailType;
 use SiteBundle\Forms\Types\ModifierAnnonceType;
 use SiteBundle\Forms\Types\RefuserAnnonceType;
 use SiteBundle\Forms\Types\SMTPType;
@@ -60,7 +61,7 @@ class ResponsableController extends Controller
                 break;
         }
 
-        $smtpForm = $this->createForm(SMTPType::class);
+        $smtpForm = $this->createForm(EmailType::class);
 
         return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig', [
             'offres' => $offres,

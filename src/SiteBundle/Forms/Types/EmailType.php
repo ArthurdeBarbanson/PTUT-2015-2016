@@ -1,6 +1,6 @@
 <?php
-namespace SiteBundle\Forms\Types;
 
+namespace SiteBundle\Forms\Types;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -8,10 +8,11 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class SMTPType extends AbstractType
+class EmailType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -51,11 +52,28 @@ class SMTPType extends AbstractType
             ])
 
             ->add('port', NumberType::class)
+            ->add('encryption', ChoiceType::class,[
+                'choices'=>[
+                    'tls'=>'tls',
+                    'ssl'=>'ssl'
+                ]
+            ])
+
 
 
             ->add('submit', SubmitType::class, [
                 'label' => 'Envoyer',
                 'attr' => ['class' => 'btn btn-default  center-block'],
             ]);
+    }
+    
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'SiteBundle\Entity\Email'
+        ));
     }
 }

@@ -30,7 +30,8 @@ class Email
             ->setFrom($from)
             ->setTo($to)
             ->setSubject($subject)
-            ->setBody($body);
+            ->setBody($body)
+            ->setContentType('text/html');
 
         $this->mailer->send($mail);
     }
