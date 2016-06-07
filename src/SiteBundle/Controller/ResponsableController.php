@@ -155,8 +155,14 @@ class ResponsableController extends Controller
             $user->setRoles(array('ROLE_ETUDIANT'));
             $em->persist($user);
 
+            try {
                 $em->flush();
                 $this->addFlash('success', "L'étudiant a été ajouter !");
+            } catch (UniqueConstraintViolationException $exception) {
+                $this->addFlash('error', $data['Email'] . " est déjà associée à un autre compte.");
+            } catch (\Exception $ex) {
+                $this->addFlash('error', "Un erreur est survenue.");
+            }
 
         } elseif ($formImport->isSubmitted() && $formImport->isValid()) {
             $data = $formImport->getData();
