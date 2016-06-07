@@ -81,9 +81,7 @@ class Etudiant
     private $numeroDossierCandidature;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="DossierAdmission", type="string", length=255, nullable=true)
+     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\DossierAdmission", cascade={"persist"})
      */
     private $dossierAdmission;
 
@@ -393,30 +391,6 @@ class Etudiant
     }
 
     /**
-     * Set dossierAdmission
-     *
-     * @param string $dossierAdmission
-     *
-     * @return Etudiant
-     */
-    public function setDossierAdmission($dossierAdmission)
-    {
-        $this->dossierAdmission = $dossierAdmission;
-
-        return $this;
-    }
-
-    /**
-     * Get dossierAdmission
-     *
-     * @return string
-     */
-    public function getDossierAdmission()
-    {
-        return $this->dossierAdmission;
-    }
-
-    /**
      * Set isAdmissible
      *
      * @param boolean $isAdmissible
@@ -438,5 +412,29 @@ class Etudiant
     public function getIsAdmissible()
     {
         return $this->isAdmissible;
+    }
+
+    /**
+     * Set dossierAdmission
+     *
+     * @param \SiteBundle\Entity\DossierAdmission $dossierAdmission
+     *
+     * @return Etudiant
+     */
+    public function setDossierAdmission(\SiteBundle\Entity\DossierAdmission $dossierAdmission = null)
+    {
+        $this->dossierAdmission = $dossierAdmission;
+
+        return $this;
+    }
+
+    /**
+     * Get dossierAdmission
+     *
+     * @return \SiteBundle\Entity\DossierAdmission
+     */
+    public function getDossierAdmission()
+    {
+        return $this->dossierAdmission;
     }
 }

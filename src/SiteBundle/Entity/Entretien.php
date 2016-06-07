@@ -41,31 +41,7 @@ class Entretien
      * @ORM\Column(name="DatePassage", type="date", nullable=true)
      */
     private $datePassage;
-
-    /**
-     * Set etatDossier
-     *
-     * @param string $etatDossier
-     *
-     * @return Entretien
-     */
-    public function setEtatDossier($etatDossier)
-    {
-        $this->etatDossier = $etatDossier;
-
-        return $this;
-    }
-
-    /**
-     * Get etatDossier
-     *
-     * @return string
-     */
-    public function getEtatDossier()
-    {
-        return $this->etatDossier;
-    }
-
+    
     /**
      * Set commentaire
      *

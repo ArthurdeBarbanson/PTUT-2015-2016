@@ -525,5 +525,8 @@ class ResponsableController extends Controller
 
     }
 
-
+    public function listeEtudiantAdmissibleAction(Request $request)
+    {
+        //TODO 
+    }
 }

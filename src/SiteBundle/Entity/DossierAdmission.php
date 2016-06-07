@@ -27,6 +27,11 @@ class DossierAdmission
     private $commentaire;
 
     /**
+     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Entretien", cascade={"persist"})
+     */
+    private $entretien;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -122,5 +127,29 @@ class DossierAdmission
     public function getDateLimite()
     {
         return $this->dateLimite;
+    }
+
+    /**
+     * Set entretien
+     *
+     * @param \SiteBundle\Entity\Entretien $entretien
+     *
+     * @return DossierAdmission
+     */
+    public function setEntretien(\SiteBundle\Entity\Entretien $entretien = null)
+    {
+        $this->entretien = $entretien;
+
+        return $this;
+    }
+
+    /**
+     * Get entretien
+     *
+     * @return \SiteBundle\Entity\Entretien
+     */
+    public function getEntretien()
+    {
+        return $this->entretien;
     }
 }
