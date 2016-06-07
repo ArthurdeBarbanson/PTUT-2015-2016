@@ -81,6 +81,13 @@ class Offre
      */
     private $Session;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type_contrat",type="string", columnDefinition="enum('Apprentissage', 'Professionnalisation')",nullable=true)
+     */
+    private $typeContrat;
+
 
 
 
@@ -298,5 +305,29 @@ class Offre
     public function getSession()
     {
         return $this->Session;
+    }
+
+    /**
+     * Set typeContrat
+     *
+     * @param string $typeContrat
+     *
+     * @return Offre
+     */
+    public function setTypeContrat($typeContrat)
+    {
+        $this->typeContrat = $typeContrat;
+
+        return $this;
+    }
+
+    /**
+     * Get typeContrat
+     *
+     * @return string
+     */
+    public function getTypeContrat()
+    {
+        return $this->typeContrat;
     }
 }
