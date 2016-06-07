@@ -2,6 +2,7 @@
 
 namespace SiteBundle\Forms\Types;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -15,38 +16,46 @@ class CreateAnnonce extends AbstractType
 
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
-    { $builder
-           ->add('Titre', TextType::class,array(
-               'constraints' => [
-                   new NotBlank(),
-                   new Length(['min' => 3])
-               ]
-            ))
-            ->add('Lpconcerne', ChoiceType::class, array(
-                'label' => 'Lp concerné',
-                'choices' => array('IEM' => 'IEM', 'METINET' => 'METINET'),
-                'multiple' => false,
-                'expanded'=>true,
-                'required' => true,
+    {
+        $builder
+                ->add('promo', EntityType::class, [
+            'label' => 'Promotion',
+            'choices' => $options['data'],
+            'class' => 'SiteBundle\Entity\Session',
+            'choice_label' => 'anneeScolaire',
+        ])
+        ->add('Titre', TextType::class,array(
+            'constraints' => [
+                new NotBlank(),
+                new Length(['min' => 3])
+            ]
+        ))
+        ->add('Lpconcerne', ChoiceType::class, array(
+            'label' => 'Lp concerné',
+            'choices' => array('IEM' => 'IEM', 'METINET' => 'METINET'),
+            'multiple' => false,
+            'expanded'=>true,
+            'required' => true,
 
-            ))
-            ->add('Sujet', TextAreaType::class,array(
+        ))
+        ->add('Sujet', TextAreaType::class,array(
                 'label' =>'Sujet (Description de la mission - Technologie)',
-                    'constraints' => [
-                        new NotBlank(),
-                        new Length(['min' => 50])
-                    ]
-                )
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['min' => 50])
+                ]
             )
-            ->add('submit', SubmitType::class, [
-                'label' => 'Poster',
-                'attr' => ['class' => 'btn-primary btn-lg  col-lg-1 col-lg-offset-4', 'style' => "margin-top:20px"],
+        )
 
-            ])
-            ->add('cancel', SubmitType::class, array(
-              'label' => 'Annulez',
-                      'attr' => ['formnovalidate' => 'formnovalidate','class' => 'btn-default btn-lg col-lg-1 col-lg-offset-1', 'style' => "margin-top:20px"],
+        ->add('submit', SubmitType::class, [
+            'label' => 'Poster',
+            'attr' => ['class' => 'btn-primary btn-lg  col-lg-1 col-lg-offset-4', 'style' => "margin-top:20px"],
 
-    ));
+        ])
+        ->add('cancel', SubmitType::class, array(
+            'label' => 'Annulez',
+            'attr' => ['formnovalidate' => 'formnovalidate','class' => 'btn-default btn-lg col-lg-1 col-lg-offset-1', 'style' => "margin-top:20px"],
+
+        ));
     }
 }
