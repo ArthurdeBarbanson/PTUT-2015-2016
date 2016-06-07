@@ -19,7 +19,7 @@ class EmailResponsable extends Email
             ->setTo($adresseMail)
             ->setSubject("Refus de l'annonce : ")
             ->setBody(
-                $this->renderView(
+                $this->templating->render(
                     'Emails/refusAnnonce.html.twig', [
                         'message' => $message
                     ]
@@ -39,13 +39,12 @@ class EmailResponsable extends Email
             ->setSubject("Demande de modification de l'annonce : ")
             ->setBody(
                 $this->templating->render(
-                    '::Emails:ModifierAnnonce.html.twig', [
+                    'Emails/ModificationAnnonce.html.twig', [
                         'message' => $message
                     ]
                 )
             )
             ->setContentType('text/html');
-
         $this->mailer->send($mail);
     }
 }
