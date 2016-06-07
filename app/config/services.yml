@@ -10,3 +10,8 @@ services:
     redirect.after.login:
         class: SiteBundle\Redirection\AfterLoginRedirection
         arguments: ["@router"]
+    app.twig_extension:
+            class: SiteBundle\Twig\TwigExtension
+            public: false
+            tags:
+                - { name: twig.extension }

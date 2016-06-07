@@ -69,7 +69,10 @@ class EntrepriseController extends Controller
 
     public function ajoutAnnonceAction(Request $request)
     {
-        {
+        { $em= $this
+            ->getDoctrine()
+            ->getManager();
+
             $modal = false;
             $repository = $this
                 ->getDoctrine()
@@ -77,8 +80,9 @@ class EntrepriseController extends Controller
                 ->getRepository('SiteBundle:Entreprise');
 
             $entreprise = $this->getUser()->getIdEntreprise();
+            $promos = $em->getRepository('SiteBundle:Session')->findAll();
 
-            $form = $this->createForm(CreateAnnonce::class);
+            $form = $this->createForm(CreateAnnonce::class , $promos);
             $form2 = $this->createForm(CreateMap::class);
             $em = $this->getDoctrine()->getManager();
 
@@ -111,7 +115,7 @@ class EntrepriseController extends Controller
                     $annonce->setLicenceConcerne(($data['Lpconcerne']));
                     $annonce->setEntreprise($entreprise);
                     $annonce->setMAP($map);
-
+                    $annonce->setSession($data['promo']);
                     $em->persist($annonce);
                     $em->flush();
                     $this->addFlash('info', "L'annonce a été mis en attente de Validation.");
@@ -411,7 +415,6 @@ class EntrepriseController extends Controller
             ['form' => $form->createView()]
         );
     }
-
 
     public function inscriptionAction(Request $request)
     {

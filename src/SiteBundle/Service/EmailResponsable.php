@@ -29,4 +29,23 @@ class EmailResponsable extends Email
 
         $this->mailer->send($mail);
     }
+
+    public function modifierAnnonce($adresseMail,$message){
+        $mail = \Swift_Message::newInstance();
+
+        $mail
+            ->setFrom('noreply-suivilpmetinet@iutinfobourg.fr')
+            ->setTo($adresseMail)
+            ->setSubject("Demande de modification de l'annonce : ")
+            ->setBody(
+                $this->renderView(
+                    'Emails/ModifierAnnonce.html.twig', [
+                        'message' => $message
+                    ]
+                )
+            )
+            ->setContentType('text/html');
+
+        $this->mailer->send($mail);
+    }
 }

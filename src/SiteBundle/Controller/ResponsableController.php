@@ -330,21 +330,8 @@ class ResponsableController extends Controller
         $formModifier->handleRequest($request);
         if ($formModifier->isSubmitted() && $formModifier->isValid()) {
             $data = $formModifier->getData();
-            // en attente serveur smtp
+            $this->get('site.mailer.responsable')->modifierAnnonce($offre->getEntreprise()->getMail(), $data['Message']);
 
-            $message = \Swift_Message::newInstance()
-                ->setSubject("Demande de modification de l'annonce ")
-                ->setFrom('arthurdebarbanson@gmail.com')
-                ->setTo('recipient@example.com')
-                ->setBody(
-                    $this->renderView(
-                        'Emails/ModificationAnnonce.html.twig', [
-                            'message' => $data['Message']
-                        ]
-                    ),
-                    'text/html'
-                );
-            $this->get('mailer')->send($message);
 
             $offre->setEtatOffre('En attente de modification');
 
@@ -361,7 +348,7 @@ class ResponsableController extends Controller
         if ($formulaire->isSubmitted() && $formulaire->isValid()) {
             $data2 = $formulaire->getData();
 
-            $this->get('site.mailer.responsable')->refuserAnnonce('', $data2['Message']);
+            $this->get('site.mailer.responsable')->refuserAnnonce($offre->getEntreprise()->getMail(), $data2['Message']);
 
             $em->remove($offre);
             $em->flush();
@@ -437,6 +424,15 @@ class ResponsableController extends Controller
                 $tuteur = $repositoryTuteur->find($request->get('tuteur'));
                 $etu->setleTuteur($tuteur);
                 $em->flush();
+                $message = new \Swift_Message();
+                $message
+                    ->setSubject('Tuteur')
+                    ->setFrom('no_reply@ptut.com')
+                    ->setTo($etu->getLaPersone()->getMail())
+                    ->setBody("Bonjour".  $etu->getLaPersone()->getNom() . $etu->getLaPersone()->getPrenom().  ". " . $tuteur->getNom() . $tuteur->getPrenom() . " viens de vous etre attribué en tant que tuteur pédagogique. Merci de prendre contact avec lui par mail dans les plus proche delais. Cordialement"
+                    );
+                $this->get('mailer')->send($message);
+
                 $this->addFlash('success', "Le tuteur a été assigné a cet étudiant");
                 return $this->redirect($this->generateUrl('acceuil_responsable'));
             }
