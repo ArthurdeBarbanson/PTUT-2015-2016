@@ -361,22 +361,8 @@ class ResponsableController extends Controller
         if ($formulaire->isSubmitted() && $formulaire->isValid()) {
             $data2 = $formulaire->getData();
 
-            // en attente serveur smtp
-//            $this->get('site.mailer')->sendMessage('');
+            $this->get('site.mailer.responsable')->refuserAnnonce('', $data2['Message']);
 
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Refuse de validation')
-                ->setFrom('arthurdebarbanson@gmail.com')
-                ->setTo('recipient@example.com')
-                ->setBody(
-                    $this->renderView(
-                        'Emails/refusAnnonce.html.twig', [
-                            'message' => $data2['Message']
-                        ]
-                    ),
-                    'text/html'
-                );
-            $this->get('mailer')->send($message);
             $em->remove($offre);
             $em->flush();
 
