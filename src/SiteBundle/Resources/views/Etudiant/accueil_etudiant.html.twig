@@ -167,11 +167,20 @@
         <div class="row">
             <div id="actions" class="col-sm-12 container">
                 <h3>Etape 2 : Pré inscription contrat </h3>
-                <p> Vous devez remplir le fomulaire de cette adresse
-                    <a href="http://www.fsarl-ufa.com/fdp/rl1-26-sil-option-concepteur-et-gestionnaire-de-site-internet-metinet?crew=15"
-                       class="btn btn-info" target="_blank">
-                        Fiche de pré-inscription rentrée</a>
-                </p>
+
+                {% if offre.typeContrat == "Apprentissage" %}
+                    <p> Vous devez remplir le fomulaire  de cette adresse
+                        <a href="http://www.fsarl-ufa.com/fdp/rl1-26-sil-option-concepteur-et-gestionnaire-de-site-internet-metinet?crew=15"
+                           class="btn btn-info" target="_blank">
+                            Fiche de pré-inscription rentrée</a>
+                    </p>
+                {% else %}
+                    <p> Vous devez remplir le fomulaire  de cette adresse
+                        <a href="http://travail-emploi.gouv.fr/formation-professionnelle/formation-en-alternance/article/le-contrat-de-professionnalisation"
+                           class="btn btn-info" target="_blank">
+                            Fiche de pré-inscription rentrée</a>
+                    </p>
+                {% endif %}
 
                 <p>Vous consulter la fiche de votre entreprise pour remplir le formulaire :
                     <button class="btn btn-info" data-toggle="modal" data-target="#FicheEntreprise">
