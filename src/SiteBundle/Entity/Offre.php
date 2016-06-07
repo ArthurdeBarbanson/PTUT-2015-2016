@@ -77,7 +77,7 @@ class Offre
     private $Etudiant;
 
     /**
-     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Session", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Session", cascade={"persist"})
      */
     private $Session;
 

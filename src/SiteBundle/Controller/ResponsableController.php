@@ -30,7 +30,7 @@ class ResponsableController extends Controller
 {
     public function accueilAction()
     {
-        $typeLp= $this->getUser()->getTypeLicence();
+        $typeLp = $this->getUser()->getTypeLicence();
 
         $repositoryOffre = $this
             ->getDoctrine()
@@ -42,15 +42,15 @@ class ResponsableController extends Controller
             ->getManager()
             ->getRepository('SiteBundle:Etudiant');
 
-        switch($typeLp){
+        switch ($typeLp) {
             case 'METINET':
-                $offres = $repositoryOffre->findBy(['licenceConcerne'=>'METINET']);
-                $etudiants = $repositoryEtudiant->findBy(['typeLicence'=>'METINET']);
+                $offres = $repositoryOffre->findBy(['licenceConcerne' => 'METINET']);
+                $etudiants = $repositoryEtudiant->findBy(['typeLicence' => 'METINET']);
                 break;
 
             case 'IEM':
-                $offres = $repositoryOffre->findBy(['licenceConcerne'=>'IEM']);
-                $etudiants = $repositoryEtudiant->findBy(['typeLicence'=>'IEM']);
+                $offres = $repositoryOffre->findBy(['licenceConcerne' => 'IEM']);
+                $etudiants = $repositoryEtudiant->findBy(['typeLicence' => 'IEM']);
                 break;
 
             default:
@@ -155,12 +155,8 @@ class ResponsableController extends Controller
             $user->setRoles(array('ROLE_ETUDIANT'));
             $em->persist($user);
 
-            try {
                 $em->flush();
                 $this->addFlash('success', "L'étudiant a été ajouter !");
-            } catch (UniqueConstraintViolationException $exception) {
-                $this->addFlash('error', $data['Email'] . " est déjà associée à un autre compte.");
-            }
 
         } elseif ($formImport->isSubmitted() && $formImport->isValid()) {
             $data = $formImport->getData();
@@ -492,15 +488,16 @@ class ResponsableController extends Controller
         return $this->redirectToRoute('acceuil_responsable');
     }
 
-    public function emailAction(Request $request){
+    public function emailAction(Request $request)
+    {
 
         $repository = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('SiteBundle:EmailEtapeInscription');
-        $listeEmails=$repository->find(1);
+        $listeEmails = $repository->find(1);
 
-        $emailEtape=new EmailEtapeInscription();
+        $emailEtape = new EmailEtapeInscription();
         $emailEtape->setEtape1($listeEmails->getEtape1());
         $emailEtape->setEtape2($listeEmails->getEtape2());
         $emailEtape->setEtape3($listeEmails->getEtape3());
@@ -508,10 +505,10 @@ class ResponsableController extends Controller
         $emailEtape->setEtape5($listeEmails->getEtape5());
         $emailEtape->setEtape6($listeEmails->getEtape6());
 
-        $emailform=$this->createForm(EmailEtapeInscriptionType::class, $listeEmails);
+        $emailform = $this->createForm(EmailEtapeInscriptionType::class, $listeEmails);
 
         $emailform->handleRequest($request);
-        if($emailform->isValid()){
+        if ($emailform->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($emailEtape);
