@@ -19,6 +19,7 @@ use SiteBundle\Forms\Types\AssignerTuteur;
 use SiteBundle\Forms\Types\EmailEtapeInscriptionType;
 use SiteBundle\Forms\Types\EmailType;
 use SiteBundle\Forms\Types\ModifierAnnonceType;
+use SiteBundle\Forms\Types\PostulerAnnonce;
 use SiteBundle\Forms\Types\RefuserAnnonceType;
 use SiteBundle\Forms\Types\SMTPType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -325,7 +326,7 @@ class ResponsableController extends Controller
 
         $formulaire = $this->createForm(RefuserAnnonceType::class);
         $formModifier = $this->createForm(ModifierAnnonceType::class);
-        $form = $this->createForm(AjoutEtudiant::class);
+        $form = $this->createForm(PostulerAnnonce::class);
 
         $formModifier->handleRequest($request);
         if ($formModifier->isSubmitted() && $formModifier->isValid()) {
