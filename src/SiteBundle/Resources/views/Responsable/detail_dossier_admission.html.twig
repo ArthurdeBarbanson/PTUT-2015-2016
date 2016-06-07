@@ -16,25 +16,26 @@
             <div class="col-md-3"><strong>Entretien :</strong></div>
             <div class="col-md-9">
                 <div class="col-md-3"><strong>Date de passage :</strong></div>
-                <div class="col-md-9">{{ etudiant.dossierAdmission.entretien.datePassage }}</div>
+                <div class="col-md-9">{{ etudiant.dossierAdmission.entretien.datePassage | date('d/m/Y h\\hi') }}</div>
                 <div class="col-md-3"><strong>Commentaire :</strong></div>
                 <div class="col-md-9">{{ etudiant.dossierAdmission.entretien.commentaire is not null ? etudiant.dossierAdmission.entretien.commentaire : "Aucun" }}</div>
                 <div class="col-md-3"><strong>Etat :</strong></div>
                 <div class="col-md-9">{{ etudiant.dossierAdmission.entretien.etat | etatEntretien }}</div>
             </div>
+            <div class="text-center"><a type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#ajouterEntretien">Modifier l'entretien</a></div>
         {% else %}
             <div class="col-md-3"><strong>Entretien :</strong></div>
             <div class="col-md-9">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#ajouterCV">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#ajouterEntretien">
                     Ajouter un entretien
                 </button>
             </div>
         {% endif %}
     </div>
-
     <!-- Modal -->
-    <div id="ajouterCV" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+    <div id="ajouterEntretien" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -42,7 +43,33 @@
                     <h4 class="modal-title text-center">Programmer un entretien</h4>
                 </div>
                 <div class="modal-body">
-                    {{ form(form) }}
+                    {{ form_start(form) }}
+                    <div class="row margB10">
+                        <div class="col-md-4">
+                            <strong>{{ form_label(form.commentaire , ' Commentaire : ') }}</strong></div>
+                        <div class="col-md-8">{{ form_widget(form.commentaire ,{'value' :etudiant.dossierAdmission.entretien.commentaire  } , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                    </div>
+                    <div class="row margB10">
+                        <div class="col-md-4">
+                            <strong>{{ form_label(form.datePassage , ' Date de passage : ') }}</strong></div>
+                        <div class="col-md-8">{{ form_widget(form.datePassage ,{'value' :etudiant.dossierAdmission.entretien.datePassage  } , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                    </div>
+                    {% if etudiant.dossierAdmission.entretien is not null %}
+                        <div class="row">
+                            <div class="col-md-4"><a type="button" class="btn btn-success">Accepter l'étudiant suite à
+                                    l'entretien</a></div>
+                            <div class="col-md-4">{{ form_widget(form.submit , {'attr': {'class': 'btn-default col-sm-12'}}) }}</div>
+                            <div class="col-md-4"><a type="button" class="btn btn-danger">Refuser l'étudiant suite à
+                                    l'entretien</a></div>
+                        </div>
+                    {% else %}
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">{{ form_widget(form.submit , {'attr': {'class': 'btn-default col-sm-12'}}) }}</div>
+                            <div class="col-md-4"></div>
+                        </div>
+                    {% endif %}
+                    {{ form_end(form) }}
                 </div>
             </div>
 

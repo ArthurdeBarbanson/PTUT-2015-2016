@@ -38,7 +38,7 @@ class Entretien
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="DatePassage", type="date", nullable=true)
+     * @ORM\Column(name="DatePassage", type="datetime", nullable=true)
      */
     private $datePassage;
     
