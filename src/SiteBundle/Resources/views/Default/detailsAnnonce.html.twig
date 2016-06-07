@@ -13,7 +13,8 @@
             <h3>Description de l'entreprise</h3>
             <p>{{ offre.entreprise.description }}</p>
             <h3>Description de l'offre</h3>
-            <p>{{ offre.sujet }}</p>
+            <p>{{ offre.sujet }} {% if  offre.document is not empty and offre.document is not null  %} <a target="_blank" href="{{ asset(offre.document) }}">Consulter le sujet de l'offre <span
+                            class="glyphicon glyphicon-eye-open "></span></a> {% endif %}</p>
         </div>
         <div class="col-sm-6">
             <div class="panel panel-default">
@@ -103,7 +104,7 @@
         <a class="btn btn-success" href="{{ path('validation_Annonce', {'offreId': offre.id }) }}">
             Valider
         </a>
-        <button class="btn btn-warning" data-toggle="modal" data-target="#modifOffre">
+        <button class="btn btn-warning" data-toggle="modal" data-target="#modifOffre" id="bouttonmodif">
             Demande de modification
         </button>
 
@@ -126,7 +127,10 @@
                         <h4 class="modal-title text-center">Demande de modification</h4>
                     </div>
                     <div class="modal-body">
-                        {{ form(form_modif) }}
+
+                        {{ form_start(form_modif, {'attr': {'id':'formModifier'}}) }}
+                        {{ form_widget(form_modif) }}
+                        {{ form_end(form_modif) }}
                     </div>
                 </div>
 
@@ -142,7 +146,9 @@
                         <h4 class="modal-title text-center">Refuser cette offre d'aternance</h4>
                     </div>
                     <div class="modal-body">
-                        {{ form(form_refus) }}
+                        {{ form_start(form_refus) }}
+                        {{ form_widget(form_refus) }}
+                        {{ form_end(form_refus) }}
 
                     </div>
                 </div>
@@ -176,24 +182,23 @@
                 {% endif %}
             {% endif %}
 
-            {#$("#refus").submit(function (event) {#}
-            {#event.preventDefault(); // EmpÃªcher le rechargement de la page.#}
-            {#$.ajax({#}
-            {#url: "{{path("site_detailsAnnonceResponsable", {'offreId': offre.id })}}",#}
-            {#type: "post",#}
-            {#data: $("#ParrainageWifiPlusieursPersonnes").serialize(),#}
-            {#error: function () {#}
-            {#$('#modifOffre').modal('show');#}
-            {#$('#modifOffre').html(data);#}
-            {#//                        alert($("#ParrainageWifiPlusieursPersonnes").serialize().valueOf());#}
-            {#},#}
-            {#success: function (data) {#}
+            {#$("#formModifier").submit(function (event) {#}
+        {#//            event.preventDefault(); // EmpÃªcher le rechargement de la page.#}
+                    {#$.ajax({#}
+                    {#url: "{{path("site_detailsAnnonceResponsable", {'offreId': offre.id })}}",#}
+                    {#type: "post",#}
+                    {#data: $("#formModifier").serialize(),#}
+                    {#error: function () {#}
+                    {#$('#modifOffre').modal('show');#}
+                    {#$('#modifOffre').html(data);#}
+                    {#//                        alert($("#ParrainageWifiPlusieursPersonnes").serialize().valueOf());#}
+                    {#},#}
+                    {#success: function (data) {#}
 
-            {#//                        $('#modifOffre').html(data);#}
-            {#}#}
-            {#});#}
+                                            {#$('#modifOffre').html(data);#}
+                    {#}#}
+                    {#});#}
 
-            {#return false;#}
             {#});#}
         });
 

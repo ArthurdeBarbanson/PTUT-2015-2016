@@ -56,44 +56,44 @@
                     <br><br>
                     <div class="row">
                         <div class="col-sm-6">
-                            <p>Nom :    </p>
+                            <p>Nom :   {{ Etudiant.laPersone.nom }} </p>
                         </div>
                         <div class="col-sm-6">
-                            <p> Prénom  :</p>
+                            <p> Prénom  : {{ Etudiant.laPersone.prenom }}</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <p> Date de naissance :    </p>
+                            <p> Date de naissance :   {{ Etudiant.dateNaissance | date("d/m/Y")}} </p>
                         </div>
                         <div class="col-sm-6">
-                            <p> Dépt./Pays :  </p>
+                            <p> Dépt./Pays : {{ Etudiant.laPersone.Adresse.codePostal }} / {{ Etudiant.laPersone.Adresse.pays }} </p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <p> Sexe :    </p>
+                            <p> Sexe :   {% if Etudiant.laPersone.sexe == "M" %}Homme {% else %}Femme{% endif %} </p>
                         </div>
                         <div class="col-sm-6">
-                            <p> Ville de naissance :  </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <p> Votre n° national étudiant INE :    </p>
+                            <p> Ville de naissance : {{ Etudiant.villeNaissance }} </p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <p> Nationalité :    </p>
+                            <p> Votre n° national étudiant INE :  {{ Dossier.iNE }}  </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p> Nationalité :    {{ Etudiant.nationalite }}</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <p> Situation familiale :    </p>
+                            <p> Situation familiale :    {{ Dossier.situationFamillale }}</p>
                         </div>
                         <div class="col-sm-6">
-                            <p> Nombre d'enfant :    </p>
+                            <p> Nombre d'enfant :    0</p>
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                     <br><br>
                     <div class="row">
                         <div class="col-sm-12">
-                            <p> <strong>Êtes-vous atteint d'un handicap ? </strong>    </p>
+                            <p> <strong>Êtes-vous atteint d'un handicap ? </strong> {% if Dossier.handicap == "0" %}Non{% else %}Oui{% endif %}   </p>
                         </div>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <p> En Enseignement supérieur :    </p>
+                            <p> En Enseignement supérieur : {{ PremiereInscription.anneeEnseignementSuperieur | date("Y") }} / {{ PremiereInscription.anneeEnseignementSuperieur | date("Y") +1}}    </p>
                         </div>
                         <div class="col-sm-6">
                             <p> Université     </p>
@@ -166,7 +166,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <p> En Université Française :    </p>
+                            <p> En Université Française :   {{ PremiereInscription.anneeUniversiteFrancaise | date("Y") }} / {{ PremiereInscription.anneeUniversiteFrancaise | date("Y") +1 }}</p>
                         </div>
                         <div class="col-sm-6">
                             <p>      </p>
@@ -174,7 +174,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <p> À Lyon1 :    </p>
+                            <p> À Lyon1 :   {{ PremiereInscription.anneeInscriptionLyon1  | date("Y") }} / {{ PremiereInscription.anneeInscriptionLyon1  | date("Y") +1 }}</p>
                         </div>
                         <div class="col-sm-6">
                             <p>      </p>
@@ -197,25 +197,27 @@
                     <br><br>
                     <div class="row">
                         <div class="col-sm-12">
-                           Année d'obtention             Intitulé
+                            Intitulé : {{ BacOuEquivalent.intitule }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            Etablissement d'obtention
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p> Type :  {{ BacOuEquivalent.typeEtablissementObtention }}  </p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p> Dépatement :    {{ BacOuEquivalent.departementEtablissementObtention }}  </p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            Etablissement d'obtention :
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <p> Type :    </p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p> Dépatement :      </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            Nom :
+                            Nom : {{ BacOuEquivalent.nomEtablissementObtention }}
                         </div>
                     </div>
                 </div>
@@ -235,18 +237,18 @@
                     <br><br>
                     <div class="row">
                         <div class="col-sm-12">
-                           Adresse :
+                           Adresse : {{ Etudiant.laPersone.Adresse.adresse }}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            <p> Code Postal :    </p>
+                            <p> Code Postal : {{ Etudiant.laPersone.Adresse.codePostal }}   </p>
                         </div>
                         <div class="col-sm-4">
-                            <p> Commune :      </p>
+                            <p> Commune :   {{ Etudiant.laPersone.Adresse.commune }}   </p>
                         </div>
                         <div class="col-sm-4">
-                            <p> Pays :      </p>
+                            <p> Pays :   {{ Etudiant.laPersone.Adresse.pays }}   </p>
                         </div>
                     </div>
                     <div class="row">

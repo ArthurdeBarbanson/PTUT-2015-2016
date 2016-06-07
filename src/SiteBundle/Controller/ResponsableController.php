@@ -343,8 +343,6 @@ class ResponsableController extends Controller
 
             $this->addFlash('info', "L'email à été envoyé !");
             return $this->redirectToRoute('acceuil_responsable');
-        } else {
-            $errors_modif = $formModifier->getErrors();
         }
 
         $formulaire->handleRequest($request);
@@ -360,8 +358,6 @@ class ResponsableController extends Controller
             $this->addFlash('info', "L'annonce a été suprimer !");
             return $this->redirectToRoute('acceuil_responsable');
 
-        } else {
-            $errors_refus = $formulaire->getErrors();
         }
 
         return $this->render(

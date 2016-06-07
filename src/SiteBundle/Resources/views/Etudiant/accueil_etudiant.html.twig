@@ -167,30 +167,64 @@
         <div class="row">
             <div id="actions" class="col-sm-12 container">
                 <h3>Etape 2 : Pré inscription contrat </h3>
+                {% if offre.typeContrat is not null %}
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-11"><h4 class="text-success">Etape 2.a : Sélection du type de contrat <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> </h4></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-11"> <h4>Etape 2.b : Fiche pré inscription </h4></div>
+                    </div>
+                    {% if offre.typeContrat == "Apprentissage" %}
+                        <p> Vous devez remplir le fomulaire  de cette adresse
+                            <a href="http://www.fsarl-ufa.com/fdp/rl1-26-sil-option-concepteur-et-gestionnaire-de-site-internet-metinet?crew=15"
+                               class="btn btn-info" target="_blank">
+                                Fiche de pré-inscription rentrée</a>
+                        </p>
+                    {% else %}
+                        <p> Vous devez remplir le fomulaire  de cette adresse
+                            <a href="http://travail-emploi.gouv.fr/formation-professionnelle/formation-en-alternance/article/le-contrat-de-professionnalisation"
+                               class="btn btn-info" target="_blank">
+                                Fiche de pré-inscription rentrée</a>
+                        </p>
+                    {% endif %}
 
-                {% if offre.typeContrat == "Apprentissage" %}
-                    <p> Vous devez remplir le fomulaire  de cette adresse
-                        <a href="http://www.fsarl-ufa.com/fdp/rl1-26-sil-option-concepteur-et-gestionnaire-de-site-internet-metinet?crew=15"
-                           class="btn btn-info" target="_blank">
-                            Fiche de pré-inscription rentrée</a>
+                    <p>Vous consulter la fiche de votre entreprise pour remplir le formulaire :
+                        <button class="btn btn-info" data-toggle="modal" data-target="#FicheEntreprise">
+                            Fiche entreprise
+                        </button>
                     </p>
+                    <p> Une fois cette étape faite le responsable de formation validera celle-ci afin que vous puissiez
+                        passer à l'étape suivante.</p>
+                    </div>
+                    </div>
+
                 {% else %}
-                    <p> Vous devez remplir le fomulaire  de cette adresse
-                        <a href="http://travail-emploi.gouv.fr/formation-professionnelle/formation-en-alternance/article/le-contrat-de-professionnalisation"
-                           class="btn btn-info" target="_blank">
-                            Fiche de pré-inscription rentrée</a>
-                    </p>
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-11"><h4>Etape 2.a : Sélection du type de contrat </h4></div>
+                    </div>
+                    {{ form_start(formTypeContrat) }}
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2">
+                                <strong>{{ form_label(formTypeContrat.typeContrat , ' Type Contrat : ') }} </strong>
+                            </div>
+                            <div class="col-md-8">{{ form_widget(formTypeContrat.typeContrat , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-3">{{ form_widget(formTypeContrat.submit , {'attr': {'class': 'btn-success col-sm-12'}}) }}</div>
+                        <div class="col-md-2"></div>
+                    </div>
+                    {{ form_end(formTypeContrat) }}
+                    </div>
+                    </div>
                 {% endif %}
 
-                <p>Vous consulter la fiche de votre entreprise pour remplir le formulaire :
-                    <button class="btn btn-info" data-toggle="modal" data-target="#FicheEntreprise">
-                        Fiche entreprise
-                    </button>
-                </p>
-                <p> Une fois cette étape faite le responsable de formation validera celle-ci afin que vous puissiez
-                    passer à l'étape suivante.</p>
-            </div>
-            </div>
     {% elseif etudiant.DossierInscription.etatDossier == "3" %}
         <div class="row">
             <div id="actions" class="col-sm-12 container"> <h3 class="text-success">Etape 1 : Trouver une entreprise <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></h3> </div>
@@ -674,7 +708,7 @@
                                 <div class="col-md-3">
                                     <strong>{{ form_label(formModificationEtudiant.DateNaissance , ' Date Naissance : ') }}</strong>
                                 </div>
-                                <div class="col-md-9">{{ form_widget(formModificationEtudiant.DateNaissance ,{'value' : etudiant.dateNaissance |date('d-m-Y') }, {'attr': {'class': 'col-sm-12'}}) }}</div>
+                                <div class="col-md-9">{{ form_widget(formModificationEtudiant.DateNaissance ,{'value' : etudiant.dateNaissance |date('d/m/Y') }, {'attr': {'class': 'col-sm-12'}}) }}</div>
                             </div>
                             <div class="row margB10">
                                 <div class="col-md-3">

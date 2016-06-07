@@ -12,6 +12,7 @@ use SiteBundle\Entity\EtudiantOffre;
 use SiteBundle\Entity\InscriptionAutreEtablissement;
 use SiteBundle\Entity\PremiereInscription;
 use SiteBundle\Forms\Types\AjoutPdfEtu;
+use SiteBundle\Forms\Types\ChoixTypeContrat;
 use SiteBundle\Forms\Types\FichePreInscription;
 use SiteBundle\Forms\Types\ModifierEtudiant;
 use SiteBundle\Forms\Types\MotDePasseEtudiant;
@@ -44,11 +45,13 @@ class EtudiantController extends Controller
         $form = $this->createForm(AjoutPdfEtu::class);
         $formPreInscription = $this->createForm(FichePreInscription::class);
         $formModificationEtudiant = $this->createForm(ModifierEtudiant::class);
+        $formTypeContrat = $this->createForm(ChoixTypeContrat::class);
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
             $formModificationEtudiant->handleRequest($request);
             $formPreInscription->handleRequest($request);
+            $formTypeContrat->handleRequest($request);
             if ($form->isValid()) {
                 $date = new \DateTime();
                 $annee = $date->format('Y');
@@ -230,6 +233,18 @@ class EtudiantController extends Controller
                 }
 
             }
+            if ($formTypeContrat->isValid()) {
+                $data = $formTypeContrat->getData();
+                $em = $this->getDoctrine()->getManager();
+                $offre[0]->setTypeContrat($data["typeContrat"]);
+                $em->persist($offre[0]);
+                try {
+                    $em->flush();
+                    $this->addFlash('success', "Je pense que ça a marché");
+                } catch (UniqueConstraintViolationException $exception) {
+                    $this->addFlash('error', "Je pense pas que ça soit bon");
+                }
+            }
 
         }
 
@@ -242,7 +257,8 @@ class EtudiantController extends Controller
                 'entreprise' => $entreprise,
                 'dirigeants' => $dirigeants,
                 'formModificationEtudiant' => $formModificationEtudiant->createView(),
-                'offre' => $offre[0]
+                'offre' => $offre[0],
+                'formTypeContrat' => $formTypeContrat->createView(),
             ]
         );
     }
@@ -408,10 +424,14 @@ class EtudiantController extends Controller
         $dossierID = $request->get('dossierId');
         $repositoryDossier = $this->getDoctrine()->getManager()->getRepository('SiteBundle:DossierInscription');
         $repositoryEtudiant = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
+        $repositoryPremiereInscription = $this->getDoctrine()->getManager()->getRepository('SiteBundle:PremiereInscription');
+        $repositoryBacOuEquivalent = $this->getDoctrine()->getManager()->getRepository('SiteBundle:BacOuEquivalent');
 
 
         $Dossier = $repositoryDossier->find($dossierID);
-        $Etudiant = $repositoryEtudiant->find( $this->getUser()->getIdEtudiant());
+        $Etudiant = $repositoryEtudiant->findBy(["DossierInscription"=>$Dossier]);
+        $PremiereInscription = $repositoryPremiereInscription->findBy(["DossierInscription"=>$Dossier]);
+        $BacOuEquivalent = $repositoryBacOuEquivalent->findBy(["DossierInscription"=>$Dossier]);
         //si l'annonce n'es pas trouvé
         if (null === $Dossier) {
             throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
@@ -434,7 +454,9 @@ class EtudiantController extends Controller
         return $this->render(
             'SiteBundle:Etudiant:ImpressionDossierInscriptionPage1.html.twig', [
                 'Dossier' =>  $Dossier,
-                'Etudiant' =>  $Etudiant
+                'Etudiant' =>  $Etudiant[0],
+                'PremiereInscription' => $PremiereInscription[0],
+                'BacOuEquivalent' => $BacOuEquivalent[0]
             ]
         );
 
