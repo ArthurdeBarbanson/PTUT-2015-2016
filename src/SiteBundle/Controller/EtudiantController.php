@@ -241,7 +241,8 @@ class EtudiantController extends Controller
                 'formPreInscription' => $formPreInscription->createView(),
                 'entreprise' => $entreprise,
                 'dirigeants' => $dirigeants,
-                'formModificationEtudiant' => $formModificationEtudiant->createView()
+                'formModificationEtudiant' => $formModificationEtudiant->createView(),
+                'offre' => $offre[0]
             ]
         );
     }
