@@ -158,19 +158,22 @@
 
     <script type="text/javascript">
         $(function(){
-            {% if errorEtudiant is not sameas('') %}
-            $('#postulerOffre').modal('show');
-
-            {% endif %}
-            {%if error_refus is not sameas('') %}
-            $(function(){
-                $('#refuserOffre').modal('show');
-            });
-            console.log('erreur refus');
-            {% endif %}
-            {% if error_modif is not sameas('') %}
-            $('#modifOffre').modal('show');
-            console.log('erreur modif');
+            {% set route = app.request.attributes.get('_route') %}
+            {% if route is sameas("site_detailsAnnonceEtudiant") %}
+                {% if errorEtudiant is not sameas('') %}
+                $('#postulerOffre').modal('show');
+                {% endif %}
+            {% elseif route is sameas("site_detailsAnnonceResponsable") %}
+                {%if error_refus is not sameas('') %}
+                $(function(){
+                    $('#refuserOffre').modal('show');
+                });
+                console.log('erreur refus');
+                {% endif %}
+                {% if error_modif is not sameas('') %}
+                $('#modifOffre').modal('show');
+                console.log('erreur modif');
+                {% endif %}
             {% endif %}
 
             {#$("#refus").submit(function (event) {#}
