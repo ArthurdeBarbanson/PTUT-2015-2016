@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+{% block title %}
+    Detail dossier admission
+{% endblock %}
+
+{% block body %}
+    <h1>Detail du dossier d'admission</h1>
+    <div class="row">
+        <div class="col-md-3"><strong>Nom prénom :</strong></div>
+        <div class="col-md-9">{{ etudiant.laPersone.nom | capitalize }}  {{ etudiant.laPersone.prenom | capitalize }}</div>
+        <div class="col-md-3"><strong>Etat :</strong></div>
+        <div class="col-md-9">{{ etudiant.dossierAdmission.etatDossier | etatAdmission }}</div>
+        <div class="col-md-3"><strong>Commentaire :</strong></div>
+        <div class="col-md-9">{{ etudiant.dossierAdmission.commentaire is not empty ? etudiant.dossierAdmission.commentaire: 'Aucun' }}</div>
+        {% if etudiant.dossierAdmission.entretien is not null %}
+            <div class="col-md-3"><strong>Entretien :</strong></div>
+            <div class="col-md-9">
+                <div class="col-md-3"><strong>Date de passage :</strong></div>
+                <div class="col-md-9">{{ etudiant.dossierAdmission.entretien.datePassage }}</div>
+                <div class="col-md-3"><strong>Commentaire :</strong></div>
+                <div class="col-md-9">{{ etudiant.dossierAdmission.entretien.commentaire is not null ? etudiant.dossierAdmission.entretien.commentaire : "Aucun" }}</div>
+                <div class="col-md-3"><strong>Etat :</strong></div>
+                <div class="col-md-9">{{ etudiant.dossierAdmission.entretien.etat | etatEntretien }}</div>
+            </div>
+        {% else %}
+            <div class="col-md-3"><strong>Entretien :</strong></div>
+            <div class="col-md-9">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#ajouterCV">
+                    Ajouter un entretien
+                </button>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Modal -->
+    <div id="ajouterCV" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-center">Programmer un entretien</h4>
+                </div>
+                <div class="modal-body">
+                    {{ form(form) }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

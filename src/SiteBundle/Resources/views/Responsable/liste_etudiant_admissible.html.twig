@@ -1,0 +1,27 @@
+{% extends '::base.html.twig' %}
+{% block title %}
+    Liste des étudiants admissible
+{% endblock %}
+
+{% block body %}
+    <h1>Liste des étudiants admissible</h1>
+    <table class="table table-bordered">
+    <tr>
+        <th class="text-center">Nom Pernom</th>
+        <th class="text-center">Etat dossier</th>
+        <th class="text-center">Action</th>
+    </tr>
+
+    {% for etudiant in etudiants %}
+        <tr>
+            <td class="text-center">{{ etudiant.laPersone.prenom }} {{ etudiant.laPersone.nom }}</td>
+            {% if etudiant.dossierAdmission is null %}
+                <td class="text-center">A valider</td>
+            {% else %}
+                <td class="text-center">{{ etudiant.dossierAdmission | etatAdmission }}</td>
+            {% endif %}
+            <td class="text-center"><a href="{{ path('detailDossierAdmissible', {'idEtudiant': etudiant.id }) }}">Détails
+                    du dossier</a></td>
+        </tr>
+    {% endfor %}
+{% endblock %}
