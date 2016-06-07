@@ -49,5 +49,10 @@
             <argument type="service" id="templating" />
         </service>
 
+        <service id="site.mailer.responsable" class="SiteBundle\Service\EmailResponsable">
+            <argument type="service" id="mailer" />
+            <argument type="service" id="templating" />
+        </service>
+
     </services>
 </container>

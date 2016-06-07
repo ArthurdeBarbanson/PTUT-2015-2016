@@ -17,6 +17,7 @@ use SiteBundle\Forms\Types\AjoutPromotionType;
 use SiteBundle\Forms\Types\AjoutTuteur;
 use SiteBundle\Forms\Types\AssignerTuteur;
 use SiteBundle\Forms\Types\EmailEtapeInscriptionType;
+use SiteBundle\Forms\Types\EmailType;
 use SiteBundle\Forms\Types\ModifierAnnonceType;
 use SiteBundle\Forms\Types\RefuserAnnonceType;
 use SiteBundle\Forms\Types\SMTPType;
@@ -60,7 +61,7 @@ class ResponsableController extends Controller
                 break;
         }
 
-        $smtpForm = $this->createForm(SMTPType::class);
+        $smtpForm = $this->createForm(EmailType::class);
 
         return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig', [
             'offres' => $offres,
@@ -329,21 +330,8 @@ class ResponsableController extends Controller
         $formModifier->handleRequest($request);
         if ($formModifier->isSubmitted() && $formModifier->isValid()) {
             $data = $formModifier->getData();
-            // en attente serveur smtp
+            $this->get('site.mailer.responsable')->modifierAnnonce($offre->getEntreprise()->getMail(), $data['Message']);
 
-            $message = \Swift_Message::newInstance()
-                ->setSubject("Demande de modification de l'annonce ")
-                ->setFrom('arthurdebarbanson@gmail.com')
-                ->setTo('recipient@example.com')
-                ->setBody(
-                    $this->renderView(
-                        'Emails/ModificationAnnonce.html.twig', [
-                            'message' => $data['Message']
-                        ]
-                    ),
-                    'text/html'
-                );
-            $this->get('mailer')->send($message);
 
             $offre->setEtatOffre('En attente de modification');
 
@@ -360,22 +348,8 @@ class ResponsableController extends Controller
         if ($formulaire->isSubmitted() && $formulaire->isValid()) {
             $data2 = $formulaire->getData();
 
-            // en attente serveur smtp
-//            $this->get('site.mailer')->sendMessage('');
+            $this->get('site.mailer.responsable')->refuserAnnonce($offre->getEntreprise()->getMail(), $data2['Message']);
 
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Refuse de validation')
-                ->setFrom('arthurdebarbanson@gmail.com')
-                ->setTo('recipient@example.com')
-                ->setBody(
-                    $this->renderView(
-                        'Emails/refusAnnonce.html.twig', [
-                            'message' => $data2['Message']
-                        ]
-                    ),
-                    'text/html'
-                );
-            $this->get('mailer')->send($message);
             $em->remove($offre);
             $em->flush();
 

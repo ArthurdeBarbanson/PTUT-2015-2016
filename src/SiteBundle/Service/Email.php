@@ -22,7 +22,7 @@ class Email
         $this->templating = $templating;
     }
 
-    protected function sendMessage($from, $to, $subject, $body)
+    public function sendEmail($from, $to, $subject, $body)
     {
         $mail = \Swift_Message::newInstance();
 
@@ -30,8 +30,11 @@ class Email
             ->setFrom($from)
             ->setTo($to)
             ->setSubject($subject)
-            ->setBody($body);
+            ->setBody($body)
+            ->setContentType('text/html');
 
         $this->mailer->send($mail);
     }
+
+
 }

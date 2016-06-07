@@ -56,6 +56,16 @@ class Email
      */
     private $port;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="encryption", type="string", length=255, unique=true)
+     */
+    private $encryption;
+
+
+
     /**
      * Get id
      *
@@ -184,5 +194,29 @@ class Email
     public function getPort()
     {
         return $this->port;
+    }
+
+    /**
+     * Set encryption
+     *
+     * @param string $encryption
+     *
+     * @return Email
+     */
+    public function setEncryption($encryption)
+    {
+        $this->encryption = $encryption;
+
+        return $this;
+    }
+
+    /**
+     * Get encryption
+     *
+     * @return string
+     */
+    public function getEncryption()
+    {
+        return $this->encryption;
     }
 }

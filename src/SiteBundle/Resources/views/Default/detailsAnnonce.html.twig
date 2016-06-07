@@ -1,715 +1,201 @@
 {% extends '::base.html.twig' %}
-{% form_theme form2 'bootstrap_3_layout.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
 {% block title %}
-    Accueil étudiant
+    Détails de l'offre {{ offre.titre }}
 {% endblock %}
+
+
 {% block body %}
-    <h1 class="text-center">Mon Compte</h1>
+    <h1 class="text-center margB20">{{ offre.titre }} </h1>
+
     <div class="row">
-        <div id="actions" class="col-sm-12 container">
-            <h2>Informations Personnelles : <a href="#" data-toggle="modal" data-target="#Etudiant"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></h2>
+        <div id="description" class="col-sm-6 container">
+            <h3>Description de l'entreprise</h3>
+            <p>{{ offre.entreprise.description }}</p>
+            <h3>Description de l'offre</h3>
+            <p>{{ offre.sujet }}</p>
         </div>
-    </div>
-    <div class="row">
-        <div id="actions" class="col-sm-6 container">
-            <p>Nom : {{ etudiant.laPersone.nom }}</p>
-        </div>
-        <div id="actions" class="col-sm-6 container">
-            <p>Prénom : {{ etudiant.laPersone.prenom }}</p>
-        </div>
-    </div>
-    <div class="row">
-        {% if etudiant.laPersone.sexe %}
-            <div id="actions" class="col-sm-6 container">
-                <p>Sexe : {{ etudiant.laPersone.sexe }}</p>
-            </div>
-        {% else %}
-            <div id="actions" class="col-sm-6 container">
-                <strong class="text-danger">Sexe : </strong>
-            </div>
-        {% endif %}
-        {% if etudiant.nationalite %}
-            <div id="actions" class="col-sm-6 container">
-                <p>Nationnalité : {{ etudiant.nationalite }}</p>
-            </div>
-        {% else %}
-            <div id="actions" class="col-sm-6 container">
-                <strong class="text-danger">Nationnalité : "A remplir</strong>
-            </div>
-        {% endif %}
-    </div>
-    <div class="row">
-        <div id="actions" class="col-sm-6 container">
-            <p>Date de naissance : {{ etudiant.dateNaissance | date('d/m/Y') }}</p>
-        </div>
-        {% if etudiant.laPersone.Adresse %}
-            <div id="actions" class="col-sm-6 container">
-                <p>Ville de naissance : {{ etudiant.villeNaissance }}</p>
-            </div>
-        {% else %}
-            <div id="actions" class="col-sm-6 container">
-                <strong class="text-danger">Ville de naissance : </strong>
-            </div>
-        {% endif %}
-    </div>
-    <div class="row">
-        {% if etudiant.laPersone.mail %}
-            <div id="actions" class="col-sm-6 container">
-                <p>Mail : {{ etudiant.laPersone.mail }}</p>
-            </div>
-        {% else %}
-            <div id="actions" class="col-sm-6 container">
-                <strong class="text-danger">Mail : </strong>
-            </div>
-        {% endif %}
-        {% if etudiant.laPersone.telephone %}
-            <div id="actions" class="col-sm-6 container">
-                <p>Téléphone : {{ etudiant.laPersone.telephone }}</p>
-            </div>
-        {% else %}
-            <div id="actions" class="col-sm-6 container">
-                <strong class="text-danger">Téléphone : </strong>
-            </div>
-        {% endif %}
-    </div>
-    {% if etudiant.laPersone.Adresse %}
-        <div class="row">
-            <div id="actions" class="col-sm-12 container">
-                <p>Adresse : {{ etudiant.laPersone.Adresse.adresse }}</p>
-            </div>
-        </div>
-        <div class="row">
-            <div id="actions" class="col-sm-6 container">
-                <p>Code Postal : {{ etudiant.laPersone.Adresse.codePostal }}</p>
-            </div>
-            <div id="actions" class="col-sm-6 container">
-                <p>Ville : {{ etudiant.laPersone.Adresse.commune }}</p>
-            </div>
-        </div>
-    {% else %}
-        <div class="row">
-            <div id="actions" class="col-sm-12 container">
-                <strong class="text-danger">Adresse : </strong>
-            </div>
-        </div>
-        <div class="row">
-            <div id="actions" class="col-sm-6 container">
-                <strong class="text-danger">Code Postal : </strong>
-            </div>
-            <div id="actions" class="col-sm-6 container">
-                <strong class="text-danger">Ville : </strong>
-            </div>
-        </div>
-    {% endif %}
-    {% if etudiant.numeroDossierCandidature %}
-        <div class="row">
-            <div id="actions" class="col-sm-12 container">
-                <p>Numéro dossier ciel2 : {{ etudiant.numeroDossierCandidature }}</p>
-            </div>
-        </div>
-    {% else %}
-        <div class="row">
-            <div id="actions" class="col-sm-12 container">
-                <strong class="text-danger">Numéro dossier ciel2 : </strong>
-            </div>
-        </div>
-    {% endif %}
-    {% if app.user.idEtudiant.cv %}
-        <div class="row">
-            <div id="actions" class="col-sm-12 container">
-                <p>CV : <a href="{{ asset(app.user.idEtudiant.cv) }}" target="_blank">Cliquer ici</a></p>
-            </div>
-        </div>
-    {% else %}
-        <div class="row">
-            <div id="actions" class="col-sm-12 container">
-                <strong class="text-danger">CV : </strong>
-            </div>
-        </div>
-    {% endif %}
-    <hr>
-    <div class="row">
-        <div id="actions" class="col-sm-12 container">
-            <h2>Avancement du dossier :</h2>
-        </div>
-    </div>
-    {% if etudiant.DossierInscription.etatDossier == "0" %}
-        <h3> Veuillez completer votre profil </h3>
-    {% elseif etudiant.DossierInscription.etatDossier == "1" %}
-        <div class="row">
-            <div id="actions" class="col-sm-12 container">
-                <h3>Etape 1 : Trouver une entreprise </h3>
-                <p> Vous devez trouver une entreprise. Pour celà vous pouvez consulter les annonces des entreprises sur
-                    notre site.
-                    <a href="{{ path('site_listeOffreEtudiant') }}" class="btn btn-info"> Consulter Annonce</a>
-                </p>
-                <p>Vous pouvez également joindre un cv à votre profil :
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#ajouterCV">
-                        Ajouter/Modifier mon CV
-                    </button>
-                </p>
-            </div>
-        </div>
-    {% elseif etudiant.DossierInscription.etatDossier == "2" %}
-        <div class="row">
-            <div id="actions" class="col-sm-12 container"> <h3 class="text-success">Etape 1 : Trouver une entreprise <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></h3> </div>
-        </div>
-        <div class="row">
-            <div id="actions" class="col-sm-12 container">
-                <h3>Etape 2 : Pré inscription contrat </h3>
-                <p> Vous devez remplir le fomulaire de cette adresse
-                    <a href="http://www.fsarl-ufa.com/fdp/rl1-26-sil-option-concepteur-et-gestionnaire-de-site-internet-metinet?crew=15"
-                       class="btn btn-info" target="_blank">
-                        Fiche de pré-inscription rentrée</a>
-                </p>
-                <p>Vous consulter la fiche de votre entreprise pour remplir le formulaire :
-                    <button class="btn btn-info" data-toggle="modal" data-target="#FicheEntreprise">
-                        Fiche entreprise
-                    </button>
-                </p>
-                <p> Une fois cette étape faite le responsable de formation validera celle-ci afin que vous puissiez
-                    passer à l'étape suivante.</p>
-            </div>
-        </div>
-    {% elseif etudiant.DossierInscription.etatDossier == "3" %}
-        <div class="row">
-            <div id="actions" class="col-sm-12 container"> <h3 class="text-success">Etape 1 : Trouver une entreprise <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></h3> </div>
-        </div>
-        <div class="row">
-            <div id="actions" class="col-sm-12 container"> <h3 class="text-success">Etape 2 : Pré inscription contrat <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> </h3> </div>
-        </div>
-        <div class="row">
-            <div id="actions" class="col-sm-12 container">
-                <h3>Etape 3 : Dossiers inscription pédagogique (Date limite 31 août 2016) </h3>
-                <p> Champs à remplire obligatoirement </p>
-                <div class="panel panel-info">
-                    <div class="panel-body">
-                        {{ form_start(formPreInscription) }}
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <ins>Bac ou equivalent :</ins>
-                                <br><br>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.Intitule , ' Intitulé : ', {'label_attr': {'class': 'col-sm-5'}}) }}
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.Intitule , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.Mention , ' Mention : ', {'label_attr': {'class': 'col-sm-5'}}) }}
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.Mention , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.Type , ' Type : ', {'label_attr': {'class': 'col-sm-5'}}) }}
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.Type , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.Departement , ' Département  : ', {'label_attr': {'class': 'col-sm-5'}}) }}
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.Departement , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.Nom , ' Nom  : ', {'label_attr': {'class': 'col-sm-5'}}) }}
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.Nom , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <ins>Dernier établissement fréquenté :</ins>
-                                <br><br>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.NomDernier , ' Nom  : ', {'label_attr': {'class': 'col-sm-5'}}) }}
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.NomDernier , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.DepartementDernier , ' Département  : ', {'label_attr': {'class': 'col-sm-5'}}) }}
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.DepartementDernier , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.AnneDernier , ' Annee  : ', {'label_attr': {'class': 'col-sm-5'}}) }}
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.AnneDernier , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.TypeDernier , ' Type  : ', {'label_attr': {'class': 'col-sm-5'}}) }}
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.TypeDernier , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="col-sm-5 control-label required"> Est Lyon  : </label>
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.isLyon , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="col-sm-5 control-label required"> Est Transfert  : </label>
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.isTransfert , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <ins>Dernier diplome obtenue :</ins>
-                                <br><br>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.IntituleDernierDiplome , ' Intitulé : ', {'label_attr': {'class': 'col-sm-5'}}) }}
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.IntituleDernierDiplome , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.DerpartementDernierDiplome , 'Departement : ', {'label_attr': {'class': 'col-sm-5'}}) }}
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.DerpartementDernierDiplome , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.AnneeDernierDiplome , ' Année : ', {'label_attr': {'class': 'col-sm-5'}}) }}
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.AnneeDernierDiplome , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.EtablissementDernierDiplome , ' Etablissement : ', {'label_attr': {'class': 'col-sm-5'}}) }}
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.EtablissementDernierDiplome , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <ins>Inscrit autre établissement :</ins>
-                                <br><br>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.NomAutreEtablissement , ' Nom : ', {'label_attr': {'class': 'col-sm-5'}}) }}
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.NomAutreEtablissement , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.TypeAutreEtablissement , ' Type : ', {'label_attr': {'class': 'col-sm-5'}}) }}
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.TypeAutreEtablissement , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.DepartementAutreEtablissement , ' Departement : ', {'label_attr': {'class': 'col-sm-5'}}) }}
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.DepartementAutreEtablissement , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.AnneeAutreEtablissement , ' Annee : ', {'label_attr': {'class': 'col-sm-5'}}) }}
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.AnneeAutreEtablissement , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.CodeAutreEtablissement , ' Code : ', {'label_attr': {'class': 'col-sm-5'}}) }}
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.CodeAutreEtablissement , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="col-sm-5 control-label required"> Est Inscrit  : </label>
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.isInscrit , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="col-sm-5 control-label required"> Inscription Maintenue  : </label>
-                                            <div class="col-sm-7">
-                                                {{ form_widget(formPreInscription.isInscriptionMainteanue , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <ins>Premiere inscription:</ins>
-                                <br><br>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.AnneePremiereInscription , ' Inscription lyon 1 : ', {'label_attr': {'class': 'col-sm-6'}}) }}
-                                            <div class="col-sm-6">
-                                                {{ form_widget(formPreInscription.AnneePremiereInscription , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.AnneeUniversitePremiereInscription , ' Université française : ', {'label_attr': {'class': 'col-sm-6'}}) }}
-                                            <div class="col-sm-6">
-                                                {{ form_widget(formPreInscription.AnneeUniversitePremiereInscription , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.NomPremiereInscription , ' Nom : ', {'label_attr': {'class': 'col-sm-6'}}) }}
-                                            <div class="col-sm-6">
-                                                {{ form_widget(formPreInscription.NomPremiereInscription , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ form_label(formPreInscription.AnneeSUPPremiereInscription , ' En enseignement superieur : ', {'label_attr': {'class': 'col-sm-6'}}) }}
-                                            <div class="col-sm-6">
-                                                {{ form_widget(formPreInscription.AnneeSUPPremiereInscription , {'attr': {'class': 'col-sm-12'}}) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {{ form_end(formPreInscription) }}
-                    </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Coordonnées</h3>
                 </div>
-                <p>Ce dossier d'inscription dûment compléter (pièce justificatif compris ) devra nous être retourné
-                    impérativement.
-                    DES QUE POSSIBLE par voie postal uniquement à l'adresse suivante.</p>
-                <p style="text-align: center">
-                    IUT LYON1 SITE DE LA DOUA <br>
-                    SERVICE FARE <br>
-                    1 rue de la Technologie <br>
-                    69622 VILLEURBANNE CEDEX
-                </p>
-                <p> Verifier puis imprimer le dossier pré-remplie : <a href="{{ path('site_impressionDossierInsciptionEtudiant', {'dossierId': etudiant.DossierInscription.id }) }}" target="_blank">Cliquez ici si vous avez
-                        rempli le tableau ci-dessus</a></p>
-                <p> Vous devrez joindre en plus du dossier les pièces demandé dans ce document : <a href="#"
-                                                                                                    target="_blank">Pièce
-                        supplémentaire</a></p>
-            </div>
-        </div>
-    {% elseif etudiant.DossierInscription.etatDossier == "4" %}
-        <div class="row">
-            <div id="actions" class="col-sm-12 container"> <h3 class="text-success">Etape 1 : Trouver une entreprise <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></h3> </div>
-        </div>
-        <div class="row">
-            <div id="actions" class="col-sm-12 container"> <h3 class="text-success">Etape 2 : Pré inscription contrat <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> </h3> </div>
-        </div>
-        <div class="row">
-            <div id="actions" class="col-sm-12 container"> <h3 class="text-success">Etape 3 : Dossiers inscription pédagogique (Date limite 31 août 2016) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></h3> </div>
-        </div>
-        <div class="row">
-            <div id="actions" class="col-sm-12 container">
-                <h3> Etape 4 : Signature du contrat </h3>
-                <p> Après signature du contrat veuilllez donner un copie au secrétariat.</p>
-            </div>
-        </div>
-    {% endif %}
-    <!-- Modal -->
-    <div id="ajouterCV" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    {% if app.user.idEtudiant is null or app.user.idEtudiant.cv is null or app.user.idEtudiant.cv is sameas("") %}
-                        <h4 class="modal-title text-center">Ajouter un CV</h4>
-                    {% else %}
-                        <h4 class="modal-title text-center">Modifier mon CV</h4>
-                    {% endif %}
-                </div>
-                <div class="modal-body">
-                    {% if app.user.idEtudiant is null or app.user.idEtudiant.cv is null or app.user.idEtudiant.cv is sameas("") %}
-                    {% else %}
-                        <h5><strong>Vous possédez déjà un CV :</strong> <a href="{{ asset(app.user.idEtudiant.cv) }}"
-                                                                           target="_blank">Voir mon CV</a></h5>
-                    {% endif %}
-                    {{ form(form2) }}
-                    {% if error is not sameas('') %}
-                        <p class="red">{{ error }}</p>
-                    {% endif %}
+                <div class="panel-body">
+                    <address>
+                        <strong>{{ offre.entreprise.raisonSocial }}</strong><br>
+                        {{ offre.entreprise.adresse.adresse }}<br>
+                        {{ offre.entreprise.adresse.commune }}, {{ offre.entreprise.adresse.codePostal }}<br>
+                    </address>
+                    <p><strong>Contact :</strong></p>
+                    <dl class="dl-horizontal">
+                        <dt>nom</dt>
+                        <dd>{{ offre.entreprise.nom }}</dd>
+                        <dt>prenom</dt>
+                        <dd>{{ offre.entreprise.prenom }}</dd>
+                        <dt>mail</dt>
+                        <dd>{{ offre.entreprise.mail }}</dd>
+                        <dt>téléphone</dt>
+                        <dd>{{ offre.entreprise.telephone }}</dd>
+                    </dl>
                 </div>
             </div>
         </div>
     </div>
-    {% if entreprise %}
+    {% set route = app.request.attributes.get('_route') %}
+    {% if route is sameas("site_detailsAnnonceEtudiant") %}
+        <button class="btn btn-lg btn-primary center-block" data-toggle="modal" data-target="#postulerOffre">
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+            Postuler à cette offre
+        </button>
+        <a class="btn btn-lg btn-success" href="{{ path('site_impressionAnnonceEtudiant', {'annonceId': offre.id }) }}"
+           target="_blank">
+            <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+            Imprimer l'offre
+        </a>
+
         <!-- Modal -->
-        <div id="FicheEntreprise" class="modal fade" role="dialog">
+        <div id="postulerOffre" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1>Fiche Entreprise</h1>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-center">Postuler</h4>
                     </div>
                     <div class="modal-body">
-                        <h1>{{ entreprise.raisonSocial }}</h1>
-                        <div class="row">
-                            <div class="col-md-3"><strong>Raison sociale :</strong></div>
-                            <div class="col-md-9">{{ entreprise.raisonSocial }}</div>
-                            <div class="col-md-3"><strong>Description :</strong></div>
-                            <div class="col-md-9">{{ entreprise.description }}</div>
-                            <div class="col-md-3"><strong>Siret :</strong></div>
-                            <div class="col-md-9">{{ entreprise.siret }}</div>
-                            <div class="col-md-3"><strong>APE :</strong></div>
-                            <div class="col-md-9">{{ entreprise.aPE }}</div>
-                            <div class="col-md-3"><strong>Effectif :</strong></div>
-                            <div class="col-md-9">{{ entreprise.nombrePersonne }} personnes</div>
-                            <div class="col-md-3"><strong>Adresse :</strong></div>
-                            <div class="col-md-9">{{ entreprise.adresse.adresse }}</div>
-                            <div class="col-md-3"><strong>Code postal :</strong></div>
-                            <div class="col-md-9">{{ entreprise.adresse.codePostal }}</div>
-                            <div class="col-md-3"><strong>Ville :</strong></div>
-                            <div class="col-md-9">{{ entreprise.adresse.commune }}</div>
-                            <div class="col-md-3"><strong>Pays :</strong></div>
-                            <div class="col-md-9">{{ entreprise.adresse.nomPays }} </div>
-                            {% for dirigeant in dirigeants %}
-                                <div class="col-md-4"><strong>Nom du {{ dirigeant.fonction }} :</strong></div>
-                                <div class="col-md-8">{{ dirigeant.laPersone.nom }}</div>
-                                <div class="col-md-4"><strong>Prenom du {{ dirigeant.fonction }} :</strong></div>
-                                <div class="col-md-8">{{ dirigeant.laPersone.prenom }}</div>
-                                <div class="col-md-4"><strong>Mail du {{ dirigeant.fonction }} :</strong></div>
-                                <div class="col-md-8">{{ dirigeant.laPersone.mail }}</div>
-                            {% endfor %}
-                            <div class="col-md-12"><h3>Contact</h3></div>
-                            <div class="col-md-3"><strong>Nom :</strong></div>
-                            <div class="col-md-9">{{ entreprise.nom }}</div>
-                            <div class="col-md-3"><strong>Prenom :</strong></div>
-                            <div class="col-md-9">{{ entreprise.prenom }}</div>
-                            <div class="col-md-3"><strong>E-mail :</strong></div>
-                            <div class="col-md-9">{{ entreprise.mail }}</div>
-                            <div class="col-md-3"><strong>Téléphone :</strong></div>
-                            <div class="col-md-9">{{ entreprise.telephone }}</div>
-                            {% if entreprise.siteWeb is not null %}
-                                <div class="col-md-3"><strong>Site web :</strong></div>
-                                <div class="col-md-9"><a href="{{ entreprise.siteWeb }}" target="_blank">{{ entreprise.siteWeb }}</a></div>
+                        <!-- Si l'étudiant ne posssede pas de CV on lui propose d'aller sur l'accuueil etudiant et de l'importer -->
+                        {% if app.user.idEtudiant is null or app.user.idEtudiant.cv is null or app.user.idEtudiant.cv is sameas("") %}
+                            <div class="alert alert-danger" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span class="sr-only">Error:</span>
+                                <strong>Vous ne possédé pas de CV,</strong> vous devez en importer ou en créer un pour
+                                pouvoir
+                                postuler à cette offre.
+                                <p><a class="alert-link" href="{{ path('site_accueilEtudiant') }}">Cliquez ici pour
+                                        pouvoir importer
+                                        votre CV.</a></p>
+                            </div>
+                            <button type="button" class="btn btn-default center-block" data-dismiss="modal">Fermer
+                            </button>
+                        {% else %}
+                            <h5><strong>Nom :</strong> {{ app.user.idEtudiant.laPersone.nom }}</h5>
+                            <h5><strong>Prenom :</strong> {{ app.user.idEtudiant.laPersone.prenom }}</h5>
+                            <h5><strong>CV :</strong> <a href="{{ asset(app.user.idEtudiant.cv) }}" target="_blank">Voir
+                                    mon CV</a></h5>
+                            {{ form(form) }}
+                            {% if errorEtudiant is not sameas('') %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                    <span class="sr-only">Error:</span>
+                                    <strong>Une erreur s'est produite : </strong> {{ errorEtudiant }}
+                                </div>
                             {% endif %}
-                        </div>
-                        <div class="text-center">
-                            <a class="btn btn-default" href="{{ path('site_accueilEtudiant') }}">Retour</a>
-                        </div>
+                        {% endif %}
                     </div>
                 </div>
+
             </div>
         </div>
+    {% elseif route is sameas("site_detailsAnnonceResponsable") %}
+
+        <a class="btn btn-success" href="{{ path('validation_Annonce', {'offreId': offre.id }) }}">
+            Valider
+        </a>
+        <button class="btn btn-warning" data-toggle="modal" data-target="#modifOffre">
+            Demande de modification
+        </button>
+
+        <button class="btn btn-danger" data-toggle="modal" data-target="#refuserOffre">
+            Refuser
+        </button>
+
+        <a class="btn btn_primary" href="{{ path('acceuil_responsable') }}">
+            Retour
+        </a>
+
+
+        <!-- Modal -->
+        <div id="modifOffre" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-center">Demande de modification</h4>
+                    </div>
+                    <div class="modal-body">
+                        {{ form(form_modif) }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="refuserOffre" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-center">Refuser cette offre d'aternance</h4>
+                    </div>
+                    <div class="modal-body">
+                        {{ form(form_refus) }}
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     {% endif %}
-    <!-- Modal -->
-    <div id="Etudiant" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1>Fiche Etudiant</h1>
-                </div>
-                <div class="modal-body">
-                    <h1> Modification des Informations </h1>
-                    <div class="row">
-                        {{ form_start(formModificationEtudiant) }}
-                        <div class="col-md-12">
-                            <div class="row margB10">
-                                <div class="col-md-3">
-                                    <strong>{{ form_label(formModificationEtudiant.Civilite , ' Civilite : ') }} </strong>
-                                </div>
-                                <div class="col-md-9">{{ form_widget(formModificationEtudiant.Civilite ,{'value' : etudiant.laPersone.sexe  }, {'attr': {'class': 'col-sm-12 form-inline'}}) }}</div>
-                            </div>
-                            <div class="row margB10">
-                                <div class="col-md-3">
-                                    <strong>{{ form_label(formModificationEtudiant.Prenom , ' Prenom : ') }}</strong>
-                                </div>
-                                <div class="col-md-9">{{ form_widget(formModificationEtudiant.Prenom ,{'value' : etudiant.laPersone.prenom  } , {'attr': {'class': 'col-sm-12'}}) }}</div>
-                            </div>
-                            <div class="row margB10">
-                                <div class="col-md-3">
-                                    <strong>{{ form_label(formModificationEtudiant.Nom , ' Nom : ') }}</strong></div>
-                                <div class="col-md-9">{{ form_widget(formModificationEtudiant.Nom ,{'value' :etudiant.laPersone.nom  } , {'attr': {'class': 'col-sm-12'}}) }}</div>
-                            </div>
-                            <div class="row margB10">
-                                <div class="col-md-3">
-                                    <strong>{{ form_label(formModificationEtudiant.Telephone , ' Telephone : ') }}</strong>
-                                </div>
-                                <div class="col-md-9">{{ form_widget(formModificationEtudiant.Telephone ,{'value' : etudiant.laPersone.telephone  }, {'attr': {'class': 'col-sm-12'}}) }}</div>
-                            </div>
-                            <div class="row margB10">
-                                <div class="col-md-3">
-                                    <strong>{{ form_label(formModificationEtudiant.DateNaissance , ' Date Naissance : ') }}</strong>
-                                </div>
-                                <div class="col-md-9">{{ form_widget(formModificationEtudiant.DateNaissance ,{'value' : etudiant.dateNaissance |date('d-m-Y') }, {'attr': {'class': 'col-sm-12'}}) }}</div>
-                            </div>
-                            <div class="row margB10">
-                                <div class="col-md-3">
-                                    <strong>{{ form_label(formModificationEtudiant.NumeroCiel2 , ' Numero Ciel2 : ') }}</strong>
-                                </div>
-                                <div class="col-md-9">{{ form_widget(formModificationEtudiant.NumeroCiel2 ,{'value' : etudiant.numeroDossierCandidature  }, {'attr': {'class': 'col-sm-12'}}) }}</div>
-                            </div>
-                            <div class="row margB10">
-                                <div class="col-md-3">
-                                    <strong>{{ form_label(formModificationEtudiant.Email , ' Email : ') }}</strong>
-                                </div>
-                                <div class="col-md-9">{{ form_widget(formModificationEtudiant.Email ,{'value' : etudiant.laPersone.mail  }, {'attr': {'class': 'col-sm-12'}}) }}</div>
-                            </div>
-                            <div class="row margB10">
-                                <div class="col-md-3">
-                                    <strong>{{ form_label(formModificationEtudiant.Nationalite , ' Nationalite : ') }}</strong>
-                                </div>
-                                <div class="col-md-9">{{ form_widget(formModificationEtudiant.Nationalite ,{'value' : etudiant.nationalite  }, {'attr': {'class': 'col-sm-12'}}) }}</div>
-                            </div>
-                            <div class="row margB10">
-                                <div class="col-md-3">
-                                    <strong>{{ form_label(formModificationEtudiant.VilleNaissance , ' Ville Naissance : ') }}</strong>
-                                </div>
-                                <div class="col-md-9">{{ form_widget(formModificationEtudiant.VilleNaissance ,{'value' : etudiant.villeNaissance  }, {'attr': {'class': 'col-sm-12'}}) }}</div>
-                            </div>
-                            <hr>
-                            {% if etudiant.laPersone.Adresse %}
-                                <div class="col-md-12"><h3>Adresse</h3></div>
-                                <div class="row margB10">
-                                    <div class="col-md-3">
-                                        <strong>{{ form_label(formModificationEtudiant.Commune , ' Commune : ') }}</strong>
-                                    </div>
-                                    <div class="col-md-9">{{ form_widget(formModificationEtudiant.Commune , {'value' :  etudiant.laPersone.Adresse.commune } , {'attr': {'class': 'col-sm-12'}}) }}</div>
-                                </div>
-                                <div class="row margB10">
-                                    <div class="col-md-3">
-                                        <strong>{{ form_label(formModificationEtudiant.Adresse , ' Adresse : ') }}</strong>
-                                    </div>
-                                    <div class="col-md-9">{{ form_widget(formModificationEtudiant.Adresse , {'value' :  etudiant.laPersone.Adresse.adresse } , {'attr': {'class': 'col-sm-12'}}) }}</div>
-                                </div>
-                                <div class="row margB10">
-                                    <div class="col-md-3">
-                                        <strong>{{ form_label(formModificationEtudiant.CodePostal , ' CodePostal : ') }}</strong>
-                                    </div>
-                                    <div class="col-md-9">{{ form_widget(formModificationEtudiant.CodePostal , {'value' :  etudiant.laPersone.Adresse.codePostal } , {'attr': {'class': 'col-sm-12'}}) }}</div>
-                                </div>
-                            {% else %}
-                                <div class="col-md-12"><h3>Adresse</h3></div>
-                                <div class="row margB10">
-                                    <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Commune , ' Commune : ') }}</strong></div>
-                                    <div class="col-md-9">{{ form_widget(formModificationEtudiant.Commune  , {'attr': {'class': 'col-sm-12'}}) }}</div>
-                                </div>
-                                <div class="row margB10">
-                                    <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.Adresse , ' Adresse : ') }}</strong></div>
-                                    <div class="col-md-9">{{ form_widget(formModificationEtudiant.Adresse  , {'attr': {'class': 'col-sm-12'}}) }}</div>
-                                </div>
-                                <div class="row margB10">
-                                    <div class="col-md-3"><strong>{{ form_label(formModificationEtudiant.CodePostal , ' CodePostal : ') }}</strong></div>
-                                    <div class="col-md-9">{{ form_widget(formModificationEtudiant.CodePostal , {'attr': {'class': 'col-sm-12'}}) }}</div>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6"></div>
-                        <div class="col-md-3">{{ form_widget(formModificationEtudiant.submit , {'attr': {'class': 'btn-success col-sm-12'}}) }}</div>
-                        <div class="col-md-2"></div>
-                    </div>
-                    {{ form_end(formModificationEtudiant) }}
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-    {% block javascripts %}
-        <script type="text/javascript">
-            {% if error is not sameas('') %}
-            jQuery(document).ready(function ($) {
-                $('#ajouterCV').modal('show');
-            });
+{% endblock %}
+
+{% block javascripts %}
+    {% set route = app.request.attributes.get('_route') %}
+
+    <script type="text/javascript">
+        $(function(){
+            {% set route = app.request.attributes.get('_route') %}
+            {% if route is sameas("site_detailsAnnonceEtudiant") %}
+                {% if errorEtudiant is not sameas('') %}
+                $('#postulerOffre').modal('show');
+                {% endif %}
+            {% elseif route is sameas("site_detailsAnnonceResponsable") %}
+                {%if error_refus is not sameas('') %}
+                $(function(){
+                    $('#refuserOffre').modal('show');
+                });
+                console.log('erreur refus');
+                {% endif %}
+                {% if error_modif is not sameas('') %}
+                $('#modifOffre').modal('show');
+                console.log('erreur modif');
+                {% endif %}
             {% endif %}
-        </script>
-    {% endblock %}
+
+            {#$("#refus").submit(function (event) {#}
+            {#event.preventDefault(); // EmpÃªcher le rechargement de la page.#}
+            {#$.ajax({#}
+            {#url: "{{path("site_detailsAnnonceResponsable", {'offreId': offre.id })}}",#}
+            {#type: "post",#}
+            {#data: $("#ParrainageWifiPlusieursPersonnes").serialize(),#}
+            {#error: function () {#}
+            {#$('#modifOffre').modal('show');#}
+            {#$('#modifOffre').html(data);#}
+            {#//                        alert($("#ParrainageWifiPlusieursPersonnes").serialize().valueOf());#}
+            {#},#}
+            {#success: function (data) {#}
+
+            {#//                        $('#modifOffre').html(data);#}
+            {#}#}
+            {#});#}
+
+            {#return false;#}
+            {#});#}
+        });
+
+    </script>
 {% endblock %}
