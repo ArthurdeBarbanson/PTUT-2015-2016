@@ -4,6 +4,7 @@ namespace SiteBundle\Controller;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use SiteBundle\Entity\Adresse;
+use SiteBundle\Entity\DossierAdmission;
 use SiteBundle\Entity\DossierInscription;
 use SiteBundle\Entity\Etudiant;
 use SiteBundle\Entity\Personne;
@@ -135,16 +136,22 @@ class ResponsableController extends Controller
             $personne->setPrenom($data['Prenom']);
             $personne->setMail($data['Email']);
 
-            //dossier
-            $dossier = new DossierInscription();
-            $dossier->setEtatDossier(0);
+            //dossier inscription
+            $dossierInscription = new DossierInscription();
+            $dossierInscription->setEtatDossier(0);
+
+            //dossier admission
+            $dossierAdmission = new DossierAdmission();
+            $dossierAdmission->setEtatDossier(0);
 
             //set etudiant
             $etudiant = new Etudiant();
             $etudiant->setLaPersone($personne);
             $etudiant->setTypeLicence($data['Lpconcerne']);
-            $etudiant->setInscription($dossier);
+            $etudiant->setInscription($dossierInscription);
+            $etudiant->setDossierAdmission($dossierAdmission);
             $etudiant->setSession($data['promo']);
+
             //set user
             $user = new User();
             $user->setUsername($data['Email']);
@@ -278,11 +285,16 @@ class ResponsableController extends Controller
                 $dossier = new DossierInscription();
                 $dossier->setEtatDossier(0);
 
+                //dossier admission
+                $dossierAdmission = new DossierAdmission();
+                $dossierAdmission->setEtatDossier(0);
+
                 //etudiant
                 $etudiant = new Etudiant();
                 $etudiant->setDateNaissance($date_naissance);
                 $etudiant->setLaPersone($personne);
                 $etudiant->setInscription($dossier);
+                $etudiant->setDossierAdmission($dossierAdmission);
 
                 array_push($etudiants, $etudiant);
             }
