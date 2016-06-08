@@ -58,5 +58,9 @@
             <argument type="service" id="mailer" />
             <argument type="service" id="templating" />
         </service>
+        <service id="site.mailer.entreprise" class="SiteBundle\Service\EmailEntreprise">
+            <argument type="service" id="mailer" />
+            <argument type="service" id="templating" />
+        </service>
     </services>
 </container>
