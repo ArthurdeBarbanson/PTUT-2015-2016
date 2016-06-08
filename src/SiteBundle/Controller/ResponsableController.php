@@ -9,6 +9,7 @@ use SiteBundle\Entity\DossierInscription;
 use SiteBundle\Entity\Entretien;
 use SiteBundle\Entity\Etudiant;
 use SiteBundle\Entity\Personne;
+use SiteBundle\Entity\PieceJointe;
 use SiteBundle\Entity\Session;
 use SiteBundle\Entity\User;
 use SiteBundle\Entity\EmailEtapeInscription;
@@ -533,14 +534,41 @@ class ResponsableController extends Controller
 
         $listePieceJointe = $repositoryPieceJointe->findAll();
 
-        $ajoutPieceJointe=$this->createForm(AjoutPieceJointe::class);
+        $formPieceJointe=$this->createForm(AjoutPieceJointe::class);
+        $formPieceJointe->handleRequest($request);
+        if ($formPieceJointe->isValid()) {
+            $data=$data = $formPieceJointe->getData();
+            $dir = 'uploads/pieceJointe/';
+            $file = $data['pieceJointe'];
+            $extension = $file->guessExtension();
+            $title=$file->getClientOriginalName();
+            if ($extension == 'pdf' || $extension == 'doc'|| $extension == 'docx' ) {
+                $uniqId = uniqid();
+                $file->move($dir, $title . '_' . $uniqId . '.' . $extension);
+
+                $final_url = $dir . '/' .$title . '_' . $uniqId . '.' . $extension;
+
+                $PieceJointe = new PieceJointe();
+                $PieceJointe->setChemin($final_url);
+                $PieceJointe->setNom($title);
+                $PieceJointe->setEtape($data['Etape']);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($PieceJointe);
+                $em->flush();
+                $this->addFlash('info', "Les modifications on été enregistrer");
+            }
+
+            $this->redirectToRoute('gestion_email');
+        }
+
 
 
 
         return $this->render('SiteBundle:Responsable:gestionEmail.html.twig', [
             'form_email' => $emailform->createView(),
             'liste_piece_jointe'=>$listePieceJointe,
-            'form_piece_jointe'=>$ajoutPieceJointe->createView()
+            'form_piece_jointe'=>$formPieceJointe->createView()
         ]);
 
     }
