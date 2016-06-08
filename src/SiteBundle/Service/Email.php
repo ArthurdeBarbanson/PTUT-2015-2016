@@ -35,4 +35,17 @@ class Email
 
         $this->mailer->send($mail);
     }
+    public function sendEmailTemplate($from, $to, $subject, $body, Array $parametre)
+    {
+        $mail = \Swift_Message::newInstance();
+
+        $mail
+            ->setFrom($from)
+            ->setTo($to)
+            ->setSubject($subject)
+            ->setBody($this->templating->render($body, $parametre))
+            ->setContentType('text/html');
+
+        $this->mailer->send($mail);
+    }
 }
