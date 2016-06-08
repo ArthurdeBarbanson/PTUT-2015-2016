@@ -52,4 +52,24 @@ class EmailEtudiant extends Email
     }
 
 
+    public function refuserAnnonce($adresseMail,$password){
+        $mail = \Swift_Message::newInstance();
+
+        $mail
+            ->setFrom('noreply-suivilpmetinet@iutinfobourg.fr')
+            ->setTo($adresseMail)
+            ->setSubject("inscription étudiant")
+            ->setBody(
+                $this->templating->render(
+                    'Emails/ajoutEtudiant.html.twig', [
+                        'password' => $password
+                    ]
+                )
+            )
+            ->setContentType('text/html');
+
+        $this->mailer->send($mail);
+    }
+
+
 }
