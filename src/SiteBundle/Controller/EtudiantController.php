@@ -462,4 +462,18 @@ class EtudiantController extends Controller
         );
 
     }
+
+    public function recapOffreAction(Request $request)
+    {
+        $repositoryEtudiant = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
+        $etudiant = $repositoryEtudiant->find($this->getUser()->getIdEtudiant());
+        $offre= $this->getDoctrine()->getManager()->getRepository('SiteBundle:Offre')->findBy(array('Etudiant'=>$etudiant));
+
+        return $this->render(
+            'SiteBundle:Etudiant:liste_offre_postuler_Etudiant.html.twig', [
+                'offre' =>  $offre,
+
+            ]
+        );
+    }
 }
