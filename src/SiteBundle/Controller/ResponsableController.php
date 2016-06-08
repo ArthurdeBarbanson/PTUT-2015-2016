@@ -345,7 +345,7 @@ class ResponsableController extends Controller
             $this->addFlash('info', "L'email à été envoyé !");
             return $this->redirectToRoute('acceuil_responsable');
             }else {
-                $booleanmodif = true;
+                $booleanmodif = true ;
             }
         }
 
