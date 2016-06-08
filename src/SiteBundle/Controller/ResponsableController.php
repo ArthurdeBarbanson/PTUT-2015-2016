@@ -576,7 +576,7 @@ class ResponsableController extends Controller
             200,
             array(
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'attachment; filename="Dossier.pdf"'
+                'Content-Disposition' => 'attachment; filename="ListeEtudiant.pdf"'
             )
         );
     }
