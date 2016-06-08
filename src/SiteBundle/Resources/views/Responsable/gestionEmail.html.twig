@@ -3,7 +3,36 @@
 
 <h3>gestion de mail des étapes</h3>
 
-    {{ form(form_email) }}
+    {{ form_start(form_email) }}
+
+        {% for piece1 in AjoutPieceJointe.php %}
+        <a href="{{ piece1 }}"></a>
+        {% endfor %}
+
+        {{ form_errors(form_email) }}
+
+    {# l'affichage de form_row peut Ãªtre modifier dans le fichier fields_layout.html.twig#}
+
+    {{ form_row(form_email.etape1)}}
+
+    {{ form_row(form_email.etape2)}}
+
+    {{ form_row(form_email.etape3)}}
+
+    {{ form_row(form_email.etape4)}}
+
+    {{ form_row(form_email.etape5)}}
+
+    {{ form_row(form_email.etape6)}}
+
+
+
+    {{ form_end(form_email) }}
+
+
+    {{ form(form_piece_jointe) }}
+
+
 
 {% endblock %}
 

@@ -12,6 +12,7 @@ use SiteBundle\Entity\Personne;
 use SiteBundle\Entity\Session;
 use SiteBundle\Entity\User;
 use SiteBundle\Entity\EmailEtapeInscription;
+use SiteBundle\Forms\Types\AjoutPieceJointe;
 use SiteBundle\Repository\EtapeInscriptionEmailRepository;
 
 use SiteBundle\Forms\Types\AjoutEtudiantImport;
@@ -524,8 +525,21 @@ class ResponsableController extends Controller
 
         }
 
+        $repositoryPieceJointe = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:PieceJointe');
+
+        $listePieceJointe = $repositoryPieceJointe->findAll();
+
+        $ajoutPieceJointe=$this->createForm(AjoutPieceJointe::class);
+
+
+
         return $this->render('SiteBundle:Responsable:gestionEmail.html.twig', [
             'form_email' => $emailform->createView(),
+            'liste_piece_jointe'=>$listePieceJointe,
+            'form_piece_jointe'=>$ajoutPieceJointe->createView()
         ]);
 
     }
