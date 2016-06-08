@@ -40,6 +40,7 @@ class EtudiantController extends Controller
             $dirigeants = $repositoryDirigeant->findBy(array("Entreprise"=>$entreprise));
         }else{$entreprise = null;
                 $dirigeants = null;
+            $offre[0] = null;
         }
 
         $form = $this->createForm(AjoutPdfEtu::class);
