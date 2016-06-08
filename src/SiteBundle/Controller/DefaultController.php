@@ -50,7 +50,7 @@ class DefaultController extends Controller
                     $this->getUser()->getIdEtudiant()
                     , $form->getData()
                     , $offre);
-                $this->addFlash('info', "L'offre à bien été enregistrée.");
+                $this->addFlash('info', "Votre candidature a bien été pris en compte.");
             }
         }
 

@@ -170,36 +170,16 @@
                 $('#postulerOffre').modal('show');
                 {% endif %}
             {% elseif route is sameas("site_detailsAnnonceResponsable") %}
-                {%if error_refus is not sameas('') %}
+                {%if bool2 %}
                 $(function(){
                     $('#refuserOffre').modal('show');
                 });
-                console.log('erreur refus');
-                {% endif %}
-                {% if error_modif is not sameas('') %}
+                    {% endif %}
+                {% if bool1 %}
                 $('#modifOffre').modal('show');
-                console.log('erreur modif');
-                {% endif %}
+                             {% endif %}
             {% endif %}
 
-            {#$("#formModifier").submit(function (event) {#}
-        {#//            event.preventDefault(); // EmpÃªcher le rechargement de la page.#}
-                    {#$.ajax({#}
-                    {#url: "{{path("site_detailsAnnonceResponsable", {'offreId': offre.id })}}",#}
-                    {#type: "post",#}
-                    {#data: $("#formModifier").serialize(),#}
-                    {#error: function () {#}
-                    {#$('#modifOffre').modal('show');#}
-                    {#$('#modifOffre').html(data);#}
-                    {#//                        alert($("#ParrainageWifiPlusieursPersonnes").serialize().valueOf());#}
-                    {#},#}
-                    {#success: function (data) {#}
-
-                                            {#$('#modifOffre').html(data);#}
-                    {#}#}
-                    {#});#}
-
-            {#});#}
         });
 
     </script>

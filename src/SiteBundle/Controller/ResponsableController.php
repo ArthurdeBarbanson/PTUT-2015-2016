@@ -12,7 +12,7 @@ use SiteBundle\Entity\Personne;
 use SiteBundle\Entity\Session;
 use SiteBundle\Entity\User;
 use SiteBundle\Entity\EmailEtapeInscription;
-use SiteBundle\Repository;
+use SiteBundle\Repository\EtapeInscriptionEmailRepository;
 
 use SiteBundle\Forms\Types\AjoutEtudiantImport;
 use SiteBundle\Forms\Types\AjoutPromotionType;
@@ -309,10 +309,8 @@ class ResponsableController extends Controller
 
     public function detailAnnonceAction(Request $request)
     {
-        $errors_refus = '';
-        $errors_modif = '';
-
-
+        $booleanrefus = false;
+           $booleanmodif = false;
         $offreid = $request->get('offreId');
         $repository = $this
             ->getDoctrine()
@@ -332,7 +330,9 @@ class ResponsableController extends Controller
         $form = $this->createForm(PostulerAnnonce::class);
 
         $formModifier->handleRequest($request);
-        if ($formModifier->isSubmitted() && $formModifier->isValid()) {
+        if ($formModifier->isSubmitted()) {
+            if ($formModifier->isValid()) {
+
             $data = $formModifier->getData();
             $this->get('site.mailer.responsable')->modifierAnnonce($offre->getEntreprise()->getMail(), $data['Message']);
 
@@ -344,21 +344,28 @@ class ResponsableController extends Controller
 
             $this->addFlash('info', "L'email à été envoyé !");
             return $this->redirectToRoute('acceuil_responsable');
+            }else {
+                $booleanmodif = true ;
+            }
         }
 
         $formulaire->handleRequest($request);
-        if ($formulaire->isSubmitted() && $formulaire->isValid()) {
-            $data2 = $formulaire->getData();
+        if ($formulaire->isSubmitted() ) {
+            if ($formulaire->isValid()) {
+                $data2 = $formulaire->getData();
 
-            $this->get('site.mailer.responsable')->refuserAnnonce($offre->getEntreprise()->getMail(), $data2['Message']);
+                $this->get('site.mailer.responsable')->refuserAnnonce($offre->getEntreprise()->getMail(), $data2['Message']);
 
-            $em->remove($offre);
-            $em->flush();
+                $em->remove($offre);
+                $em->flush();
 
-            $this->addFlash('info', "L'email à été envoyé !");
-            $this->addFlash('info', "L'annonce a été suprimer !");
-            return $this->redirectToRoute('acceuil_responsable');
+                $this->addFlash('info', "L'email à été envoyé !");
+                $this->addFlash('info', "L'annonce a été suprimer !");
+                return $this->redirectToRoute('acceuil_responsable');
+            } else {
 
+                $booleanrefus = true;
+            }
         }
 
         return $this->render(
@@ -368,8 +375,8 @@ class ResponsableController extends Controller
                 'form_refus' => $formulaire->createView(),
                 'form_modif' => $formModifier->createView(),
                 'form' => $form->createView(),
-                'error_refus' => $errors_refus,
-                'error_modif' => $errors_modif,
+               'bool2' =>$booleanrefus,
+                'bool1' => $booleanmodif,
                 'errorEtudiant' => '',
             ]
         );
@@ -491,60 +498,32 @@ class ResponsableController extends Controller
 
     public function emailAction(Request $request)
     {
-
         $repository = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('SiteBundle:EmailEtapeInscription');
-        $listeEmails = $repository->findAll();
-        $em = $this->getDoctrine()->getManager();
+        $listeEmails = $repository->find(1);
 
-        if(empty($listeEmails)){
-            $etape1= new EmailEtapeInscription();
-            $etape1->setEtape('Etape 1');
-            $etape2= new EmailEtapeInscription();
-            $etape2->setEtape('Etape 2');
-
-            $etape3= new EmailEtapeInscription();
-            $etape3->setEtape('Etape 3');
-
-            $etape4= new EmailEtapeInscription();
-            $etape4->setEtape('Etape 4');
-
-            $etape5= new EmailEtapeInscription();
-            $etape5->setEtape('Etape 5');
-
-            $etape6= new EmailEtapeInscription();
-            $etape6->setEtape('Etape 6');
-
-            $em->persist($etape1);
-            $em->persist($etape2);
-            $em->persist($etape3);
-            $em->persist($etape4);
-            $em->persist($etape5);
-            $em->persist($etape6);
-            $em->flush();
-            $this->redirectToRoute('gestion_email');
-        }
-
-//        $emailEtape = new EmailEtapeInscription();
-//        $emailEtape->setEtape1($listeEmails->getEtape1());
-//        $emailEtape->setEtape2($listeEmails->getEtape2());
-//        $emailEtape->setEtape3($listeEmails->getEtape3());
-//        $emailEtape->setEtape4($listeEmails->getEtape4());
-//        $emailEtape->setEtape5($listeEmails->getEtape5());
-//        $emailEtape->setEtape6($listeEmails->getEtape6());
+        $emailEtape = new EmailEtapeInscription();
+        $emailEtape->setEtape1($listeEmails->getEtape1());
+        $emailEtape->setEtape2($listeEmails->getEtape2());
+        $emailEtape->setEtape3($listeEmails->getEtape3());
+        $emailEtape->setEtape4($listeEmails->getEtape4());
+        $emailEtape->setEtape5($listeEmails->getEtape5());
+        $emailEtape->setEtape6($listeEmails->getEtape6());
 
         $emailform = $this->createForm(EmailEtapeInscriptionType::class, $listeEmails);
 
         $emailform->handleRequest($request);
         if ($emailform->isValid()) {
 
+            $em = $this->getDoctrine()->getManager();
             $em->persist($emailEtape);
             $em->flush();
             $this->addFlash('info', "Les modifications on été enregistrer");
 
         }
+
         return $this->render('SiteBundle:Responsable:gestionEmail.html.twig', [
             'form_email' => $emailform->createView(),
         ]);
@@ -559,9 +538,12 @@ class ResponsableController extends Controller
             ->getRepository('SiteBundle:Etudiant');
 
         $etudiants = $repository->findBy(['isAdmissible' => false]);
+
+        $promos = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Session')->findAll();
         return $this->render(
             'SiteBundle:Responsable:liste_etudiant_admissible.html.twig',
-            ['etudiants' => $etudiants]
+            ['etudiants' => $etudiants,
+                'promos' => $promos]
         );
     }
 
@@ -581,6 +563,7 @@ class ResponsableController extends Controller
             $dossierAdmission->setEtatDossier('0');
             $etudiant->setDossierAdmission($dossierAdmission);
             $entretien = new Entretien();
+            $etudiant->getDossierAdmission()->setEntretien($entretien);
         } else {
             $entretien = $etudiant->getDossierAdmission()->getEntretien();
         }
@@ -591,8 +574,16 @@ class ResponsableController extends Controller
         if ($form->isValid() && $form->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
             try {
-                $entretien->setEtat('0');
-                $etudiant->getDossierAdmission()->setEtatDossier('1');
+                if ($form->get('accepterEtudiant')->isClicked()) {
+                    $entretien->setEtat('2');
+                    $etudiant->getDossierAdmission()->setEtatDossier('2');
+                } elseif ($form->get('refuserEtudiant')->isClicked()) {
+                    $entretien->setEtat('1');
+                    $etudiant->getDossierAdmission()->setEtatDossier('3');
+                } else {
+                    $etudiant->getDossierAdmission()->setEtatDossier('1');
+                    $entretien->setEtat('0');
+                }
                 $etudiant->getDossierAdmission()->setEntretien($entretien);
                 $em->flush();
                 $this->addFlash('success', "L'entretien a été mis à jour.");

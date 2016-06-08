@@ -26,7 +26,9 @@ class EntretienType extends AbstractType
             ->add('datePassage', DateTimeType::class, [
                 'label' => 'Date de passage',
             ])
-            ->add('submit', SubmitType::class, ['label' => "Modifier", 'attr' => ['class' => 'btn-primary center-block']]);;
+            ->add('submit', SubmitType::class, ['label' => "Modifier", 'attr' => ['class' => 'btn-primary center-block']])
+            ->add('accepterEtudiant', SubmitType::class, ['label' => "Accepter l'étudiant suite à l'entretien"])
+            ->add('refuserEtudiant', SubmitType::class, ['label' => "Refuser l'étudiant suite à l'entretien"]);
     }
 
     /**

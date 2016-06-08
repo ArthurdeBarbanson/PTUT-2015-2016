@@ -19,7 +19,6 @@ use SiteBundle\Forms\Types\MotDePasseEtudiant;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EtudiantController extends Controller
@@ -474,5 +473,19 @@ class EtudiantController extends Controller
             ]
         );
 
+    }
+
+    public function recapOffreAction(Request $request)
+    {
+        $repositoryEtudiant = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
+        $etudiant = $repositoryEtudiant->find($this->getUser()->getIdEtudiant());
+        $offre= $this->getDoctrine()->getManager()->getRepository('SiteBundle:Offre')->findBy(array('Etudiant'=>$etudiant));
+
+        return $this->render(
+            'SiteBundle:Etudiant:recapOffre.html.twig', [
+                'offre' =>  $offre[0]
+
+            ]
+        );
     }
 }
