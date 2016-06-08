@@ -309,10 +309,8 @@ class ResponsableController extends Controller
 
     public function detailAnnonceAction(Request $request)
     {
-        $errors_refus = '';
-        $errors_modif = '';
-
-
+        $booleanrefus = false;
+           $booleanmodif = false;
         $offreid = $request->get('offreId');
         $repository = $this
             ->getDoctrine()
@@ -332,7 +330,9 @@ class ResponsableController extends Controller
         $form = $this->createForm(PostulerAnnonce::class);
 
         $formModifier->handleRequest($request);
-        if ($formModifier->isSubmitted() && $formModifier->isValid()) {
+        if ($formModifier->isSubmitted()) {
+            if ($formModifier->isValid()) {
+
             $data = $formModifier->getData();
             $this->get('site.mailer.responsable')->modifierAnnonce($offre->getEntreprise()->getMail(), $data['Message']);
 
@@ -344,21 +344,28 @@ class ResponsableController extends Controller
 
             $this->addFlash('info', "L'email à été envoyé !");
             return $this->redirectToRoute('acceuil_responsable');
+            }else {
+                $booleanmodif = true;
+            }
         }
 
         $formulaire->handleRequest($request);
-        if ($formulaire->isSubmitted() && $formulaire->isValid()) {
-            $data2 = $formulaire->getData();
+        if ($formulaire->isSubmitted() ) {
+            if ($formulaire->isValid()) {
+                $data2 = $formulaire->getData();
 
-            $this->get('site.mailer.responsable')->refuserAnnonce($offre->getEntreprise()->getMail(), $data2['Message']);
+                $this->get('site.mailer.responsable')->refuserAnnonce($offre->getEntreprise()->getMail(), $data2['Message']);
 
-            $em->remove($offre);
-            $em->flush();
+                $em->remove($offre);
+                $em->flush();
 
-            $this->addFlash('info', "L'email à été envoyé !");
-            $this->addFlash('info', "L'annonce a été suprimer !");
-            return $this->redirectToRoute('acceuil_responsable');
+                $this->addFlash('info', "L'email à été envoyé !");
+                $this->addFlash('info', "L'annonce a été suprimer !");
+                return $this->redirectToRoute('acceuil_responsable');
+            } else {
 
+                $booleanrefus = true;
+            }
         }
 
         return $this->render(
@@ -368,8 +375,8 @@ class ResponsableController extends Controller
                 'form_refus' => $formulaire->createView(),
                 'form_modif' => $formModifier->createView(),
                 'form' => $form->createView(),
-                'error_refus' => $errors_refus,
-                'error_modif' => $errors_modif,
+               'bool2' =>$booleanrefus,
+                'bool1' => $booleanmodif,
                 'errorEtudiant' => '',
             ]
         );
