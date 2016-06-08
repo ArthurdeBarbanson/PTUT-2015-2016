@@ -567,7 +567,7 @@ class ResponsableController extends Controller
 
         $etudiants = $repository->findBy(['isAdmissible' => false]);
         $html = $this->renderView(
-            'SiteBundle:Responsable:liste_etudiant_admissible.html.twig',
+            'SiteBundle:Responsable:impression_liste_etudiant_admissible.html.twig',
             ['etudiants' => $etudiants]
         );
 
