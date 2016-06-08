@@ -5,21 +5,14 @@
 
 {% block body %}
     <h1>Liste des étudiants admissible</h1>
-    <p>Choisir une promo :</p>
-    <select id="filter" class="form-control" title="filtre">
-        <option>Aucune</option>
-        {% for promo in promos %}
-            <option>{{ promo.anneeScolaire }}</option>
-        {% endfor %}
-    </select>
-<table class="table table-bordered" data-toggle="table" data-sort-name="etat"
-       data-sort-order="desc">
+    <table class="table table-bordered" data-toggle="table" data-sort-name="etat" data-filter-control="true"
+           data-filter-show-clear="true"
+           data-sort-order="desc">
     <thead>
     <tr>
-        <th class="text-center">Promotion</th>
-        <th class="text-center">Nom Pernom</th>
-        <th class="text-center" data-field="etat"
-            data-sortable="true">Etat dossier
+        <th class="text-center" data-field="promo" data-filter-control="select">Promotion</th>
+        <th class="text-center" data-field="name" data-filter-control="input">Nom Pernom</th>
+        <th class="text-center" data-field="etat" data-filter-control="select" data-sortable="true">Etat dossier
         </th>
         <th class="text-center">Action</th>
     </tr>
@@ -39,23 +32,4 @@
         </tr>
     {% endfor %}
     </tbody>
-    {% endblock %}
-
-    {% block javascripts %}
-    <script>
-    $(document).ready(function () {
-    (function ($) {
-        $('#filter').change(function () {
-            var rex = new RegExp($(this).val(), 'i');
-            $('.searchable tr').hide();
-            $('.searchable tr').filter(function () {
-                return rex.test($(this).text());
-            }).show();
-        })
-    }(jQuery));
-    });
-    window.onload = function() {
-        $('.searchable tr').hide();
-    };
-</script>
 {% endblock %}
