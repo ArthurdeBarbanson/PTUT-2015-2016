@@ -33,6 +33,7 @@
                         data-toggle="modal" data-target="#ajouterEntretien"><strong>ici</strong></a></p>
         </div>
     {% endif %}
+    <a class="btn btn-link" href="{{ path('responsableListeEtudiantAdmissible') }}">Retour</a>
     <!-- Modal entretien-->
     <div id="ajouterEntretien" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -83,7 +84,28 @@
                     <h4 class="modal-title text-center">Gerer l'étudiant</h4>
                 </div>
                 <div class="modal-body">
-
+                    {{ form_start(formEtat) }}
+                    <div class="row margB10">
+                        <div class="col-md-4">
+                            <strong>{{ form_label(formEtat.commentaire , ' Commentaire : ') }}</strong></div>
+                        <div class="col-md-8">{{ form_widget(formEtat.commentaire ,{'value' :etudiant.dossierAdmission.commentaire  } , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                    </div>
+                    <div class="row margB10">
+                        <div class="col-md-4">
+                            <strong>{{ form_label(formEtat.dateLimite , ' Date limite du dossier : ') }}</strong></div>
+                        <div class="col-md-8">{{ form_widget(formEtat.dateLimite ,{'value' :etudiant.dossierAdmission.dateLimite  } , {'attr': {'class': 'col-sm-12'}}) }}</div>
+                    </div>
+                    <div class="row">
+                        {% if etudiant.dossierAdmission.etatDossier == '1' %}
+                            <div class="displayNone">{{ form_widget(formEtat.accepter , {'attr': {'class': 'btn-success col-sm-12'}}) }}{{ form_widget(formEtat.refuser , {'attr': {'class': 'btn-success col-sm-12'}}) }}</div>
+                            <div class="col-md-4 col-md-offset-4">{{ form_widget(formEtat.submit , {'attr': {'class': 'btn-default col-sm-12'}}) }}</div>
+                        {% else %}
+                            <div class="col-md-4">{{ form_widget(formEtat.submit , {'attr': {'class': 'btn-default col-sm-12'}}) }}</div>
+                            <div class="col-md-4">{{ form_widget(formEtat.accepter , {'attr': {'class': 'btn-success col-sm-12'}}) }}</div>
+                            <div class="col-md-4">{{ form_widget(formEtat.refuser , {'attr': {'class': 'btn-danger col-sm-12'}}) }}</div>
+                        {% endif %}
+                    </div>
+                    {{ form_end(formEtat) }}
                 </div>
             </div>
 
