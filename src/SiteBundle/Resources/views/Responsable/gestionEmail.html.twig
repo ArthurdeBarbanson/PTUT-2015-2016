@@ -13,7 +13,7 @@
     {% if liste_piece_jointe is not empty %}
         {% for piece in liste_piece_jointe  %}
             {% if piece.etape == 1 %}
-                <a href="{{ piece.chemin }}" target="_blank">{{ piece.chemin }}</a><a href="" class=" btn btn-danger btn-sm ">X</a>
+                <a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a><a href="" class=" btn btn-danger btn-sm ">X</a>
             {% endif %}
 
         {% endfor %}
@@ -23,7 +23,7 @@
     {% if liste_piece_jointe is not empty %}
         {% for piece in liste_piece_jointe  %}
             {% if piece.etape == 2 %}
-                <a href="{{ piece.chemin }}" target="_blank">{{ piece.chemin }}</a>
+                <a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a>
             {% endif %}
         {% endfor %}
     {% endif %}
@@ -32,7 +32,7 @@
     {% if liste_piece_jointe is not empty %}
         {% for piece in liste_piece_jointe  %}
             {% if piece.etape == 3 %}
-                <a href="{{ piece.chemin }}" target="_blank">{{ piece.chemin }}</a>
+                <a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a>
             {% endif %}
 
         {% endfor %}
@@ -43,7 +43,7 @@
     {% if liste_piece_jointe is not empty %}
         {% for piece in liste_piece_jointe  %}
             {% if piece.etape == 4 %}
-                <a href="{{ piece.chemin }}" target="_blank">{{ piece.chemin }}</a>
+                <a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a>
             {% endif %}
 
         {% endfor %}
@@ -54,7 +54,7 @@
     {% if liste_piece_jointe is not empty %}
         {% for piece in liste_piece_jointe  %}
             {% if piece.etape == 5 %}
-                <a href="{{ piece.chemin }}" target="_blank">{{ piece.chemin }}</a>
+                <a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a>
             {% endif %}
 
         {% endfor %}
@@ -65,7 +65,7 @@
     {% if liste_piece_jointe is not empty %}
         {% for piece in liste_piece_jointe  %}
             {% if piece.etape == 6 %}
-                <a href="{{ piece.chemin }}" target="_blank">{{ piece.chemin }}</a>
+                <a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a>
             {% endif %}
 
         {% endfor %}
