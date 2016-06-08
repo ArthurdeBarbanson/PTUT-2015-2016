@@ -84,6 +84,9 @@
   <route id="responsableListeEtudiantAdmissible" path="/responsable/etudiants_admissible">
     <default key="_controller">SiteBundle:Responsable:listeEtudiantAdmissible</default>
   </route>
+  <route id="responsableImprimerListeEtudiantAdmissible" path="/responsable/imprimer_etudiants_admissible">
+    <default key="_controller">SiteBundle:Responsable:imprimerListeEtudiantAdmissible</default>
+  </route>
   <route id="detailDossierAdmissible" path="/responsable/detailEtudiantAdmissible/{idEtudiant}">
     <default key="_controller">SiteBundle:Responsable:detailDossierAdmission</default>
   </route>

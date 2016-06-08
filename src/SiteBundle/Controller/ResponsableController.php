@@ -30,6 +30,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use SiteBundle\Forms\Types\AjoutEtudiant;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use SiteBundle\Forms\Types\ResponsableAjoutResponsableType;
 
@@ -555,6 +556,28 @@ class ResponsableController extends Controller
         return $this->render(
             'SiteBundle:Responsable:liste_etudiant_admissible.html.twig',
             ['etudiants' => $etudiants]
+        );
+    }
+    public function imprimerListeEtudiantAdmissibleAction(Request $request)
+    {
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Etudiant');
+
+        $etudiants = $repository->findBy(['isAdmissible' => false]);
+        $html = $this->renderView(
+            'SiteBundle:Responsable:liste_etudiant_admissible.html.twig',
+            ['etudiants' => $etudiants]
+        );
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="Dossier.pdf"'
+            )
         );
     }
 
