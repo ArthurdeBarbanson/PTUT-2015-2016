@@ -540,14 +540,17 @@ class ResponsableController extends Controller
         if ($formPieceJointe->isValid()) {
             $data=$data = $formPieceJointe->getData();
             $dir = 'uploads/pieceJointe/';
-            $file = $data['pieceJointe'];
+//            $file = $data['pieceJointe'];
+            $file = $formPieceJointe['pieceJointe']->getData();
+
             $extension = $file->guessExtension();
             $title=$file->getClientOriginalName();
             if ($extension == 'pdf' || $extension == 'doc'|| $extension == 'docx' ) {
                 $uniqId = uniqid();
-                $file->move($dir, $title . '_' . $uniqId . '.' . $extension);
+//                $file->move($dir, $title . '_' . $uniqId . '.' . $extension);
+                $file->move($dir, $title);
 
-                $final_url = $dir . '/' .$title . '_' . $uniqId . '.' . $extension;
+                $final_url = $dir . '/' .$title;
 
                 $PieceJointe = new PieceJointe();
                 $PieceJointe->setChemin($final_url);
