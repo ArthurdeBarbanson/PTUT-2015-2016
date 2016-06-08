@@ -29,18 +29,22 @@
                     <h3>Liste des étudiants</h3>
                 </div>
                 <div class="panel-body">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" data-toggle="table" data-sort-name="etat" data-filter-control="true">
+                        <thead>
                         <tr>
-                            <th class="col-md-2 text-center">Etudiant</th>
-                            <th class="col-md-2 text-center">état d'avancement</th>
-                            <th class="col-md-2 text-center">Entreprise</th>
-                            <th class="col-md-2 text-center">Maître de stage</th>
-                            <th class="col-md-3 text-center">Tuteur pédagogique</th>
+                            <th data-field="Promo" data-filter-control="select" class="col-md-1 text-center">Promotion</th>
+                            <th data-field="Etu" data-filter-control="input" class="col-md- text-center">Etudiant</th>
+                            <th data-field="etat" data-filter-control="select" data-sortable="true" class="col-md-2 text-center">état d'avancement</th>
+                            <th data-field="entre" data-filter-control="input" class="col-md-2 text-center">Entreprise</th>
+                            <th data-field="map" data-filter-control="input" class="col-md-2 text-center">Maître de stage</th>
+                            <th data-field="tuteur" data-filter-control="input" class="col-md-3 text-center">Tuteur pédagogique</th>
                             <th class="col-md-1 text-center">Action</th>
                         </tr>
-
+                        </thead>
+                        <tbody>
                         {% for etudiant in etudiants %}
                             <tr>
+                                <td>{{ etudiant.session.anneeScolaire }}</td>
                                 <td>{{ etudiant.laPersone.prenom }} {{ etudiant.laPersone.nom }}</td>
 
                                 {% if etudiant.DossierInscription.etatDossier == '0' %}
@@ -100,6 +104,7 @@
                                 </td>
                             </tr>
                         {% endfor %}
+                        </tbody>
                     </table>
                 </div>
             </div>
