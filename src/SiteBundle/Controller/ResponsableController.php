@@ -645,6 +645,11 @@ class ResponsableController extends Controller
                     $entretien->setEtat('2');
                     $etudiant->setIsAdmissible(true);
                     $etudiant->getDossierAdmission()->setEtatDossier('2');
+                    $encoder = $this->get('security.password_encoder');
+                    $randomPassword = random_bytes(10);
+                    $user = $em = $this->getDoctrine()->getManager()->getRepository('SiteBundle:User')->findOneBy(['id_etudiant' => $etudiant]);
+                    $user->setPassword($encoder->encodePassword($user, $randomPassword));
+                    $this->get('site.mailer.etudiant')->inscription($etudiant->getLaPersone()->getMail(), $randomPassword);
                     $this->redirectToRoute('responsableListeEtudiantAdmissible');
                 } elseif ($form->get('refuserEtudiant')->isClicked()) {
                     $entretien->setEtat('1');
@@ -665,6 +670,11 @@ class ResponsableController extends Controller
                 if ($formEtat->get('accepter')->isClicked()) {
                     $etudiant->getDossierAdmission()->setEtatDossier('2');
                     $etudiant->setIsAdmissible(true);
+                    $encoder = $this->get('security.password_encoder');
+                    $randomPassword = random_bytes(10);
+                    $user = $em = $this->getDoctrine()->getManager()->getRepository('SiteBundle:User')->findOneBy(['id_etudiant' => $etudiant]);
+                    $user->setPassword($encoder->encodePassword($user, $randomPassword));
+                    $this->get('site.mailer.etudiant')->inscription($etudiant->getLaPersone()->getMail(), $randomPassword);
                     $em->flush();
                     $this->addFlash('success', "L'étudiant à été admis.");
                     return $this->redirectToRoute('responsableListeEtudiantAdmissible');

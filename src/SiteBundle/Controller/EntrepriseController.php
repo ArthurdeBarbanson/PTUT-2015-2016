@@ -542,7 +542,7 @@ class EntrepriseController extends Controller
 
             try {
                 $em->flush();
-                //TODO envoie de mail
+                //TODO mail $this->get('site.mailer')->inscription($user->getIdEntreprise()->getMail(),$randomPassword);
                 $this->addFlash('success', 'Inscription terminé avec succès !');
                 return $this->redirect($this->generateUrl('site_homepage'));
             } catch (UniqueConstraintViolationException $exception) {
