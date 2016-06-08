@@ -19,6 +19,7 @@ use SiteBundle\Forms\Types\MotDePasseEtudiant;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EtudiantController extends Controller
@@ -443,12 +444,15 @@ class EtudiantController extends Controller
         }
 
 
-        /**$html = $this->renderView(
-            'SiteBundle:Etudiant:ImpressionDossierInscriptionPage1.html.twig', [
+        $html = $this->renderView(
+            'SiteBundle:Etudiant:ImpressionDossierInscription.html.twig', [
                 'Dossier' =>  $Dossier,
                 'Etudiant' =>  $Etudiant[0],
                 'PremiereInscription' => $PremiereInscription[0],
-                'BacOuEquivalent' => $BacOuEquivalent[0]
+                'BacOuEquivalent' => $BacOuEquivalent[0],
+                'DernierEtablissementFrequente' => $DernierEtablissementFrequente[0],
+                'DernierDiplomeObtenu' => $DernierDiplomeObtenu[0],
+                'InscriptionAutreEtablissement' =>  $InscriptionAutreEtablissement[0]
             ]
         );
 
@@ -459,18 +463,6 @@ class EtudiantController extends Controller
                 'Content-Type' => 'application/pdf',
                 'Content-Disposition' => 'attachment; filename="Dossier.pdf"'
             )
-        );**/
-
-         return $this->render(
-            'SiteBundle:Etudiant:ImpressionDossierInscription.html.twig', [
-                'Dossier' =>  $Dossier,
-                'Etudiant' =>  $Etudiant[0],
-                'PremiereInscription' => $PremiereInscription[0],
-                'BacOuEquivalent' => $BacOuEquivalent[0],
-                 'DernierEtablissementFrequente' => $DernierEtablissementFrequente[0],
-                 'DernierDiplomeObtenu' => $DernierDiplomeObtenu[0],
-                 'InscriptionAutreEtablissement' =>  $InscriptionAutreEtablissement[0]
-            ]
         );
 
     }
