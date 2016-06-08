@@ -12,6 +12,9 @@
     <li><a href="{{ path('site_listeOffrePostulerEtudiant') }}">Mes offres</a></li>
     <li><a href="{{ path('site_listeOffreEtudiant') }}">Rechercher des offres</a></li>
     {% endif %}
+    {% if app.user.idEtudiant.inscription.etatDossier >  1 %}
+        <li><a href="{{ path('site_recapOffreEtudiant') }}">Mon offre</a></li>
+    {% endif %}
 </ul>
 {% endif %}
 
