@@ -1,5 +1,5 @@
-{% extends '::baseImpression.html.twig' %}
-{% block body %}
+{% extends '::ImpressionDossierInscription.html.twig' %}
+{% block page3 %}
 
     <div class="row">
         <div class="col-sm-12">
@@ -7,9 +7,10 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="pull-left col-sm-6">
-                            <span>15 <strong> </strong></span>
+                            <p><span class="span-Impression">15 <strong> </strong></span></p>
                         </div>
                     </div>
+                    <br><br>
                     <div class="row">
                         <div class="col-sm-12">
                             <p>Êtes-vous inscrit en parallèle dans  un autre établissement qque Lyon1 pour cette année universitaire  :    </p>
@@ -17,33 +18,33 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <p>Nom :    </p>
+                            <p>Nom :    {{ InscriptionAutreEtablissement.nomEtablissement }} </p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <p>Type  :    </p>
+                            <p>Type  :   {{ InscriptionAutreEtablissement.typeEtablissement }} </p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <p> Departement :    </p>
+                            <p> Departement :  {{ InscriptionAutreEtablissement.departmentEtablissement }}  </p>
                         </div>
                         <div class="col-sm-6">
-                            <p> Maintenez-vous cette inscription ?    </p>
+                            <p> Maintenez-vous cette inscription ?  {% if InscriptionAutreEtablissement.estInscriptionMaintenu == "0" %}Non{% else %}Oui{% endif %}     </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
+  <!--  <div class="row">
         <div class="col-sm-12">
             <div class="panel panel-info">
                 <div class="panel-body">
                     <div class="row">
                         <div class="pull-left col-sm-6">
-                            <span>16 <strong> Diplômes postulés</strong></span>
+                            <p><span class="span-Impression">16 </span> <strong> Diplômes postulés</strong></p>
                         </div>
                     </div>
                     <div class="row">
@@ -54,16 +55,17 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     <div class="row">
         <div class="col-sm-12">
             <div class="panel panel-info">
                 <div class="panel-body">
                     <div class="row">
                         <div class="pull-left col-sm-6">
-                            <span>17  <strong> Sécurité Sociale</strong></span>
+                            <p><span class="span-Impression">16  </span> <strong> Sécurité Sociale</strong></p>
                         </div>
                     </div>
+                    <br><br>
                     <div class="row">
                         <div class="col-sm-12">
                             <p>Numéro de sécurite sociale : </p>
@@ -79,9 +81,10 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="pull-left col-sm-6">
-                            <span>18  <strong> Centre payauer </strong></span>
+                            <p><span class="span-Impression">17  </span> <strong> Centre payauer </strong></p>
                         </div>
                     </div>
+                    <br><br>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="radio">
@@ -90,7 +93,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="radio">
-                                <label><input type="radio" value="M">  Etudiant affilié </label>
+                                <label><input type="radio" value="M">  Etudiant ayant droit autonome </label>
                             </div>
                         </div>
                     </div>
@@ -114,94 +117,20 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
             <div class="panel panel-info">
                 <div class="panel-body">
                     <div class="row">
                         <div class="pull-left col-sm-6">
-                            <span>12<strong> Dernier établissement fréquenté </strong>  ( si différent de Lyon 1 ) </span>
+                            <p><span class="span-Impression">17  </span> <strong> Sport Optionnel</strong></p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <p> Nom  :    </p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p> Dépt./Pays :      </p>
-                        </div>
-                    </div>
+                    <br><br>
                     <div class="row">
                         <div class="col-sm-12">
-                            <p> Type  :    </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <p> Année  :    </p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p> S'agit-il d'un transfert :      </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="panel panel-info">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="pull-left col-sm-6">
-                            <span>13 <strong>Situation année précédente</strong></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                           Nom établissement :
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            Département :
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="panel panel-info">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="pull-left col-sm-6">
-                            <span>14 <strong>Dernier diplôme obtenu dans l'enseignement supérieur en France</strong></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                           Département d'obtention de votre dernier diplôme :
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            Année d'obtention de votre dernier diplôme  :
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            Etablissement d'obtention de votre dernier diplôme  :
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            Dernier diplôme obtenu dans l'enseignement supérieur   :
+                            <div class="radio">
+                                <label>Sport( 16€ ) :  <input type="checkbox" value="Oui">Oui <input type="checkbox" value="Non">Non    </label>
+                            </div>
                         </div>
                     </div>
                 </div>

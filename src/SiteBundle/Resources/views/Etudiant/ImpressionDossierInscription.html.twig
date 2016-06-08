@@ -1,0 +1,756 @@
+{% extends '::baseImpression.html.twig' %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-left col-xs-1">
+                            <span class="span-Impression">1 </span>
+                        </div>
+                        <div class="pull-left col-xs-5">
+                            <img class="img-Impression pull-left" src="{{ absolute_url(asset('image/logo-lyon1.png')) }}" alt="Université Claude Bernard Lyon 1" />
+                        </div>
+
+                        <div class=" col-xs-6 text-center">
+                            <span class="pull-right">Année Universitaire 2015/2016</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <h1>Dossier d'inscription</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <p>Renseigner les champs de manière électronique</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>Avez-vous déjà été inscrit à l'Université de Lyon1 ? </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p>N° étudiant :   </p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p> N° dossier de candidature : {{ Etudiant.numeroDossierCandidature }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-left col-xs-6">
+                            <span class="span-Impression">2</span> <strong>ETAT CIVIL</strong>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p>Nom :   {{ Etudiant.laPersone.nom }} </p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p> Prénom  : {{ Etudiant.laPersone.prenom }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p> Date de naissance :   {{ Etudiant.dateNaissance | date("d/m/Y")}} </p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p> Dépt./Pays : {{ Etudiant.laPersone.Adresse.codePostal }} / {{ Etudiant.laPersone.Adresse.pays }} </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p> Sexe :   {% if Etudiant.laPersone.sexe == "M" %}Homme {% else %}Femme{% endif %} </p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p> Ville de naissance : {{ Etudiant.villeNaissance }} </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p> Votre n° national étudiant INE :  {{ Dossier.iNE }}  </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p> Nationalité :    {{ Etudiant.nationalite }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p> Situation familiale :    {{ Dossier.situationFamillale }}</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p> Nombre d'enfant :    0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-left col-xs-1">
+                            <span class="span-Impression">3</span>
+                        </div>
+                        <div class="pull-left col-xs-11">
+                            <p> <strong>Êtes-vous atteint d'un handicap ? </strong> {% if Dossier.handicap == "0" %}Non{% else %}Oui{% endif %}   </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-left col-xs-1">
+                            <span class="span-Impression">4</span>
+                        </div>
+                        <div class="pull-left col-xs-11">
+                            <p><strong> Situation militaire :</strong> Incorporable</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-left col-xs-6">
+                            <span class="span-Impression">5</span>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p><strong> Prenière inscription    </strong> (dans un établissement en France)</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p> Prenière inscription en Universoté Française   </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p> En Enseignement supérieur : {{ PremiereInscription.anneeEnseignementSuperieur | date("Y") }} / {{ PremiereInscription.anneeEnseignementSuperieur | date("Y") +1}}    </p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p> Université     </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p> En Université Française :   {{ PremiereInscription.anneeUniversiteFrancaise | date("Y") }} / {{ PremiereInscription.anneeUniversiteFrancaise | date("Y") +1 }}</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p>      </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p> À Lyon1 :   {{ PremiereInscription.anneeInscriptionLyon1  | date("Y") }} / {{ PremiereInscription.anneeInscriptionLyon1  | date("Y") +1 }}</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p>      </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-left col-xs-6">
+                            <span class="span-Impression">6</span> <strong>Baccalauréat ou équivalence</strong>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            Intitulé : {{ BacOuEquivalent.intitule }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            Etablissement d'obtention
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p> Type :  {{ BacOuEquivalent.typeEtablissementObtention }}  </p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p> Dépatement :    {{ BacOuEquivalent.departementEtablissementObtention }}  </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            Nom : {{ BacOuEquivalent.nomEtablissementObtention }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-left col-xs-6">
+                            <span class="span-Impression">7</span><strong>Adresse</strong>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            Adresse : {{ Etudiant.laPersone.Adresse.adresse }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <p> Code Postal : {{ Etudiant.laPersone.Adresse.codePostal }}   </p>
+                        </div>
+                        <div class="col-xs-4">
+                            <p> Commune :   {{ Etudiant.laPersone.Adresse.commune }}   </p>
+                        </div>
+                        <div class="col-xs-4">
+                            <p> Pays :   {{ Etudiant.laPersone.Adresse.pays }}   </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <p> Téléphone :   {{ Etudiant.laPersone.telephone }}   </p>
+                        </div>
+                        <div class="col-xs-4">
+                            <p> Portable :       </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-left col-xs-6">
+                            <p> <span class="span-Impression">8 </span><strong>Régime d'inscription</strong></p>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>Satut  :    03-Stagiaire formation continue</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <p> Votre catégorie socio-professionnelle :    </p>
+                        </div>
+                        <div class="col-xs-4">
+                            <p> Code :  </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <p>     </p>
+                        </div>
+                        <div class="col-xs-4">
+                            <p>     </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <p> Votre domaine d'activité professionnelle au cours de l'année universitaire :    </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <p>    </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <p> Votre quotite travaillée :     </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <p>  1-Temps complet   </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <p> Catégorie socio-professionnelle du représentant légal :    </p>
+                        </div>
+                        <div class="col-xs-4">
+                            <p> Code:    </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <p>     </p>
+                        </div>
+                        <div class="col-xs-4">
+                            <p>     </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <p> Catégorie socio-professionnelle du second parent référent :    </p>
+                        </div>
+                        <div class="col-xs-4">
+                            <p> Code:    </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <p>     </p>
+                        </div>
+                        <div class="col-xs-4">
+                            <p>     </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-left col-xs-3">
+                            <p> <span class="span-Impression">9  </span> <strong> Aide financière : </strong></p>
+                        </div>
+                        <div class="pull-left col-xs-9">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p> <strong> </strong>    </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-left col-xs-6">
+                            <p> <span class="span-Impression">10  </span></p>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>Êtes-vous sportif de haut niveau ?  {% if Dossier.estSportifDeHautNiveau == "0" %} Non {% else %} Oui {% endif %}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>Nom du Sport : </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-left col-xs-6">
+                            <p><span class="span-Impression">11  </span> <strong> Echanges internationaux </strong></p>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>Précisez s'il s'agit d'un acceuil d'un étudiant à lyon1   ou de l'envoi d'un étudiant de Lyon1 dans un établissement étranger :  </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+
+                        </div>
+                        <div class="col-xs-3">
+                            <p> <input type="checkbox" value="M"> ACCUEIL  </p>
+                        </div>
+                        <div class="col-xs-3">
+                            <p> <input type="checkbox" value="M"> ENVOIE  </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>En cas d'envoie, précisez l'établissement d'accueil à l'étranger. En cas d'accueil, précisez votre établissement d'origine à l'étranger.  </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2"> </div>
+                        <div class="col-xs-10">
+                            <p> Etablisssement :      </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2"> </div>
+                        <div class="col-xs-10">
+                            <p> Pays :      </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-left col-xs-12">
+                            <p> <span class="span-Impression">12 </span><strong> Dernier établissement fréquenté </strong>  ( si différent de Lyon 1 )</p>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p> Nom  : {{ DernierEtablissementFrequente.nom }}   </p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p> Dépt./Pays :  {{ DernierEtablissementFrequente.departement }}    </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p> Type  :  {{ DernierEtablissementFrequente.type }}  </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p> Année  :  {{ DernierEtablissementFrequente.annee | date("Y") }} / {{ DernierEtablissementFrequente.annee | date("Y") +1  }}  </p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p> S'agit-il d'un transfert :  {% if DernierEtablissementFrequente.estTransfert == "0" %}Non{% else %}Oui{% endif %}  </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-left col-xs-12">
+                            <p><span class="span-Impression">13 </span> <strong>Situation année précédente</strong></p>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            Nom établissement :{{ DernierEtablissementFrequente.nom }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            Département : {{ DernierEtablissementFrequente.departement }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-left col-xs-12">
+                            <p><span class="span-Impression">14 </span> <strong>Dernier diplôme obtenu dans l'enseignement supérieur en France</strong></p>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            Département d'obtention de votre dernier diplôme : {{ DernierDiplomeObtenu.departement }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            Année d'obtention de votre dernier diplôme  : {{ DernierDiplomeObtenu.annee | date("Y") }} / {{ DernierDiplomeObtenu.annee | date("Y") +1  }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            Etablissement d'obtention de votre dernier diplôme  : {{ DernierDiplomeObtenu.etablissement }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            Dernier diplôme obtenu dans l'enseignement supérieur   : {{ DernierDiplomeObtenu.leDiplomeObtenue }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-left col-xs-12">
+                            <p><span class="span-Impression">15 <strong> </strong></span></p>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>Êtes-vous inscrit en parallèle dans  un autre établissement qque Lyon1 pour cette année universitaire  :    </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>Nom :    {{ InscriptionAutreEtablissement.nomEtablissement }} </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>Type  :   {{ InscriptionAutreEtablissement.typeEtablissement }} </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p> Departement :  {{ InscriptionAutreEtablissement.departmentEtablissement }}  </p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p> Maintenez-vous cette inscription ?  {% if InscriptionAutreEtablissement.estInscriptionMaintenu == "0" %}Non{% else %}Oui{% endif %}     </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  <div class="row">
+          <div class="col-xs-12">
+              <div class="panel panel-info">
+                  <div class="panel-body">
+                      <div class="row">
+                          <div class="pull-left col-xs-6">
+                              <p><span class="span-Impression">16 </span> <strong> Diplômes postulés</strong></p>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-xs-12">
+                              <p> <strong> </strong>    </p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>-->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-left col-xs-6">
+                            <p><span class="span-Impression">16  </span> <strong> Sécurité Sociale</strong></p>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>Numéro de sécurite sociale : </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-left col-xs-6">
+                            <p><span class="span-Impression">17  </span> <strong> Centre payauer </strong></p>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="radio">
+                                <label><input type="radio" value="M">  Etudiant affilié </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="radio">
+                                <label><input type="radio" value="M">  Etudiant ayant droit autonome </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>En cas d'envoie, précisez l'établissement d'accueil à l'étranger. En cas d'accueil, précisez votre établissement d'origine à l'étranger.  </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2"> </div>
+                        <div class="col-xs-10">
+                            <p> Etablisssement :      </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2"> </div>
+                        <div class="col-xs-10">
+                            <p> Pays :      </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-left col-xs-6">
+                            <p><span class="span-Impression">17  </span> <strong> Sport Optionnel</strong></p>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="radio">
+                                <label>Sport( 16€ ) :  <input type="checkbox" value="Oui">Oui <input type="checkbox" value="Non">Non    </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br><br><br><br><br>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <img class="img-Impression pull-right" src="{{ absolute_url(asset('image/logo-lyon1.png')) }}" alt="Université Claude Bernard Lyon 1" />
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>La loi n°78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés,
+                                vous donne un droit d'accès et rectification aux données vous concernant.
+                                Vous pourrez exercer ce droit en adressant un courrier à :
+                            </p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <p> Directeur Général des Services de l'Université Lyon1 </p>
+                            <p> Maison de l'Université </p>
+                            <p> 43 bd du 11 novembre 1918 </p>
+                            <p> 69622 VILLEURBANNE Cedex </p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p> Je Soussigné(e) </p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p> déclare :  </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <ul>
+                                <li>adhérer à la charte informatique de l'Université Lyon1</li>
+                                <li>pour les étudiants de première année commune aux études de Santé, adhérer à : UFR de Médeceine Charte de l'étudiant</li>
+                                <li>être informé(e) du fait que le non respect de la législation ainsi que des règles fixées par la charte de l'Université peut impliquer,
+                                    sans préjuger d'éventuelles poursuites pénales, la comparution devant la section disciplinaire de l'Université.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <p> Signature précédée de la mention manuscrite "lu et approuvé" : </p>
+                        </div>
+                    </div>
+                    <br><br><br><br><br><br><br><br><br>
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <p> Je certifie sincères et veritables les renseignements fournis et je déclare avoir pris connaissance des instructions jointes au dossier. </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p> À </p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p> le {{ "now"|date("m/d/Y") }}  </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <p> Signature : </p>
+                        </div>
+                    </div>
+                    <br><br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

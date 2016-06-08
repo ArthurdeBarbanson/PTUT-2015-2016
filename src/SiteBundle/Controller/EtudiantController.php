@@ -427,20 +427,33 @@ class EtudiantController extends Controller
         $repositoryEtudiant = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
         $repositoryPremiereInscription = $this->getDoctrine()->getManager()->getRepository('SiteBundle:PremiereInscription');
         $repositoryBacOuEquivalent = $this->getDoctrine()->getManager()->getRepository('SiteBundle:BacOuEquivalent');
-
+        $repositoryDernierEtablissementFrequente = $this->getDoctrine()->getManager()->getRepository('SiteBundle:DernierEtablissementFrequente');
+        $repositoryDernierDiplomeObtenu = $this->getDoctrine()->getManager()->getRepository('SiteBundle:DernierDiplomeObtenu');
+        $repositoryInscriptionAutreEtablissement = $this->getDoctrine()->getManager()->getRepository('SiteBundle:InscriptionAutreEtablissement');
 
         $Dossier = $repositoryDossier->find($dossierID);
         $Etudiant = $repositoryEtudiant->findBy(["DossierInscription"=>$Dossier]);
         $PremiereInscription = $repositoryPremiereInscription->findBy(["DossierInscription"=>$Dossier]);
         $BacOuEquivalent = $repositoryBacOuEquivalent->findBy(["DossierInscription"=>$Dossier]);
+        $DernierEtablissementFrequente = $repositoryDernierEtablissementFrequente->findBy(["DossierInscription"=>$Dossier]);
+        $DernierDiplomeObtenu = $repositoryDernierDiplomeObtenu->findBy(["DossierInscription"=>$Dossier]);
+        $InscriptionAutreEtablissement = $repositoryInscriptionAutreEtablissement->findBy(["DossierInscription"=>$Dossier]);
         //si l'annonce n'es pas trouvé
         if (null === $Dossier) {
             throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
         }
 
-        /**
+
         $html = $this->renderView(
-            'SiteBundle:Etudiant:ImpressionDossierInscriptionPage1.html.twig', ['Dossier' => $Dossier]
+            'SiteBundle:Etudiant:ImpressionDossierInscription.html.twig', [
+                'Dossier' =>  $Dossier,
+                'Etudiant' =>  $Etudiant[0],
+                'PremiereInscription' => $PremiereInscription[0],
+                'BacOuEquivalent' => $BacOuEquivalent[0],
+                'DernierEtablissementFrequente' => $DernierEtablissementFrequente[0],
+                'DernierDiplomeObtenu' => $DernierDiplomeObtenu[0],
+                'InscriptionAutreEtablissement' =>  $InscriptionAutreEtablissement[0]
+            ]
         );
 
         return new Response(
@@ -450,15 +463,6 @@ class EtudiantController extends Controller
                 'Content-Type' => 'application/pdf',
                 'Content-Disposition' => 'attachment; filename="Dossier.pdf"'
             )
-        );**/
-
-        return $this->render(
-            'SiteBundle:Etudiant:ImpressionDossierInscriptionPage1.html.twig', [
-                'Dossier' =>  $Dossier,
-                'Etudiant' =>  $Etudiant[0],
-                'PremiereInscription' => $PremiereInscription[0],
-                'BacOuEquivalent' => $BacOuEquivalent[0]
-            ]
         );
 
     }

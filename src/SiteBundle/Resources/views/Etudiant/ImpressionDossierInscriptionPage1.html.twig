@@ -1,41 +1,40 @@
-{% extends '::baseImpression.html.twig' %}
-{% block body %}
+
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-xs-12">
             <div class="panel panel-info">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="pull-left col-sm-1">
+                        <div class="pull-left col-xs-1">
                             <span class="span-Impression">1 </span>
                         </div>
-                        <div class="pull-left col-sm-5">
-                            <img class="img-Impression pull-left" src="{{ asset('image/logo-lyon1.png') }}" alt="Université Claude Bernard Lyon 1" />
+                        <div class="pull-left col-xs-5">
+                            <img class="img-Impression pull-left" src="{{ absolute_url(asset('image/logo-lyon1.png')) }}" alt="Université Claude Bernard Lyon 1" />
                         </div>
 
-                        <div class=" col-sm-6 text-center">
+                        <div class=" col-xs-6 text-center">
                             <span class="pull-right">Année Universitaire 2015/2016</span>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 text-center">
+                        <div class="col-xs-12 text-center">
                             <h1>Dossier d'inscription</h1>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 text-center">
+                        <div class="col-xs-12 text-center">
                             <p>Renseigner les champs de manière électronique</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-xs-12">
                             <p>Avez-vous déjà été inscrit à l'Université de Lyon1 ? </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p>N° étudiant :   </p>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p> N° dossier de candidature : {{ Etudiant.numeroDossierCandidature }}</p>
                         </div>
                     </div>
@@ -45,54 +44,54 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-xs-12">
             <div class="panel panel-info">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="pull-left col-sm-6">
+                        <div class="pull-left col-xs-6">
                             <span class="span-Impression">2</span> <strong>ETAT CIVIL</strong>
                         </div>
                     </div>
                     <br><br>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p>Nom :   {{ Etudiant.laPersone.nom }} </p>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p> Prénom  : {{ Etudiant.laPersone.prenom }}</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p> Date de naissance :   {{ Etudiant.dateNaissance | date("d/m/Y")}} </p>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p> Dépt./Pays : {{ Etudiant.laPersone.Adresse.codePostal }} / {{ Etudiant.laPersone.Adresse.pays }} </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p> Sexe :   {% if Etudiant.laPersone.sexe == "M" %}Homme {% else %}Femme{% endif %} </p>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p> Ville de naissance : {{ Etudiant.villeNaissance }} </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-xs-12">
                             <p> Votre n° national étudiant INE :  {{ Dossier.iNE }}  </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-xs-12">
                             <p> Nationalité :    {{ Etudiant.nationalite }}</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p> Situation familiale :    {{ Dossier.situationFamillale }}</p>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p> Nombre d'enfant :    0</p>
                         </div>
                     </div>
@@ -101,17 +100,14 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-xs-12">
             <div class="panel panel-info">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="pull-left col-sm-6">
+                        <div class="pull-left col-xs-1">
                             <span class="span-Impression">3</span>
                         </div>
-                    </div>
-                    <br><br>
-                    <div class="row">
-                        <div class="col-sm-12">
+                        <div class="pull-left col-xs-11">
                             <p> <strong>Êtes-vous atteint d'un handicap ? </strong> {% if Dossier.handicap == "0" %}Non{% else %}Oui{% endif %}   </p>
                         </div>
                     </div>
@@ -120,17 +116,14 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-xs-12">
             <div class="panel panel-info">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="pull-left col-sm-6">
+                        <div class="pull-left col-xs-1">
                             <span class="span-Impression">4</span>
                         </div>
-                    </div>
-                    <br><br>
-                    <div class="row">
-                        <div class="col-sm-12">
+                        <div class="pull-left col-xs-11">
                             <p><strong> Situation militaire :</strong> Incorporable</p>
                         </div>
                     </div>
@@ -139,44 +132,44 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-xs-12">
             <div class="panel panel-info">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="pull-left col-sm-6">
+                        <div class="pull-left col-xs-6">
                             <span class="span-Impression">5</span>
                         </div>
                     </div>
                     <br><br>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p><strong> Prenière inscription    </strong> (dans un établissement en France)</p>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p> Prenière inscription en Universoté Française   </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p> En Enseignement supérieur : {{ PremiereInscription.anneeEnseignementSuperieur | date("Y") }} / {{ PremiereInscription.anneeEnseignementSuperieur | date("Y") +1}}    </p>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p> Université     </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p> En Université Française :   {{ PremiereInscription.anneeUniversiteFrancaise | date("Y") }} / {{ PremiereInscription.anneeUniversiteFrancaise | date("Y") +1 }}</p>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p>      </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p> À Lyon1 :   {{ PremiereInscription.anneeInscriptionLyon1  | date("Y") }} / {{ PremiereInscription.anneeInscriptionLyon1  | date("Y") +1 }}</p>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p>      </p>
                         </div>
                     </div>
@@ -186,37 +179,37 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-xs-12">
             <div class="panel panel-info">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="pull-left col-sm-6">
+                        <div class="pull-left col-xs-6">
                             <span class="span-Impression">6</span> <strong>Baccalauréat ou équivalence</strong>
                         </div>
                     </div>
                     <br><br>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-xs-12">
                             Intitulé : {{ BacOuEquivalent.intitule }}
                         </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-xs-12">
                             Etablissement d'obtention
                         </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p> Type :  {{ BacOuEquivalent.typeEtablissementObtention }}  </p>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                             <p> Dépatement :    {{ BacOuEquivalent.departementEtablissementObtention }}  </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-xs-12">
                             Nom : {{ BacOuEquivalent.nomEtablissementObtention }}
                         </div>
                     </div>
@@ -226,36 +219,36 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-xs-12">
             <div class="panel panel-info">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="pull-left col-sm-6">
+                        <div class="pull-left col-xs-6">
                             <span class="span-Impression">7</span><strong>Adresse</strong>
                         </div>
                     </div>
                     <br><br>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-xs-12">
                            Adresse : {{ Etudiant.laPersone.Adresse.adresse }}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-xs-4">
                             <p> Code Postal : {{ Etudiant.laPersone.Adresse.codePostal }}   </p>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-xs-4">
                             <p> Commune :   {{ Etudiant.laPersone.Adresse.commune }}   </p>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-xs-4">
                             <p> Pays :   {{ Etudiant.laPersone.Adresse.pays }}   </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-xs-4">
                             <p> Téléphone :   {{ Etudiant.laPersone.telephone }}   </p>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-xs-4">
                             <p> Portable :       </p>
                         </div>
                     </div>
@@ -263,6 +256,3 @@
             </div>
         </div>
     </div>
-
-
-{% endblock %}

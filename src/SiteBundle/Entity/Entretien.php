@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Entretien
 {
+
+
     /**
      * @var string
      *
@@ -41,7 +43,16 @@ class Entretien
      * @ORM\Column(name="DatePassage", type="datetime", nullable=true)
      */
     private $datePassage;
-    
+
+    /**
+     * Entretien constructor.
+     * @param \DateTime $datePassage
+     */
+    public function __construct()
+    {
+        $this->datePassage = new \DateTime();
+    }
+
     /**
      * Set commentaire
      *
