@@ -51,16 +51,16 @@ class ResponsableController extends Controller
         switch ($typeLp) {
             case 'METINET':
                 $offres = $repositoryOffre->findBy(['licenceConcerne' => 'METINET']);
-                $etudiants = $repositoryEtudiant->findBy(['typeLicence' => 'METINET']);
+                $etudiants = $repositoryEtudiant->findBy(['typeLicence' => 'METINET' , "isAdmissible"=>1]);
                 break;
 
             case 'IEM':
                 $offres = $repositoryOffre->findBy(['licenceConcerne' => 'IEM']);
-                $etudiants = $repositoryEtudiant->findBy(['typeLicence' => 'IEM']);
+                $etudiants = $repositoryEtudiant->findBy(['typeLicence' => 'IEM',"isAdmissible"=>1]);
                 break;
 
             default:
-                $etudiants = $repositoryEtudiant->findAll();
+                $etudiants = $repositoryEtudiant->findBy(["isAdmissible"=>1]);
                 $offres = $repositoryOffre->findAll();
                 break;
         }
@@ -345,7 +345,7 @@ class ResponsableController extends Controller
             $this->addFlash('info', "L'email à été envoyé !");
             return $this->redirectToRoute('acceuil_responsable');
             }else {
-                $booleanmodif = true ;
+                $booleanmodif = true;
             }
         }
 
@@ -538,12 +538,9 @@ class ResponsableController extends Controller
             ->getRepository('SiteBundle:Etudiant');
 
         $etudiants = $repository->findBy(['isAdmissible' => false]);
-
-        $promos = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Session')->findAll();
         return $this->render(
             'SiteBundle:Responsable:liste_etudiant_admissible.html.twig',
-            ['etudiants' => $etudiants,
-                'promos' => $promos]
+            ['etudiants' => $etudiants]
         );
     }
 
@@ -563,7 +560,6 @@ class ResponsableController extends Controller
             $dossierAdmission->setEtatDossier('0');
             $etudiant->setDossierAdmission($dossierAdmission);
             $entretien = new Entretien();
-            $etudiant->getDossierAdmission()->setEntretien($entretien);
         } else {
             $entretien = $etudiant->getDossierAdmission()->getEntretien();
         }
@@ -574,16 +570,8 @@ class ResponsableController extends Controller
         if ($form->isValid() && $form->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
             try {
-                if ($form->get('accepterEtudiant')->isClicked()) {
-                    $entretien->setEtat('2');
-                    $etudiant->getDossierAdmission()->setEtatDossier('2');
-                } elseif ($form->get('refuserEtudiant')->isClicked()) {
-                    $entretien->setEtat('1');
-                    $etudiant->getDossierAdmission()->setEtatDossier('3');
-                } else {
-                    $etudiant->getDossierAdmission()->setEtatDossier('1');
-                    $entretien->setEtat('0');
-                }
+                $entretien->setEtat('0');
+                $etudiant->getDossierAdmission()->setEtatDossier('1');
                 $etudiant->getDossierAdmission()->setEntretien($entretien);
                 $em->flush();
                 $this->addFlash('success', "L'entretien a été mis à jour.");
