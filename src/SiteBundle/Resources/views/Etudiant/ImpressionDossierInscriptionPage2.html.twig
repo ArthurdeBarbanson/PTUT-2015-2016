@@ -1,85 +1,86 @@
-{% extends '::baseImpression.html.twig' %}
-{% block body %}
+{% extends '::ImpressionDossierInscription.html.twig' %}
+{% block page2 %}
 
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-xs-12">
             <div class="panel panel-info">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="pull-left col-sm-6">
-                            <span>8 <strong>Régime d'inscription</strong></span>
+                        <div class="pull-left col-xs-6">
+                           <p> <span class="span-Impression">8 </span><strong>Régime d'inscription</strong></p>
                         </div>
                     </div>
+                    <br><br>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-xs-12">
                             <p>Satut  :    </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-xs-8">
                             <p> Votre catégorie socio-professionnelle :    </p>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-xs-4">
                             <p> Code :  </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-xs-8">
                             <p>     </p>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-xs-4">
                             <p>     </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-xs-8">
                             <p> Votre domaine d'activité professionnelle au cours de l'année universitaire :    </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-xs-8">
                             <p>    </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-xs-8">
                             <p> Votre quotite travaillée :    </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-xs-8">
                             <p>     </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-xs-8">
                             <p> Catégorie socio-professionnelle du représentant légal :    </p>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-xs-4">
                             <p> Code:    </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-xs-8">
                             <p>     </p>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-xs-4">
                             <p>     </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-xs-8">
                             <p> Catégorie socio-professionnelle du second parent référent :    </p>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-xs-4">
                             <p> Code:    </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-xs-8">
                             <p>     </p>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-xs-4">
                             <p>     </p>
                         </div>
                     </div>
@@ -88,16 +89,19 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-xs-12">
             <div class="panel panel-info">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="pull-left col-sm-6">
-                            <span>9 <strong> Aide financière</strong></span>
+                        <div class="pull-left col-xs-3">
+                           <p> <span class="span-Impression">9  </span> <strong> Aide financière : </strong></p>
+                        </div>
+                        <div class="pull-left col-xs-9">
+
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-xs-12">
                             <p> <strong> </strong>    </p>
                         </div>
                     </div>
@@ -106,22 +110,23 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-xs-12">
             <div class="panel panel-info">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="pull-left col-sm-6">
-                            <span>10  </span>
+                        <div class="pull-left col-xs-6">
+                           <p> <span class="span-Impression">10  </span></p>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>Êtes-vous sportif de haut niveau ?  {% if Dossier.estSportifDeHautNiveau == "0" %} Non {% else %} Oui {% endif %}</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
-                            <p>Êtes-vous sportif de haut niveau ? </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <p>Sport ? </p>
+                        <div class="col-xs-12">
+                            <p>Nom du Sport : </p>
                         </div>
                     </div>
                 </div>
@@ -129,33 +134,45 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-xs-12">
             <div class="panel panel-info">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="pull-left col-sm-6">
-                            <span>11  <strong> Echanges internationaux </strong></span>
+                        <div class="pull-left col-xs-6">
+                            <p><span class="span-Impression">11  </span> <strong> Echanges internationaux </strong></p>
                         </div>
                     </div>
+                    <br><br>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-xs-12">
                             <p>Précisez s'il s'agit d'un acceuil d'un étudiant à lyon1   ou de l'envoi d'un étudiant de Lyon1 dans un établissement étranger :  </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-xs-3">
+
+                        </div>
+                        <div class="col-xs-3">
+                            <p> <input type="checkbox" value="M"> ACCUEIL  </p>
+                        </div>
+                        <div class="col-xs-3">
+                            <p> <input type="checkbox" value="M"> ENVOIE  </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
                             <p>En cas d'envoie, précisez l'établissement d'accueil à l'étranger. En cas d'accueil, précisez votre établissement d'origine à l'étranger.  </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2"> </div>
-                        <div class="col-sm-10">
+                        <div class="col-xs-2"> </div>
+                        <div class="col-xs-10">
                             <p> Etablisssement :      </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2"> </div>
-                        <div class="col-sm-10">
+                        <div class="col-xs-2"> </div>
+                        <div class="col-xs-10">
                             <p> Pays :      </p>
                         </div>
                     </div>
@@ -165,33 +182,34 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-xs-12">
             <div class="panel panel-info">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="pull-left col-sm-6">
-                            <span>12<strong> Dernier établissement fréquenté </strong>  ( si différent de Lyon 1 ) </span>
+                        <div class="pull-left col-xs-6">
+                            <p> <span class="span-Impression">12 </span><strong> Dernier établissement fréquenté </strong>  ( si différent de Lyon 1 )</p>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p> Nom  : {{ DernierEtablissementFrequente.nom }}   </p>
+                        </div>
+                        <div class="col-xs-6">
+                            <p> Dépt./Pays :  {{ DernierEtablissementFrequente.departement }}    </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
-                            <p> Nom  :    </p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p> Dépt./Pays :      </p>
+                        <div class="col-xs-12">
+                            <p> Type  :  {{ DernierEtablissementFrequente.type }}  </p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
-                            <p> Type  :    </p>
+                        <div class="col-xs-6">
+                            <p> Année  :  {{ DernierEtablissementFrequente.annee | date("Y") }} / {{ DernierEtablissementFrequente.annee | date("Y") +1  }}  </p>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <p> Année  :    </p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p> S'agit-il d'un transfert :      </p>
+                        <div class="col-xs-6">
+                            <p> S'agit-il d'un transfert :  {% if DernierEtablissementFrequente.estTransfert == "0" %}Non{% else %}Oui{% endif %}  </p>
                         </div>
                     </div>
                 </div>
@@ -200,22 +218,23 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-xs-12">
             <div class="panel panel-info">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="pull-left col-sm-6">
-                            <span>13 <strong>Situation année précédente</strong></span>
+                        <div class="pull-left col-xs-6">
+                            <p><span class="span-Impression">13 </span> <strong>Situation année précédente</strong></p>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                           Nom établissement :{{ DernierEtablissementFrequente.nom }}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
-                           Nom établissement :
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            Département :
+                        <div class="col-xs-12">
+                            Département : {{ DernierEtablissementFrequente.departement }}
                         </div>
                     </div>
                 </div>
@@ -224,32 +243,33 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-xs-12">
             <div class="panel panel-info">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="pull-left col-sm-6">
-                            <span>14 <strong>Dernier diplôme obtenu dans l'enseignement supérieur en France</strong></span>
+                        <div class="pull-left col-xs-6">
+                            <p><span class="span-Impression">14 </span> <strong>Dernier diplôme obtenu dans l'enseignement supérieur en France</strong></p>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-xs-12">
+                           Département d'obtention de votre dernier diplôme : {{ DernierDiplomeObtenu.departement }}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
-                           Département d'obtention de votre dernier diplôme :
+                        <div class="col-xs-12">
+                            Année d'obtention de votre dernier diplôme  : {{ DernierDiplomeObtenu.annee | date("Y") }} / {{ DernierDiplomeObtenu.annee | date("Y") +1  }}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
-                            Année d'obtention de votre dernier diplôme  :
+                        <div class="col-xs-12">
+                            Etablissement d'obtention de votre dernier diplôme  : {{ DernierDiplomeObtenu.etablissement }}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
-                            Etablissement d'obtention de votre dernier diplôme  :
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            Dernier diplôme obtenu dans l'enseignement supérieur   :
+                        <div class="col-xs-12">
+                            Dernier diplôme obtenu dans l'enseignement supérieur   : {{ DernierDiplomeObtenu.leDiplomeObtenue }}
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,81 @@
+{% extends '::ImpressionDossierInscription.html.twig' %}
+{% block page4 %}
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <img class="img-Impression pull-right" src="{{ absolute_url(asset('image/logo-lyon1.png')) }}" alt="Université Claude Bernard Lyon 1" />
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>La loi n°78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés,
+                                vous donne un droit d'accès et rectification aux données vous concernant.
+                                Vous pourrez exercer ce droit en adressant un courrier à :
+                            </p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <p> Directeur Général des Services de l'Université Lyon1 </p>
+                            <p> Maison de l'Université </p>
+                            <p> 43 bd du 11 novembre 1918 </p>
+                            <p> 69622 VILLEURBANNE Cedex </p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p> Je Soussigné(e) </p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p> déclare :  </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <ul>
+                                <li>adhérer à la charte informatique de l'Université Lyon1</li>
+                                <li>pour les étudiants de première année commune aux études de Santé, adhérer à : UFR de Médeceine Charte de l'étudiant</li>
+                                <li>être informé(e) du fait que le non respect de la législation ainsi que des règles fixées par la charte de l'Université peut impliquer,
+                                    sans préjuger d'éventuelles poursuites pénales, la comparution devant la section disciplinaire de l'Université.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <p> Signature précédée de la mention manuscrite "lu et approuvé" : </p>
+                        </div>
+                    </div>
+                    <br><br><br><br><br><br><br><br><br>
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <p> Je certifie sincères et veritables les renseignements fournis et je déclare avoir pris connaissance des instructions jointes au dossier. </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p> À </p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p> le {{ "now"|date("m/d/Y") }}  </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <p> Signature : </p>
+                        </div>
+                    </div>
+                    <br><br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
