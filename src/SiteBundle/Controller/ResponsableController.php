@@ -538,9 +538,12 @@ class ResponsableController extends Controller
             ->getRepository('SiteBundle:Etudiant');
 
         $etudiants = $repository->findBy(['isAdmissible' => false]);
+
+        $promos = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Session')->findAll();
         return $this->render(
             'SiteBundle:Responsable:liste_etudiant_admissible.html.twig',
-            ['etudiants' => $etudiants]
+            ['etudiants' => $etudiants,
+                'promos' => $promos]
         );
     }
 
@@ -560,6 +563,7 @@ class ResponsableController extends Controller
             $dossierAdmission->setEtatDossier('0');
             $etudiant->setDossierAdmission($dossierAdmission);
             $entretien = new Entretien();
+            $etudiant->getDossierAdmission()->setEntretien($entretien);
         } else {
             $entretien = $etudiant->getDossierAdmission()->getEntretien();
         }
@@ -570,8 +574,16 @@ class ResponsableController extends Controller
         if ($form->isValid() && $form->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
             try {
-                $entretien->setEtat('0');
-                $etudiant->getDossierAdmission()->setEtatDossier('1');
+                if ($form->get('accepterEtudiant')->isClicked()) {
+                    $entretien->setEtat('2');
+                    $etudiant->getDossierAdmission()->setEtatDossier('2');
+                } elseif ($form->get('refuserEtudiant')->isClicked()) {
+                    $entretien->setEtat('1');
+                    $etudiant->getDossierAdmission()->setEtatDossier('3');
+                } else {
+                    $etudiant->getDossierAdmission()->setEtatDossier('1');
+                    $entretien->setEtat('0');
+                }
                 $etudiant->getDossierAdmission()->setEntretien($entretien);
                 $em->flush();
                 $this->addFlash('success', "L'entretien a été mis à jour.");
