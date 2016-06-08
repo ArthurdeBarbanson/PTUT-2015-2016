@@ -672,7 +672,7 @@ class ResponsableController extends Controller
                     $etudiant->setIsAdmissible(true);
                     $encoder = $this->get('security.password_encoder');
                     $randomPassword = random_bytes(10);
-                    $user = $em = $this->getDoctrine()->getManager()->getRepository('SiteBundle:User')->findOneBy(['id_etudiant' => $etudiant]);
+                    $user = $this->getDoctrine()->getManager()->getRepository('SiteBundle:User')->findOneBy(['id_etudiant' => $etudiant]);
                     $user->setPassword($encoder->encodePassword($user, $randomPassword));
                     $this->get('site.mailer.etudiant')->inscription($etudiant->getLaPersone()->getMail(), $randomPassword);
                     $em->flush();
