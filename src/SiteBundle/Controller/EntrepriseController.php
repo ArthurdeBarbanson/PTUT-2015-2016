@@ -4,6 +4,7 @@ namespace SiteBundle\Controller;
 
 use DateTime;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use SiteBundle\Entity\Dirigeant;
 use SiteBundle\Entity\Entreprise;
 use SiteBundle\Entity\MAP;
 use SiteBundle\Entity\Offre;
@@ -489,11 +490,41 @@ class EntrepriseController extends Controller
     public function inscriptionAction(Request $request)
     {
         $entreprise = new Entreprise();
-        $form = $this->createForm(EntrepriseType::class, $entreprise);
+        $form = $this->createForm(EntrepriseType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
 
+            //entreprise
+            $entreprise->setAPE($data['aPE']);
+            $entreprise->setDescription($data['description']);
+            $entreprise->setMail($data['mail']);
+            $entreprise->setNom($data['nom']);
+            $entreprise->setNombrePersonne($data['nombrePersonne']);
+            $entreprise->setPrenom($data['prenom']);
+            $entreprise->setRaisonSocial($data['raisonSocial']);
+            $entreprise->setSiret($data['siret']);
+            $entreprise->setDescription($data['description']);
+            $entreprise->setSiteWeb($data['siteWeb']);
+            $entreprise->setTelephone($data['telephone']);
+            $entreprise->setAdresse($data['Adresse']);
+
+
+            //personne
+            $personne = new Personne();
+            $personne->setNom($data['NomD']);
+            $personne->setSexe($data['CiviliteD']);
+            $personne->setPrenom($data['PrenomD']);
+            $personne->setMail($data['MailD']);
+
+            //dirigeant
+            $dirigeant = new Dirigeant();
+            $dirigeant->setEntreprise($entreprise);
+            $dirigeant->setFonction($data['FunctionD']);
+            $dirigeant->setLaPersone($personne);
+            $dirigeant->setEntreprise($entreprise);
+            
             $em = $this->getDoctrine()->getManager();
             $user = new User();
             $user->setIdEntreprise($entreprise);
@@ -506,6 +537,7 @@ class EntrepriseController extends Controller
             $encoded = $encoder->encodePassword($user, $randomPassword);
             $user->setPassword($encoded);
             $em->persist($user);
+            $em->persist($dirigeant);
 
 
             try {

@@ -94,7 +94,7 @@ class Entreprise
      * @var string
      *
      * * @Assert\Regex(
-     *     pattern="/[0-9]{10-12}/",
+     *     pattern="/[0-9]{10,12}/",
      *     message="Le numéro de téléphone est invalide."
      * )
      *
