@@ -13,7 +13,8 @@
             <h3>Description de l'entreprise</h3>
             <p>{{ offre.entreprise.description }}</p>
             <h3>Description de l'offre</h3>
-            <p>{{ offre.sujet }}</p>
+            <p>{{ offre.sujet }} {% if  offre.document is not empty and offre.document is not null  %} <a target="_blank" href="{{ asset(offre.document) }}">Consulter le sujet de l'offre <span
+                            class="glyphicon glyphicon-eye-open "></span></a> {% endif %}</p>
         </div>
         <div class="col-sm-6">
             <div class="panel panel-default">

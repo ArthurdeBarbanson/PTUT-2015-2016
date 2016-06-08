@@ -6,6 +6,7 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use SiteBundle\Entity\Adresse;
 use SiteBundle\Entity\DossierAdmission;
 use SiteBundle\Entity\DossierInscription;
+use SiteBundle\Entity\Entretien;
 use SiteBundle\Entity\Etudiant;
 use SiteBundle\Entity\Personne;
 use SiteBundle\Entity\Session;
@@ -343,10 +344,6 @@ class ResponsableController extends Controller
             $this->addFlash('info', "L'email à été envoyé !");
             return $this->redirectToRoute('acceuil_responsable');
         }
-//        else {
-//            $errors_modif = $formModifier->getErrors();
-//            var_dump($errors_modif);
-//        }
 
         $formulaire->handleRequest($request);
         if ($formulaire->isSubmitted() && $formulaire->isValid()) {
@@ -362,9 +359,6 @@ class ResponsableController extends Controller
             return $this->redirectToRoute('acceuil_responsable');
 
         }
-//        else {
-//            $errors_refus = $formulaire->getErrors();
-//        }
 
         return $this->render(
             'SiteBundle:Default:detailsAnnonce.html.twig',
@@ -557,9 +551,27 @@ class ResponsableController extends Controller
             $dossierAdmission = new DossierAdmission();
             $dossierAdmission->setEtatDossier('0');
             $etudiant->setDossierAdmission($dossierAdmission);
+            $entretien = new Entretien();
+        } else {
+            $entretien = $etudiant->getDossierAdmission()->getEntretien();
         }
 
-        $form = $this->createForm(EntretienType::class);
+        $form = $this->createForm(EntretienType::class, $entretien);
+
+        $form->handleRequest($request);
+        if ($form->isValid() && $form->isSubmitted()) {
+            $em = $this->getDoctrine()->getManager();
+            try {
+                $entretien->setEtat('0');
+                $etudiant->getDossierAdmission()->setEtatDossier('1');
+                $etudiant->getDossierAdmission()->setEntretien($entretien);
+                $em->flush();
+                $this->addFlash('success', "L'entretien a été mis à jour.");
+            } catch (\Exception $ex) {
+                $this->addFlash('error', "Une erreur est survenue.");
+            }
+        }
+
         return $this->render(
             'SiteBundle:Responsable:detail_dossier_admission.html.twig',
             ['etudiant' => $etudiant,

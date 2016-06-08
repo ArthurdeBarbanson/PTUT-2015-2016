@@ -18,7 +18,6 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -103,66 +102,87 @@ class EntrepriseController extends Controller
 
                 if ($form->isValid()) {
                     $data = $form->getData();
-                    $dateDepot = new DateTime();
-                    $dateDepot->format('Y-m-d H');
-                    $map = $repositoryMap->find($request->request->get('map'));
 
-                    $annonce = new Offre;
-                    $annonce->setDateDepot($dateDepot);
-                    $annonce->setEtatOffre("En attente de validation");
-                    $annonce->setSujet($data['Sujet']);
-                    $annonce->setTitre($data['Titre']);
-                    $annonce->setLicenceConcerne(($data['Lpconcerne']));
-                    $annonce->setEntreprise($entreprise);
-                    $annonce->setMAP($map);
-                    $annonce->setSession($data['promo']);
-                    $em->persist($annonce);
-                    $em->flush();
-                    $this->addFlash('info', "L'annonce a été mis en attente de Validation.");
+                    if ($data['pdf'] != "" or $data['Sujet'] != "") {
 
-                    return $this->redirect($this->generateUrl('site_accueilEntreprise'));
+                        $dateDepot = new DateTime();
+                        $dateDepot->format('Y-m-d H');
+                        $map = $repositoryMap->find($request->request->get('map'));
+
+                        $annonce = new Offre;
+                        $annonce->setDateDepot($dateDepot);
+                        $annonce->setEtatOffre("En attente de validation");
+                        $annonce->setSujet($data['Sujet']);
+                        $annonce->setTitre($data['Titre']);
+                        $annonce->setLicenceConcerne(($data['Lpconcerne']));
+                        $annonce->setEntreprise($entreprise);
+                        $annonce->setMAP($map);
+                        $annonce->setSession($data['promo']);
+                        $date = new \DateTime();
+                        $annee = $date->format('Y');
+                        $dir = 'uploads/offre/' . $annee;
+                        $file = $form['pdf']->getData();
+                        $extension = $file->guessExtension();
+                        if ($extension == 'pdf' || $extension == 'doc'|| $extension == 'docx' ) {
+
+                            $uniqId = uniqid();
+                            $file->move($dir, $data['Titre'] . '_' . $uniqId . '.' . $extension);
+
+                            $final_url = $dir . '/' . $data['Titre'] . '_' . $uniqId . '.' . $extension;
+
+                        $annonce->setDocument($final_url);
+                        }
+
+                        $em->persist($annonce);
+                        $em->flush();
+                        $this->addFlash('info', "L'annonce a été mis en attente de Validation.");
+                        return $this->redirect($this->generateUrl('site_accueilEntreprise'));
+                    } else {
+                        $this->addFlash('error', "Vous devez renseignez dans le cadre prevue a cette effet le sujet de l'offre ou bien joindre un Pdf/doc comprenant ces informations..");
+                    }
                 }
                 $form2->handleRequest($request);
-                if ($form2->isValid()) {
-                    $data = $form2->getData();
-                    $personne = new Personne();
-                    $map = new MAP();
+                if ($form2->get('submit')->isClicked()) {
+                    if ($form2->isValid()) {
+                        $data = $form2->getData();
+                        $personne = new Personne();
+                        $map = new MAP();
 
-                    $repositoryAdresse = $this
-                        ->getDoctrine()
-                        ->getManager()
-                        ->getRepository('SiteBundle:Adresse');
+                        $repositoryAdresse = $this
+                            ->getDoctrine()
+                            ->getManager()
+                            ->getRepository('SiteBundle:Adresse');
 
-                    $adresse = $repositoryAdresse->find(1);
-                    $personne->setSexe($data['Civilite']);
-                    $personne->setPrenom($data['Prenom']);
-                    $personne->setNom($data['Nom']);
-                    $personne->setMail($data['Email']);
-                    $personne->setTelephone($data['Tel']);
-                    $personne->setisTuteur(1);
-                    $personne->setAdresse($adresse);
-                    $map->setDateNaissance($data['DateN']);
-                    $map->setLaPersone($personne);
-                    $map->setFonction($data['Fonction']);
-                    $map->setAEteFormationMaitreApprentissage($data['DejaFormerMaj']);
-                    $map->setEntreprise($entreprise);
-                    $map->setAEteMaitreApprentissage($data['DejaMaj']);
+                        $adresse = $repositoryAdresse->find(1);
+                        $personne->setSexe($data['Civilite']);
+                        $personne->setPrenom($data['Prenom']);
+                        $personne->setNom($data['Nom']);
+                        $personne->setMail($data['Email']);
+                        $personne->setTelephone($data['Tel']);
+                        $personne->setisTuteur(1);
+                        $personne->setAdresse($adresse);
+                        $map->setDateNaissance($data['DateN']);
+                        $map->setLaPersone($personne);
+                        $map->setFonction($data['Fonction']);
+                        $map->setAEteFormationMaitreApprentissage($data['DejaFormerMaj']);
+                        $map->setEntreprise($entreprise);
+                        $map->setAEteMaitreApprentissage($data['DejaMaj']);
 
-                    $em->persist($personne);
-                    $em->persist($map);
+                        $em->persist($personne);
+                        $em->persist($map);
 
-                    $em->flush();
-                    return $this->redirectToRoute('site_ajoutAnnonce');
-                } else {
-                    $modal = true;
-                    return $this->render(
-                        'SiteBundle:Default:ajoutAnnonce.html.twig',
-                        ['form' => $form->createView(), 'form2' => $form2->createView(), 'maps' => $maps, 'bool' => $modal]
-                    );
+                        $em->flush();
+                        return $this->redirectToRoute('site_ajoutAnnonce');
+                    } else {
+                        $modal = true;
+                        return $this->render(
+                            'SiteBundle:Default:ajoutAnnonce.html.twig',
+                            ['form' => $form->createView(), 'form2' => $form2->createView(), 'maps' => $maps, 'bool' => $modal]
+                        );
 
+                    }
                 }
             }
-
             return $this->render(
                 'SiteBundle:Default:ajoutAnnonce.html.twig',
                 ['form' => $form->createView(), 'form2' => $form2->createView(), 'maps' => $maps, 'bool' => $modal]
@@ -301,9 +321,9 @@ class EntrepriseController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('SiteBundle:Entreprise');
-
+        $repositoryD= $em->getRepository('SiteBundle:Dirigeant');
         $entreprise = $repository->find($this->getUser()->getIdEntreprise());
-
+        $dirigeant = $repositoryD->findBy(array("Entreprise"=>$entreprise->getId()));
 
         $form = $this->createFormBuilder()
             ->add('raisonSocial', TextType::class, [
@@ -373,6 +393,51 @@ class EntrepriseController extends Controller
             ->add('Adresse', AdresseType::class, array('label' => 'Localisation',
                 'data'=>$entreprise->getAdresse()   ))
 
+            ->add('CiviliteD',ChoiceType::class, array(
+                'choices' => array(' Monsieur ' => 'M', 'Madame ' => 'F'),
+                'label' => 'Civilité',
+                'multiple' => false,
+                'expanded' => true,
+                'required' => true,
+                'data' => $dirigeant[0]->getLaPersone()->getSexe()
+            ))
+            ->add('FunctionD',ChoiceType::class, array(
+                'choices' => array(' Dirigeant ' => 'Dirigeant', 'DRH ' => 'DRH'),
+                'label' => 'Fonction',
+                'multiple' => false,
+                'expanded' => true,
+                'required' => true,
+                'data' => $dirigeant[0]->getFonction()
+            ))
+            ->add('PrenomD', TextType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['min' => 3])
+                ],
+                'label' => 'Prenom du '.$dirigeant[0]->getFonction(),
+                'data' => $dirigeant[0]->getLaPersone()->getPrenom()
+            ])
+
+            ->add('NomD', TextType::class,['constraints' => [
+                new NotBlank(),
+                new Length(['min' => 3])
+            ],
+                'label' => 'Nom du '.$dirigeant[0]->getFonction(),
+                'data' => $dirigeant[0]->getLaPersone()->getNom()
+            ])
+
+            ->add('MailD', EmailType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    new Email([
+                        'strict' => false,
+                        'checkMX' => true,
+                        'checkHost' => true
+                    ])
+                                    ],
+                'label' => 'E-mail du '.$dirigeant[0]->getFonction(),
+                'data' => $dirigeant[0]->getLaPersone()->getMail()
+            ])
 
             ->add('submit', SubmitType::class, ['label' => "Modifier",
                 'attr' => ['class' => 'btn-primary']])
@@ -402,6 +467,11 @@ class EntrepriseController extends Controller
                 $entreprise->setSiret($data["siret"]);
                 $entreprise->setDescription($data["description"]);
                 $entreprise->setMail($data["mail"]);
+                $dirigeant[0]->setFonction($data["FunctionD"]);
+                $dirigeant[0]->getLaPersone()->setMail($data["MailD"]);
+                $dirigeant[0]->getLaPersone()->setSexe($data["CiviliteD"]);
+                $dirigeant[0]->getLaPersone()->setNom($data["NomD"]);
+                $dirigeant[0]->getLaPersone()->setPrenom($data["PrenomD"]);
 
 
                 $em->flush();

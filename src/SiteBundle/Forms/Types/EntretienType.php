@@ -25,9 +25,8 @@ class EntretienType extends AbstractType
             ])
             ->add('datePassage', DateTimeType::class, [
                 'label' => 'Date de passage',
-                'data' => new \DateTime("now"),
             ])
-            ->add('submit', SubmitType::class, ['label' => "S'inscrire", 'attr' => ['class' => 'btn-primary center-block']]);;
+            ->add('submit', SubmitType::class, ['label' => "Modifier", 'attr' => ['class' => 'btn-primary center-block']]);;
     }
 
     /**
