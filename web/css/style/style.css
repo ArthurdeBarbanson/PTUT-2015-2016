@@ -42,6 +42,10 @@ and open the template in the editor.
     padding-right: 20px;
 }
 
+.displayNone {
+    display: none;
+}
+
 .margTop100 {
     margin-top: 100px;
 }
