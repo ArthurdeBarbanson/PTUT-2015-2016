@@ -35,6 +35,13 @@ class PieceJointe
      */
     private $chemin;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="etape",type="string", columnDefinition="enum('1', '2', '3', '4', '5', '6')",nullable=true)
+     */
+    private $etape;
+
 
 
 
@@ -96,4 +103,28 @@ class PieceJointe
         return $this->chemin;
     }
 
+
+    /**
+     * Set etape
+     *
+     * @param string $etape
+     *
+     * @return PieceJointe
+     */
+    public function setEtape($etape)
+    {
+        $this->etape = $etape;
+
+        return $this;
+    }
+
+    /**
+     * Get etape
+     *
+     * @return string
+     */
+    public function getEtape()
+    {
+        return $this->etape;
+    }
 }
