@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class DossierAdmission
 {
+
+
     /**
      * @var string
      *
@@ -46,6 +48,15 @@ class DossierAdmission
      * @ORM\Column(name="DateLimite", type="date", nullable=true)
      */
     private $dateLimite;
+
+    /**
+     * DossierAdmission constructor.
+     * @param \DateTime $dateLimite
+     */
+    public function __construct()
+    {
+        $this->dateLimite = new \DateTime();
+    }
 
     /**
      * Set etatDossier

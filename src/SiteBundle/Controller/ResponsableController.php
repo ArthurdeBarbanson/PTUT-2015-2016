@@ -9,10 +9,12 @@ use SiteBundle\Entity\DossierInscription;
 use SiteBundle\Entity\Entretien;
 use SiteBundle\Entity\Etudiant;
 use SiteBundle\Entity\Personne;
+use SiteBundle\Entity\PieceJointe;
 use SiteBundle\Entity\Session;
 use SiteBundle\Entity\User;
 use SiteBundle\Entity\EmailEtapeInscription;
 use SiteBundle\Forms\Types\AjoutPieceJointe;
+use SiteBundle\Forms\Types\DossierAdmissionType;
 use SiteBundle\Repository\EtapeInscriptionEmailRepository;
 
 use SiteBundle\Forms\Types\AjoutEtudiantImport;
@@ -53,16 +55,16 @@ class ResponsableController extends Controller
         switch ($typeLp) {
             case 'METINET':
                 $offres = $repositoryOffre->findBy(['licenceConcerne' => 'METINET']);
-                $etudiants = $repositoryEtudiant->findBy(['typeLicence' => 'METINET' , "isAdmissible"=>1]);
+                $etudiants = $repositoryEtudiant->findBy(['typeLicence' => 'METINET', "isAdmissible" => 1]);
                 break;
 
             case 'IEM':
                 $offres = $repositoryOffre->findBy(['licenceConcerne' => 'IEM']);
-                $etudiants = $repositoryEtudiant->findBy(['typeLicence' => 'IEM',"isAdmissible"=>1]);
+                $etudiants = $repositoryEtudiant->findBy(['typeLicence' => 'IEM', "isAdmissible" => 1]);
                 break;
 
             default:
-                $etudiants = $repositoryEtudiant->findBy(["isAdmissible"=>1]);
+                $etudiants = $repositoryEtudiant->findBy(["isAdmissible" => 1]);
                 $offres = $repositoryOffre->findAll();
                 break;
         }
@@ -312,7 +314,7 @@ class ResponsableController extends Controller
     public function detailAnnonceAction(Request $request)
     {
         $booleanrefus = false;
-           $booleanmodif = false;
+        $booleanmodif = false;
         $offreid = $request->get('offreId');
         $repository = $this
             ->getDoctrine()
@@ -335,24 +337,24 @@ class ResponsableController extends Controller
         if ($formModifier->isSubmitted()) {
             if ($formModifier->isValid()) {
 
-            $data = $formModifier->getData();
-            $this->get('site.mailer.responsable')->modifierAnnonce($offre->getEntreprise()->getMail(), $data['Message']);
+                $data = $formModifier->getData();
+                $this->get('site.mailer.responsable')->modifierAnnonce($offre->getEntreprise()->getMail(), $data['Message']);
 
 
-            $offre->setEtatOffre('En attente de modification');
+                $offre->setEtatOffre('En attente de modification');
 
-            $em->persist($offre);
-            $em->flush();
+                $em->persist($offre);
+                $em->flush();
 
-            $this->addFlash('info', "L'email à été envoyé !");
-            return $this->redirectToRoute('acceuil_responsable');
-            }else {
+                $this->addFlash('info', "L'email à été envoyé !");
+                return $this->redirectToRoute('acceuil_responsable');
+            } else {
                 $booleanmodif = true;
             }
         }
 
         $formulaire->handleRequest($request);
-        if ($formulaire->isSubmitted() ) {
+        if ($formulaire->isSubmitted()) {
             if ($formulaire->isValid()) {
                 $data2 = $formulaire->getData();
 
@@ -377,7 +379,7 @@ class ResponsableController extends Controller
                 'form_refus' => $formulaire->createView(),
                 'form_modif' => $formModifier->createView(),
                 'form' => $form->createView(),
-               'bool2' =>$booleanrefus,
+                'bool2' => $booleanrefus,
                 'bool1' => $booleanmodif,
                 'errorEtudiant' => '',
             ]
@@ -533,14 +535,42 @@ class ResponsableController extends Controller
 
         $listePieceJointe = $repositoryPieceJointe->findAll();
 
-        $ajoutPieceJointe=$this->createForm(AjoutPieceJointe::class);
+        $formPieceJointe = $this->createForm(AjoutPieceJointe::class);
+        $formPieceJointe->handleRequest($request);
+        if ($formPieceJointe->isValid()) {
+            $data = $data = $formPieceJointe->getData();
+            $dir = 'uploads/pieceJointe/';
+//            $file = $data['pieceJointe'];
+            $file = $formPieceJointe['pieceJointe']->getData();
 
+            $extension = $file->guessExtension();
+            $title = $file->getClientOriginalName();
+            if ($extension == 'pdf' || $extension == 'doc' || $extension == 'docx') {
+                $uniqId = uniqid();
+//                $file->move($dir, $title . '_' . $uniqId . '.' . $extension);
+                $file->move($dir, $title);
+
+                $final_url = $dir . '/' . $title;
+
+                $PieceJointe = new PieceJointe();
+                $PieceJointe->setChemin($final_url);
+                $PieceJointe->setNom($title);
+                $PieceJointe->setEtape($data['Etape']);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($PieceJointe);
+                $em->flush();
+                $this->addFlash('info', "Les modifications on été enregistrer");
+            }
+
+            $this->redirectToRoute('gestion_email');
+        }
 
 
         return $this->render('SiteBundle:Responsable:gestionEmail.html.twig', [
             'form_email' => $emailform->createView(),
-            'liste_piece_jointe'=>$listePieceJointe,
-            'form_piece_jointe'=>$ajoutPieceJointe->createView()
+            'liste_piece_jointe' => $listePieceJointe,
+            'form_piece_jointe' => $formPieceJointe->createView()
         ]);
 
     }
@@ -558,6 +588,7 @@ class ResponsableController extends Controller
             ['etudiants' => $etudiants]
         );
     }
+
     public function imprimerListeEtudiantAdmissibleAction(Request $request)
     {
         $repository = $this
@@ -595,32 +626,65 @@ class ResponsableController extends Controller
         if ($etudiant->getDossierAdmission() == null) {
             $dossierAdmission = new DossierAdmission();
             $dossierAdmission->setEtatDossier('0');
-            $etudiant->setDossierAdmission($dossierAdmission);
             $entretien = new Entretien();
+            $etudiant->setDossierAdmission($dossierAdmission);
+            $etudiant->getDossierAdmission()->setEntretien($entretien);
         } else {
             $entretien = $etudiant->getDossierAdmission()->getEntretien();
         }
 
         $form = $this->createForm(EntretienType::class, $entretien);
+        $formEtat = $this->createForm(DossierAdmissionType::class, $etudiant->getDossierAdmission());
 
+        $formEtat->handleRequest($request);
         $form->handleRequest($request);
         if ($form->isValid() && $form->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
             try {
-                $entretien->setEtat('0');
-                $etudiant->getDossierAdmission()->setEtatDossier('1');
+                if ($form->get('accepterEtudiant')->isClicked()) {
+                    $entretien->setEtat('2');
+                    $etudiant->setIsAdmissible(true);
+                    $etudiant->getDossierAdmission()->setEtatDossier('2');
+                    $this->redirectToRoute('responsableListeEtudiantAdmissible');
+                } elseif ($form->get('refuserEtudiant')->isClicked()) {
+                    $entretien->setEtat('1');
+                    $etudiant->getDossierAdmission()->setEtatDossier('3');
+                } else {
+                    $etudiant->getDossierAdmission()->setEtatDossier('1');
+                    $entretien->setEtat('0');
+                }
                 $etudiant->getDossierAdmission()->setEntretien($entretien);
                 $em->flush();
                 $this->addFlash('success', "L'entretien a été mis à jour.");
             } catch (\Exception $ex) {
                 $this->addFlash('error', "Une erreur est survenue.");
             }
+        } elseif ($formEtat->isValid() && $formEtat->isSubmitted()) {
+            $em = $this->getDoctrine()->getManager();
+            try {
+                if ($formEtat->get('accepter')->isClicked()) {
+                    $etudiant->getDossierAdmission()->setEtatDossier('2');
+                    $etudiant->setIsAdmissible(true);
+                    $em->flush();
+                    $this->addFlash('success', "L'étudiant à été admis.");
+                    return $this->redirectToRoute('responsableListeEtudiantAdmissible');
+                } elseif ($formEtat->get('refuser')->isClicked()) {
+                    $etudiant->getDossierAdmission()->setEtatDossier('3');
+                    $em->flush();
+                    $this->addFlash('success', "La postulation de l'étudiant à bien été refusé.");
+                } else {
+                    $em->flush();
+                    $this->addFlash('success', "Le dossier a bien été mis à jour.");
+                }
+            } catch (\Exception $ex) {
+                $this->addFlash('error', 'Erreur lors de la mise à jour du dossier.');
+            }
         }
-
         return $this->render(
             'SiteBundle:Responsable:detail_dossier_admission.html.twig',
             ['etudiant' => $etudiant,
-                'form' => $form->createView()]
+                'form' => $form->createView(),
+                'formEtat' => $formEtat->createView()]
         );
     }
 }

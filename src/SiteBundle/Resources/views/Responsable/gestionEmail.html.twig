@@ -4,28 +4,83 @@
 <h3>gestion de mail des étapes</h3>
 
     {{ form_start(form_email) }}
-
-        {% for piece1 in AjoutPieceJointe.php %}
-        <a href="{{ piece1 }}"></a>
-        {% endfor %}
-
-        {{ form_errors(form_email) }}
+    {{ form_errors(form_email) }}
 
     {# l'affichage de form_row peut Ãªtre modifier dans le fichier fields_layout.html.twig#}
 
     {{ form_row(form_email.etape1)}}
+    <h4>Pièce jointe associé :</h4>
+    {% if liste_piece_jointe is not empty %}
+        {% for piece in liste_piece_jointe  %}
+            {% if piece.etape == 1 %}
+                <a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a><a href="" class=" btn btn-danger btn-sm ">X</a>
+            {% endif %}
+
+        {% endfor %}
+    {% endif %}
 
     {{ form_row(form_email.etape2)}}
+    <h4>Pièce jointe associé :</h4>
+
+    {% if liste_piece_jointe is not empty %}
+        {% for piece in liste_piece_jointe  %}
+            {% if piece.etape == 2 %}
+                <a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 
     {{ form_row(form_email.etape3)}}
+    <h4>Pièce jointe associé :</h4>
+
+    {% if liste_piece_jointe is not empty %}
+        {% for piece in liste_piece_jointe  %}
+            {% if piece.etape == 3 %}
+                <a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a>
+            {% endif %}
+
+        {% endfor %}
+    {% endif %}
+
 
     {{ form_row(form_email.etape4)}}
+    <h4>Pièce jointe associé :</h4>
+
+    {% if liste_piece_jointe is not empty %}
+        {% for piece in liste_piece_jointe  %}
+            {% if piece.etape == 4 %}
+                <a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a>
+            {% endif %}
+
+        {% endfor %}
+    {% endif %}
+
 
     {{ form_row(form_email.etape5)}}
+    <h4>Pièce jointe associé :</h4>
+
+    {% if liste_piece_jointe is not empty %}
+        {% for piece in liste_piece_jointe  %}
+            {% if piece.etape == 5 %}
+                <a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a>
+            {% endif %}
+
+        {% endfor %}
+    {% endif %}
+
 
     {{ form_row(form_email.etape6)}}
+    <h4>Pièce jointe associé :</h4>
 
+    {% if liste_piece_jointe is not empty %}
+        {% for piece in liste_piece_jointe  %}
+            {% if piece.etape == 6 %}
+                <a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a>
+            {% endif %}
 
+        {% endfor %}
+    {% endif %}
+    {{ form_rest(form_email) }}
 
     {{ form_end(form_email) }}
 
