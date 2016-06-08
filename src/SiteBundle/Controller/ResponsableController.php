@@ -55,16 +55,16 @@ class ResponsableController extends Controller
         switch ($typeLp) {
             case 'METINET':
                 $offres = $repositoryOffre->findBy(['licenceConcerne' => 'METINET']);
-                $etudiants = $repositoryEtudiant->findBy(['typeLicence' => 'METINET' , "isAdmissible"=>1]);
+                $etudiants = $repositoryEtudiant->findBy(['typeLicence' => 'METINET', "isAdmissible" => 1]);
                 break;
 
             case 'IEM':
                 $offres = $repositoryOffre->findBy(['licenceConcerne' => 'IEM']);
-                $etudiants = $repositoryEtudiant->findBy(['typeLicence' => 'IEM',"isAdmissible"=>1]);
+                $etudiants = $repositoryEtudiant->findBy(['typeLicence' => 'IEM', "isAdmissible" => 1]);
                 break;
 
             default:
-                $etudiants = $repositoryEtudiant->findBy(["isAdmissible"=>1]);
+                $etudiants = $repositoryEtudiant->findBy(["isAdmissible" => 1]);
                 $offres = $repositoryOffre->findAll();
                 break;
         }
@@ -314,7 +314,7 @@ class ResponsableController extends Controller
     public function detailAnnonceAction(Request $request)
     {
         $booleanrefus = false;
-           $booleanmodif = false;
+        $booleanmodif = false;
         $offreid = $request->get('offreId');
         $repository = $this
             ->getDoctrine()
@@ -346,9 +346,9 @@ class ResponsableController extends Controller
                 $em->persist($offre);
                 $em->flush();
 
-            $this->addFlash('info', "L'email à été envoyé !");
-            return $this->redirectToRoute('acceuil_responsable');
-            }else {
+                $this->addFlash('info', "L'email à été envoyé !");
+                return $this->redirectToRoute('acceuil_responsable');
+            } else {
                 $booleanmodif = true;
             }
         }
@@ -535,22 +535,22 @@ class ResponsableController extends Controller
 
         $listePieceJointe = $repositoryPieceJointe->findAll();
 
-        $formPieceJointe=$this->createForm(AjoutPieceJointe::class);
+        $formPieceJointe = $this->createForm(AjoutPieceJointe::class);
         $formPieceJointe->handleRequest($request);
         if ($formPieceJointe->isValid()) {
-            $data=$data = $formPieceJointe->getData();
+            $data = $data = $formPieceJointe->getData();
             $dir = 'uploads/pieceJointe/';
 //            $file = $data['pieceJointe'];
             $file = $formPieceJointe['pieceJointe']->getData();
 
             $extension = $file->guessExtension();
-            $title=$file->getClientOriginalName();
-            if ($extension == 'pdf' || $extension == 'doc'|| $extension == 'docx' ) {
+            $title = $file->getClientOriginalName();
+            if ($extension == 'pdf' || $extension == 'doc' || $extension == 'docx') {
                 $uniqId = uniqid();
 //                $file->move($dir, $title . '_' . $uniqId . '.' . $extension);
                 $file->move($dir, $title);
 
-                $final_url = $dir . '/' .$title;
+                $final_url = $dir . '/' . $title;
 
                 $PieceJointe = new PieceJointe();
                 $PieceJointe->setChemin($final_url);
@@ -567,12 +567,10 @@ class ResponsableController extends Controller
         }
 
 
-
-
         return $this->render('SiteBundle:Responsable:gestionEmail.html.twig', [
             'form_email' => $emailform->createView(),
-            'liste_piece_jointe'=>$listePieceJointe,
-            'form_piece_jointe'=>$formPieceJointe->createView()
+            'liste_piece_jointe' => $listePieceJointe,
+            'form_piece_jointe' => $formPieceJointe->createView()
         ]);
 
     }
@@ -590,6 +588,7 @@ class ResponsableController extends Controller
             ['etudiants' => $etudiants]
         );
     }
+
     public function imprimerListeEtudiantAdmissibleAction(Request $request)
     {
         $repository = $this
@@ -627,8 +626,9 @@ class ResponsableController extends Controller
         if ($etudiant->getDossierAdmission() == null) {
             $dossierAdmission = new DossierAdmission();
             $dossierAdmission->setEtatDossier('0');
-            $etudiant->setDossierAdmission($dossierAdmission);
             $entretien = new Entretien();
+            $etudiant->setDossierAdmission($dossierAdmission);
+            $etudiant->getDossierAdmission()->setEntretien($entretien);
         } else {
             $entretien = $etudiant->getDossierAdmission()->getEntretien();
         }
@@ -661,17 +661,21 @@ class ResponsableController extends Controller
             }
         } elseif ($formEtat->isValid() && $formEtat->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
-            if ($formEtat->get('accepter')->isClicked()) {
-                $etudiant->getDossierAdmission()->setEtatDossier('2');
-                $etudiant->setIsAdmissible(true);
-                $this->redirectToRoute('responsableListeEtudiantAdmissible');
-            } elseif ($formEtat->get('refuser')->isClicked()) {
-                $etudiant->getDossierAdmission()->setEtatDossier('3');
-            } else {
-            }
             try {
-                $em->flush();
-                $this->addFlash('success', "Le dossier a été mis à jour.");
+                if ($formEtat->get('accepter')->isClicked()) {
+                    $etudiant->getDossierAdmission()->setEtatDossier('2');
+                    $etudiant->setIsAdmissible(true);
+                    $em->flush();
+                    $this->addFlash('success', "L'étudiant à été admis.");
+                    return $this->redirectToRoute('responsableListeEtudiantAdmissible');
+                } elseif ($formEtat->get('refuser')->isClicked()) {
+                    $etudiant->getDossierAdmission()->setEtatDossier('3');
+                    $em->flush();
+                    $this->addFlash('success', "La postulation de l'étudiant à bien été refusé.");
+                } else {
+                    $em->flush();
+                    $this->addFlash('success', "Le dossier a bien été mis à jour.");
+                }
             } catch (\Exception $ex) {
                 $this->addFlash('error', 'Erreur lors de la mise à jour du dossier.');
             }
