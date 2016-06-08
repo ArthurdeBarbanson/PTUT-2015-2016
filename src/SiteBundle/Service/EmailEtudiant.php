@@ -52,7 +52,7 @@ class EmailEtudiant extends Email
     }
 
 
-    public function refuserAnnonce($adresseMail,$password){
+    public function inscription($adresseMail,$password){
         $mail = \Swift_Message::newInstance();
 
         $mail
