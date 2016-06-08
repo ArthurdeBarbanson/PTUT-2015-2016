@@ -12,7 +12,7 @@ use SiteBundle\Entity\Personne;
 use SiteBundle\Entity\Session;
 use SiteBundle\Entity\User;
 use SiteBundle\Entity\EmailEtapeInscription;
-use SiteBundle\Repository;
+use SiteBundle\Repository\EtapeInscriptionEmailRepository;
 
 use SiteBundle\Forms\Types\AjoutEtudiantImport;
 use SiteBundle\Forms\Types\AjoutPromotionType;
@@ -496,50 +496,50 @@ class ResponsableController extends Controller
             ->getDoctrine()
             ->getManager()
             ->getRepository('SiteBundle:EmailEtapeInscription');
-        $listeEmails = $repository->findAll();
-        $em = $this->getDoctrine()->getManager();
+        $listeEmails = $repository->find(1);
 
-        if(empty($listeEmails)){
-            $etape1= new EmailEtapeInscription();
-            $etape1->setEtape('Etape 1');
-            $etape2= new EmailEtapeInscription();
-            $etape2->setEtape('Etape 2');
+//        if(empty($listeEmails)){
+//            $etape1= new EmailEtapeInscription();
+//            $etape1->setEtape('Etape 1');
+//            $etape2= new EmailEtapeInscription();
+//            $etape2->setEtape('Etape 2');
+//
+//            $etape3= new EmailEtapeInscription();
+//            $etape3->setEtape('Etape 3');
+//
+//            $etape4= new EmailEtapeInscription();
+//            $etape4->setEtape('Etape 4');
+//
+//            $etape5= new EmailEtapeInscription();
+//            $etape5->setEtape('Etape 5');
+//
+//            $etape6= new EmailEtapeInscription();
+//            $etape6->setEtape('Etape 6');
+//
+//            $em->persist($etape1);
+//            $em->persist($etape2);
+//            $em->persist($etape3);
+//            $em->persist($etape4);
+//            $em->persist($etape5);
+//            $em->persist($etape6);
+//            $em->flush();
+//            $this->redirectToRoute('gestion_email');
+//        }
 
-            $etape3= new EmailEtapeInscription();
-            $etape3->setEtape('Etape 3');
-
-            $etape4= new EmailEtapeInscription();
-            $etape4->setEtape('Etape 4');
-
-            $etape5= new EmailEtapeInscription();
-            $etape5->setEtape('Etape 5');
-
-            $etape6= new EmailEtapeInscription();
-            $etape6->setEtape('Etape 6');
-
-            $em->persist($etape1);
-            $em->persist($etape2);
-            $em->persist($etape3);
-            $em->persist($etape4);
-            $em->persist($etape5);
-            $em->persist($etape6);
-            $em->flush();
-            $this->redirectToRoute('gestion_email');
-        }
-
-//        $emailEtape = new EmailEtapeInscription();
-//        $emailEtape->setEtape1($listeEmails->getEtape1());
-//        $emailEtape->setEtape2($listeEmails->getEtape2());
-//        $emailEtape->setEtape3($listeEmails->getEtape3());
-//        $emailEtape->setEtape4($listeEmails->getEtape4());
-//        $emailEtape->setEtape5($listeEmails->getEtape5());
-//        $emailEtape->setEtape6($listeEmails->getEtape6());
+        $emailEtape = new EmailEtapeInscription();
+        $emailEtape->setEtape1($listeEmails->getEtape1());
+        $emailEtape->setEtape2($listeEmails->getEtape2());
+        $emailEtape->setEtape3($listeEmails->getEtape3());
+        $emailEtape->setEtape4($listeEmails->getEtape4());
+        $emailEtape->setEtape5($listeEmails->getEtape5());
+        $emailEtape->setEtape6($listeEmails->getEtape6());
 
         $emailform = $this->createForm(EmailEtapeInscriptionType::class, $listeEmails);
 
         $emailform->handleRequest($request);
         if ($emailform->isValid()) {
 
+            $em = $this->getDoctrine()->getManager();
             $em->persist($emailEtape);
             $em->flush();
             $this->addFlash('info', "Les modifications on été enregistrer");
