@@ -7,72 +7,152 @@
     {{ form_errors(form_email) }}
 
     {{ form_row(form_email.etape1)}}
-    <h4>Pièce jointe associé :</h4>
     {% if liste_piece_jointe is not empty %}
-        {% for piece in liste_piece_jointe  %}
-            {% if piece.etape == 1 %}
-                <a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a><a href="" class=" btn btn-danger btn-sm">X</a>
-            {% endif %}
-        {% endfor %}
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td>Pièce jointe :</td>
+                <td>Action</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for piece in liste_piece_jointe  %}
+                {% if piece.etape == 1 %}
+                    <tr>
+                        <td><a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a></td>
+                        <td><a href="{{ path('supprimer_piece_jointe', {'id': piece.id }) }}" class=" btn btn-danger btn-sm">X</a></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-warning">Aucun pièce jointe !</h4>
     {% endif %}
 
     {{ form_row(form_email.etape2)}}
-    <h4>Pièce jointe associé :</h4>
-
     {% if liste_piece_jointe is not empty %}
-        {% for piece in liste_piece_jointe  %}
-            {% if piece.etape == 2 %}
-                <a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a><a href="" class=" btn btn-danger btn-sm ">X</a>
-            {% endif %}
-        {% endfor %}
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td>Pièce jointe :</td>
+                <td>Action</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for piece in liste_piece_jointe  %}
+                {% if piece.etape == 2 %}
+                    <tr>
+                        <td><a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a></td>
+                        <td><a href="{{ path('supprimer_piece_jointe', {'id': piece.id }) }}" class=" btn btn-danger btn-sm">X</a></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-warning">Aucun pièce jointe !</h4>
     {% endif %}
-
     {{ form_row(form_email.etape3)}}
-    <h4>Pièce jointe associé :</h4>
-
     {% if liste_piece_jointe is not empty %}
-        {% for piece in liste_piece_jointe  %}
-            {% if piece.etape == 3 %}
-                <a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a><a href="" class=" btn btn-danger btn-sm ">X</a>
-            {% endif %}
 
-        {% endfor %}
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td>Pièce jointe :</td>
+                <td>Action</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for piece in liste_piece_jointe  %}
+                {% if piece.etape == 3 %}
+                    <tr>
+                        <td><a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a></td>
+                        <td><a href="{{ path('supprimer_piece_jointe', {'id': piece.id }) }}" class=" btn btn-danger btn-sm">X</a></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-warning">Aucun pièce jointe !</h4>
     {% endif %}
 
     {{ form_row(form_email.etape4)}}
-    <h4>Pièce jointe associé :</h4>
-
     {% if liste_piece_jointe is not empty %}
-        {% for piece in liste_piece_jointe  %}
-            {% if piece.etape == 4 %}
-                <a href="{{ asset(piece.chemin) }}" target="_blank">{{ piece.nom }}</a><a href="" class=" btn btn-danger btn-sm ">X</a>
-            {% endif %}
 
-        {% endfor %}
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td>Pièce jointe :</td>
+                <td>Action</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for piece in liste_piece_jointe  %}
+                {% if piece.etape == 4 %}
+                    <tr>
+                        <td><a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a></td>
+                        <td><a href="{{ path('supprimer_piece_jointe', {'id': piece.id }) }}" class=" btn btn-danger btn-sm">X</a></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-warning">Aucun pièce jointe !</h4>
     {% endif %}
-
     {{ form_row(form_email.etape5)}}
-    <h4>Pièce jointe associé :</h4>
-
     {% if liste_piece_jointe is not empty %}
-        {% for piece in liste_piece_jointe  %}
-            {% if piece.etape == 5 %}
-                <a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a><a href="" class=" btn btn-danger btn-sm ">X</a>
-            {% endif %}
-        {% endfor %}
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td>Pièce jointe :</td>
+                <td>Action</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for piece in liste_piece_jointe  %}
+                {% if piece.etape == 5 %}
+                    <tr>
+                        <td><a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a></td>
+                        <td><a href="{{ path('supprimer_piece_jointe', {'id': piece.id }) }}" class=" btn btn-danger btn-sm">X</a></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-warning">Aucun pièce jointe !</h4>
     {% endif %}
 
 
     {{ form_row(form_email.etape6)}}
-    <h4>Pièce jointe associé :</h4>
-
     {% if liste_piece_jointe is not empty %}
-        {% for piece in liste_piece_jointe  %}
-            {% if piece.etape == 6 %}
-                <a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a><a href="" class=" btn btn-danger btn-sm ">X</a>
-            {% endif %}
 
-        {% endfor %}
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td>Pièce jointe :</td>
+                <td>Action</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for piece in liste_piece_jointe  %}
+                {% if piece.etape == 6 %}
+                    <tr>
+                        <td><a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a></td>
+                        <td><a href="{{ path('supprimer_piece_jointe', {'id': piece.id }) }}" class=" btn btn-danger btn-sm">X</a></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-warning">Aucun pièce jointe !</h4>
     {% endif %}
     {{ form_rest(form_email) }}
     {{ form_end(form_email) }}

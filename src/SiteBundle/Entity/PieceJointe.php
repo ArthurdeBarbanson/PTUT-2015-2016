@@ -24,14 +24,14 @@ class PieceJointe
     /**
      * @var string
      *
-     * @ORM\Column(name="Nom", type="string", length=255, unique=true)
+     * @ORM\Column(name="Nom", type="string", length=255, unique=false)
      */
     private $nom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Chemin", type="string", length=255, unique=true)
+     * @ORM\Column(name="Chemin", type="string", length=255, unique=false)
      */
     private $chemin;
 

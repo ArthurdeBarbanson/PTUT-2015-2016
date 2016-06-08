@@ -117,6 +117,9 @@
   <route id="gestion_email" path="/responsable/email/etape">
     <default key="_controller">SiteBundle:Responsable:email</default>
   </route>
+  <route id="supprimer_piece_jointe" path="/responsable/pieceJointe/{id}">
+    <default key="_controller">SiteBundle:Responsable:supprimerPieceJointe</default>
+  </route>
   <!--security-->
   <route id="login" path="/login">
     <default key="_controller">SiteBundle:Security:login</default>

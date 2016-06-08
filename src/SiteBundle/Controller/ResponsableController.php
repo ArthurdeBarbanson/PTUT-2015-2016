@@ -499,6 +499,24 @@ class ResponsableController extends Controller
 
         return $this->redirectToRoute('acceuil_responsable');
     }
+    public function supprimerPieceJointeAction(Request $request)
+    {
+
+        $id = $request->get('id');
+
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:PieceJointe');
+
+        $piecej = $repository->find($id);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($piecej);
+        $em->flush();
+
+        return $this->redirectToRoute('gestion_email');
+    }
 
     public function emailAction(Request $request)
     {
@@ -539,18 +557,16 @@ class ResponsableController extends Controller
         $formPieceJointe->handleRequest($request);
         if ($formPieceJointe->isValid()) {
             $data = $data = $formPieceJointe->getData();
-            $dir = 'uploads/pieceJointe/';
-//            $file = $data['pieceJointe'];
+            $dir = 'uploads/pieceJointe';
             $file = $formPieceJointe['pieceJointe']->getData();
 
             $extension = $file->guessExtension();
             $title = $file->getClientOriginalName();
-            if ($extension == 'pdf' || $extension == 'doc' || $extension == 'docx') {
+//            if ($extension == 'pdf' || $extension == 'doc' || $extension == 'docx') {
                 $uniqId = uniqid();
-//                $file->move($dir, $title . '_' . $uniqId . '.' . $extension);
-                $file->move($dir, $title);
+//                $file->move($dir, $uniqId . '.' . $extension);
 
-                $final_url = $dir . '/' . $title;
+                $final_url = $dir . '/' . $uniqId . '.' . $extension;
 
                 $PieceJointe = new PieceJointe();
                 $PieceJointe->setChemin($final_url);
@@ -560,8 +576,10 @@ class ResponsableController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($PieceJointe);
                 $em->flush();
-                $this->addFlash('info', "Les modifications on été enregistrer");
-            }
+                $this->addFlash('info', "Piece jointe uploder !");
+//            }else{
+//                $this->addFlash('error','Extension invalide');
+//            }
 
             $this->redirectToRoute('gestion_email');
         }
