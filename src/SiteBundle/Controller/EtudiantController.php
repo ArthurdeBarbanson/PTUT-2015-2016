@@ -470,8 +470,8 @@ class EtudiantController extends Controller
         $offre= $this->getDoctrine()->getManager()->getRepository('SiteBundle:Offre')->findBy(array('Etudiant'=>$etudiant));
 
         return $this->render(
-            'SiteBundle:Etudiant:liste_offre_postuler_Etudiant.html.twig', [
-                'offre' =>  $offre,
+            'SiteBundle:Etudiant:recapOffre.html.twig', [
+                'offre' =>  $offre[0]
 
             ]
         );

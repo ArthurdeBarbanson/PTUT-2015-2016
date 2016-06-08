@@ -62,6 +62,9 @@
   <route id="site_listeOffreEtudiant" path="/etudiant/liste_offres">
     <default key="_controller">SiteBundle:Default:listeOffres</default>
   </route>
+  <route id="site_refuserOffreEtudiant" path="/etudiant/refus_offre/{annonceId}">
+    <default key="_controller">SiteBundle:Etudiant:refuserAnnonce</default>
+  </route>
   <route id="site_recapOffreEtudiant" path="/etudiant/recap_offre">
     <default key="_controller">SiteBundle:Etudiant:recapOffre</default>
   </route>

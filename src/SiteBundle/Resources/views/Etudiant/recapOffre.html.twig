@@ -1,17 +1,16 @@
 {% extends '::base.html.twig' %}
-{% form_theme form 'bootstrap_3_layout.html.twig' %}
-
 
 {% block body %}
 
     <h1>Recapitulatif de votre alternance</h1>
 
-    <label>Licence :</label><p>{{  }}</p>
-    <label>Titre de l'offre</label>
-    <label>Sujet</label>
-    <label>Maitre appretissage :</label>
-    <label>Tuteur Pédagogique :</label>
-    <label>Contrat :</label>
+    <label>Licence :</label><p> {{ offre.licenceConcerne }} </p>
+    <label>Titre de l'offre</label><p>{{ offre.titre }}</p>
+    <label>Sujet</label><p>{{ offre.sujet }} {% if  offre.document is not empty and offre.document is not null  %} <a target="_blank" href="{{ asset(offre.document) }}">Consulter le sujet de l'offre <span
+                class="glyphicon glyphicon-eye-open "></span></a> {% endif %} </p>
+    <label>Maitre appretissage :</label><p>{{ offre.mAP.laPersone.nom }} {{ offre.mAP.laPersone.prenom }}</p>
+    <label>Tuteur Pédagogique :</label>{% if offre.etudiant.leTuteur is not empty %}<p>{{ offre.etudiant.leTuteur.nom }} {{ offre.etudiant.leTuteur.prenom }}</p>{% else %}<p class="text-danger"> Aucun tuteur assigné.</p> {% endif %}
+    <label>Type de contrat :</label>{% if offre.typeContrat is not empty %}<p>{{ offre.typeContrat }}</p>{% else %}<p class="text-danger">Aucun type de contrat choisi.</p> {% endif %}
 
     <label></label><label></label>
 
