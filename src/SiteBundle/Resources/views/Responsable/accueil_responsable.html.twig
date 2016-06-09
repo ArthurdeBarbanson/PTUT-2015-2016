@@ -44,7 +44,7 @@
                         <tbody>
                         {% for etudiant in etudiants %}
                             <tr>
-                                <td>{{ etudiant.session.anneeScolaire }}</td>
+                                <td>{{ etudiant.session != null ? etudiant.session.anneeScolaire : '' }}</td>
                                 <td>{{ etudiant.laPersone.prenom }} {{ etudiant.laPersone.nom }}</td>
 
                                 {% if etudiant.DossierInscription.etatDossier == '0' %}

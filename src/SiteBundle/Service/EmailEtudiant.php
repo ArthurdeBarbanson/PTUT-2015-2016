@@ -70,7 +70,8 @@ class EmailEtudiant extends Email
             ->setBody(
                 $this->templating->render(
                     'Emails/ajoutEtudiant.html.twig', [
-                        'password' => $password
+                        'password' => $password,
+                        'adresse' => $adresseMail
                     ]
                 )
             )

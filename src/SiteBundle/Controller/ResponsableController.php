@@ -645,7 +645,10 @@ class ResponsableController extends Controller
             $dossierAdmission = new DossierAdmission();
             $dossierAdmission->setEtatDossier('0');
             $entretien = new Entretien();
+            $dossierAdmission->setEntretien($entretien);
             $etudiant->setDossierAdmission($dossierAdmission);
+        } elseif ($etudiant->getDossierAdmission()->getEntretien() == null) {
+            $entretien = new Entretien();
             $etudiant->getDossierAdmission()->setEntretien($entretien);
         } else {
             $entretien = $etudiant->getDossierAdmission()->getEntretien();
