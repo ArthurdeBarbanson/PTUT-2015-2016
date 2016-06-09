@@ -17,9 +17,6 @@ use SiteBundle\Entity\EmailEtapeInscription;
 use SiteBundle\Forms\Types\AjoutPieceJointe;
 use SiteBundle\Forms\Types\DossierAdmissionType;
 use SiteBundle\Forms\Types\SuprimerPromotionType;
-use SiteBundle\Forms\Types\SuprimmerPromotionType;
-use SiteBundle\Repository\EtapeInscriptionEmailRepository;
-
 use SiteBundle\Forms\Types\AjoutEtudiantImport;
 use SiteBundle\Forms\Types\AjoutPromotionType;
 use SiteBundle\Forms\Types\AjoutTuteur;
@@ -30,7 +27,6 @@ use SiteBundle\Forms\Types\EntretienType;
 use SiteBundle\Forms\Types\ModifierAnnonceType;
 use SiteBundle\Forms\Types\PostulerAnnonce;
 use SiteBundle\Forms\Types\RefuserAnnonceType;
-use SiteBundle\Forms\Types\SMTPType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use SiteBundle\Forms\Types\AjoutEtudiant;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -55,6 +51,8 @@ class ResponsableController extends Controller
             ->getManager()
             ->getRepository('SiteBundle:Etudiant');
 
+
+
         switch ($typeLp) {
             case 'METINET':
                 $offres = $repositoryOffre->findBy(['licenceConcerne' => 'METINET']);
@@ -72,12 +70,41 @@ class ResponsableController extends Controller
                 break;
         }
 
+        $cpt0 =0 ;$cpt1 =0 ;$cpt2 =0 ;$cpt3 =0 ;$cpt4 =0 ;$cpt5 =0 ;
+        foreach ($etudiants as $etudiant) {
+            if ($etudiant->getDossierInscription()->getEtatDossier() == '0') {
+                $cpt0 = $cpt0 + 1;
+            } elseif ($etudiant->getDossierInscription()->getEtatDossier() == '1') {
+
+                $cpt1 = $cpt1 + 1;
+            } elseif ($etudiant->getDossierInscription()->getEtatDossier() == '2') {
+
+                $cpt2 = $cpt2 + 1;
+            } elseif ($etudiant->getDossierInscription()->getEtatDossier() == '3') {
+
+                $cpt3 = $cpt3 + 1;
+            } elseif ($etudiant->getDossierInscription()->getEtatDossier() == '4') {
+
+                $cpt4 = $cpt4 + 1;
+            } elseif ($etudiant->getDossierInscription()->getEtatDossier() == '5') {
+
+                $cpt5 = $cpt5 + 1;
+            }
+
+        }
+        $message="";
+        if ($cpt5 + $cpt4 == '2'){
+        $message = "";
+        }
+
         $smtpForm = $this->createForm(EmailType::class);
 
         return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig', [
             'offres' => $offres,
             'etudiants' => $etudiants,
-            'smtp_form' => $smtpForm->createView()
+            'smtp_form' => $smtpForm->createView(),
+            'message' => $message,
+            'licenceConcerne' => $typeLp
         ]);
     }
 
@@ -617,6 +644,27 @@ class ResponsableController extends Controller
             'liste_piece_jointe' => $listePieceJointe,
             'form_piece_jointe' => $formPieceJointe->createView()
         ]);
+
+    }
+
+    public function fermetureAction()
+    {
+        $repoEtu = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
+        $etus = $repoEtu->findBy(array("isAdmissible"=>1));
+        foreach ($etus as $etu) {
+
+            if($etu->getDossierInscription()->getEtatDossier()<'4'){
+                $message = new \Swift_Message();
+                $message
+                    ->setSubject('Tuteur')
+                    ->setFrom('no_reply@ptut.com')
+                    ->setTo($etu->getLaPersone()->getMail())
+                    ->setBody("Bonjour" . $etu->getLaPersone()->getNom() . $etu->getLaPersone()->getPrenom() ."Nous vous informons que la licence"
+                    );
+                $this->get('mailer')->send($message);
+
+            }
+        }
 
     }
 
