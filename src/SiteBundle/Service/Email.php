@@ -8,18 +8,25 @@
 
 namespace SiteBundle\Service;
 use Symfony\Component\Templating\EngineInterface;
+use Doctrine\ORM\EntityManager;
 
 class Email
 {
     protected $mailer;
     protected $templating;
-    private $from = "no-reply@example.fr";
-    private $name = "Equipe Acme Blog";
+    private $entityManager;
 
-    public function __construct($mailer, EngineInterface $templating)
+
+
+    private $from = "noreply-suivilpmetinet@iutinfobourg.fr";
+
+
+
+    public function __construct($mailer, EngineInterface $templating,EntityManager $entityManager)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
+        $this->entityManager = $entityManager;
     }
 
     public function sendEmail($from, $to, $subject, $body)
