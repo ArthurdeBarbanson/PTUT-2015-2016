@@ -611,7 +611,7 @@ class ResponsableController extends Controller
         $formPieceJointe->handleRequest($request);
         if ($formPieceJointe->isValid()) {
             $data = $data = $formPieceJointe->getData();
-            $dir = 'uploads/pieceJointe';
+            $dir = 'uploads/';
             $file = $formPieceJointe['pieceJointe']->getData();
 
             $extension = $file->guessExtension();
