@@ -2,6 +2,7 @@
 
 namespace SiteBundle\Controller;
 
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use SiteBundle\Entity\Adresse;
 use SiteBundle\Entity\DossierAdmission;
@@ -15,6 +16,8 @@ use SiteBundle\Entity\User;
 use SiteBundle\Entity\EmailEtapeInscription;
 use SiteBundle\Forms\Types\AjoutPieceJointe;
 use SiteBundle\Forms\Types\DossierAdmissionType;
+use SiteBundle\Forms\Types\SuprimerPromotionType;
+use SiteBundle\Forms\Types\SuprimmerPromotionType;
 use SiteBundle\Repository\EtapeInscriptionEmailRepository;
 
 use SiteBundle\Forms\Types\AjoutEtudiantImport;
@@ -233,16 +236,32 @@ class ResponsableController extends Controller
 
     public function ajoutPromotionAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $promos = $em->getRepository('SiteBundle:Session')->findAll();
         $promotion = new Session();
         $form = $this->createForm(AjoutPromotionType::class, $promotion);
-        $form->handleRequest($request);
+        $formDelete = $this->createForm(SuprimerPromotionType::class, $promos);
 
+        $form->handleRequest($request);
+        $formDelete->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($promotion);
             try {
                 $em->flush();
-                $this->addFlash('success', 'La promotion a bien été ajouté.');
+                $this->addFlash('success', 'La promotion a bien été ajoutée.');
+                return $this->redirectToRoute('responsableAjoutPromotion');
+            } catch (\Exception $ex) {
+                $this->addFlash('error', 'Une erreur est survenue.');
+            }
+        } elseif ($formDelete->isSubmitted() && $formDelete->isValid()) {
+            try {
+                $em->remove($formDelete->getData()['promo']);
+                $em->flush();
+                $this->addFlash('success', 'La promotion a bien été supprimée.');
+                return $this->redirectToRoute('responsableAjoutPromotion');
+            } catch (ForeignKeyConstraintViolationException $ex) {
+                $this->addFlash('error', 'Impossible de supprimer la promotion, des etudiants existent pour celle-ci.');
             } catch (\Exception $ex) {
                 $this->addFlash('error', 'Une erreur est survenue.');
             }
@@ -250,6 +269,7 @@ class ResponsableController extends Controller
 
         return $this->render('SiteBundle:Responsable:ajouter_promo.html.twig', [
             'form' => $form->createView(),
+            'formDelete' => $formDelete->createView()
         ]);
     }
 
