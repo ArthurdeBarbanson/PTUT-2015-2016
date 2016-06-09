@@ -512,7 +512,7 @@ class ResponsableController extends Controller
         $etudiant = $repository->find($idEtudiant);
 
         $em = $this->getDoctrine()->getManager();
-        $etudiant->getDossierInscription()->setEtatDossier('3');
+        $etudiant->getDossierInscription()->setEtatDossier($etudiant->getDossierInscription()->getEtatDossier()+1);
 
         $em->persist($etudiant);
         $em->flush();

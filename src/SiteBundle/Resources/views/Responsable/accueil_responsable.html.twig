@@ -92,9 +92,12 @@
                                 </td>
 
                                 <td  class="text-center">
-                                    {% if etudiant.DossierInscription.etatDossier == '2' %}
-                                        <p><a href="{{ path('validation_etat_etudiant', {'EtudiantId': etudiant.id }) }}" class="btn btn-primary">Valider étape 2</a></p>
-                                        {#<button onclick="validerEtape({{ etudiant.id }})" class="btn btn-primary validationEtape2" >A Valider</button>#}
+                                    {#{% if maitre == 'false' %}#}
+                                        {#<p><a href="{{ path('validation_etat_etudiant', {'EtudiantId': etudiant.id }) }}" class="btn btn-primary">Valider étape 2</a></p>#}
+
+                                    {#{% endif %}#}
+                                    {% if etudiant.DossierInscription.etatDossier != '0' and etudiant.DossierInscription.etatDossier != '5'     %}
+                                            <p><a href="{{ path('validation_etat_etudiant', {'EtudiantId': etudiant.id }) }}" class="btn btn-primary">Passer à l'étape suivant</a></p>
                                     {% endif %}
                                 </td>
                             </tr>
