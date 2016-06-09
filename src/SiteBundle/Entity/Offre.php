@@ -29,10 +29,11 @@ class Offre
      */
     private $dateDepot;
 
+
     /**
      * @var string
      *
-     * @ORM\Column(name="etat_offre", type="string", columnDefinition="enum('En attente de validation', 'En ligne', 'Pourvue','En attente de modification', 'Refuser' )" ,nullable=true)
+     * @ORM\Column(name="etat_offre", type="string", columnDefinition="enum('En attente de validation','En ligne','Pourvue','En attente de modification','Refuser')" ,nullable=true , options={"default":"0"})
      */
     private $etatOffre;
 
