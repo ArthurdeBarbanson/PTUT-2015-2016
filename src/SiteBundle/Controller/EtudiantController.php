@@ -140,8 +140,8 @@ class EtudiantController extends Controller
                 $data = $formPreInscription->getData();
                 $em = $this->getDoctrine()->getManager();
 
-                $msg  = '';
-                $msgError = '';
+                $msg  = 'Je pense que les informations liées au';
+                $msgError = 'Je pense que les informations liées au';
 
                 $BacOuEquivalent = new BacOuEquivalent();
                 $BacOuEquivalent->setDossierInscription($etudiant->getDossierInscription());
@@ -155,9 +155,9 @@ class EtudiantController extends Controller
                 $em->persist($BacOuEquivalent);
                 try {
                     $em->flush();
-                    $msg .= "Je pense que les informations liées au Bac ou équivalent ont été enregistré ";
+                    $msg .= " Bac ou équivalent ";
                 } catch (UniqueConstraintViolationException $exception) {
-                    $msgError .=" Je pense que les informations liées au Bac ou équivalent ont été enregistré ";
+                    $msgError .="  Bac ou équivalent";
                 }
 
                 $DernierEtablissementFrequente = new DernierEtablissementFrequente();
@@ -172,9 +172,9 @@ class EtudiantController extends Controller
                 $em->persist($DernierEtablissementFrequente);
                 try {
                     $em->flush();
-                    $msg .= "Je pense que les informations liées au Dernier Etablissement Frequente ont été enregistré ";
+                    $msg .= ", Dernier Etablissement Frequente  ";
                 } catch (UniqueConstraintViolationException $exception) {
-                    $msgError .=" Je pense que les informations liées au Dernier Etablissement Frequente ont été enregistré  ";
+                    $msgError .=" ,Dernier Etablissement Frequente  ";
                 }
 
                 $DernierDiplomeObtenu = new DernierDiplomeObtenu();
@@ -187,9 +187,9 @@ class EtudiantController extends Controller
                 $em->persist($DernierDiplomeObtenu);
                 try {
                     $em->flush();
-                    $msg .= "Je pense que les informations liées au Dernier Diplome Obtenu ont été enregistré ";
+                    $msg .= ", Dernier Diplome Obtenu ";
                 } catch (UniqueConstraintViolationException $exception) {
-                    $msgError .=" Je pense que les informations liées au Dernier Diplome Obtenu ont été enregistré ";
+                    $msgError .=", Dernier Diplome Obtenu";
                 }
 
                 $InscriptionAutreEtablissement = new InscriptionAutreEtablissement();
@@ -205,9 +205,9 @@ class EtudiantController extends Controller
                 $em->persist($InscriptionAutreEtablissement);
                 try {
                     $em->flush();
-                    $msg .= "Je pense que les informations liées au Inscription Autre Etablissement ont été enregistré ";
+                    $msg .= ",Inscription Autre Etablissement ";
                 } catch (UniqueConstraintViolationException $exception) {
-                    $msgError .=" Je pense que les informations liées au Inscription Autre Etablissement ont été enregistré ";
+                    $msgError .=",Inscription Autre Etablissement ";
                 }
 
                 $PremiereInscription = new  PremiereInscription();
@@ -221,16 +221,16 @@ class EtudiantController extends Controller
 
                 try {
                     $em->flush();
-                    $msg .= "Je pense que les informations liées au Premiere Inscription ont été enregistré ";
+                    $msg .= ",Premiere Inscription ";
                 } catch (UniqueConstraintViolationException $exception) {
-                    $msgError .=" Je pense que les informations liées au  Premiere Inscription ont été enregistré ";
+                    $msgError .=" ,Premiere Inscription ";
                 }
 
                 if( $msg != ''){
-                    $this->addFlash('success', $msg);
+                    $this->addFlash('success', $msg . ' ont été enregistré. ');
                 }
                 if( $msgError != ''){
-                    $this->addFlash('error', $msgError);
+                    $this->addFlash('error', $msgError . ' n ont pas été enregistré.');
                 }
 
             }
