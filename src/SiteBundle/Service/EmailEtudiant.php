@@ -17,7 +17,15 @@ class EmailEtudiant extends Email
             ->getDoctrine()
             ->getManager()
             ->getRepository('SiteBundle:EmailEtapeInscription');
+
+        $repositoryPiecejointe = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:PieceJointe');
+
+
         $listeEmails = $repository->find(1);
+        $body="Aucune eétape sélectionner !";
 
         switch($etape){
             case '1':
