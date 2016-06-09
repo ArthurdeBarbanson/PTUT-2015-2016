@@ -96,9 +96,9 @@
                                         {#<p><a href="{{ path('validation_etat_etudiant', {'EtudiantId': etudiant.id }) }}" class="btn btn-primary">Valider étape 2</a></p>#}
 
                                     {#{% endif %}#}
-                                    {% if etudiant.DossierInscription.etatDossier != '0' and etudiant.DossierInscription.etatDossier != ''     %}
+                                    {% if etudiant.DossierInscription.etatDossier != '0' and etudiant.DossierInscription.etatDossier != '5'     %}
                                             <p><a href="{{ path('validation_etat_etudiant', {'EtudiantId': etudiant.id }) }}" class="btn btn-primary">Passer à l'étape suivant</a></p>
-                                {% endif %}
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}
