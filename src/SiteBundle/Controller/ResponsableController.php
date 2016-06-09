@@ -40,7 +40,7 @@ class ResponsableController extends Controller
     public function accueilAction()
     {
         $typeLp = $this->getUser()->getTypeLicence();
-
+        $responsableID =$this->getUser()->getId();
         $repositoryOffre = $this
             ->getDoctrine()
             ->getManager()
@@ -92,9 +92,9 @@ class ResponsableController extends Controller
             }
 
         }
-        $message="";
-        if ($cpt5 + $cpt4 == '2'){
-        $message = "";
+        $message=false;
+        if ($cpt5 + $cpt4 == '24'){
+        $message=true;
         }
 
         $smtpForm = $this->createForm(EmailType::class);
@@ -104,7 +104,7 @@ class ResponsableController extends Controller
             'etudiants' => $etudiants,
             'smtp_form' => $smtpForm->createView(),
             'message' => $message,
-            'licenceConcerne' => $typeLp
+            'userID' => $responsableID
         ]);
     }
 
@@ -647,25 +647,60 @@ class ResponsableController extends Controller
 
     }
 
-    public function fermetureAction()
+    public function fermetureAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $repoEtu = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
-        $etus = $repoEtu->findBy(array("isAdmissible"=>1));
+        $repoOffre =$this->getDoctrine()->getManager()->getRepository('SiteBundle:Offre');
+        $repoEtuOffre =$this->getDoctrine()->getManager()->getRepository('SiteBundle:EtudiantOffre');
+        $userId = $request->get('userId');
+         $repoUser = $this->getDoctrine()->getManager()->getRepository('SiteBundle:User');
+        $respo = $repoUser->find($userId);
+        $licence = $respo->getTypeLicence();
+        $etus = $repoEtu->findBy(array("isAdmissible"=>1 , "typeLicence"=>$licence));
+        $offres = $repoOffre->findBy(array("licenceConcerne"=>$licence));
+
+        foreach ($offres as $offre){
+            if($offre->getEtudiant() == null or $offre->getEtudiant() == ""){
+            $offre->setEtatOffre("Refuser");
+
+
+            }
+            $em->flush();
+        }
         foreach ($etus as $etu) {
 
             if($etu->getDossierInscription()->getEtatDossier()<'4'){
+                if($etu->getDossierInscription()->getEtatDossier()<'2'){
+                    $content = "Bonjour " . $etu->getLaPersone()->getNom() ." ". $etu->getLaPersone()->getPrenom() ." Nous vous informons que la licence " . $licence ." viens de fermer car le nombre d'èleve maximum ayant terminé son inscription a été atteint.
+                    N'ayant terminé la votre, votre inscription a été annulée. Nous vous souhaitons une bonne continuation. Cordialement." ;}
+                 else {
+                     $content = "Bonjour " . $etu->getLaPersone()->getNom() ." ". $etu->getLaPersone()->getPrenom() ." Nous vous informons que la licence " . $licence ." viens de fermer car le nombre d'èleve maximum ayant terminé son inscription a été atteint.
+                    N'ayant terminé la votre, votre inscription a été annulée. Nous vous prions de contacté votre entreprise afin de les prevenir. Nous vous souhaitons une bonne continuation. Cordialement." ;
+                 }
                 $message = new \Swift_Message();
                 $message
-                    ->setSubject('Tuteur')
+                    ->setSubject('Fermeture de la licence.')
                     ->setFrom('no_reply@ptut.com')
                     ->setTo($etu->getLaPersone()->getMail())
-                    ->setBody("Bonjour" . $etu->getLaPersone()->getNom() . $etu->getLaPersone()->getPrenom() ."Nous vous informons que la licence"
+                    ->setBody($content
                     );
                 $this->get('mailer')->send($message);
 
+                $etu->getDossierInscription()->setEtatDossier(-1);
+                $offreetus = $repoEtuOffre->findBy(["Etudiant" => $etu]);
+                $offre =$repoOffre->findBy(array('Etudiant'=> $etu));
+                $offre[0]->setEtatOffre("Refuser");
+                $em->flush();
+                foreach ($offreetus as $offreetu) {
+                    $offreetu->setEtat("Refuser");
+                    $em->flush();
+                }
+
             }
         }
-
+        $this->addFlash('info', "La licence a été fermé");
+        return $this->redirect($this->generateUrl('acceuil_responsable'));
     }
 
     public function listeEtudiantAdmissibleAction(Request $request)

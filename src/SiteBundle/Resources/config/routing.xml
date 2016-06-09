@@ -120,8 +120,8 @@
   <route id="supprimer_piece_jointe" path="/responsable/pieceJointe/{id}">
     <default key="_controller">SiteBundle:Responsable:supprimerPieceJointe</default>
   </route>
-  <route id="site_fermer" path="/responsable/fermeture/{typeLicence}">
-    <default key="_controller">SiteBundle:Responsable:fermeture</default> 
+  <route id="site_fermer" path="/responsable/fermeture/{userId}">
+    <default key="_controller">SiteBundle:Responsable:fermeture</default>
   </route>
   <!--security-->
   <route id="login" path="/login">
