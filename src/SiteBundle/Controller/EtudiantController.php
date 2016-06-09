@@ -98,6 +98,7 @@ class EtudiantController extends Controller
                 $etudiant->setVilleNaissance($data["VilleNaissance"]);
                 $etudiant->setNumeroDossierCandidature($data["NumeroCiel2"]);
                 $etudiant->setDateNaissance($data["DateNaissance"]);
+                $etudiant->setTypeLicence($data["Lpconcerne"]);
 
                 if($etudiant->getLaPersone()->getAdresse() == null){
 

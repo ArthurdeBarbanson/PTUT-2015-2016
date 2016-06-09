@@ -27,6 +27,12 @@ class ModifierEtudiant extends AbstractType
                 'expanded' => true,
                 'required' => true,
             ))
+            ->add('Lpconcerne', ChoiceType::class, array(
+                'label' => 'Type de licence',
+                'choices' => array('IEM' => 'IEM', 'METINET' => 'METINET'),
+                'multiple' => false,
+                'expanded' => true,
+            ))
             ->add('Prenom', TextType::class, [
                 'constraints' => [
                     new NotBlank()
