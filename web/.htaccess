@@ -68,7 +68,7 @@ DirectoryIndex app.php
 </IfModule>
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    ErrorDocument 404 /errors/404.html.twig
+    ErrorDocument 404 /errors/404.php
     ErrorDocument 403 /errors/403.php
     ErrorDocument 500 /errors/500.php
 </IfModule>
