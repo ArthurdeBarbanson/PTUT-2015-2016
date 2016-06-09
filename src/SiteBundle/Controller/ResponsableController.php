@@ -564,7 +564,7 @@ class ResponsableController extends Controller
             $title = $file->getClientOriginalName();
 //            if ($extension == 'pdf' || $extension == 'doc' || $extension == 'docx') {
                 $uniqId = uniqid();
-//                $file->move($dir, $uniqId . '.' . $extension);
+                $file->move($dir, $uniqId . '.' . $extension);
 
                 $final_url = $dir . '/' . $uniqId . '.' . $extension;
 
