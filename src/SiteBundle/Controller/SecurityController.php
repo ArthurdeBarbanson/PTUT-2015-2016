@@ -30,50 +30,29 @@ class SecurityController extends Controller
 
     public function createUserAction()
     {
-        $repository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:Entreprise');
-
-        $entreprise =$repository->find(1);
         $user = new User();
         $encoder = $this->get('security.password_encoder');
-        $encoded = $encoder->encodePassword($user, 'Reynald');
+        $encoded = $encoder->encodePassword($user, 'METINET01');
         $user->setPassword($encoded);
 
-        $user->setRoles(array('ROLE_ADMIN', 'ROLE_ENTREPRISE'));
-        $user->setIdEntreprise($entreprise);
-        $user->setUsername('Reynald');
+        $user->setRoles(array('ROLE_ADMIN'));
+        $user->setUsername('Adrien');
+        $user->setTypeLicence('METINET');
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
 
         $user = new User();
-        $user->setRoles(array('ROLE_ETUDIANT', 'ROLE_ADMIN', 'ROLE_ENTREPRISE'));
-        $user->setIdEntreprise($entreprise);
+        $encoder = $this->get('security.password_encoder');
+        $encoded = $encoder->encodePassword($user, 'IEM01');
+        $user->setPassword($encoded);
 
-        $user->setUsername('Arthur');
-        $encoded = $encoder->encodePassword($user, 'Arthur');
-        $user->setPassword($encoded);
-        $em->persist($user);
-        $em->flush();
+        $user->setRoles(array('ROLE_ADMIN'));
+        $user->setUsername('Dominique');
+        $user->setTypeLicence('METINET');
 
-        $user = new User();
-        $user->setRoles(array('ROLE_ETUDIANT', 'ROLE_ADMIN', 'ROLE_ENTREPRISE'));
-        $user->setIdEntreprise($entreprise);
-        $user->setUsername('Antoine');
-        $encoded = $encoder->encodePassword($user, 'Antoine');
-        $user->setPassword($encoded);
-        $em->persist($user);
-        $em->flush();
- 
-        $user = new User();
-        $user->setRoles(array('ROLE_ETUDIANT', 'ROLE_ADMIN', 'ROLE_ENTREPRISE'));
-        $user->setIdEntreprise($entreprise);
-        $user->setUsername('Guillaume');
-        $encoded = $encoder->encodePassword($user, 'Guillaume');
-        $user->setPassword($encoded);
+        $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
 
