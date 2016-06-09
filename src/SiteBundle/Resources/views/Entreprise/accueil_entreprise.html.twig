@@ -3,13 +3,9 @@
 {% block body %}
     <div class="jumbotron">
         <h2> Bienvenue</h2>
-        Quicquid urbis coluntur liberis homines Romae nascitur urbis potest quorundam homines aestimant nec urbis
-        liberis praeter Romae et credi pomerium et nec coluntur caelibes esse nec urbis caelibes inanes qua urbis vile
-        Romae aestimant esse credi coluntur inanes praeter et aestimant liberis potest obsequiorum nascitur Romae extra
-        nascitur liberis qua potest praeter flatus Romae qua obsequiorum coluntur inanes potest nec potest obsequiorum
-        sine inanes homines nec pomerium potest diversitate quorundam inanes extra qua nec liberis homines diversitate
-        pomerium et vile vile esse et diversitate urbis vero Romae urbis diversitate urbis flatus orbos vero vile vile
-        obsequiorum caelibes aestimant homines nascitur.
+        Vous êtes sur la page d'accueil des entreprises. Vous pouvez voir la liste de toutes vos offres d'alternance,
+        les postulants. Vous pouvez ensuite gerer les demandes d'alternance. Si vous ne possédez pas encore d'offre vous
+        pouvez en ajouter en appuyant sur le bouton : "Postez une Annonce".
         </br>
         <div class="text-center margTop10">
             <a class="btn btn-default " href="{{ path('site_ajoutAnnonce') }}">Postez une Annonce</a>
@@ -155,13 +151,13 @@
                     <td class="text-center"><a target="_blank" href="{{ asset(offreP.etudiant.cv) }}"><span
                                     class="glyphicon glyphicon-eye-open "></span></a></td>
 
-                    {% if offreP.etudiant.DossierInscription.etatDossier == '2'  %}
+                    {% if offreP.etudiant.DossierInscription.etatDossier == '2' %}
                         <td><p class="text-danger">Pré-inscription du Contrat</p></td>
 
-                    {% elseif offreP.etudiant.DossierInscription.etatDossier == '3'  %}
+                    {% elseif offreP.etudiant.DossierInscription.etatDossier == '3' %}
                         <td><p class="text-info">Dossier inscription pédagogique</p></td>
 
-                    {% elseif offreP.etudiant.DossierInscription.etatDossier == '4'  %}
+                    {% elseif offreP.etudiant.DossierInscription.etatDossier == '4' %}
                         <td><p class="text-success">Signature du contrat</p></td>
                     {% endif %}
                     <td class="text-center"><a
