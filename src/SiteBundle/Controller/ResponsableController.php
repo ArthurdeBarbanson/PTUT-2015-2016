@@ -499,6 +499,7 @@ class ResponsableController extends Controller
 
         return $this->redirectToRoute('acceuil_responsable');
     }
+
     public function supprimerPieceJointeAction(Request $request)
     {
 
@@ -563,20 +564,20 @@ class ResponsableController extends Controller
             $extension = $file->guessExtension();
             $title = $file->getClientOriginalName();
 //            if ($extension == 'pdf' || $extension == 'doc' || $extension == 'docx') {
-                $uniqId = uniqid();
-                $file->move($dir, $uniqId . '.' . $extension);
+            $uniqId = uniqid();
+            $file->move($dir, $uniqId . '.' . $extension);
 
-                $final_url = $dir . '/' . $uniqId . '.' . $extension;
+            $final_url = $dir . '/' . $uniqId . '.' . $extension;
 
-                $PieceJointe = new PieceJointe();
-                $PieceJointe->setChemin($final_url);
-                $PieceJointe->setNom($title);
-                $PieceJointe->setEtape($data['Etape']);
+            $PieceJointe = new PieceJointe();
+            $PieceJointe->setChemin($final_url);
+            $PieceJointe->setNom($title);
+            $PieceJointe->setEtape($data['Etape']);
 
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($PieceJointe);
-                $em->flush();
-                $this->addFlash('info', "Piece jointe uploder !");
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($PieceJointe);
+            $em->flush();
+            $this->addFlash('info', "Piece jointe uploder !");
 //            }else{
 //                $this->addFlash('error','Extension invalide');
 //            }
@@ -645,7 +646,10 @@ class ResponsableController extends Controller
             $dossierAdmission = new DossierAdmission();
             $dossierAdmission->setEtatDossier('0');
             $entretien = new Entretien();
+            $dossierAdmission->setEntretien($entretien);
             $etudiant->setDossierAdmission($dossierAdmission);
+        } elseif ($etudiant->getDossierAdmission()->getEntretien() == null) {
+            $entretien = new Entretien();
             $etudiant->getDossierAdmission()->setEntretien($entretien);
         } else {
             $entretien = $etudiant->getDossierAdmission()->getEntretien();
@@ -691,6 +695,7 @@ class ResponsableController extends Controller
                     $encoder = $this->get('security.password_encoder');
                     $randomPassword = $this->randomPassword();
                     $user = $this->getDoctrine()->getManager()->getRepository('SiteBundle:User')->findOneBy(['id_etudiant' => $etudiant]);
+                    if ($user == null) throw new \Exception("Aucun user pour l'étudiant ");
                     $user->setPassword($encoder->encodePassword($user, $randomPassword));
                     $this->get('site.mailer.etudiant')->inscription($etudiant->getLaPersone()->getMail(), $randomPassword);
                     $em->flush();

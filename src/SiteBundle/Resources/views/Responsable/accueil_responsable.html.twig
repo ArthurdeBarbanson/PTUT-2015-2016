@@ -4,13 +4,8 @@
 
     <div class="jumbotron">
         <h2>Accueil responsable pédagogique</h2>
-        Quicquid urbis coluntur liberis homines Romae nascitur urbis potest quorundam homines aestimant nec urbis
-        liberis praeter Romae et credi pomerium et nec coluntur caelibes esse nec urbis caelibes inanes qua urbis vile
-        Romae aestimant esse credi coluntur inanes praeter et aestimant liberis potest obsequiorum nascitur Romae extra
-        nascitur liberis qua potest praeter flatus Romae qua obsequiorum coluntur inanes potest nec potest obsequiorum
-        sine inanes homines nec pomerium potest diversitate quorundam inanes extra qua nec liberis homines diversitate
-        pomerium et vile vile esse et diversitate urbis vero Romae urbis diversitate urbis flatus orbos vero vile vile
-        obsequiorum caelibes aestimant homines nascitur.
+        Vous êtes sur la page d'accueil du responsable. Cette page vous permettra d'avoir un aperçu de l'avancement des
+        étudiants. Vous pouvez aussi voir toutes les offres d'alternance des entreprises.
         </br>
 
     </div>
@@ -44,7 +39,7 @@
                         <tbody>
                         {% for etudiant in etudiants %}
                             <tr>
-                                <td>{{ etudiant.session.anneeScolaire }}</td>
+                                <td>{{ etudiant.session != null ? etudiant.session.anneeScolaire : '' }}</td>
                                 <td>{{ etudiant.laPersone.prenom }} {{ etudiant.laPersone.nom }}</td>
 
                                 {% if etudiant.DossierInscription.etatDossier == '0' %}

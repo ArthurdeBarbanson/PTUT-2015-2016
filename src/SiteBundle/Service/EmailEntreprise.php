@@ -21,7 +21,8 @@ class EmailEntreprise extends Email
             ->setBody(
                 $this->templating->render(
                     'Emails/ajoutEntreprise.html.twig', [
-                        'password' => $password
+                        'password' => $password,
+                        'adresse' => $adresseMail
                     ]
                 )
             )
