@@ -38,7 +38,7 @@ class PieceJointe
     /**
      * @var string
      *
-     * @ORM\Column(name="etape",type="string", columnDefinition="enum('1', '2', '3', '4', '5', '6')",nullable=true)
+     * @ORM\Column(name="etape",type="string", columnDefinition="enum('0' , '1', '2', '3', '4', '5')",nullable=true)
      */
     private $etape;
 
