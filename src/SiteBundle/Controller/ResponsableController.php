@@ -512,10 +512,16 @@ class ResponsableController extends Controller
         $etudiant = $repository->find($idEtudiant);
 
         $em = $this->getDoctrine()->getManager();
-        $etudiant->getDossierInscription()->setEtatDossier($etudiant->getDossierInscription()->getEtatDossier()+1);
+        $etape=$etudiant->getDossierInscription()->getEtatDossier();
+        if($etape<5){
+            $etape=$etape+1;
+            $etudiant->getDossierInscription()->setEtatDossier($etape);
+        }
 
         $em->persist($etudiant);
         $em->flush();
+
+        $this->get('site.mailer.etudiant')->envoyerMailEtape($etudiant->getLaPersone()->getMail(),$etape);
 
         return $this->redirectToRoute('acceuil_responsable');
     }

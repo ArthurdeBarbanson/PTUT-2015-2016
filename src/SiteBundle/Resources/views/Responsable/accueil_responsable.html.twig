@@ -91,6 +91,8 @@
 
                                 {% elseif etudiant.DossierInscription.etatDossier == '4'  %}
                                     <td><p class="text-success">Signature du contrat</p></td>
+                                {% elseif etudiant.DossierInscription.etatDossier == '5'  %}
+                                    <td></td>
                                 {% endif %}
 
                                 {% set entreprise = 'false' %}

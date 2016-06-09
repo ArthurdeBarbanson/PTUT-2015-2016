@@ -12,10 +12,7 @@ class EmailEtudiant extends Email
 {
     public function envoyerMailEtape($adresseMail,$etape){
 
-        $repository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:EmailEtapeInscription');
+        $repository = $this->get('doctrine.orm.entity_manager')->getRepository('SiteBundle:EmailEtapeInscription');
 
         $repositoryPiecejointe = $this
             ->getDoctrine()
@@ -24,7 +21,7 @@ class EmailEtudiant extends Email
         $pieceJointe=$repositoryPiecejointe->findBy(['Etape'=>$etape]);
 
         $listeEmails = $repository->find(1);
-        $body="Aucune eétape sélectionner !";
+        $body="Aucune étape sélectionner !";
 
         switch($etape){
             case '1':
