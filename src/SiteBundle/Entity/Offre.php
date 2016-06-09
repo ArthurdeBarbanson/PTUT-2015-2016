@@ -32,7 +32,7 @@ class Offre
     /**
      * @var string
      *
-     * @ORM\Column(name="etat_offre", type="string", columnDefinition="enum('En attente de validation', 'En ligne', 'Pourvue','En attente de modification')" ,nullable=true)
+     * @ORM\Column(name="etat_offre", type="string", columnDefinition="enum('En attente de validation', 'En ligne', 'Pourvue','En attente de modification', 'Refuser' )" ,nullable=true)
      */
     private $etatOffre;
 
