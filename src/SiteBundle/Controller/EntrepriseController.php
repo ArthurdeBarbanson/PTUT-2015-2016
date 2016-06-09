@@ -121,6 +121,7 @@ class EntrepriseController extends Controller
                         $annonce->setSession($data['promo']);
                         $date = new \DateTime();
                         $annee = $date->format('Y');
+                        if ($data['pdf'] != ""){
                         $dir = 'uploads/offre/' . $annee;
                         $file = $form['pdf']->getData();
                         $extension = $file->guessExtension();
@@ -132,7 +133,7 @@ class EntrepriseController extends Controller
                             $final_url = $dir . '/' . $data['Titre'] . '_' . $uniqId . '.' . $extension;
 
                         $annonce->setDocument($final_url);
-                        }
+                        }}
 
                         $em->persist($annonce);
                         $em->flush();
