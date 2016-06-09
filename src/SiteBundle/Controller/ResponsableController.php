@@ -616,21 +616,22 @@ class ResponsableController extends Controller
 
             $extension = $file->guessExtension();
             $title = $file->getClientOriginalName();
+
             if ($extension == 'pdf' || $extension == 'doc' || $extension == 'docx') {
-            $uniqId = uniqid();
-            $file->move($dir, $uniqId . '.' . $extension);
+                $uniqId = uniqid();
+                $file->move($dir, $uniqId . '.' . $extension);
 
-            $final_url = $dir . '/' . $uniqId . '.' . $extension;
+                $final_url = $dir . '/' . $uniqId . '.' . $extension;
 
-            $PieceJointe = new PieceJointe();
-            $PieceJointe->setChemin($final_url);
-            $PieceJointe->setNom($title);
-            $PieceJointe->setEtape($data['Etape']);
+                $PieceJointe = new PieceJointe();
+                $PieceJointe->setChemin($final_url);
+                $PieceJointe->setNom($title);
+                $PieceJointe->setEtape($data['Etape']);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($PieceJointe);
-            $em->flush();
-            $this->addFlash('info', "Piece jointe uploder !");
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($PieceJointe);
+                $em->flush();
+                $this->addFlash('info', "Piece jointe uploder !");
             }else{
                 $this->addFlash('error','Extension invalide');
             }
