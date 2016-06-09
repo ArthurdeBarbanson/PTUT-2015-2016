@@ -31,7 +31,7 @@ class DossierInscription
     /**
      * @var string
      *
-     * @ORM\Column(name="etat_dossier", type="string", columnDefinition="enum('0','1','2','3','4','5')" ,nullable=true)
+     * @ORM\Column(name="etat", type="string", columnDefinition="enum('0','1','2','3','4','5')" ,nullable=true , options={"default":"0"})
      */
     private $etatDossier;
 
