@@ -20,7 +20,7 @@
             {% for piece in liste_piece_jointe  %}
                 {% if piece.etape == 1 %}
                     <tr>
-                        <td><a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a></td>
+                        <td><a href="{{ asset(piece.chemin) }}" target="_blank">{{ piece.nom }}</a></td>
                         <td><a href="{{ path('supprimer_piece_jointe', {'id': piece.id }) }}" class=" btn btn-danger btn-sm">X</a></td>
                     </tr>
                 {% endif %}
@@ -45,7 +45,7 @@
             {% for piece in liste_piece_jointe  %}
                 {% if piece.etape == 2 %}
                     <tr>
-                        <td><a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a></td>
+                        <td><a href="{{ asset(piece.chemin) }}" target="_blank">{{ piece.nom }}</a></td>
                         <td><a href="{{ path('supprimer_piece_jointe', {'id': piece.id }) }}" class=" btn btn-danger btn-sm">X</a></td>
                     </tr>
                 {% endif %}
@@ -69,7 +69,7 @@
             {% for piece in liste_piece_jointe  %}
                 {% if piece.etape == 3 %}
                     <tr>
-                        <td><a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a></td>
+                        <td><a href="{{ asset(piece.chemin) }}" target="_blank">{{ piece.nom }}</a></td>
                         <td><a href="{{ path('supprimer_piece_jointe', {'id': piece.id }) }}" class=" btn btn-danger btn-sm">X</a></td>
                     </tr>
                 {% endif %}
@@ -94,7 +94,7 @@
             {% for piece in liste_piece_jointe  %}
                 {% if piece.etape == 4 %}
                     <tr>
-                        <td><a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a></td>
+                        <td><a href="{{ asset(piece.chemin) }}" target="_blank">{{ piece.nom }}</a></td>
                         <td><a href="{{ path('supprimer_piece_jointe', {'id': piece.id }) }}" class=" btn btn-danger btn-sm">X</a></td>
                     </tr>
                 {% endif %}
@@ -118,7 +118,7 @@
             {% for piece in liste_piece_jointe  %}
                 {% if piece.etape == 5 %}
                     <tr>
-                        <td><a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a></td>
+                        <td><a href="{{ asset(piece.chemin) }}" target="_blank">{{ piece.nom }}</a></td>
                         <td><a href="{{ path('supprimer_piece_jointe', {'id': piece.id }) }}" class=" btn btn-danger btn-sm">X</a></td>
                     </tr>
                 {% endif %}
@@ -144,7 +144,7 @@
             {% for piece in liste_piece_jointe  %}
                 {% if piece.etape == 6 %}
                     <tr>
-                        <td><a href="{{ piece.chemin }}" target="_blank">{{ piece.nom }}</a></td>
+                        <td><a href="{{ asset(piece.chemin) }}" target="_blank">{{ piece.nom }}</a></td>
                         <td><a href="{{ path('supprimer_piece_jointe', {'id': piece.id }) }}" class=" btn btn-danger btn-sm">X</a></td>
                     </tr>
                 {% endif %}
