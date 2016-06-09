@@ -532,7 +532,7 @@ class EntrepriseController extends Controller
             $user->setUsername($entreprise->getMail());
 
             //set password
-            $randomPassword = random_bytes(10);
+            $randomPassword = $this->randomPassword();
             $encoder = $this->get('security.password_encoder');
             $encoded = $encoder->encodePassword($user, $randomPassword);
             $user->setPassword($encoded);
@@ -542,8 +542,8 @@ class EntrepriseController extends Controller
 
             try {
                 $em->flush();
-                //TODO mail $this->get('site.mailer')->inscription($user->getIdEntreprise()->getMail(),$randomPassword);
-                $this->addFlash('success', 'Inscription terminé avec succès !');
+                $this->get('site.mailer.entreprise')->inscriptionEntreprise($user->getIdEntreprise()->getMail(), $randomPassword);
+                $this->addFlash('success', 'Inscription terminé avec succès, vous allez recevoir un mail avec vos identifiants.');
                 return $this->redirect($this->generateUrl('site_homepage'));
             } catch (UniqueConstraintViolationException $exception) {
                 $this->addFlash('error', "Cette adresse est déjà utilisé par un autre utilisateur.");
@@ -693,4 +693,15 @@ class EntrepriseController extends Controller
 
     }
 
+    private function randomPassword()
+    {
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $pass = array(); //remember to declare $pass as an array
+        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        return implode($pass); //turn the array into a string
+    }
 }

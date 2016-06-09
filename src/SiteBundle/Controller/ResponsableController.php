@@ -87,7 +87,7 @@ class ResponsableController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $randomPassword = random_bytes(10);
+            $randomPassword = $this->randomPassword();
             //set user
             $user = new User();
             $user->setUsername($data['Email']);
@@ -137,7 +137,7 @@ class ResponsableController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $randomPassword = random_bytes(10);
+            $randomPassword = $this->randomPassword();
 
             //set personne
             $personne = new Personne();
@@ -196,7 +196,7 @@ class ResponsableController extends Controller
                     } else {
                         $em = $this->getDoctrine()->getManager();
                         //setPassword
-                        $randomPassword = random_bytes(10);
+                        $randomPassword = $this->randomPassword();
                         //set user
                         $user = new User();
                         $etudiant->setSession($data['promo']);
@@ -664,7 +664,7 @@ class ResponsableController extends Controller
                     $etudiant->setIsAdmissible(true);
                     $etudiant->getDossierAdmission()->setEtatDossier('2');
                     $encoder = $this->get('security.password_encoder');
-                    $randomPassword = random_bytes(10);
+                    $randomPassword = $this->randomPassword();
                     $user = $em = $this->getDoctrine()->getManager()->getRepository('SiteBundle:User')->findOneBy(['id_etudiant' => $etudiant]);
                     $user->setPassword($encoder->encodePassword($user, $randomPassword));
                     $this->get('site.mailer.etudiant')->inscription($etudiant->getLaPersone()->getMail(), $randomPassword);
@@ -689,7 +689,7 @@ class ResponsableController extends Controller
                     $etudiant->getDossierAdmission()->setEtatDossier('2');
                     $etudiant->setIsAdmissible(true);
                     $encoder = $this->get('security.password_encoder');
-                    $randomPassword = random_bytes(10);
+                    $randomPassword = $this->randomPassword();
                     $user = $this->getDoctrine()->getManager()->getRepository('SiteBundle:User')->findOneBy(['id_etudiant' => $etudiant]);
                     $user->setPassword($encoder->encodePassword($user, $randomPassword));
                     $this->get('site.mailer.etudiant')->inscription($etudiant->getLaPersone()->getMail(), $randomPassword);
@@ -714,5 +714,17 @@ class ResponsableController extends Controller
                 'form' => $form->createView(),
                 'formEtat' => $formEtat->createView()]
         );
+    }
+
+    private function randomPassword()
+    {
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $pass = array(); //remember to declare $pass as an array
+        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        return implode($pass); //turn the array into a string
     }
 }
