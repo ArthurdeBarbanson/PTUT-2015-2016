@@ -14,19 +14,14 @@ class Email
 {
     protected $mailer;
     protected $templating;
-    private $entityManager;
-
-
-
     private $from = "noreply-suivilpmetinet@iutinfobourg.fr";
 
 
 
-    public function __construct($mailer, EngineInterface $templating,EntityManager $entityManager)
+    public function __construct($mailer, EngineInterface $templating)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
-        $this->entityManager = $entityManager;
     }
 
     public function sendEmail($from, $to, $subject, $body)

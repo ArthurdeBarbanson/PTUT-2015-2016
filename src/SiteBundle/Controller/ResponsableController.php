@@ -548,7 +548,7 @@ class ResponsableController extends Controller
         $em->persist($etudiant);
         $em->flush();
 
-        $this->get('site.mailer.etudiant')->envoyerMailEtape($etudiant->getLaPersone()->getMail(),$etape);
+        $this->get('site.mailer.responsable')->envoyerMailEtape($etudiant->getLaPersone()->getMail(),$etape);
 
         return $this->redirectToRoute('acceuil_responsable');
     }
