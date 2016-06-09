@@ -778,7 +778,8 @@ class ResponsableController extends Controller
                     $etudiant->getDossierAdmission()->setEtatDossier('2');
                     $encoder = $this->get('security.password_encoder');
                     $randomPassword = $this->randomPassword();
-                    $user = $em = $this->getDoctrine()->getManager()->getRepository('SiteBundle:User')->findOneBy(['id_etudiant' => $etudiant]);
+                    $user = $this->getDoctrine()->getManager()->getRepository('SiteBundle:User')->findOneBy(['id_etudiant' => $etudiant]);
+                    if ($user == null) throw new \Exception("Aucun user pour l'étudiant ");
                     $user->setPassword($encoder->encodePassword($user, $randomPassword));
                     $this->get('site.mailer.etudiant')->inscription($etudiant->getLaPersone()->getMail(), $randomPassword);
                     $this->redirectToRoute('responsableListeEtudiantAdmissible');
