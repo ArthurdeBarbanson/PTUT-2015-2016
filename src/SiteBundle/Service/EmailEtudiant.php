@@ -8,7 +8,6 @@
 
 namespace SiteBundle\Service;
 
-
 class EmailEtudiant extends Email
 {
     public function envoyerMailEtape($adresseMail,$etape){
@@ -22,7 +21,7 @@ class EmailEtudiant extends Email
             ->getDoctrine()
             ->getManager()
             ->getRepository('SiteBundle:PieceJointe');
-
+        $pieceJointe=$repositoryPiecejointe->findBy(['Etape'=>$etape]);
 
         $listeEmails = $repository->find(1);
         $body="Aucune eétape sélectionner !";
@@ -55,6 +54,12 @@ class EmailEtudiant extends Email
             ->setSubject("Avancement inscription pédagogique")
             ->setBody($body)
             ->setContentType('text/html');
+
+        if(!empty($pieceJointe)){
+            foreach($pieceJointe as $piecej){
+                $mail->attach($piecej);
+            }
+        }
 
         $this->mailer->send($mail);
     }
