@@ -583,7 +583,7 @@ class ResponsableController extends Controller
 
             $extension = $file->guessExtension();
             $title = $file->getClientOriginalName();
-//            if ($extension == 'pdf' || $extension == 'doc' || $extension == 'docx') {
+            if ($extension == 'pdf' || $extension == 'doc' || $extension == 'docx') {
             $uniqId = uniqid();
             $file->move($dir, $uniqId . '.' . $extension);
 
@@ -598,9 +598,9 @@ class ResponsableController extends Controller
             $em->persist($PieceJointe);
             $em->flush();
             $this->addFlash('info', "Piece jointe uploder !");
-//            }else{
-//                $this->addFlash('error','Extension invalide');
-//            }
+            }else{
+                $this->addFlash('error','Extension invalide');
+            }
 
             $this->redirectToRoute('gestion_email');
         }
