@@ -33,7 +33,7 @@ class AjoutPieceJointe  extends AbstractType
 
             ->add('pieceJointe', FileType::class, [
                 'label' => 'Pièce jointe',
-//                'attr' => ['accept' => 'application/pdf']
+                'attr' => ['accept' => 'application/pdf , application/vnd.openxmlformats-officedocument.wordprocessingml.document , application/msword'],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Ajouter une pièce jointe',
