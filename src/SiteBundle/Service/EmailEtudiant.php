@@ -84,6 +84,4 @@ class EmailEtudiant extends Email
 
         $this->mailer->send($mail);
     }
-
-
 }
