@@ -548,7 +548,7 @@ class ResponsableController extends Controller
         $em->persist($etudiant);
         $em->flush();
 
-        $this->get('site.mailer.etudiant')->envoyerMailEtape($etudiant->getLaPersone()->getMail(),$etape);
+        $this->get('site.mailer.responsable')->envoyerMailEtape($etudiant->getLaPersone()->getMail(),$etape);
 
         return $this->redirectToRoute('acceuil_responsable');
     }
@@ -611,26 +611,27 @@ class ResponsableController extends Controller
         $formPieceJointe->handleRequest($request);
         if ($formPieceJointe->isValid()) {
             $data = $data = $formPieceJointe->getData();
-            $dir = 'uploads/pieceJointe';
+            $dir = 'uploads';
             $file = $formPieceJointe['pieceJointe']->getData();
 
             $extension = $file->guessExtension();
             $title = $file->getClientOriginalName();
+
             if ($extension == 'pdf' || $extension == 'doc' || $extension == 'docx') {
-            $uniqId = uniqid();
-            $file->move($dir, $uniqId . '.' . $extension);
+                $uniqId = uniqid();
+                $file->move($dir, $uniqId . '.' . $extension);
 
-            $final_url = $dir . '/' . $uniqId . '.' . $extension;
+                $final_url = $dir . '/' . $uniqId . '.' . $extension;
 
-            $PieceJointe = new PieceJointe();
-            $PieceJointe->setChemin($final_url);
-            $PieceJointe->setNom($title);
-            $PieceJointe->setEtape($data['Etape']);
+                $PieceJointe = new PieceJointe();
+                $PieceJointe->setChemin($final_url);
+                $PieceJointe->setNom($title);
+                $PieceJointe->setEtape($data['Etape']);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($PieceJointe);
-            $em->flush();
-            $this->addFlash('info', "Piece jointe uploder !");
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($PieceJointe);
+                $em->flush();
+                $this->addFlash('info', "Piece jointe uploder !");
             }else{
                 $this->addFlash('error','Extension invalide');
             }

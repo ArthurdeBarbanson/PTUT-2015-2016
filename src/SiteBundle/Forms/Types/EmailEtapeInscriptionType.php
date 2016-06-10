@@ -19,9 +19,6 @@ class EmailEtapeInscriptionType extends AbstractType
     {
         $builder
             ->add('etape1', TextareaType::class)
-//            ->add('piecejointe1', FileType::class,[
-//                'label'=>'Pièce jointes étape 1'
-//            ])
             ->add('etape2', TextareaType::class)
             ->add('etape3', TextareaType::class)
             ->add('etape4', TextareaType::class)

@@ -44,6 +44,13 @@
             <argument type="service" id="doctrine.dbal.default_connection" />
         </service>
 
+        <service id="email_inscription_repository" class="SiteBundle\Repository\EmailEtapeInscriptionRepository">
+            <argument type="service" id="doctrine.dbal.default_connection" />
+        </service>
+        <service id="pieceJointe_repository" class="SiteBundle\Repository\PieceJointeRepository">
+            <argument type="service" id="doctrine.dbal.default_connection" />
+        </service>
+
         <service id="site.mailer" class="SiteBundle\Service\Email">
             <argument type="service" id="mailer" />
             <argument type="service" id="templating" />
@@ -52,18 +59,23 @@
         <service id="site.mailer.responsable" class="SiteBundle\Service\EmailResponsable">
             <argument type="service" id="mailer" />
             <argument type="service" id="templating" />
-            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="email_inscription_repository" />
+            <argument type="service" id="pieceJointe_repository" />
         </service>
 
         <service id="site.mailer.etudiant" class="SiteBundle\Service\EmailEtudiant">
             <argument type="service" id="mailer" />
             <argument type="service" id="templating" />
-            <argument type="service" id="doctrine.orm.entity_manager" />
+            <!--<call method="setRepositoryEmail">-->
+                <!--<argument type="service" id="email_inscription_repository" />-->
+            <!--</call>-->
+            <!--<call method="setRepositoryPieceJointe">-->
+                <!--<argument type="service" id="pieceJointe_repository" />-->
+            <!--</call>-->
         </service>
         <service id="site.mailer.entreprise" class="SiteBundle\Service\EmailEntreprise">
             <argument type="service" id="mailer" />
             <argument type="service" id="templating" />
-            <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
     </services>
 </container>
