@@ -28,7 +28,7 @@ class Etudiant
      */
     private $laPersone;
     /**
-     * @ORM\OneToOne(targetEntity="SiteBundle\Entity\Personne", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="SiteBundle\Entity\Personne", cascade={"persist"})
      */
     private $leTuteur;
 
