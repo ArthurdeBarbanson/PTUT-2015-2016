@@ -542,10 +542,10 @@ class ResponsableController extends Controller
             ->getManager()
             ->getRepository('SiteBundle:EtapeInscriptionEmail');
 
-        $repository = $this
+        $repositoryPieceJointe = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('SiteBundle:Etudiant');
+            ->getRepository('SiteBundle:PieceJointe');
 
         $em = $this->getDoctrine()->getManager();
         $etape=$etudiant->getDossierInscription()->getEtatDossier();
@@ -558,8 +558,8 @@ class ResponsableController extends Controller
         $em->flush();
 
 //        $this->get('site.mailer.responsable')->envoyerMailEtape($etudiant->getLaPersone()->getMail(),$etape);
-        $pieceJointe=$this->$repositoryPieceJointe->findBy(['Etape'=>$etape]);
-        $listeEmails = $this->$repositoryEmail->find(1);
+        $pieceJointe=$repositoryPieceJointe->findBy(['Etape'=>$etape]);
+        $listeEmails = $repoimail->find(1);
         $body="Aucune étape sélectionner !";
 
         switch($etape){
@@ -586,7 +586,7 @@ class ResponsableController extends Controller
         $mail = \Swift_Message::newInstance();
         $mail
             ->setFrom('noreply-suivilpmetinet@iutinfobourg.fr')
-            ->setTo($adresseMail)
+            ->setTo($etudiant->getLaPersone()->getMail())
             ->setSubject("Avancement inscription pédagogique")
             ->setBody($body)
             ->setContentType('text/html');
@@ -597,7 +597,7 @@ class ResponsableController extends Controller
             }
         }
 
-        $this->mailer->send($mail);
+        $this->get('mailer')->send($mail);
 
         return $this->redirectToRoute('acceuil_responsable');
     }
