@@ -159,6 +159,10 @@
 
                     {% elseif offreP.etudiant.DossierInscription.etatDossier == '4' %}
                         <td><p class="text-success">Signature du contrat</p></td>
+                    {% elseif offreP.etudiant.DossierInscription.etatDossier == '5' %}
+                        <td><p class="text-success">Inscription terminée</p></td>
+                    {% elseif offreP.etudiant.DossierInscription.etatDossier == '-1' %}
+                        <td><p class="text-success">Candidat refusé</p></td>
                     {% endif %}
                     <td class="text-center"><a
                                 href="{{ path('site_detailsEtudiant', {'offreId': offreP.id }) }}"><span
