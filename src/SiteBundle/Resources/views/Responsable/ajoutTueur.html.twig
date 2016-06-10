@@ -8,7 +8,7 @@
         <h1>Assignez un tuteur</h1>
         {{ include('template/messages') }}
         {{ form_start(assign) }}
-        <label for="tuteur">Tuteur  zsdsf </label>
+        <label for="tuteur">Tuteur </label>
         <select name="tuteur">
             {% for tuteur in tuteurs %}
                 <option value="{{ tuteur.id }}">{{ tuteur.nom }} {{ tuteur.prenom }}</option>
