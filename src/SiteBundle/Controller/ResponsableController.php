@@ -593,7 +593,7 @@ class ResponsableController extends Controller
 
         if(!empty($pieceJointe)){
             foreach($pieceJointe as $piecej){
-                $mail->attach($piecej['chemin']);
+                $mail->attach($piecej->getChemin());
             }
         }
 
