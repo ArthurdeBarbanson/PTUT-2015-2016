@@ -540,7 +540,7 @@ class ResponsableController extends Controller
         $repoimail = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('SiteBundle:EtapeInscriptionEmail');
+            ->getRepository('SiteBundle:EmailEtapeInscription');
 
         $repositoryPieceJointe = $this
             ->getDoctrine()
@@ -558,7 +558,7 @@ class ResponsableController extends Controller
         $em->flush();
 
 //        $this->get('site.mailer.responsable')->envoyerMailEtape($etudiant->getLaPersone()->getMail(),$etape);
-        $pieceJointe=$repositoryPieceJointe->findBy(['Etape'=>$etape]);
+        $pieceJointe=$repositoryPieceJointe->findBy(['etape'=>$etape]);
         $listeEmails = $repoimail->find(1);
         $body="Aucune étape sélectionner !";
 
