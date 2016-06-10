@@ -535,8 +535,17 @@ class ResponsableController extends Controller
             ->getDoctrine()
             ->getManager()
             ->getRepository('SiteBundle:Etudiant');
-
         $etudiant = $repository->find($idEtudiant);
+
+        $repoimail = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:EtapeInscriptionEmail');
+
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('SiteBundle:Etudiant');
 
         $em = $this->getDoctrine()->getManager();
         $etape=$etudiant->getDossierInscription()->getEtatDossier();
@@ -548,7 +557,47 @@ class ResponsableController extends Controller
         $em->persist($etudiant);
         $em->flush();
 
-        $this->get('site.mailer.responsable')->envoyerMailEtape($etudiant->getLaPersone()->getMail(),$etape);
+//        $this->get('site.mailer.responsable')->envoyerMailEtape($etudiant->getLaPersone()->getMail(),$etape);
+        $pieceJointe=$this->$repositoryPieceJointe->findBy(['Etape'=>$etape]);
+        $listeEmails = $this->$repositoryEmail->find(1);
+        $body="Aucune étape sélectionner !";
+
+        switch($etape){
+            case '1':
+                $body=$listeEmails->getEtape1();
+                break;
+            case '2':
+                $body=$listeEmails->getEtape2();
+                break;
+            case '3':
+                $body=$listeEmails->getEtape3();
+                break;
+            case '4':
+                $body=$listeEmails->getEtape4();
+                break;
+            case '5':
+                $body=$listeEmails->getEtape5();
+                break;
+            case '6':
+                $body=$listeEmails->getEtape6();
+                break;
+        }
+
+        $mail = \Swift_Message::newInstance();
+        $mail
+            ->setFrom('noreply-suivilpmetinet@iutinfobourg.fr')
+            ->setTo($adresseMail)
+            ->setSubject("Avancement inscription pédagogique")
+            ->setBody($body)
+            ->setContentType('text/html');
+
+        if(!empty($pieceJointe)){
+            foreach($pieceJointe as $piecej){
+                $mail->attach($piecej['chemin']);
+            }
+        }
+
+        $this->mailer->send($mail);
 
         return $this->redirectToRoute('acceuil_responsable');
     }
