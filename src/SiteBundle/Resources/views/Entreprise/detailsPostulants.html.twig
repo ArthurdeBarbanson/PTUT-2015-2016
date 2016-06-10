@@ -15,7 +15,7 @@
         <p><label>Lettre de motivation : </label> {{ postulant.lettreMotivation }}</p>
     </div>
     <div class="text-center">
-        <a class="btn btn-primary" href="#"><span class="glyphicon glyphicon-envelope"></span> Contacter</a>
+        <a class="btn btn-primary" href="#" style="display: none" ><span class="glyphicon glyphicon-envelope"></span> Contacter</a>
         <a class="btn btn-success" href="{{ path('site_accepterPostulant' , {'postulantId': postulant.id }) }}"><span class="glyphicon glyphicon-ok"></span> Acccepter</a>
         <a class="btn btn-danger" href="{{ path('site_refusPostulant',{'postulantId': postulant.id }) }}"><span class="glyphicon glyphicon-remove"></span> Refuser</a>
         <a class="btn btn-default" href="{{ path('site_accueilEntreprise') }}">Retour</a>

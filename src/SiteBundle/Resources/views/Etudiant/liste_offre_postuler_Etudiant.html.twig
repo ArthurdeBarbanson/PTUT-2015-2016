@@ -29,7 +29,7 @@
                         <tr>
                             <td>{{ offre.date|date("d/m/Y") }}</td>
                             <td><a                       href="{{ path('site_detailsAnnonceEtudiant', {'annonceId': offre.offre.id }) }}">{{ offre.offre.titre }}</a></td>
-                            <td> <a                       href="#">{{ offre.offre.entreprise.raisonSocial }} </a></td>
+                            <td> <a                       href="{{ path('detailsEntreprise', {'entrepriseId': offre.offre.entreprise.id }) }}">{{ offre.offre.entreprise.raisonSocial }} </a></td>
                             <td>{{ offre.offre.licenceConcerne }}</td>
                             <td class="text-center"> <div class="btn-group">
                                     <button class="btn">Action</button>
@@ -68,7 +68,7 @@
                     {% for offre in offresP %}
                         <td> {{ offre.date|date("d/m/Y") }} </td>
                         <td><a href="{{ path('site_detailsAnnonceEtudiant', {'annonceId': offre.offre.id }) }}">{{ offre.offre.titre }}</a></td>
-                        <td> <a href="{{ path('site_detailsAnnonceEntreprise', {'annonceId': offre.offre.entreprise.id }) }}">{{ offre.offre.entreprise.raisonSocial  }}</a>  </td>
+                        <td> <a href="{{path('detailsEntreprise', {'entrepriseId': offre.offre.entreprise.id }) }}">{{ offre.offre.entreprise.raisonSocial  }}</a>  </td>
                         <td>{{ offre.offre.licenceConcerne }}</td>
 
                     {% endfor %}
@@ -97,7 +97,7 @@
                     <tr>
                         <td>{{ offre.date|date("d/m/Y") }}</td>
                         <td>{{ offre.offre.titre }}</td>
-                        <td> <a href="{{ path('site_detailsAnnonceEntreprise', {'annonceId': offre.offre.entreprise.id }) }}">{{ offre.offre.entreprise.raisonSocial }} </a></td>
+                        <td> <a href="{{ path('detailsEntreprise', {'entrepriseId': offre.offre.entreprise.id })     }}">{{ offre.offre.entreprise.raisonSocial }} </a></td>
                         <td>{{ offre.offre.licenceConcerne }}</td>
                     </tr>
                 {% endfor %}

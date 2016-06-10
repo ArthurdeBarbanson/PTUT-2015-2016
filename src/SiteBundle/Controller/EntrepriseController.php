@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -237,11 +238,17 @@ class EntrepriseController extends Controller
                 ->add('Sujet', TextareaType::class, array(
                     'label' => 'Sujet (Description de la mission - Technologie)',
                     'data' => $annonce->getSujet(),
-                    'constraints' => [
-                        new NotBlank(),
-                        new Length(['min' => 50])
-                    ]
+                    'required'=> false
+
                 ))
+
+                ->add('pdf', FileType::class, [
+                    'label' => 'Ou sujet format document (Description de la mission - Technologie)',
+                    'attr' => ['accept' => 'application/pdf , application/vnd.openxmlformats-officedocument.wordprocessingml.document , application/msword'],
+                    'required'=> false,
+                    'data'=>$annonce->getDocument()
+                ])
+
                 ->add('submit', SubmitType::class, [
                     'label' => 'Poster',
                     'attr' => ['class' => 'btn-primary margTop10'],
@@ -574,6 +581,8 @@ class EntrepriseController extends Controller
             throw new NotFoundHttpException("L'annonce n'a pas été trouvée.");
         }
 
+
+
         return $this->render(
             'SiteBundle:Entreprise:detailsPostulants.html.twig', ['postulant' => $offre]
 
@@ -705,4 +714,7 @@ class EntrepriseController extends Controller
         }
         return implode($pass); //turn the array into a string
     }
+
+
+
 }
