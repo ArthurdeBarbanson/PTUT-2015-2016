@@ -9,8 +9,8 @@
 namespace SiteBundle\Service;
 
 
-use SiteBundle\Repository\EmailEtapeInscriptionRepository;
-use SiteBundle\Repository\PieceJointeRepository;
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Templating\EngineInterface;
 
 
@@ -18,19 +18,23 @@ class EmailResponsable
 {
     protected $mailer;
     protected $templating;
-    protected $repositoryEmail;
-    protected $repositoryPieceJointe;
+    public $entity;
+    /** @var  Registry */
+    private $doctrine;
 
-    public function __construct($mailer, EngineInterface $templating,EmailEtapeInscriptionRepository $repositoryEmail,PieceJointeRepository $repositoryPieceJointe)
+    public function __construct($mailer, EngineInterface $templating, EntityManager $entityManager,$doctrine)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
-        $this->$repositoryEmail = $repositoryEmail;
-        $this->$repositoryEmail = $repositoryEmail;
+        $this->$entity = $entityManager;
+        $this->doctrine = $doctrine;
+//        $this->$repoyPieceJointe = $repoyPieceJointe;
     }
 
     public function envoyerMailEtape($adresseMail,$etape){
 
+        $this->entity->getRepository('');
+        $this->doctrine->getRepository('SiteBunble:Offre');
 //        $this->setRepositoryEmail($this->repositoryEmail);
 //        $this->setRepositoryPieceJointe($this->$repositoryPieceJointe);
 

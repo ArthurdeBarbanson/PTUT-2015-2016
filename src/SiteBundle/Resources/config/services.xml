@@ -59,19 +59,11 @@
         <service id="site.mailer.responsable" class="SiteBundle\Service\EmailResponsable">
             <argument type="service" id="mailer" />
             <argument type="service" id="templating" />
-            <argument type="service" id="email_inscription_repository" />
-            <argument type="service" id="pieceJointe_repository" />
         </service>
 
         <service id="site.mailer.etudiant" class="SiteBundle\Service\EmailEtudiant">
             <argument type="service" id="mailer" />
             <argument type="service" id="templating" />
-            <!--<call method="setRepositoryEmail">-->
-                <!--<argument type="service" id="email_inscription_repository" />-->
-            <!--</call>-->
-            <!--<call method="setRepositoryPieceJointe">-->
-                <!--<argument type="service" id="pieceJointe_repository" />-->
-            <!--</call>-->
         </service>
         <service id="site.mailer.entreprise" class="SiteBundle\Service\EmailEntreprise">
             <argument type="service" id="mailer" />
