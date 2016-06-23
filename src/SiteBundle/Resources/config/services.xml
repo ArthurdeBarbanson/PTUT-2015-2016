@@ -44,7 +44,7 @@
             <argument type="service" id="doctrine.dbal.default_connection" />
         </service>
 
-        <service id="email_inscription_repository" class="SiteBundle\Repository\EmailEtapeInscriptionRepository">
+        <service id="email_etape_repository" class="SiteBundle\Repository\EmailEtapeInscriptionRepository">
             <argument type="service" id="doctrine.dbal.default_connection" />
         </service>
         <service id="pieceJointe_repository" class="SiteBundle\Repository\PieceJointeRepository">

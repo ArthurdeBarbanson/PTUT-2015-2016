@@ -97,12 +97,9 @@ class ResponsableController extends Controller
         $message=true;
         }
 
-        $smtpForm = $this->createForm(EmailType::class);
-
         return $this->render('SiteBundle:Responsable:accueil_responsable.html.twig', [
             'offres' => $offres,
             'etudiants' => $etudiants,
-            'smtp_form' => $smtpForm->createView(),
             'message' => $message,
             'userID' => $responsableID
         ]);
@@ -531,21 +528,11 @@ class ResponsableController extends Controller
 
         $idEtudiant = $request->get('EtudiantId');
 
-        $repository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:Etudiant');
+        $repository = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
         $etudiant = $repository->find($idEtudiant);
 
-        $repoimail = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:EmailEtapeInscription');
-
-        $repositoryPieceJointe = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:PieceJointe');
+        $repoimail = $this->getDoctrine()->getManager()->getRepository('SiteBundle:EmailEtapeInscription');
+        $repositoryPieceJointe = $this->getDoctrine()->getManager()->getRepository('SiteBundle:PieceJointe');
 
         $em = $this->getDoctrine()->getManager();
         $etape=$etudiant->getDossierInscription()->getEtatDossier();
@@ -604,14 +591,9 @@ class ResponsableController extends Controller
 
     public function supprimerPieceJointeAction(Request $request)
     {
-
         $id = $request->get('id');
 
-        $repository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:PieceJointe');
-
+        $repository = $this->getDoctrine()->getManager()->getRepository('SiteBundle:PieceJointe');
         $piecej = $repository->find($id);
 
         $em = $this->getDoctrine()->getManager();
@@ -623,19 +605,15 @@ class ResponsableController extends Controller
 
     public function emailAction(Request $request)
     {
-        $repository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('SiteBundle:EmailEtapeInscription');
-        $listeEmails = $repository->find(1);
+        $listeEmails = $this->get('email_etape_repository')->findAll();
 
-        $emailEtape = new EmailEtapeInscription();
-        $emailEtape->setEtape1($listeEmails->getEtape1());
-        $emailEtape->setEtape2($listeEmails->getEtape2());
-        $emailEtape->setEtape3($listeEmails->getEtape3());
-        $emailEtape->setEtape4($listeEmails->getEtape4());
-        $emailEtape->setEtape5($listeEmails->getEtape5());
-        $emailEtape->setEtape6($listeEmails->getEtape6());
+//        $emailEtape = new EmailEtapeInscription();
+//        $emailEtape->setEtape1($listeEmails->getEtape1());
+//        $emailEtape->setEtape2($listeEmails->getEtape2());
+//        $emailEtape->setEtape3($listeEmails->getEtape3());
+//        $emailEtape->setEtape4($listeEmails->getEtape4());
+//        $emailEtape->setEtape5($listeEmails->getEtape5());
+//        $emailEtape->setEtape6($listeEmails->getEtape6());
 
         $emailform = $this->createForm(EmailEtapeInscriptionType::class, $listeEmails);
 

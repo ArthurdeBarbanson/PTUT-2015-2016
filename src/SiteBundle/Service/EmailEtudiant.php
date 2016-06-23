@@ -33,14 +33,4 @@ class EmailEtudiant extends Email
 
         $this->mailer->send($mail);
     }
-
-//    public function setRepositoryEmail(EmailEtapeInscriptionRepository $repositoryEmail)
-//    {
-//        $this->$repositoryEmail = $repositoryEmail;
-//    }
-//
-//    public function setRepositoryPieceJointe(PieceJointeRepository $repositoryPieceJointe)
-//    {
-//        $this->$repositoryPieceJointe = $repositoryPieceJointe;
-//    }
 }
