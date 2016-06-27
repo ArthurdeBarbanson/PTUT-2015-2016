@@ -5,20 +5,8 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\Templating\EngineInterface;
 
 
-class EmailResponsable
+class EmailResponsable extends Email
 {
-    protected $mailer;
-    protected $templating;
-    /** @var  Registry */
-    private $doctrine;
-
-    public function __construct($mailer, EngineInterface $templating,$doctrine)
-    {
-        $this->mailer = $mailer;
-        $this->templating = $templating;
-        $this->doctrine = $doctrine;
-
-    }
 
     public function envoyerMailEtape($adresseMail,$etape){
 

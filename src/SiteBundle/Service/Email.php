@@ -14,14 +14,18 @@ class Email
 {
     protected $mailer;
     protected $templating;
-    private $from = "noreply-suivilpmetinet@iutinfobourg.fr";
+    /** @var  Registry */
+    protected $doctrine;
 
 
 
-    public function __construct($mailer, EngineInterface $templating)
+
+    public function __construct($mailer, EngineInterface $templating,$doctrine)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
+        $this->doctrine = $doctrine;
+
     }
 
     public function sendEmail($from, $to, $subject, $body)

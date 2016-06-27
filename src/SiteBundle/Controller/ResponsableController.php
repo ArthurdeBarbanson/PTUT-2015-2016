@@ -527,64 +527,15 @@ class ResponsableController extends Controller
     {
 
         $idEtudiant = $request->get('EtudiantId');
-
-        $repository = $this->getDoctrine()->getManager()->getRepository('SiteBundle:Etudiant');
-        $etudiant = $repository->find($idEtudiant);
-
-        $repoimail = $this->getDoctrine()->getManager()->getRepository('SiteBundle:EmailEtapeInscription');
-        $repositoryPieceJointe = $this->getDoctrine()->getManager()->getRepository('SiteBundle:PieceJointe');
-
-        $em = $this->getDoctrine()->getManager();
+        $etudiant =$this->get('etudiant_repository')->find($idEtudiant);
         $etape=$etudiant->getDossierInscription()->getEtatDossier();
+
         if($etape<5){
             $etape=$etape+1;
             $etudiant->getDossierInscription()->setEtatDossier($etape);
+            $this->get('responsable.mailer')->envoyerMailEtape($etudiant->getLaPersone()->getMail(),$etape);
+
         }
-
-        $em->persist($etudiant);
-        $em->flush();
-
-//        $this->get('site.mailer.responsable')->envoyerMailEtape($etudiant->getLaPersone()->getMail(),$etape);
-        $pieceJointe=$repositoryPieceJointe->findBy(['etape'=>$etape]);
-        $listeEmails = $repoimail->find(1);
-        $body="Aucune étape sélectionner !";
-
-        switch($etape){
-            case '1':
-                $body=$listeEmails->getEtape1();
-                break;
-            case '2':
-                $body=$listeEmails->getEtape2();
-                break;
-            case '3':
-                $body=$listeEmails->getEtape3();
-                break;
-            case '4':
-                $body=$listeEmails->getEtape4();
-                break;
-            case '5':
-                $body=$listeEmails->getEtape5();
-                break;
-            case '6':
-                $body=$listeEmails->getEtape6();
-                break;
-        }
-
-        $mail = \Swift_Message::newInstance();
-        $mail
-            ->setFrom('noreply-suivilpmetinet@iutinfobourg.fr')
-            ->setTo($etudiant->getLaPersone()->getMail())
-            ->setSubject("Avancement inscription pédagogique")
-            ->setBody($body)
-            ->setContentType('text/html');
-
-        if(!empty($pieceJointe)){
-            foreach($pieceJointe as $piecej){
-                $mail->attach($piecej->getChemin());
-            }
-        }
-
-        $this->get('mailer')->send($mail);
 
         return $this->redirectToRoute('acceuil_responsable');
     }
