@@ -136,7 +136,7 @@
     <default key="_controller">SiteBundle:Security:createUser</default>
   </route>
   <!--test-->
-  <route id="testemail" path="/test/email">
+  <route id="testemail" path="responsable/test/email">
     <default key="_controller">SiteBundle:Responsable:emailtest</default>
   </route>
 </routes>
