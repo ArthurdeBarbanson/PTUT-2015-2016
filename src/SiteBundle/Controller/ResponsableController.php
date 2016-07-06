@@ -580,36 +580,36 @@ class ResponsableController extends Controller
         $listePieceJointe = $repositoryPieceJointe->findAll();
 
         $formPieceJointe = $this->createForm(AjoutPieceJointe::class);
-//        $formPieceJointe->handleRequest($request);
-//        if ($formPieceJointe->isValid()) {
-//            $data = $data = $formPieceJointe->getData();
-//            $dir = 'uploads';
-//            $file = $formPieceJointe['pieceJointe']->getData();
-//
-//            $extension = $file->guessExtension();
-//            $title = $file->getClientOriginalName();
-//
-//            if ($extension == 'pdf' || $extension == 'doc' || $extension == 'docx') {
-//                $uniqId = uniqid();
-//                $file->move($dir, $uniqId . '.' . $extension);
-//
-//                $final_url = $dir . '/' . $uniqId . '.' . $extension;
-//
-//                $PieceJointe = new PieceJointe();
-//                $PieceJointe->setChemin($final_url);
-//                $PieceJointe->setNom($title);
-//                $PieceJointe->setEtape($data['Etape']);
-//
-//                $em = $this->getDoctrine()->getManager();
-//                $em->persist($PieceJointe);
-//                $em->flush();
-//                $this->addFlash('info', "Piece jointe uploder !");
-//            }else{
-//                $this->addFlash('error','Extension invalide');
-//            }
-//
-//            $this->redirectToRoute('gestion_email');
-//        }
+        $formPieceJointe->handleRequest($request);
+        if ($formPieceJointe->isValid()) {
+            $data = $data = $formPieceJointe->getData();
+            $dir = 'uploads';
+            $file = $formPieceJointe['pieceJointe']->getData();
+
+            $extension = $file->guessExtension();
+            $title = $file->getClientOriginalName();
+
+            if ($extension == 'pdf' || $extension == 'doc' || $extension == 'docx') {
+                $uniqId = uniqid();
+                $file->move($dir, $uniqId . '.' . $extension);
+
+                $final_url = $dir . '/' . $uniqId . '.' . $extension;
+
+                $PieceJointe = new PieceJointe();
+                $PieceJointe->setChemin($final_url);
+                $PieceJointe->setNom($title);
+                $PieceJointe->setEtape($data['Etape']);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($PieceJointe);
+                $em->flush();
+                $this->addFlash('info', "Piece jointe uploder !");
+            }else{
+                $this->addFlash('error','Extension invalide');
+            }
+
+            $this->redirectToRoute('gestion_email');
+        }
 
 
         return $this->render('SiteBundle:Responsable:gestionEmail.html.twig', [
@@ -815,4 +815,12 @@ class ResponsableController extends Controller
         }
         return implode($pass); //turn the array into a string
     }
+
+    public function emailtestAction(){
+        $this->get('responsable.mailer')->envoyerMailEtape('test',3);
+
+        $this->redirectToRoute('acceuil_responsable');
+    }
+
+
 }
