@@ -556,27 +556,21 @@ class ResponsableController extends Controller
 
     public function emailAction(Request $request)
     {
-        $listeEmails = $this->get('email_etape_repository')->findAll();
+//        $listeEmails = $this->get('email_etape_repository')->findAll();
 
-//        $emailEtape = new EmailEtapeInscription();
-//        $emailEtape->setEtape1($listeEmails->getEtape1());
-//        $emailEtape->setEtape2($listeEmails->getEtape2());
-//        $emailEtape->setEtape3($listeEmails->getEtape3());
-//        $emailEtape->setEtape4($listeEmails->getEtape4());
-//        $emailEtape->setEtape5($listeEmails->getEtape5());
-//        $emailEtape->setEtape6($listeEmails->getEtape6());
+        $emailEtape = new EmailEtapeInscription();
+//        $emailform = $this->createForm(EmailEtapeInscriptionType::class, $emailEtape);
+        $emailform = $this->createForm(EmailEtapeInscriptionType::class);
 
-        $emailform = $this->createForm(EmailEtapeInscriptionType::class, $listeEmails);
-
-        $emailform->handleRequest($request);
-        if ($emailform->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($emailEtape);
-            $em->flush();
-            $this->addFlash('info', "Les modifications on été enregistrer");
-
-        }
+//        $emailform->handleRequest($request);
+//        if ($emailform->isValid()) {
+//
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist();
+//            $em->flush();
+//            $this->addFlash('info', "Les modifications on été enregistrer");
+//
+//        }
 
         $repositoryPieceJointe = $this
             ->getDoctrine()
@@ -586,36 +580,36 @@ class ResponsableController extends Controller
         $listePieceJointe = $repositoryPieceJointe->findAll();
 
         $formPieceJointe = $this->createForm(AjoutPieceJointe::class);
-        $formPieceJointe->handleRequest($request);
-        if ($formPieceJointe->isValid()) {
-            $data = $data = $formPieceJointe->getData();
-            $dir = 'uploads';
-            $file = $formPieceJointe['pieceJointe']->getData();
-
-            $extension = $file->guessExtension();
-            $title = $file->getClientOriginalName();
-
-            if ($extension == 'pdf' || $extension == 'doc' || $extension == 'docx') {
-                $uniqId = uniqid();
-                $file->move($dir, $uniqId . '.' . $extension);
-
-                $final_url = $dir . '/' . $uniqId . '.' . $extension;
-
-                $PieceJointe = new PieceJointe();
-                $PieceJointe->setChemin($final_url);
-                $PieceJointe->setNom($title);
-                $PieceJointe->setEtape($data['Etape']);
-
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($PieceJointe);
-                $em->flush();
-                $this->addFlash('info', "Piece jointe uploder !");
-            }else{
-                $this->addFlash('error','Extension invalide');
-            }
-
-            $this->redirectToRoute('gestion_email');
-        }
+//        $formPieceJointe->handleRequest($request);
+//        if ($formPieceJointe->isValid()) {
+//            $data = $data = $formPieceJointe->getData();
+//            $dir = 'uploads';
+//            $file = $formPieceJointe['pieceJointe']->getData();
+//
+//            $extension = $file->guessExtension();
+//            $title = $file->getClientOriginalName();
+//
+//            if ($extension == 'pdf' || $extension == 'doc' || $extension == 'docx') {
+//                $uniqId = uniqid();
+//                $file->move($dir, $uniqId . '.' . $extension);
+//
+//                $final_url = $dir . '/' . $uniqId . '.' . $extension;
+//
+//                $PieceJointe = new PieceJointe();
+//                $PieceJointe->setChemin($final_url);
+//                $PieceJointe->setNom($title);
+//                $PieceJointe->setEtape($data['Etape']);
+//
+//                $em = $this->getDoctrine()->getManager();
+//                $em->persist($PieceJointe);
+//                $em->flush();
+//                $this->addFlash('info', "Piece jointe uploder !");
+//            }else{
+//                $this->addFlash('error','Extension invalide');
+//            }
+//
+//            $this->redirectToRoute('gestion_email');
+//        }
 
 
         return $this->render('SiteBundle:Responsable:gestionEmail.html.twig', [
